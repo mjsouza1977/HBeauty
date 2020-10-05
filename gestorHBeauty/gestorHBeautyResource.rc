@@ -1,0 +1,4 @@
+Check RCDATA "..\\Imagens\\Icones\\Check.png"
+UnViewSenha RCDATA "..\\Imagens\\Icones\\DesabilitaViewSenha.png"
+UnCheck RCDATA "..\\Imagens\\Icones\\Error.png"
+ViewSenha RCDATA "..\\Imagens\\Icones\\HabilitaViewSenha.png"

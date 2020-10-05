@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{50EA1A32-6B56-4798-A867-EA20430731FF}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="gestorHBeauty\gestorHBeauty.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ServerHBeauty\ServerHBeauty.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="gestorHBeauty">
+        <MSBuild Projects="gestorHBeauty\gestorHBeauty.dproj"/>
+    </Target>
+    <Target Name="gestorHBeauty:Clean">
+        <MSBuild Projects="gestorHBeauty\gestorHBeauty.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="gestorHBeauty:Make">
+        <MSBuild Projects="gestorHBeauty\gestorHBeauty.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ServerHBeauty">
+        <MSBuild Projects="ServerHBeauty\ServerHBeauty.dproj"/>
+    </Target>
+    <Target Name="ServerHBeauty:Clean">
+        <MSBuild Projects="ServerHBeauty\ServerHBeauty.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ServerHBeauty:Make">
+        <MSBuild Projects="ServerHBeauty\ServerHBeauty.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="gestorHBeauty;ServerHBeauty"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="gestorHBeauty:Clean;ServerHBeauty:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="gestorHBeauty:Make;ServerHBeauty:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

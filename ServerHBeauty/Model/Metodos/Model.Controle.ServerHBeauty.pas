@@ -23,9 +23,9 @@ begin
 
     try
         FQuery := TUtilsQuery.Create;
-        FQuery.Close;
-        FQuery.SQL.Clear;
-        FQuery.SQL.Add('SELECT * FROM HBCONTROLE');
+        FQuery.qryQuery.Close;;
+        FQuery.qryQuery.SQL.Clear;
+        FQuery.qryQuery.SQL.Add('SELECT * FROM HBCONTROLE');
 
         Result := TFDJSONDataSets.Create;
         TFDJSONDataSetsWriter.ListAdd(Result, FQuery);

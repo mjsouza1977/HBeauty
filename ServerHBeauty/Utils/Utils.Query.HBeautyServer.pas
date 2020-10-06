@@ -13,6 +13,7 @@ type
        FFDQuery  : TControllerQuery;
 
     public
+        qryQuery : TFDQuery;
         constructor Create;
 
     end;
@@ -26,6 +27,8 @@ constructor TUtilsQuery.Create;
 begin
     FAConexao := TControllerConexao.Create;
     FFDQuery  := TControllerQuery.Create(nil, FAConexao.AConexao);
+    qryQuery  := TFDQuery.Create(nil);
+    qryQuery.Connection := FAConexao.AConexao;
 end;
 
 end.

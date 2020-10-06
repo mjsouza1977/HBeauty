@@ -1,20 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2020/09/30 22:10:32.000.080,D:\Dropbox\HBeauty\ServerHBeauty\View\View.Principal.ServerHBeauty.dfm=C:\Users\Souza\Documents\Embarcadero\Studio\Projects\FormUnit1.dfm</Transaction>
-    <Transaction>2020/09/30 22:11:02.000.613,D:\Dropbox\HBeauty\ServerHBeauty\Model\Model.WebModule.ServerHBeauty.pas=C:\Users\Souza\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.pas</Transaction>
-    <Transaction>2020/09/30 22:11:02.000.613,D:\Dropbox\HBeauty\ServerHBeauty\Model\Model.WebModule.ServerHBeauty.dfm=C:\Users\Souza\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.dfm</Transaction>
-    <Transaction>2020/09/30 22:11:59.000.126,D:\Dropbox\HBeauty\ServerHBeauty\View\Metodos\Model.Metodos.Usuarios.ServerHBeauty.dfm=C:\Users\Souza\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.dfm</Transaction>
-    <Transaction>2020/09/30 22:11:59.000.126,D:\Dropbox\HBeauty\ServerHBeauty\View\Metodos\Model.Metodos.Usuarios.ServerHBeauty.pas=C:\Users\Souza\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas</Transaction>
-    <Transaction>2020/09/30 22:12:03.000.148,D:\Dropbox\HBeauty\ServerHBeauty\View\Project1.dproj=C:\Users\Souza\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>2020/09/30 22:12:54.000.295,D:\Dropbox\HBeauty\ServerHBeauty\ServerHBeauty.dproj=D:\Dropbox\HBeauty\ServerHBeauty\View\Project1.dproj</Transaction>
-    <Transaction>2020/10/03 22:02:00.000.446,E:\Projetos\HBeauty\trunk\ServerHBeauty\Unit1.dfm=E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Conexao.HBeautyServer.dfm</Transaction>
-    <Transaction>2020/10/04 08:28:51.000.144,E:\Projetos\HBeauty\trunk\ServerHBeauty\Utils\Utils.Consts.HBeautyServer.pas=E:\Projetos\HBeauty\trunk\ServerHBeauty\Utils\Controller.HBeautyServer.pas</Transaction>
-    <Transaction>2020/10/04 08:29:05.000.091,E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Dados.HBeautyServer.pas=E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Conexao.HBeautyServer.pas</Transaction>
-    <Transaction>2020/10/04 08:29:05.000.091,E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Dados.HBeautyServer.dfm=E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Conexao.HBeautyServer.dfm</Transaction>
-    <Transaction>2020/10/04 08:29:16.000.081,E:\Projetos\HBeauty\trunk\ServerHBeauty\Utils\Controller.HBeautyServer.pas=E:\Projetos\HBeauty\trunk\ServerHBeauty\Utils\Controller.Dados.HBeautyServer.pas</Transaction>
-    <Transaction>2020/10/04 14:34:31.000.533,E:\Projetos\HBeauty\trunk\ServerHBeauty\Model\Metodos\Model.Metodos.Controle.ServerHBeauty.dfm=E:\Projetos\HBeauty\trunk\ServerHBeauty\Unit1.dfm</Transaction>
-    <Transaction>2020/10/04 18:46:29.000.625,E:\Projetos\HBeauty\trunk\ServerHBeauty\Model\Metodos\Model.Metodos.Usuarios.ServerHBeauty.dfm=E:\Projetos\HBeauty\trunk\ServerHBeauty\Model\Metodos\Model.Metodos.ServerHBeauty.dfm</Transaction>
+    <Transaction>2020/09/30 22:10:32.000.080,C:\Users\Souza\Documents\Embarcadero\Studio\Projects\FormUnit1.dfm=D:\Dropbox\HBeauty\ServerHBeauty\View\View.Principal.ServerHBeauty.dfm</Transaction>
+    <Transaction>2020/09/30 22:11:02.000.613,C:\Users\Souza\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.pas=D:\Dropbox\HBeauty\ServerHBeauty\Model\Model.WebModule.ServerHBeauty.pas</Transaction>
+    <Transaction>2020/09/30 22:11:02.000.613,C:\Users\Souza\Documents\Embarcadero\Studio\Projects\WebModuleUnit1.dfm=D:\Dropbox\HBeauty\ServerHBeauty\Model\Model.WebModule.ServerHBeauty.dfm</Transaction>
+    <Transaction>2020/09/30 22:11:59.000.126,C:\Users\Souza\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.dfm=D:\Dropbox\HBeauty\ServerHBeauty\View\Metodos\Model.Metodos.Usuarios.ServerHBeauty.dfm</Transaction>
+    <Transaction>2020/09/30 22:11:59.000.126,C:\Users\Souza\Documents\Embarcadero\Studio\Projects\ServerMethodsUnit1.pas=D:\Dropbox\HBeauty\ServerHBeauty\View\Metodos\Model.Metodos.Usuarios.ServerHBeauty.pas</Transaction>
+    <Transaction>2020/09/30 22:12:03.000.148,C:\Users\Souza\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Dropbox\HBeauty\ServerHBeauty\View\Project1.dproj</Transaction>
+    <Transaction>2020/09/30 22:12:54.000.295,D:\Dropbox\HBeauty\ServerHBeauty\View\Project1.dproj=D:\Dropbox\HBeauty\ServerHBeauty\ServerHBeauty.dproj</Transaction>
+    <Transaction>2020/10/03 22:02:00.000.446,E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Conexao.HBeautyServer.dfm=E:\Projetos\HBeauty\trunk\ServerHBeauty\Unit1.dfm</Transaction>
+    <Transaction>2020/10/04 08:28:51.000.144,E:\Projetos\HBeauty\trunk\ServerHBeauty\Utils\Controller.HBeautyServer.pas=E:\Projetos\HBeauty\trunk\ServerHBeauty\Utils\Utils.Consts.HBeautyServer.pas</Transaction>
+    <Transaction>2020/10/04 08:29:05.000.091,E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Conexao.HBeautyServer.dfm=E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Dados.HBeautyServer.dfm</Transaction>
+    <Transaction>2020/10/04 08:29:05.000.091,E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Conexao.HBeautyServer.pas=E:\Projetos\HBeauty\trunk\ServerHBeauty\Controller\Controller.Dados.HBeautyServer.pas</Transaction>
+    <Transaction>2020/10/04 08:29:16.000.081,E:\Projetos\HBeauty\trunk\ServerHBeauty\Utils\Controller.Dados.HBeautyServer.pas=E:\Projetos\HBeauty\trunk\ServerHBeauty\Utils\Controller.HBeautyServer.pas</Transaction>
+    <Transaction>2020/10/04 14:34:31.000.533,E:\Projetos\HBeauty\trunk\ServerHBeauty\Unit1.dfm=E:\Projetos\HBeauty\trunk\ServerHBeauty\Model\Metodos\Model.Metodos.Controle.ServerHBeauty.dfm</Transaction>
+    <Transaction>2020/10/04 18:46:29.000.625,E:\Projetos\HBeauty\trunk\ServerHBeauty\Model\Metodos\Model.Metodos.ServerHBeauty.dfm=E:\Projetos\HBeauty\trunk\ServerHBeauty\Model\Metodos\Model.Metodos.Usuarios.ServerHBeauty.dfm</Transaction>
+    <Transaction>2020/10/05 21:17:55.103,E:\Projetos\HBeauty\trunk\gestorHBeauty\Model\DadosServidor\Model.Controles.HBeauty.pas=E:\Projetos\HBeauty\trunk\gestorHBeauty\Model\DadosServidor\Model.Controles.Servidor.HBeauty.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5" Android64="0048627021" Android="0048627021"/>
@@ -27,12 +28,10 @@
     <File Path="Controller\Conexao\Controller.Dados.HBeautyServer.pas"/>
     <File Path="Model"/>
     <File Path="Model\Metodos"/>
-    <File Path="Model\Metodos\Controle"/>
-    <File Path="Model\Metodos\Controle\Model.Controle.ServerHBeauty.pas"/>
-    <File Path="Model\Metodos\Usuarios"/>
-    <File Path="Model\Metodos\Usuarios\Model.Usuarios.ServerHBeauty.pas"/>
     <File Path="Model\Metodos\Model.Metodos.ServerHBeauty.pas"/>
     <File Path="Model\Metodos\Model.Metodos.ServerHBeauty.dfm"/>
+    <File Path="Model\Metodos\Model.Controle.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Model.Usuarios.ServerHBeauty.pas"/>
     <File Path="Model\Model.WebModule.ServerHBeauty.pas"/>
     <File Path="Model\Model.WebModule.ServerHBeauty.dfm"/>
     <File Path="Utils"/>

@@ -122,8 +122,8 @@
             <Form>ControllerConexao</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Model\Metodos\Controle\Model.Controle.ServerHBeauty.pas"/>
-        <DCCReference Include="Model\Metodos\Usuarios\Model.Usuarios.ServerHBeauty.pas"/>
+        <DCCReference Include="Model\Metodos\Model.Controle.ServerHBeauty.pas"/>
+        <DCCReference Include="Model\Metodos\Model.Usuarios.ServerHBeauty.pas"/>
         <DCCReference Include="Utils\Utils.Query.HBeautyServer.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

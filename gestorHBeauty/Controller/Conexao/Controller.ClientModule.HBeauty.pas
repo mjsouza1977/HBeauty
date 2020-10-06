@@ -10,15 +10,15 @@ type
     DSRestConnection: TDSRestConnection;
   private
     FInstanceOwner: Boolean;
-    FModelMetodosUsuariosClient: TModelMetodosUsuariosClient;
+    FModelMetodosClient: TModelMetodosClient;
 
-    function GetModelMetodosUsuariosClient: TModelMetodosUsuariosClient;
+    function GetModelMetodosClient: TModelMetodosClient;
     { Private declarations }
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     property InstanceOwner: Boolean read FInstanceOwner write FInstanceOwner;
-    property ModelMetodosUsuariosClient: TModelMetodosUsuariosClient read GetModelMetodosUsuariosClient write FModelMetodosUsuariosClient;
+    property ModelMetodosClient: TModelMetodosClient read GetModelMetodosClient write FModelMetodosClient;
 
 end;
 
@@ -39,15 +39,15 @@ end;
 
 destructor TControllerClientModule.Destroy;
 begin
-  FModelMetodosUsuariosClient.Free;
+  FModelMetodosClient.Free;
   inherited;
 end;
 
-function TControllerClientModule.GetModelMetodosUsuariosClient: TModelMetodosUsuariosClient;
+function TControllerClientModule.GetModelMetodosClient: TModelMetodosClient;
 begin
-  if FModelMetodosUsuariosClient = nil then
-    FModelMetodosUsuariosClient:= TModelMetodosUsuariosClient.Create(DSRestConnection, FInstanceOwner);
-  Result := FModelMetodosUsuariosClient;
+  if FModelMetodosClient = nil then
+    FModelMetodosClient:= TModelMetodosClient.Create(DSRestConnection, FInstanceOwner);
+  Result := FModelMetodosClient;
 end;
 
 end.

@@ -217,13 +217,15 @@
         <DCCReference Include="Units\Units.Consts.HBeauty.pas"/>
         <DCCReference Include="Units\Units.Classes.HBeauty.pas"/>
         <DCCReference Include="Model\Model.Dados.Server.HBeauty.pas">
-            <Form>ModelConexao</Form>
+            <Form>ModelConexaoDados</Form>
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="Model\Model.Usuarios.HBeauty.pas"/>
         <DCCReference Include="Model\DadosServidor\Model.Usuarios.Servidor.HBeauty.pas"/>
         <DCCReference Include="Model\Model.Controle.HBeauty.pas"/>
+        <DCCReference Include="Model\DadosServidor\Model.Controles.Servidor.HBeauty.pas"/>
+        <DCCReference Include="Units\Units.Utils.Dados.HBeauty.pas"/>
         <RcItem Include="..\Imagens\Icones\Check.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>Check</ResourceId>

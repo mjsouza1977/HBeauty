@@ -23,7 +23,7 @@ var
     LoginUsuario : TFDJSONDataSets;
 begin
 
-    ControllerClientModule.ModelMetodosUsuariosClient.ValidaLogin(Usuario, Senha);
+    ControllerClientModule.ModelMetodosClient.ValidaLogin(Usuario, Senha);
     Assert(TFDJSONDataSetsReader.GetListCount(LoginUsuario) = 1);
     ControllerDados.memUsuarios.Active := False;
     ControllerDados.memUsuarios.AppendData(TFDJSONDataSetsReader.GetListValue(LoginUsuario, 0));

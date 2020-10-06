@@ -7,8 +7,9 @@ uses
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
-  TModelConexao = class(TDataModule)
+  TModelConexaoDados = class(TDataModule)
     memUsuarios: TFDMemTable;
+    memControles: TFDMemTable;
   private
     { Private declarations }
   public
@@ -18,7 +19,7 @@ type
   end;
 
 var
-  ModelConexao: TModelConexao;
+  ModelConexaoDados: TModelConexaoDados;
 
 implementation
 

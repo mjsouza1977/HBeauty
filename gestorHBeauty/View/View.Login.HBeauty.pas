@@ -7,9 +7,8 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Edit, FMX.Layouts,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, View.Principal.HBeauty, FMX.TabControl,
 
-  Units.Utils.HBeauty,
-  Units.Classes.HBeauty,
-  Model.Controle.HBeauty;
+  Units.Utils.Dados.HBeauty,
+  Units.Utils.HBeauty;
 
 type
   TfrmLogin = class(TForm)
@@ -108,8 +107,8 @@ end;
 
 procedure TfrmLogin.FormCreate(Sender: TObject);
 begin
-     gControle := TModelControle.Create;
 
+     CarregaVariaveisControle;
 
 end;
 

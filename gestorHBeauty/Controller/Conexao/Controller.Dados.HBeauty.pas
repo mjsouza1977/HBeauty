@@ -9,6 +9,7 @@ uses
 type
   TControllerDados = class(TDataModule)
     memUsuarios: TFDMemTable;
+    memControle: TFDMemTable;
   private
     { Private declarations }
   public

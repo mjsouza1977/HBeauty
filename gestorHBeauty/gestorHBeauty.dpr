@@ -16,20 +16,20 @@ uses
   Units.Utils.HBeauty in 'Units\Units.Utils.HBeauty.pas',
   Units.Consts.HBeauty in 'Units\Units.Consts.HBeauty.pas',
   Units.Classes.HBeauty in 'Units\Units.Classes.HBeauty.pas',
-  Model.Dados.Server.HBeauty in 'Model\Model.Dados.Server.HBeauty.pas' {ModelConexao: TDataModule},
+  Model.Dados.Server.HBeauty in 'Model\Model.Dados.Server.HBeauty.pas' {ModelConexaoDados: TDataModule},
   Model.Usuarios.HBeauty in 'Model\Model.Usuarios.HBeauty.pas',
   Model.Usuarios.Servidor.HBeauty in 'Model\DadosServidor\Model.Usuarios.Servidor.HBeauty.pas',
-  Model.Controle.HBeauty in 'Model\Model.Controle.HBeauty.pas';
+  Model.Controle.HBeauty in 'Model\Model.Controle.HBeauty.pas',
+  Model.Controles.Servidor.HBeauty in 'Model\DadosServidor\Model.Controles.Servidor.HBeauty.pas',
+  Units.Utils.Dados.HBeauty in 'Units\Units.Utils.Dados.HBeauty.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfrmLogin, frmLogin);
-  Application.CreateForm(TModelConexao, ModelConexao);
   Application.CreateForm(TControllerClientModule, ControllerClientModule);
   Application.CreateForm(TControllerDados, ControllerDados);
-  Application.CreateForm(TModelConexao, ModelConexao);
-  Application.CreateForm(TModelConexao, ModelConexao);
+  Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
+  Application.CreateForm(TfrmLogin, frmLogin);
   Application.Run;
 end.

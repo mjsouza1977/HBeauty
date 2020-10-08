@@ -2,37 +2,29 @@ unit Model.Controle.ServerHBeauty;
 
 interface
 
-uses Model.Metodos.ServerHBeauty, Data.FireDACJSONReflect, Utils.Query.HBeautyServer;
+uses Model.Metodos.ServerHBeauty, Data.FireDACJSONReflect;
 
 
 function CarregaControle : TFDJSONDataSets;
 
 
-var
-   FQuery : TUtilsQuery;
-
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils, Controller.Conexao.HBeautyServer;
 
 
 
 function CarregaControle : TFDJSONDataSets;
 begin
 
-    try
-        FQuery := TUtilsQuery.Create;
-        FQuery.qryQuery.Close;;
-        FQuery.qryQuery.SQL.Clear;
-        FQuery.qryQuery.SQL.Add('SELECT * FROM HBCONTROLE');
+    ControllerConexao.qryQuery.Close;
+    ControllerConexao.qryQuery.SQL.Clear;
+    ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBCONTROLE');
 
-        Result := TFDJSONDataSets.Create;
-        TFDJSONDataSetsWriter.ListAdd(Result, FQuery);
-        FQuery.Active := True;
-    finally
-        FreeAndNil(FQuery);
-    end;
+    Result := TFDJSONDataSets.Create;
+    TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
+    ControllerConexao.qryQuery.Active := True;
 
 end;
 

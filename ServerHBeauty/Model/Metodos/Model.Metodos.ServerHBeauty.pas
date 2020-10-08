@@ -7,7 +7,6 @@ uses System.SysUtils, System.Classes, System.Json,
 
     Data.FireDACJSONReflect,
 
-    Controller.Dados.HBeautyServer,
     Controller.Conexao.HBeautyServer, Model.Usuarios.ServerHBeauty;
 
 type

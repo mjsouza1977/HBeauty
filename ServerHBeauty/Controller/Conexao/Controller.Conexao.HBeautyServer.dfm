@@ -1,7 +1,7 @@
 object ControllerConexao: TControllerConexao
   OldCreateOrder = False
-  Height = 256
-  Width = 445
+  Height = 309
+  Width = 543
   object Conexao: TFDConnection
     Params.Strings = (
       'Database=E:\Projetos\HBeauty\trunk\bd\HBEAUTY.FDB'
@@ -20,8 +20,17 @@ object ControllerConexao: TControllerConexao
   end
   object FDGUIxWaitCursor: TFDGUIxWaitCursor
     Provider = 'Forms'
-    ScreenCursor = gcrHourGlass
     Left = 68
     Top = 64
+  end
+  object qryQuery: TFDQuery
+    Connection = Conexao
+    Left = 192
+    Top = 64
+  end
+  object qryQueryAux: TFDQuery
+    Connection = Conexao
+    Left = 192
+    Top = 120
   end
 end

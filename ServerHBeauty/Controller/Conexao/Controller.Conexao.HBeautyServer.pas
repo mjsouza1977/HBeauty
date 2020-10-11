@@ -3,18 +3,19 @@ unit Controller.Conexao.HBeautyServer;
 interface
 
 uses
-  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
-  FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, FireDAC.Phys.IBBase, Data.DB, FireDAC.Comp.Client, FireDAC.Comp.UI,
-  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Stan.StorageBin, FireDAC.Stan.StorageJSON, FireDAC.Phys.IBDef,
-  FireDAC.Phys.IB, FireDAC.Stan.StorageXML;
+  System.SysUtils, System.Classes, FireDAC.Phys.FBDef, FireDAC.UI.Intf, FireDAC.VCLUI.Wait, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys,
+  FireDAC.Phys.FB, Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet, FireDAC.Comp.UI, FireDAC.Phys.IBBase, FireDAC.Stan.StorageBin, FireDAC.Stan.StorageJSON;
 
 type
   TControllerConexao = class(TDataModule)
     qryQuery: TFDQuery;
     qryQueryAux: TFDQuery;
+    FDStanStorageBinLink2: TFDStanStorageBinLink;
+    FDStanStorageJSONLink1: TFDStanStorageJSONLink;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    FDPhysFBDriverLink2: TFDPhysFBDriverLink;
     Conexao: TFDConnection;
-    FDPhysFBDriverLink: TFDPhysFBDriverLink;
-    FDGUIxWaitCursor: TFDGUIxWaitCursor;
   private
 
 

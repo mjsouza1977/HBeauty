@@ -1,28 +1,7 @@
 object ControllerConexao: TControllerConexao
   OldCreateOrder = False
-  Height = 309
-  Width = 543
-  object Conexao: TFDConnection
-    Params.Strings = (
-      'Database=E:\Projetos\HBeauty\trunk\bd\HBEAUTY.FDB'
-      'User_Name=SYSDBA'
-      'Password=masterkey'
-      'DriverID=FB')
-    LoginPrompt = False
-    Left = 68
-    Top = 118
-  end
-  object FDPhysFBDriverLink: TFDPhysFBDriverLink
-    VendorHome = 'C:\Program Files (x86)\Firebird\Firebird_2_5'
-    VendorLib = 'fbClient.dll'
-    Left = 68
-    Top = 172
-  end
-  object FDGUIxWaitCursor: TFDGUIxWaitCursor
-    Provider = 'Forms'
-    Left = 68
-    Top = 64
-  end
+  Height = 581
+  Width = 784
   object qryQuery: TFDQuery
     Connection = Conexao
     Left = 192
@@ -32,5 +11,34 @@ object ControllerConexao: TControllerConexao
     Connection = Conexao
     Left = 192
     Top = 120
+  end
+  object FDStanStorageBinLink2: TFDStanStorageBinLink
+    Left = 548
+    Top = 140
+  end
+  object FDStanStorageJSONLink1: TFDStanStorageJSONLink
+    Left = 548
+    Top = 64
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 548
+    Top = 293
+  end
+  object FDPhysFBDriverLink2: TFDPhysFBDriverLink
+    VendorHome = 'C:\Program Files (x86)\Firebird\Firebird_2_5\'
+    VendorLib = 'fbclient.dll'
+    Left = 556
+    Top = 212
+  end
+  object Conexao: TFDConnection
+    Params.Strings = (
+      'User_Name=SYSDBA'
+      'Password=masterkey'
+      'Database=E:\Projetos\HBeauty\trunk\bd\HBEAUTY.FDB'
+      'DriverID=FB')
+    LoginPrompt = False
+    Left = 548
+    Top = 368
   end
 end

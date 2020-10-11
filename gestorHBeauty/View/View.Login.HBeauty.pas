@@ -8,13 +8,15 @@ uses
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, View.Principal.HBeauty, FMX.TabControl,
 
   Units.Utils.Dados.HBeauty,
-  Units.Utils.HBeauty;
+  Units.Utils.HBeauty, Units.Classes.HBeauty,
+  Units.Consts.HBeauty,
+  Controller.Manipula.Design.HBeauty, ACBrBase, ACBrValidador;
 
 type
   TfrmLogin = class(TForm)
-    Rectangle1: TRectangle;
+    recTopFormLogin: TRectangle;
     Rectangle2: TRectangle;
-    Image1: TImage;
+    imgLogoLogin: TImage;
     Label5: TLabel;
     Label3: TLabel;
     Layout1: TLayout;
@@ -28,7 +30,7 @@ type
     Label6: TLabel;
     recbtnSair: TRectangle;
     Label4: TLabel;
-    Rectangle5: TRectangle;
+    recRodapeLogin: TRectangle;
     lblEsqueciSenha: TLabel;
     Layout2: TLayout;
     StyleBook1: TStyleBook;
@@ -62,6 +64,8 @@ type
     procedure recbtnEntrarClick(Sender: TObject);
     procedure edtValidacao1KeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
+    procedure recbtnVoltarClick(Sender: TObject);
+    procedure lblEsqueciSenhaClick(Sender: TObject);
   private
     lcCodigoValidacao : String;
     { Private declarations }
@@ -109,6 +113,16 @@ procedure TfrmLogin.FormCreate(Sender: TObject);
 begin
 
      CarregaVariaveisControle;
+     CarregaPesonalizacaoLogin;
+     tbcLogin.ActiveTab := tbLogin;
+
+end;
+
+procedure TfrmLogin.lblEsqueciSenhaClick(Sender: TObject);
+begin
+
+     tbcLogin.Next(TTabTransition.Slide);
+     lblEsqueciSenha.Visible := False;
 
 end;
 
@@ -118,6 +132,14 @@ begin
      Application.MainForm := frmPrincipal;
      frmPrincipal.Show;
      frmLogin.Close;
+end;
+
+procedure TfrmLogin.recbtnVoltarClick(Sender: TObject);
+begin
+
+     lblEsqueciSenha.Visible := True;
+     tbcLogin.Previous(TTabTransition.Slide);
+
 end;
 
 end.

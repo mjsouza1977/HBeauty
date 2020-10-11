@@ -7,13 +7,15 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects, FMX.Controls.Presentation, FMX.MultiView, FMX.Layouts, FMX.StdCtrls, Xml.xmldom,
   Xml.XMLIntf, FMX.ScrollBox, FMX.Memo, Xml.XMLDoc, Controller.ConexaoWS.HBeauty, REST.Types, REST.Client, Data.Bind.Components,
   Data.Bind.ObjectScope, REST.Response.Adapter, System.Actions, FMX.ActnList, FMX.Menus, Controller.Manipula.XML.HBeauty, Units.Strings.HBeauty, Xml.omnixmldom,
-  Xml.adomxmldom, Units.Consts.HBeauty, Units.Utils.HBeauty, Xml.Win.msxmldom;
+  Xml.adomxmldom, Units.Consts.HBeauty, Units.Utils.HBeauty, Xml.Win.msxmldom, Controller.Manipula.Design.HBeauty,
+  FMX.TMSBitmapContainer, FMX.TMSBaseControl, FMX.TMSPlannerBase, FMX.TMSPlannerData, FMX.TMSPlanner
+  ;
 
 type
   TfrmPrincipal = class(TForm)
-    Rectangle1: TRectangle;
+    recCabecarioPrincipal: TRectangle;
     Rectangle2: TRectangle;
-    Image1: TImage;
+    imgLogoPrincipal: TImage;
     Layout1: TLayout;
     Layout2: TLayout;
     Label1: TLabel;
@@ -33,7 +35,6 @@ type
     Circle1: TCircle;
     MenuPrincipal: TMenuBar;
     MenuLogo: TMenuItem;
-    mnCadastros: TMenuItem;
     MenuItem1: TMenuItem;
     MenuItem2: TMenuItem;
     StyleBook1: TStyleBook;
@@ -50,7 +51,13 @@ type
     MenuItem6: TMenuItem;
     aniLoadingTemperatura: TAniIndicator;
     Rectangle3: TRectangle;
+    ContainerButtons: TTMSFMXBitmapContainer;
+    lytAgenda: TLayout;
+    Layout12: TLayout;
+    TMSFMXPlanner1: TTMSFMXPlanner;
+    MenuItem14: TMenuItem;
     procedure FormCreate(Sender: TObject);
+    procedure MenuItem14Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,11 +71,16 @@ implementation
 
 {$R *.fmx}
 
+uses View.Profissionais.HBeauty;
+
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 var
 Node : IXMLNode;
 AMin, AMax, AIdCidade : String;
 begin
+
+    //Carrega a personalização do form
+    CarregaPesonalizacaoPrincipal;
 
     aniLoadingTemperatura.Enabled := True;
     aniLoadingTemperatura.Enabled := True;
@@ -103,6 +115,14 @@ begin
         end;
     end).Start;
 
+
+end;
+
+procedure TfrmPrincipal.MenuItem14Click(Sender: TObject);
+begin
+
+     Application.CreateForm(TfrmGerenciadorProfissionais, frmGerenciadorProfissionais);
+     frmGerenciadorProfissionais.ShowModal;
 
 end;
 

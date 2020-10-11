@@ -4,7 +4,6 @@ interface
 
 uses Controller.Conexao.Proxy.HBeauty,
      Model.Usuarios.HBeauty,
-     Controller.Dados.HBeauty,
      Controller.ClientModule.HBeauty,
      Units.Utils.HBeauty;
 
@@ -15,7 +14,7 @@ function ValidaLogin(Usuario, Senha : String) : Boolean;
 implementation
 
 uses
-  Data.FireDACJSONReflect, System.SysUtils;
+  Data.FireDACJSONReflect, System.SysUtils, Model.Dados.Server.HBeauty;
 
 
 function ValidaLogin(Usuario, Senha : String) : Boolean;
@@ -23,13 +22,13 @@ var
     LoginUsuario : TFDJSONDataSets;
 begin
 
-    ControllerClientModule.ModelMetodosClient.ValidaLogin(Usuario, Senha);
+    LoginUsuario := ControllerClientModule.ModelMetodosClient.ValidaLogin(Usuario, Senha);
     Assert(TFDJSONDataSetsReader.GetListCount(LoginUsuario) = 1);
-    ControllerDados.memUsuarios.Active := False;
-    ControllerDados.memUsuarios.AppendData(TFDJSONDataSetsReader.GetListValue(LoginUsuario, 0));
-    ControllerDados.memUsuarios.Active := True;
+    ModelConexaoDados.memUsuarios.Active := False;
+    ModelConexaoDados.memUsuarios.AppendData(TFDJSONDataSetsReader.GetListValue(LoginUsuario, 0));
+    ModelConexaoDados.memUsuarios.Active := True;
 
-    Result := StringToBool('1','0',IntToStr(ControllerDados.memUsuarios.RecordCount));
+    Result := StringToBool('1','0',IntToStr(ModelConexaoDados.memUsuarios.RecordCount));
 
 end;
 

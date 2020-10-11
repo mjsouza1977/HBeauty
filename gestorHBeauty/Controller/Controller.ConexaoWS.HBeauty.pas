@@ -37,8 +37,6 @@ uses
 { TControllerConexao }
 
 constructor TControllerConexao.Create(Metodo: TRESTRequestMethod; AType : TType; AAuth : Boolean = False; AUser : String = ''; APassword : String = '');
-var
-i : Integer;
 begin
 
     FRESTClient   := TRESTClient.Create(nil);

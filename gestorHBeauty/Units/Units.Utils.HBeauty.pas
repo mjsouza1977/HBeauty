@@ -13,6 +13,8 @@ implementation
 uses
   Winapi.Windows, System.Classes;
 
+
+
 function StringToBool(ATrue, AFalse, AValue : String) : Boolean;
 begin
      if AValue = ATrue  then Result := True;

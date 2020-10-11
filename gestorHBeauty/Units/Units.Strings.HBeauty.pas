@@ -7,8 +7,32 @@ uses
 
 function RemoveAcento(aText : string) : string;
 function CriptografaMD5(const ASenha : String) : String;
+function ApenasNumeros(const S: string): string;
 
 implementation
+
+uses
+  System.SysUtils;
+
+function ApenasNumeros(const S: string): string;
+var
+  vText : PChar;
+begin
+  vText := PChar(S);
+  Result := '';
+
+  while (vText^ <> #0) do
+  begin
+    {$IFDEF UNICODE}
+    if CharInSet(vText^, ['0'..'9']) then
+    {$ELSE}
+    if vText^ in ['0'..'9'] then
+    {$ENDIF}
+      Result := Result + vText^;
+
+    Inc(vText);
+  end;
+end;
 
 function CriptografaMD5(const ASenha : String) : String;
 var

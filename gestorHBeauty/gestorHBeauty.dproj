@@ -208,11 +208,6 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="Controller\Conexao\Controller.Dados.HBeauty.pas">
-            <Form>ControllerDados</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
         <DCCReference Include="Units\Units.Utils.HBeauty.pas"/>
         <DCCReference Include="Units\Units.Consts.HBeauty.pas"/>
         <DCCReference Include="Units\Units.Classes.HBeauty.pas"/>
@@ -223,9 +218,17 @@
         </DCCReference>
         <DCCReference Include="Model\Model.Usuarios.HBeauty.pas"/>
         <DCCReference Include="Model\DadosServidor\Model.Usuarios.Servidor.HBeauty.pas"/>
-        <DCCReference Include="Model\Model.Controle.HBeauty.pas"/>
         <DCCReference Include="Model\DadosServidor\Model.Controles.Servidor.HBeauty.pas"/>
         <DCCReference Include="Units\Units.Utils.Dados.HBeauty.pas"/>
+        <DCCReference Include="Controller\Controle\Controller.Manipula.Design.HBeauty.pas"/>
+        <DCCReference Include="View\Profissionais\View.Profissionais.HBeauty.pas">
+            <Form>frmGerenciadorProfissionais</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
+        <DCCReference Include="Model\Model.Profissionais.HBeauty.pas"/>
+        <DCCReference Include="Units\Units.Formata.HBeauty.pas"/>
+        <DCCReference Include="Model\Model.Endereco.HBeauty.pas"/>
+        <DCCReference Include="Model\Model.Chaves.HBeauty.pas"/>
         <RcItem Include="..\Imagens\Icones\Check.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>Check</ResourceId>

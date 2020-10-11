@@ -43,7 +43,7 @@ function TControllerXML.getTemperatura(ACidade : String) : String;
 var
 AMin, AMax : String;
 Node : IXMLNode;
-AIdCidade : Integer;
+//AIdCidade : Integer;
 begin
 
     //Extrai o ID da cidade
@@ -51,7 +51,7 @@ begin
     FXMLDocumentIdCidade.Active   := True;
     Node := FXMLDocumentIdCidade.ChildNodes.FindNode('cidades');
 
-    AIdCidade := StrToInt(Node.ChildNodes['cidade'].ChildNodes['id'].Text);
+   // AIdCidade := StrToInt(Node.ChildNodes['cidade'].ChildNodes['id'].Text);
 
     //Com o id extrai a temperatura da cidade
     FXMLDocumentTempCidade.FileName := AurlXMLGetTemperatura;

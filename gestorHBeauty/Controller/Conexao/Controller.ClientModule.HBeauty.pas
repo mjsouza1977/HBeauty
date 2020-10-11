@@ -3,7 +3,7 @@ unit Controller.ClientModule.HBeauty;
 interface
 
 uses
-  System.SysUtils, System.Classes, Datasnap.DSClientRest, Controller.Conexao.Proxy.HBeauty;
+  System.SysUtils, System.Classes, Datasnap.DSClientRest, Controller.Conexao.Proxy.HBeauty, FireDAC.Stan.StorageBin;
 
 type
   TControllerClientModule = class(TDataModule)

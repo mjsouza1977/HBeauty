@@ -2,7 +2,7 @@ unit Model.Controles.Servidor.HBeauty;
 
 interface
 
-uses Model.Controle.HBeauty, Controller.ClientModule.HBeauty;
+uses Controller.ClientModule.HBeauty;
 
 
 procedure CarregaControle;
@@ -10,18 +10,18 @@ procedure CarregaControle;
 implementation
 
 uses
-  Controller.Dados.HBeauty, Data.FireDACJSONReflect;
+  Data.FireDACJSONReflect, Model.Dados.Server.HBeauty;
 
 procedure CarregaControle;
 var
     Controle : TFDJSONDataSets;
 begin
 
-    ControllerClientModule.ModelMetodosClient.CarregaControle;
+    Controle := ControllerClientModule.ModelMetodosClient.CarregaControle;
     Assert(TFDJSONDataSetsReader.GetListCount(Controle) = 1);
-    ControllerDados.memControle.Active := False;
-    ControllerDados.memControle.AppendData(TFDJSONDataSetsReader.GetListValue(Controle, 0));
-    ControllerDados.memControle.Active := True;
+    ModelConexaoDados.memControles.Active := False;
+    ModelConexaoDados.memControles.AppendData(TFDJSONDataSetsReader.GetListValue(Controle, 0));
+    ModelConexaoDados.memControles.Active := True;
 
 end;
 

@@ -42,8 +42,9 @@ begin
 
          ControllerConexao.qryQuery.Close;
          ControllerConexao.qryQuery.SQL.Clear;
-         ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBPRIFISSIONAIS');
-         ControllerConexao.qryQuery.SQL.Add('WHERE ' + ASql);
+         ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBPROFISSIONAIS');
+         if ASql <> '' then
+            ControllerConexao.qryQuery.SQL.Add('WHERE ' + ASql);
 
          Result := TFDJSONDataSets.Create;
          TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);

@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 09/10/2020 21:10:01
+// 13/10/2020 21:20:40
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -15,18 +15,24 @@ type
 
   TModelMetodosClient = class(TDSAdminRestClient)
   private
+    FListaProfissionaisCommand: TDSRestCommand;
+    FListaProfissionaisCommand_Cache: TDSRestCommand;
     FCarregaControleCommand: TDSRestCommand;
     FCarregaControleCommand_Cache: TDSRestCommand;
     FValidaLoginCommand: TDSRestCommand;
     FValidaLoginCommand_Cache: TDSRestCommand;
+    FCadastraProfissionalCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
     destructor Destroy; override;
+    function ListaProfissionais(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function ListaProfissionais_Cache(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function CarregaControle(const ARequestFilter: string = ''): TFDJSONDataSets;
     function CarregaControle_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function ValidaLogin(Usuario: string; Senha: string; const ARequestFilter: string = ''): TFDJSONDataSets;
     function ValidaLogin_Cache(Usuario: string; Senha: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): Integer;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -36,6 +42,24 @@ type
   end;
 
 const
+  TModelMetodos_ListaProfissionais: array [0..4] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AId'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_ListaProfissionais_Cache: array [0..4] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AId'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
   TModelMetodos_CarregaControle: array [0..0] of TDSRestParameterMetaData =
   (
     (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
@@ -60,7 +84,75 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
 
+  TModelMetodos_CadastraProfissional: array [0..17] of TDSRestParameterMetaData =
+  (
+    (Name: 'ATerceirizado'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
+    (Name: 'AIdCargo'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIdEmpTer'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ASobreNome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ARG'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ALogradouro'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AComplemento'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ABairro'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AUF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACep'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ASalario'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'AComissao'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
+  );
+
 implementation
+
+function TModelMetodosClient.ListaProfissionais(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FListaProfissionaisCommand = nil then
+  begin
+    FListaProfissionaisCommand := FConnection.CreateCommand;
+    FListaProfissionaisCommand.RequestType := 'GET';
+    FListaProfissionaisCommand.Text := 'TModelMetodos.ListaProfissionais';
+    FListaProfissionaisCommand.Prepare(TModelMetodos_ListaProfissionais);
+  end;
+  FListaProfissionaisCommand.Parameters[0].Value.SetWideString(ANome);
+  FListaProfissionaisCommand.Parameters[1].Value.SetWideString(ACPF);
+  FListaProfissionaisCommand.Parameters[2].Value.SetWideString(ATipoPesquisa);
+  FListaProfissionaisCommand.Parameters[3].Value.SetInt32(AId);
+  FListaProfissionaisCommand.Execute(ARequestFilter);
+  if not FListaProfissionaisCommand.Parameters[4].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FListaProfissionaisCommand.Parameters[4].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FListaProfissionaisCommand.Parameters[4].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FListaProfissionaisCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.ListaProfissionais_Cache(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FListaProfissionaisCommand_Cache = nil then
+  begin
+    FListaProfissionaisCommand_Cache := FConnection.CreateCommand;
+    FListaProfissionaisCommand_Cache.RequestType := 'GET';
+    FListaProfissionaisCommand_Cache.Text := 'TModelMetodos.ListaProfissionais';
+    FListaProfissionaisCommand_Cache.Prepare(TModelMetodos_ListaProfissionais_Cache);
+  end;
+  FListaProfissionaisCommand_Cache.Parameters[0].Value.SetWideString(ANome);
+  FListaProfissionaisCommand_Cache.Parameters[1].Value.SetWideString(ACPF);
+  FListaProfissionaisCommand_Cache.Parameters[2].Value.SetWideString(ATipoPesquisa);
+  FListaProfissionaisCommand_Cache.Parameters[3].Value.SetInt32(AId);
+  FListaProfissionaisCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FListaProfissionaisCommand_Cache.Parameters[4].Value.GetString);
+end;
 
 function TModelMetodosClient.CarregaControle(const ARequestFilter: string): TFDJSONDataSets;
 begin
@@ -142,6 +234,36 @@ begin
   Result := TDSRestCachedTFDJSONDataSets.Create(FValidaLoginCommand_Cache.Parameters[2].Value.GetString);
 end;
 
+function TModelMetodosClient.CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string): Integer;
+begin
+  if FCadastraProfissionalCommand = nil then
+  begin
+    FCadastraProfissionalCommand := FConnection.CreateCommand;
+    FCadastraProfissionalCommand.RequestType := 'GET';
+    FCadastraProfissionalCommand.Text := 'TModelMetodos.CadastraProfissional';
+    FCadastraProfissionalCommand.Prepare(TModelMetodos_CadastraProfissional);
+  end;
+  FCadastraProfissionalCommand.Parameters[0].Value.SetBoolean(ATerceirizado);
+  FCadastraProfissionalCommand.Parameters[1].Value.SetInt32(AIdCargo);
+  FCadastraProfissionalCommand.Parameters[2].Value.SetInt32(AIdEmpTer);
+  FCadastraProfissionalCommand.Parameters[3].Value.SetInt32(ANrLog);
+  FCadastraProfissionalCommand.Parameters[4].Value.SetWideString(ACodigo);
+  FCadastraProfissionalCommand.Parameters[5].Value.SetWideString(ANome);
+  FCadastraProfissionalCommand.Parameters[6].Value.SetWideString(ASobreNome);
+  FCadastraProfissionalCommand.Parameters[7].Value.SetWideString(ACPF);
+  FCadastraProfissionalCommand.Parameters[8].Value.SetWideString(ARG);
+  FCadastraProfissionalCommand.Parameters[9].Value.SetWideString(ALogradouro);
+  FCadastraProfissionalCommand.Parameters[10].Value.SetWideString(AComplemento);
+  FCadastraProfissionalCommand.Parameters[11].Value.SetWideString(ABairro);
+  FCadastraProfissionalCommand.Parameters[12].Value.SetWideString(ACidade);
+  FCadastraProfissionalCommand.Parameters[13].Value.SetWideString(AUF);
+  FCadastraProfissionalCommand.Parameters[14].Value.SetWideString(ACep);
+  FCadastraProfissionalCommand.Parameters[15].Value.AsCurrency := ASalario;
+  FCadastraProfissionalCommand.Parameters[16].Value.AsCurrency := AComissao;
+  FCadastraProfissionalCommand.Execute(ARequestFilter);
+  Result := FCadastraProfissionalCommand.Parameters[17].Value.GetInt32;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -154,10 +276,13 @@ end;
 
 destructor TModelMetodosClient.Destroy;
 begin
+  FListaProfissionaisCommand.DisposeOf;
+  FListaProfissionaisCommand_Cache.DisposeOf;
   FCarregaControleCommand.DisposeOf;
   FCarregaControleCommand_Cache.DisposeOf;
   FValidaLoginCommand.DisposeOf;
   FValidaLoginCommand_Cache.DisposeOf;
+  FCadastraProfissionalCommand.DisposeOf;
   inherited;
 end;
 

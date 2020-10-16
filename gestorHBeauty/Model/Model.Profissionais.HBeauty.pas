@@ -72,8 +72,10 @@ uses
 
 constructor TModelProfissionais.Create(AForm : TForm);
 begin
-     FValidador := TACBrValidador.Create(nil);
-     FForm := AForm;
+     FValidador       := TACBrValidador.Create(nil);
+     FENDERECO_PROFIS := TModelEndereco.Create;
+     FTOKEN_PROFIS    := TModelChaves.Create;
+     FForm            := AForm;
 end;
 
 

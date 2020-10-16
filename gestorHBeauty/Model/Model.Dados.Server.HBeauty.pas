@@ -10,6 +10,7 @@ type
   TModelConexaoDados = class(TDataModule)
     memUsuarios: TFDMemTable;
     memControles: TFDMemTable;
+    memProfissionais: TFDMemTable;
   private
     { Private declarations }
   public

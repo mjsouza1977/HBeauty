@@ -25,7 +25,11 @@ uses
   Model.Profissionais.HBeauty in 'Model\Model.Profissionais.HBeauty.pas',
   Units.Formata.HBeauty in 'Units\Units.Formata.HBeauty.pas',
   Model.Endereco.HBeauty in 'Model\Model.Endereco.HBeauty.pas',
-  Model.Chaves.HBeauty in 'Model\Model.Chaves.HBeauty.pas';
+  Model.Chaves.HBeauty in 'Model\Model.Chaves.HBeauty.pas',
+  View.Telefones.HBeauty in 'View\View.Telefones.HBeauty.pas' {frmCadastroTelefones},
+  View.Emails.HBeauty in 'View\View.Emails.HBeauty.pas' {frmCadastroEmails},
+  Units.Enumerados.HBeauty in 'Units\Units.Enumerados.HBeauty.pas',
+  Model.Profissionais.Servidor.HBeauty in 'Model\DadosServidor\Model.Profissionais.Servidor.HBeauty.pas';
 
 {$R *.res}
 
@@ -34,6 +38,5 @@ begin
   Application.CreateForm(TControllerClientModule, ControllerClientModule);
   Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
   Application.CreateForm(TfrmLogin, frmLogin);
-  Application.CreateForm(TfrmGerenciadorProfissionais, frmGerenciadorProfissionais);
   Application.Run;
 end.

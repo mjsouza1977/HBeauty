@@ -6,7 +6,10 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TMSBaseGroup, FMX.TMSRadioGroup, FMX.Edit, FMX.TMSButton, FMX.TMSBaseControl, FMX.TMSGridCell,
   FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Objects, FMX.Layouts, FMX.TabControl,
-  View.Principal.HBeauty, FMX.TMSListEditor, FMX.TMSCustomEdit, FMX.TMSEdit, FMX.TMSLabelEdit, FMX.ListBox, FMX.EditBox, FMX.NumberBox;
+  View.Principal.HBeauty, FMX.TMSListEditor, FMX.TMSCustomEdit, FMX.TMSEdit, FMX.TMSLabelEdit, FMX.ListBox, FMX.EditBox, FMX.NumberBox,
+  Units.Utils.HBeauty, View.Telefones.HBeauty, View.Emails.HBeauty,
+  Model.Profissionais.HBeauty, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
+  Model.Dados.Server.HBeauty;
 
 type
   TfrmGerenciadorProfissionais = class(TForm)
@@ -26,7 +29,7 @@ type
     sbtnSim: TSpeedButton;
     sbtnNao: TSpeedButton;
     Rectangle11: TRectangle;
-    grdListaEdita: TTMSFMXGrid;
+    grdListaProfissionais: TTMSFMXGrid;
     StyleBook1: TStyleBook;
     recRodapeGerenciadorProfissionais: TRectangle;
     btnAlterar: TTMSFMXButton;
@@ -44,9 +47,35 @@ type
     tabCabecarioProfissionais: TTabControl;
     tabPesquisa: TTabItem;
     tabDados: TTabItem;
+    btnSalvar: TTMSFMXButton;
+    btnCancelar: TTMSFMXButton;
+    cbEmpresaTerceirizada: TComboBox;
+    Rectangle14: TRectangle;
+    Rectangle17: TRectangle;
+    edtEmails: TEdit;
+    TMSFMXButton3: TTMSFMXButton;
+    TMSFMXButton4: TTMSFMXButton;
+    Rectangle3: TRectangle;
+    edtTelefones: TEdit;
+    gbTerceirizada: TGroupBox;
+    gbEmails: TGroupBox;
+    gbTelefones: TGroupBox;
+    rgDados: TTMSFMXRadioGroup;
     Rectangle1: TRectangle;
     edtNome: TEdit;
     Label2: TLabel;
+    Rectangle10: TRectangle;
+    edtCPF: TEdit;
+    Label10: TLabel;
+    Rectangle12: TRectangle;
+    edtRG: TEdit;
+    Label11: TLabel;
+    Rectangle13: TRectangle;
+    edtSobreNome: TEdit;
+    Label12: TLabel;
+    Rectangle16: TRectangle;
+    lblNumero: TLabel;
+    edtNumeroLog: TNumberBox;
     Rectangle2: TRectangle;
     edtLogradouro: TEdit;
     Label3: TLabel;
@@ -65,39 +94,39 @@ type
     Rectangle9: TRectangle;
     edtUFLog: TEdit;
     Label9: TLabel;
-    Rectangle12: TRectangle;
-    edtRG: TEdit;
-    Label11: TLabel;
-    Rectangle13: TRectangle;
-    edtSobreNome: TEdit;
-    Label12: TLabel;
-    TMSFMXRadioGroup1: TTMSFMXRadioGroup;
-    TMSFMXRadioGroup2: TTMSFMXRadioGroup;
-    TMSFMXButton1: TTMSFMXButton;
-    TMSFMXButton2: TTMSFMXButton;
-    cbEmpresaTerceirizada: TComboBox;
-    Rectangle14: TRectangle;
-    Label13: TLabel;
-    Rectangle10: TRectangle;
-    edtCPF: TEdit;
-    Label10: TLabel;
-    TMSFMXRadioGroup3: TTMSFMXRadioGroup;
+    tabCargoSalario: TTabItem;
+    gbSalario: TGroupBox;
+    Rectangle20: TRectangle;
+    NumberBox2: TNumberBox;
+    gbComissao: TGroupBox;
+    Rectangle22: TRectangle;
+    Label15: TLabel;
+    NumberBox3: TNumberBox;
+    ListView1: TListView;
     Rectangle15: TRectangle;
-    Label14: TLabel;
-    edtComissao: TNumberBox;
-    Rectangle16: TRectangle;
-    lblNumero: TLabel;
-    edtNumeroLog: TNumberBox;
-    TMSFMXRadioGroup4: TTMSFMXRadioGroup;
-    Rectangle3: TRectangle;
-    Edit1: TEdit;
-    Rectangle17: TRectangle;
-    Edit2: TEdit;
-    TMSFMXButton3: TTMSFMXButton;
-    TMSFMXRadioGroup5: TTMSFMXRadioGroup;
-    TMSFMXButton4: TTMSFMXButton;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnIncluirClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure TMSFMXButton3Click(Sender: TObject);
+    procedure TMSFMXButton4Click(Sender: TObject);
+    procedure edtCPFKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtRGKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtNomeKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtSobreNomeKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtLogradouroKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtNumeroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtComplementoLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtBairroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtUFLogKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtComissaoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtTelefonesKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -111,18 +140,185 @@ implementation
 
 {$R *.fmx}
 
+uses
+    Units.Classes.HBeauty,
+    Model.Profissionais.Servidor.HBeauty,
+    Units.Strings.HBeauty, Winapi.Windows,
+    FMX.Platform.Win, Units.Utils.Dados.HBeauty, Units.Consts.HBeauty;
+
+procedure TfrmGerenciadorProfissionais.btnAlterarClick(Sender: TObject);
+begin
+     ControlaBotoes(Self, False);
+end;
+
+procedure TfrmGerenciadorProfissionais.btnCancelarClick(Sender: TObject);
+begin
+     ControlaBotoes(Self, True);
+end;
+
 procedure TfrmGerenciadorProfissionais.btnFecharClick(Sender: TObject);
 begin
-
      Close;
+end;
 
+procedure TfrmGerenciadorProfissionais.btnIncluirClick(Sender: TObject);
+begin
+     ControlaBotoes(Self, False);
+end;
+
+procedure TfrmGerenciadorProfissionais.btnPesquisarClick(Sender: TObject);
+begin
+    ListaProfissionais('','','',0);
+    CarregaGrid(ModelConexaoDados.memProfissionais,grdListaProfissionais,AFieldsProfissionais, ACaptionProfissionais);
+end;
+
+procedure TfrmGerenciadorProfissionais.btnSalvarClick(Sender: TObject);
+begin
+     ControlaBotoes(Self, True);
+
+     gclProfissional.IDCARGO_PROFISS    := 0;
+     gclProfissional.IDEMPTER_PROFIS    := 0;
+     gclProfissional.CODIGO_PROFIS      := '';
+     gclProfissional.NOME_PROFIS        := edtNome.Text;
+     gclProfissional.SOBRENOME_PROFIS   := edtSobreNome.Text;
+     gclProfissional.CPF_PROFIS         := ApenasNumeros(edtCPF.Text);
+     gclProfissional.RG_PROFIS          := edtRG.Text;
+     gclProfissional.TERC_PROFIS        := False;
+     gclProfissional.SALARIO_PROFIS     := 2.200;
+     gclProfissional.COMISSAO_PROFIS    := 30;
+
+     gclProfissional.ENDERECO_PROFIS.LOGRADOURO  := edtLogradouro.Text;
+     gclProfissional.ENDERECO_PROFIS.NRLOG       := edtNumeroLog.Text.ToInteger;
+     gclProfissional.ENDERECO_PROFIS.BAIRROLOG   := edtBairroLog.Text;
+     gclProfissional.ENDERECO_PROFIS.CIDADELOG   := edtCidadeLog.Text;
+     gclProfissional.ENDERECO_PROFIS.UFLOG       := edtUFLog.Text;
+     gclProfissional.ENDERECO_PROFIS.CEP         := edtCepLog.Text;
+
+     Try
+        CadastraProfissional(gclProfissional.TERC_PROFIS, gclProfissional.IDCARGO_PROFISS, gclProfissional.IDEMPTER_PROFIS,
+                             gclProfissional.ENDERECO_PROFIS.NRLOG, gclProfissional.CODIGO_PROFIS, gclProfissional.NOME_PROFIS,
+                             gclProfissional.SOBRENOME_PROFIS, gclProfissional.CPF_PROFIS, gclProfissional.RG_PROFIS,
+                             gclProfissional.ENDERECO_PROFIS.LOGRADOURO, gclProfissional.ENDERECO_PROFIS.COMPLLOG,
+                             gclProfissional.ENDERECO_PROFIS.BAIRROLOG, gclProfissional.ENDERECO_PROFIS.CIDADELOG,
+                             gclProfissional.ENDERECO_PROFIS.UFLOG, gclProfissional.ENDERECO_PROFIS.CEP,
+                             gclProfissional.SALARIO_PROFIS, gclProfissional.COMISSAO_PROFIS).ToString;
+     Except
+           On E:Exception do
+              begin
+                   if Pos('Session ID', E.Message) > 0 then
+                      btnSalvarClick(Self) else
+                      MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                 pChar('Ocorreu um erro ao tentar salvar o registro!'+#13+
+                                 'Tente novamente, caso o problema persistir entre em contato ' +
+                                 'com a MS Software e informe o erro abaixo.'+#13#13+
+                                 'Erro: ' + E.Message), 'HBeauty', MB_OK +MB_ICONERROR);
+                      Exit;
+              end;
+
+     End;
+
+end;
+
+procedure TfrmGerenciadorProfissionais.edtBairroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtCidadeLog);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtLogradouro);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtUFLog);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtComissaoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtTelefones);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtComplementoLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtBairroLog);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtCPFKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtRG);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtLogradouroKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+
+     NextField(Key, edtNumeroLog);
+
+end;
+
+procedure TfrmGerenciadorProfissionais.edtNomeKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtSobreNome);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtNumeroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtComplementoLog);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtRGKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtNome);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtSobreNomeKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtCepLog);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtTelefonesKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtEmails);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtUFLogKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, cbEmpresaTerceirizada);
 end;
 
 procedure TfrmGerenciadorProfissionais.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-
+     FreeAndNil(gclProfissional);
      Action := TCloseAction.caFree;
+end;
 
+procedure TfrmGerenciadorProfissionais.FormCreate(Sender: TObject);
+begin
+     gclProfissional := TModelProfissionais.Create(Self);
+
+     grdListaProfissionais.Cells[0,0] := 'CPF';
+     grdListaProfissionais.Cells[1,0] := 'Nome';
+     grdListaProfissionais.Cells[2,0] := 'SobreNome';
+     grdListaProfissionais.Cells[3,0] := 'Logradouro';
+     grdListaProfissionais.Cells[4,0] := 'Nr.';
+     grdListaProfissionais.Cells[5,0] := 'Complemento';
+     grdListaProfissionais.Cells[6,0] := 'Bairro';
+     grdListaProfissionais.Cells[7,0] := 'CEP';
+     grdListaProfissionais.Cells[8,0] := 'Cidade';
+     grdListaProfissionais.Cells[9,0] := 'UF';
+
+end;
+
+procedure TfrmGerenciadorProfissionais.TMSFMXButton3Click(Sender: TObject);
+begin
+     Application.CreateForm(TfrmCadastroTelefones, frmCadastroTelefones);
+     frmCadastroTelefones.ShowModal;
+end;
+
+procedure TfrmGerenciadorProfissionais.TMSFMXButton4Click(Sender: TObject);
+begin
+     Application.CreateForm(TfrmCadastroEmails, frmCadastroEmails);
+     frmCadastroEmails.ShowModal;
 end;
 
 end.

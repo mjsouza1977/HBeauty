@@ -3,10 +3,11 @@ unit Units.Utils.Dados.HBeauty;
 interface
 
 uses
-    System.UIConsts;
+    System.UIConsts, System.Classes, FireDAC.Comp.Client, FMX.TMSGrid;
 
 
 procedure CarregaVariaveisControle;
+procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String);
 
 implementation
 
@@ -15,7 +16,7 @@ uses
   Units.Classes.HBeauty,
   Units.COnsts.HBeauty,
   Model.Dados.Server.HBeauty,
-  Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty;
+  Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty, Units.Enumerados.HBeauty;
 
 function getValueControle(AControleValue: String): String;
 begin
@@ -43,6 +44,30 @@ begin
     ctrPATH_LOGOS           := getValueControle('PATH_LOGOS');
     ctrMINI_LOGO_EMPRESA    := getValueControle('MINI_LOGO_EMPRESA');
     ctrFULL_SCREEN          := StringToBool(getValueControle('FULL_SCREEN'), 'False','True');
+
+end;
+
+procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String);
+var
+ALinha, i : Integer;
+begin
+
+     ALinha := 0;
+     AGrid.RowCount := ALinha + 1;
+     for i := 0 to Length(AListaCaptionFields) - 1 do
+         AGrid.Cells[i,ALinha] := AListaCaptionFields[i];
+
+     ATable.First;
+     while not ATable.Eof do
+         begin
+              Inc(ALinha);
+              AGrid.RowCount := ALinha + 1;
+              //<b><i>Cell</i></b><font size="18" color="clared">'+inttostr(I)+':'+inttostr(K)+'</font> <a href="test">Click !</a>
+              for i := 0 to Length(AListaFields) - 1 do
+                  AGrid.Cells[i,ALinha] := '<font size="16">'+ATable.FieldByName(AListaFields[i]).AsString+'</font>';
+
+              ATable.Next;
+         end;
 
 end;
 

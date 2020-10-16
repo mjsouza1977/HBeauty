@@ -10,6 +10,13 @@ const
      AurlXMLGetIdCidade    : String = 'http://servicos.cptec.inpe.br/XML/listaCidades?city=%s';
      AurlXMLGetTemperatura : String = 'http://servicos.cptec.inpe.br/XML/Cidade/%s/previsao.xml';
 
+
+     AFieldsProfissionais  : Array [0..9] of  String = ('CPF_PROFIS','NOME_PROFIS','SOBRENOME_PROFIS','LOGRADOURO_PROFIS',
+                                                       'NRLOG_PROFIS','COMPLLOG_PROFIS','BAIRROLOG_PROFIS','CEP_PROFIS','CIDADELOG_PROFIS','UFLOG_PROFIS');
+     ACaptionProfissionais : Array [0..9] of String = ('CPF','Nome','SobreNome','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
+
+
+
 var
    ctrCOR_BOTOES_POSITIVO  : TAlphaColor;
    ctrCOR_BOTOES_NEGATIVO  : TAlphaColor;
@@ -25,5 +32,6 @@ var
 
    ctrFULL_SCREEN          : Boolean;
 implementation
+
 
 end.

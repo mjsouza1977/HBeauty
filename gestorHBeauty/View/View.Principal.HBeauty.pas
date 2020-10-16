@@ -89,7 +89,6 @@ begin
     begin
         try
             try
-                Sleep(1000);
                 XMLDocument.FileName := Format(AurlXMLGetIdCidade, [RemoveAcento('São Paulo')]);
                 XMLDocument.Active := True;
                 Node := XMLDocument.ChildNodes.FindNode('cidades');

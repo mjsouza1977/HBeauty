@@ -29,7 +29,8 @@ uses
   View.Telefones.HBeauty in 'View\View.Telefones.HBeauty.pas' {frmCadastroTelefones},
   View.Emails.HBeauty in 'View\View.Emails.HBeauty.pas' {frmCadastroEmails},
   Units.Enumerados.HBeauty in 'Units\Units.Enumerados.HBeauty.pas',
-  Model.Profissionais.Servidor.HBeauty in 'Model\DadosServidor\Model.Profissionais.Servidor.HBeauty.pas';
+  Model.Profissionais.Servidor.HBeauty in 'Model\DadosServidor\Model.Profissionais.Servidor.HBeauty.pas',
+  Model.Contatos.Servidor.HBeauty in 'Model\DadosServidor\Model.Contatos.Servidor.HBeauty.pas';
 
 {$R *.res}
 

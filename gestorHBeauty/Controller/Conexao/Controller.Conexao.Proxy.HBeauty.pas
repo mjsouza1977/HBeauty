@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 13/10/2020 21:20:40
+// 18/10/2020 19:09:12
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -15,6 +15,10 @@ type
 
   TModelMetodosClient = class(TDSAdminRestClient)
   private
+    FCarregaEmailsCommand: TDSRestCommand;
+    FCarregaEmailsCommand_Cache: TDSRestCommand;
+    FCarregaTelefonesCommand: TDSRestCommand;
+    FCarregaTelefonesCommand_Cache: TDSRestCommand;
     FListaProfissionaisCommand: TDSRestCommand;
     FListaProfissionaisCommand_Cache: TDSRestCommand;
     FCarregaControleCommand: TDSRestCommand;
@@ -26,6 +30,10 @@ type
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
     destructor Destroy; override;
+    function CarregaEmails(ATipoEmail: string; AIdTabEmail: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function CarregaEmails_Cache(ATipoEmail: string; AIdTabEmail: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function CarregaTelefones(ATipoFone: string; AIdTabFone: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function CarregaTelefones_Cache(ATipoFone: string; AIdTabFone: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function ListaProfissionais(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
     function ListaProfissionais_Cache(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function CarregaControle(const ARequestFilter: string = ''): TFDJSONDataSets;
@@ -42,6 +50,34 @@ type
   end;
 
 const
+  TModelMetodos_CarregaEmails: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'ATipoEmail'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIdTabEmail'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_CarregaEmails_Cache: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'ATipoEmail'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIdTabEmail'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_CarregaTelefones: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'ATipoFone'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIdTabFone'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_CarregaTelefones_Cache: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'ATipoFone'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIdTabFone'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
   TModelMetodos_ListaProfissionais: array [0..4] of TDSRestParameterMetaData =
   (
     (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -107,6 +143,90 @@ const
   );
 
 implementation
+
+function TModelMetodosClient.CarregaEmails(ATipoEmail: string; AIdTabEmail: Integer; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FCarregaEmailsCommand = nil then
+  begin
+    FCarregaEmailsCommand := FConnection.CreateCommand;
+    FCarregaEmailsCommand.RequestType := 'GET';
+    FCarregaEmailsCommand.Text := 'TModelMetodos.CarregaEmails';
+    FCarregaEmailsCommand.Prepare(TModelMetodos_CarregaEmails);
+  end;
+  FCarregaEmailsCommand.Parameters[0].Value.SetWideString(ATipoEmail);
+  FCarregaEmailsCommand.Parameters[1].Value.SetInt32(AIdTabEmail);
+  FCarregaEmailsCommand.Execute(ARequestFilter);
+  if not FCarregaEmailsCommand.Parameters[2].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FCarregaEmailsCommand.Parameters[2].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FCarregaEmailsCommand.Parameters[2].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FCarregaEmailsCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.CarregaEmails_Cache(ATipoEmail: string; AIdTabEmail: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FCarregaEmailsCommand_Cache = nil then
+  begin
+    FCarregaEmailsCommand_Cache := FConnection.CreateCommand;
+    FCarregaEmailsCommand_Cache.RequestType := 'GET';
+    FCarregaEmailsCommand_Cache.Text := 'TModelMetodos.CarregaEmails';
+    FCarregaEmailsCommand_Cache.Prepare(TModelMetodos_CarregaEmails_Cache);
+  end;
+  FCarregaEmailsCommand_Cache.Parameters[0].Value.SetWideString(ATipoEmail);
+  FCarregaEmailsCommand_Cache.Parameters[1].Value.SetInt32(AIdTabEmail);
+  FCarregaEmailsCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FCarregaEmailsCommand_Cache.Parameters[2].Value.GetString);
+end;
+
+function TModelMetodosClient.CarregaTelefones(ATipoFone: string; AIdTabFone: Integer; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FCarregaTelefonesCommand = nil then
+  begin
+    FCarregaTelefonesCommand := FConnection.CreateCommand;
+    FCarregaTelefonesCommand.RequestType := 'GET';
+    FCarregaTelefonesCommand.Text := 'TModelMetodos.CarregaTelefones';
+    FCarregaTelefonesCommand.Prepare(TModelMetodos_CarregaTelefones);
+  end;
+  FCarregaTelefonesCommand.Parameters[0].Value.SetWideString(ATipoFone);
+  FCarregaTelefonesCommand.Parameters[1].Value.SetInt32(AIdTabFone);
+  FCarregaTelefonesCommand.Execute(ARequestFilter);
+  if not FCarregaTelefonesCommand.Parameters[2].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FCarregaTelefonesCommand.Parameters[2].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FCarregaTelefonesCommand.Parameters[2].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FCarregaTelefonesCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.CarregaTelefones_Cache(ATipoFone: string; AIdTabFone: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FCarregaTelefonesCommand_Cache = nil then
+  begin
+    FCarregaTelefonesCommand_Cache := FConnection.CreateCommand;
+    FCarregaTelefonesCommand_Cache.RequestType := 'GET';
+    FCarregaTelefonesCommand_Cache.Text := 'TModelMetodos.CarregaTelefones';
+    FCarregaTelefonesCommand_Cache.Prepare(TModelMetodos_CarregaTelefones_Cache);
+  end;
+  FCarregaTelefonesCommand_Cache.Parameters[0].Value.SetWideString(ATipoFone);
+  FCarregaTelefonesCommand_Cache.Parameters[1].Value.SetInt32(AIdTabFone);
+  FCarregaTelefonesCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FCarregaTelefonesCommand_Cache.Parameters[2].Value.GetString);
+end;
 
 function TModelMetodosClient.ListaProfissionais(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): TFDJSONDataSets;
 begin
@@ -276,6 +396,10 @@ end;
 
 destructor TModelMetodosClient.Destroy;
 begin
+  FCarregaEmailsCommand.DisposeOf;
+  FCarregaEmailsCommand_Cache.DisposeOf;
+  FCarregaTelefonesCommand.DisposeOf;
+  FCarregaTelefonesCommand_Cache.DisposeOf;
   FListaProfissionaisCommand.DisposeOf;
   FListaProfissionaisCommand_Cache.DisposeOf;
   FCarregaControleCommand.DisposeOf;

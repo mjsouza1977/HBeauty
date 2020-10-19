@@ -10,19 +10,41 @@ function StringToBool(ATrue, AFalse, AValue : String) : Boolean;
 procedure CarregaImagemRessource(Image : TImage; NomeImagem : String);
 procedure ControlaBotoes(AForm : TForm; AOpcao: Boolean);
 function PrefixoTabela(ATabela : TTabelaCadastrada) : String;
+function ExtraiTextoGrid(AValue : String) : String;
 
 procedure NextField(Key : Word; ANext : TEdit); overload;
 procedure NextField(Key : Word; ANext : TComboBox); overload;
 procedure NextField(Key : Word; ANext : TNumberBox); overload;
-
-
-
 
 implementation
 
 uses
   Winapi.Windows, System.Classes, FMX.TMSButton, System.UITypes;
 
+function ExtraiTextoGrid(AValue : String) : String;
+var
+    AIndex : Integer;
+    ARes   : String;
+    ACopia : Boolean;
+begin
+    ARes   := '';
+    ACopia := False;
+
+    for AIndex := 0 to Length(AValue) - 1 do
+        begin
+            if (ACopia = True) or (AValue[AIndex - 1] = '>') and (AValue[AIndex] <> '<') then
+               begin
+                    ACopia := True;
+                    if ACopia then
+                       if AValue[AIndex] <> '<' then
+                          ARes := ARes + AValue[AIndex] else
+                          Break;
+               end;
+        end;
+
+    Result := ARes;
+
+end;
 
 function PrefixoTabela(ATabela : TTabelaCadastrada) : String;
 begin

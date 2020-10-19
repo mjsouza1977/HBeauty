@@ -11,6 +11,7 @@ type
     memUsuarios: TFDMemTable;
     memControles: TFDMemTable;
     memProfissionais: TFDMemTable;
+    memContatos: TFDMemTable;
   private
     { Private declarations }
   public

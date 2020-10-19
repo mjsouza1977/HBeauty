@@ -2440,7 +2440,20 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             StrokeThickness = 0.000000000000000000
             TopRow = 1
             LeftCol = 0
+            OnCellClick = grdListaProfissionaisCellClick
             Columns = <
+              item
+                BorderColor = claNull
+                Color = claNull
+                Editor = etEdit
+                Fixed = False
+                FixedFont.StyleExt = {00070000000000000004000000}
+                FixedFontColor = claBlack
+                FontColor = claBlack
+                HorzAlignment = Center
+                ID = ''
+                Width = 50.000000000000000000
+              end
               item
                 Color = claNull
                 Editor = etEdit
@@ -2448,7 +2461,9 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
                 FixedFont.StyleExt = {00070000000000000004000000}
                 FixedFontColor = xFF0006A1
                 FontColor = xFF000872
+                HorzAlignment = Center
                 ID = ''
+                ReadOnly = True
                 Width = 150.000000000000000000
               end
               item
@@ -2458,10 +2473,9 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
                 FixedFont.StyleExt = {00070000000000000004000000}
                 FixedFontColor = claBlack
                 FontColor = claBlack
-                HorzAlignment = Center
                 ID = ''
                 ReadOnly = True
-                Width = 200.000000000000000000
+                Width = 150.000000000000000000
               end
               item
                 Color = claNull
@@ -2470,7 +2484,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
                 FixedFont.StyleExt = {00070000000000000004000000}
                 FixedFontColor = claBlack
                 FontColor = claBlack
-                HorzAlignment = Center
                 ID = ''
                 ReadOnly = True
                 Width = 250.000000000000000000
@@ -2482,7 +2495,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
                 FixedFont.StyleExt = {00070000000000000004000000}
                 FixedFontColor = claBlack
                 FontColor = claBlack
-                HorzAlignment = Center
                 ID = ''
                 ReadOnly = True
                 Width = 350.000000000000000000
@@ -2506,8 +2518,10 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
                 FixedFont.StyleExt = {00070000000000000004000000}
                 FixedFontColor = claBlack
                 FontColor = claBlack
+                HorzAlignment = Center
                 ID = ''
-                Width = 70.000000000000000000
+                ReadOnly = True
+                Width = 100.000000000000000000
               end
               item
                 Color = claNull
@@ -2517,7 +2531,20 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
                 FixedFontColor = claBlack
                 FontColor = claBlack
                 ID = ''
-                Width = 150.000000000000000000
+                ReadOnly = True
+                Width = 200.000000000000000000
+              end
+              item
+                Color = claNull
+                Editor = etEdit
+                Fixed = False
+                FixedFont.StyleExt = {00070000000000000004000000}
+                FixedFontColor = claBlack
+                FontColor = claBlack
+                HorzAlignment = Center
+                ID = ''
+                ReadOnly = True
+                Width = 100.000000000000000000
               end
               item
                 Color = claNull
@@ -2527,7 +2554,8 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
                 FixedFontColor = claBlack
                 FontColor = claBlack
                 ID = ''
-                Width = 70.000000000000000000
+                ReadOnly = True
+                Width = 180.000000000000000000
               end
               item
                 Color = claNull
@@ -2536,27 +2564,9 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
                 FixedFont.StyleExt = {00070000000000000004000000}
                 FixedFontColor = claBlack
                 FontColor = claBlack
+                HorzAlignment = Center
                 ID = ''
-                Width = 150.000000000000000000
-              end
-              item
-                Color = claNull
-                Editor = etEdit
-                Fixed = False
-                FixedFont.StyleExt = {00070000000000000004000000}
-                FixedFontColor = claBlack
-                FontColor = claBlack
-                ID = ''
-                Width = 50.000000000000000000
-              end
-              item
-                Color = claNull
-                Editor = etEdit
-                Fixed = False
-                FixedFont.StyleExt = {00070000000000000004000000}
-                FixedFontColor = claBlack
-                FontColor = claBlack
-                ID = ''
+                ReadOnly = True
                 Width = 50.000000000000000000
               end>
           end
@@ -5205,5 +5215,10 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       ExplicitSize.cx = 8.000000000000000000
       ExplicitSize.cy = 8.000000000000000000
     end
+  end
+  object ACBrValidador1: TACBrValidador
+    IgnorarChar = './-'
+    Left = 285
+    Top = 210
   end
 end

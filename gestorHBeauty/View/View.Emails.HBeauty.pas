@@ -21,7 +21,7 @@ type
     btnSalvar: TTMSFMXButton;
     lblTitulo: TLabel;
     lblNome: TLabel;
-    grdListaEdita: TTMSFMXGrid;
+    grdListaEmail: TTMSFMXGrid;
     lytCadastro: TLayout;
     Rectangle15: TRectangle;
     Edit12: TEdit;
@@ -39,9 +39,14 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);
   private
-    { Private declarations }
+    FNomeTabela: String;
+    FIdRegTab: Integer;
+    procedure SetNomeTabela(const Value: String);
+    procedure SetIdRegTab(const Value: Integer);
+
   public
-    { Public declarations }
+    property NomeTabela : String read FNomeTabela write SetNomeTabela;
+    property IdRegTab   : Integer read FIdRegTab write SetIdRegTab;
   end;
 
 var
@@ -83,6 +88,16 @@ begin
 
      Action := TCloseAction.caFree;
 
+end;
+
+procedure TfrmCadastroEmails.SetIdRegTab(const Value: Integer);
+begin
+  FIdRegTab := Value;
+end;
+
+procedure TfrmCadastroEmails.SetNomeTabela(const Value: String);
+begin
+  FNomeTabela := Value;
 end;
 
 end.

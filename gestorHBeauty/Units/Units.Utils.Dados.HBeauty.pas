@@ -3,7 +3,7 @@ unit Units.Utils.Dados.HBeauty;
 interface
 
 uses
-    System.UIConsts, System.Classes, FireDAC.Comp.Client, FMX.TMSGrid;
+    System.UIConsts, System.Classes, FireDAC.Comp.Client, FMX.TMSGrid, ACBrValidador;
 
 
 procedure CarregaVariaveisControle;
@@ -14,9 +14,11 @@ implementation
 
 uses
   Units.Classes.HBeauty,
-  Units.COnsts.HBeauty,
+  Units.Consts.HBeauty,
   Model.Dados.Server.HBeauty,
-  Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty, Units.Enumerados.HBeauty;
+  Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty, Units.Enumerados.HBeauty,
+  View.Principal.HBeauty;
+
 
 function getValueControle(AControleValue: String): String;
 begin
@@ -62,9 +64,16 @@ begin
          begin
               Inc(ALinha);
               AGrid.RowCount := ALinha + 1;
-              //<b><i>Cell</i></b><font size="18" color="clared">'+inttostr(I)+':'+inttostr(K)+'</font> <a href="test">Click !</a>
               for i := 0 to Length(AListaFields) - 1 do
-                  AGrid.Cells[i,ALinha] := '<font size="16">'+ATable.FieldByName(AListaFields[i]).AsString+'</font>';
+                  begin
+                      if (AListaCaptionFields[i] = 'CPF') or (AListaCaptionFields[i] = 'CNPJ') or (AListaCaptionFields[i] = 'CNPJ/CPF') then
+                          AGrid.Cells[i,ALinha] := '<font size="16">' +  ACBrValidador.FormatarCNPJouCPF(ATable.FieldByName(AListaFields[i]).AsString) + '</font>' else
+                      if AListaCaptionFields[i] = 'CEP' then
+                          AGrid.Cells[i,ALinha] := '<font size="16">' +  ACBrValidador.FormatarCEP(ATable.FieldByName(AListaFields[i]).AsString) + '</font>' else
+                      if AListaCaptionFields[i] = 'Código' then
+                         AGrid.Cells[i,ALinha] := '<font size="16">' +  FormatFloat('0000', ATable.FieldByName(AListaFields[i]).AsInteger) + '</font>' else
+                          AGrid.Cells[i,ALinha] := '<font size="16">' +  ATable.FieldByName(AListaFields[i]).AsString + '</font>';
+                  end;
 
               ATable.Next;
          end;

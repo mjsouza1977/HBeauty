@@ -14,7 +14,7 @@ type
     recRodapeTelefones: TRectangle;
     lblTitulo: TLabel;
     lblNome: TLabel;
-    grdListaEdita: TTMSFMXGrid;
+    grdListaTelefone: TTMSFMXGrid;
     lytCadastro: TLayout;
     btnFechar: TTMSFMXButton;
     btnCancelar: TTMSFMXButton;
@@ -39,10 +39,16 @@ type
     procedure btnAlterarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
   private
+    FNomeTabela: String;
+    FIdRegTab: Integer;
+    procedure SetIdRegTab(const Value: Integer);
+    procedure SetNomeTabela(const Value: String);
     { Private declarations }
   public
-    { Public declarations }
+     property NomeTabela : String read FNomeTabela write SetNomeTabela;
+     property IdRegTab   : Integer read FIdRegTab write SetIdRegTab;
   end;
 
 
@@ -53,7 +59,11 @@ implementation
 
 {$R *.fmx}
 
-uses Units.Utils.HBeauty;
+uses Units.Utils.HBeauty,
+     Model.Dados.Server.HBeauty,
+     Model.Contatos.Servidor.HBeauty,
+     Units.Consts.HBeauty,
+     Units.Utils.Dados.HBeauty;
 
 procedure TfrmCadastroTelefones.btnAlterarClick(Sender: TObject);
 begin
@@ -95,6 +105,22 @@ begin
 
      Action := TCloseAction.caFree;
 
+end;
+
+procedure TfrmCadastroTelefones.FormCreate(Sender: TObject);
+begin
+     CarregaTelefones(FNomeTabela, FIdRegTab);
+     CarregaGrid(ModelConexaoDados.memContatos,grdListaTelefone,AFieldsTelefones, ACaptionTelefones);
+end;
+
+procedure TfrmCadastroTelefones.SetIdRegTab(const Value: Integer);
+begin
+  FIdRegTab := Value;
+end;
+
+procedure TfrmCadastroTelefones.SetNomeTabela(const Value: String);
+begin
+  FNomeTabela := Value;
 end;
 
 end.

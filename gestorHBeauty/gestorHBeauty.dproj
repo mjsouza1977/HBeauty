@@ -239,6 +239,7 @@
         </DCCReference>
         <DCCReference Include="Units\Units.Enumerados.HBeauty.pas"/>
         <DCCReference Include="Model\DadosServidor\Model.Profissionais.Servidor.HBeauty.pas"/>
+        <DCCReference Include="Model\DadosServidor\Model.Contatos.Servidor.HBeauty.pas"/>
         <RcItem Include="..\Imagens\Icones\Check.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>Check</ResourceId>

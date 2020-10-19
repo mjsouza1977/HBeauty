@@ -10,6 +10,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   OnClose = FormClose
   DesignerMasterStyle = 0
   object recCabecarioTelefones: TRectangle
@@ -174,7 +175,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
     Text = 'M'#193'RCIO JOS'#201' DE SOUZA'
     TabOrder = 2
   end
-  object grdListaEdita: TTMSFMXGrid
+  object grdListaTelefone: TTMSFMXGrid
     Align = Client
     DisableFocusEffect = False
     Margins.Left = 5.000000000000000000

@@ -174,7 +174,7 @@ object frmCadastroEmails: TfrmCadastroEmails
     Text = 'M'#193'RCIO JOS'#201' DE SOUZA'
     TabOrder = 2
   end
-  object grdListaEdita: TTMSFMXGrid
+  object grdListaEmail: TTMSFMXGrid
     Align = Client
     DisableFocusEffect = False
     Margins.Left = 5.000000000000000000

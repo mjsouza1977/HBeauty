@@ -124,6 +124,7 @@
         <DCCReference Include="Model\Metodos\Profissionais\Model.Metodos.Profissionais.ServerHBeauty.pas"/>
         <DCCReference Include="Model\Model.Chaves.ServerHBeauty.pas"/>
         <DCCReference Include="Units\Units.Utils.ServerBeauty.pas"/>
+        <DCCReference Include="Model\Metodos\Contatos\Model.Metodos.Contatos.ServerHBeauty.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

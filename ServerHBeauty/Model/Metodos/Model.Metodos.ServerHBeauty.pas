@@ -15,6 +15,8 @@ type
   private
 
   public
+    function CarregaEmails(ATipoEmail : String; AIdTabEmail : Integer) : TFDJSONDataSets;
+    function CarregaTelefones(ATipoFone : String; AIdTabFone : Integer) : TFDJSONDataSets;
     function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
     function CarregaControle : TFDJSONDataSets;
     function ValidaLogin(Usuario, Senha : String) : TFDJSONDataSets;
@@ -30,7 +32,7 @@ implementation
 {$R *.dfm}
 
 
-uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty;
+uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contatos.ServerHBeauty;
 
 
 
@@ -53,6 +55,16 @@ begin
      Result := Model.Metodos.Controle.ServerHBeauty.CarregaControle;
 end;
 
+
+function TModelMetodos.CarregaEmails(ATipoEmail: String; AIdTabEmail: Integer): TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Contatos.ServerHBeauty.CarregaEmails(ATipoEmail, AIdTabEmail);
+end;
+
+function TModelMetodos.CarregaTelefones(ATipoFone: String; AIdTabFone: Integer): TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Contatos.ServerHBeauty.CarregaTelefones(ATipoFone, AIdTabFone);
+end;
 
 function TModelMetodos.ListaProfissionais(ANome, ACPF, ATipoPesquisa: String; AId: Integer): TFDJSONDataSets;
 begin

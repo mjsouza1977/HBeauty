@@ -2,23 +2,32 @@ unit Units.Utils.ServerBeauty;
 
 interface
 
-type
-    TTipoPesquisa = (tpInicia, tpTermina, tpContenha, tpIgual);
+uses
+    System.SysUtils;
 
+
+function StrToBolValue(AValue, ATrue, AFalse : String) : Boolean;
+function BoolToStrValue(AValue : Boolean; AFalse, ATrue : String) : String;
 
 implementation
 
-function TipoPesquisa(ATipo : TTipoPesquisa) : String;
+
+function BoolToStrValue(AValue : Boolean; AFalse, ATrue: String) : String;
+begin
+    case AValue of
+         True : Result := ATrue;
+        False : Result := AFalse;
+    end;
+end;
+
+function StrToBolValue(AValue, ATrue, AFalse : String) : Boolean;
 begin
 
-     case ATipo of
-          tpInicia   : Result := 'Inicia';
-          tpTermina  : Result := 'Termina';
-          tpContenha : Result := 'Contenha';
-          tpIgual    : Result := 'Igual';
-     end;
+     if AValue = ATrue  then Result := True;
+     if AValue = AFalse then Result := False;
 
 end;
+
 
 
 end.

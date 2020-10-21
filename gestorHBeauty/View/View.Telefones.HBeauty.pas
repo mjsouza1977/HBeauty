@@ -39,16 +39,22 @@ type
     procedure btnAlterarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     FNomeTabela: String;
     FIdRegTab: Integer;
+    FTitulo: String;
+    FNome: String;
     procedure SetIdRegTab(const Value: Integer);
     procedure SetNomeTabela(const Value: String);
+    procedure SetNome(const Value: String);
+    procedure SetTitulo(const Value: String);
     { Private declarations }
   public
-     property NomeTabela : String read FNomeTabela write SetNomeTabela;
-     property IdRegTab   : Integer read FIdRegTab write SetIdRegTab;
+     property NomeTabela : String  read FNomeTabela write SetNomeTabela;
+     property IdRegTab   : Integer read FIdRegTab   write SetIdRegTab;
+     property Titulo     : String  read FTitulo     write SetTitulo;
+     property Nome       : String  read FNome       write SetNome;
   end;
 
 
@@ -107,10 +113,10 @@ begin
 
 end;
 
-procedure TfrmCadastroTelefones.FormCreate(Sender: TObject);
+procedure TfrmCadastroTelefones.FormShow(Sender: TObject);
 begin
      CarregaTelefones(FNomeTabela, FIdRegTab);
-     CarregaGrid(ModelConexaoDados.memContatos,grdListaTelefone,AFieldsTelefones, ACaptionTelefones);
+     CarregaGrid(ModelConexaoDados.memContatos,grdListaTelefone,AFieldsTelefones, ACaptionTelefones, ASizeColTelefones);
 end;
 
 procedure TfrmCadastroTelefones.SetIdRegTab(const Value: Integer);
@@ -118,9 +124,21 @@ begin
   FIdRegTab := Value;
 end;
 
+procedure TfrmCadastroTelefones.SetNome(const Value: String);
+begin
+  FNome        := Value;
+  lblNome.Text := FNome;
+end;
+
 procedure TfrmCadastroTelefones.SetNomeTabela(const Value: String);
 begin
   FNomeTabela := Value;
+end;
+
+procedure TfrmCadastroTelefones.SetTitulo(const Value: String);
+begin
+  FTitulo        := Value;
+  lblTitulo.Text := FTitulo;
 end;
 
 end.

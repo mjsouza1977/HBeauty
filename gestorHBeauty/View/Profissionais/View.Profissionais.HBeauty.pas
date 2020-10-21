@@ -198,7 +198,7 @@ end;
 procedure TfrmGerenciadorProfissionais.btnPesquisarClick(Sender: TObject);
 begin
     ListaProfissionais('','','',0);
-    CarregaGrid(ModelConexaoDados.memProfissionais,grdListaProfissionais,AFieldsProfissionais, ACaptionProfissionais);
+    CarregaGrid(ModelConexaoDados.memProfissionais,grdListaProfissionais,AFieldsProfissionais, ACaptionProfissionais, ASizeColProfissionais);
 end;
 
 procedure TfrmGerenciadorProfissionais.btnSalvarClick(Sender: TObject);
@@ -348,7 +348,7 @@ end;
 procedure TfrmGerenciadorProfissionais.TMSFMXButton3Click(Sender: TObject);
 begin
 
-     if FIdSelecionado = 0 then
+    if FIdSelecionado = 0 then
         begin
             if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                          'Para cadastrar os telefones é necessário primeiro salvar o profissional'+#13#13+
@@ -357,13 +357,22 @@ begin
                     btnSalvarClick(Self);
 
                     if FIdSelecionado <> 0 then
-                       begin
-                           Application.CreateForm(TfrmCadastroTelefones, frmCadastroTelefones);
-                           frmCadastroTelefones.IdRegTab   := FIdSelecionado;
-                           frmCadastroTelefones.NomeTabela := PrefixoTabela(tpPtofissionais);
-                           frmCadastroTelefones.ShowModal;
-                       end;
+                        begin
+                            Application.CreateForm(TfrmCadastroTelefones, frmCadastroTelefones);
+                            frmCadastroTelefones.IdRegTab   := FIdSelecionado;
+                            frmCadastroTelefones.NomeTabela := PrefixoTabela(tpPtofissionais);
+                            frmCadastroTelefones.ShowModal;
+                        end;
                 end;
+        end
+    else
+        begin
+            Application.CreateForm(TfrmCadastroTelefones, frmCadastroTelefones);
+            frmCadastroTelefones.IdRegTab   := FIdSelecionado;
+            frmCadastroTelefones.NomeTabela := PrefixoTabela(tpPtofissionais);
+            frmCadastroTelefones.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
+            frmCadastroTelefones.Titulo     := 'Profissional';
+            frmCadastroTelefones.ShowModal;
         end;
 
 end;

@@ -7,7 +7,7 @@ uses
 
 
 procedure CarregaVariaveisControle;
-procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String);
+procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String; AListaSizeColuna : Array of Single);
 
 implementation
 
@@ -49,7 +49,7 @@ begin
 
 end;
 
-procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String);
+procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String; AListaSizeColuna : Array of Single);
 var
 ALinha, i : Integer;
 begin
@@ -57,7 +57,10 @@ begin
      ALinha := 0;
      AGrid.RowCount := ALinha + 1;
      for i := 0 to Length(AListaCaptionFields) - 1 do
-         AGrid.Cells[i,ALinha] := AListaCaptionFields[i];
+         begin
+              AGrid.Cells[i,ALinha]  := AListaCaptionFields[i];
+              AGrid.Columns[i].Width :=  AListaSizeColuna[i];
+         end;
 
      ATable.First;
      while not ATable.Eof do
@@ -68,10 +71,10 @@ begin
                   begin
                       if (AListaCaptionFields[i] = 'CPF') or (AListaCaptionFields[i] = 'CNPJ') or (AListaCaptionFields[i] = 'CNPJ/CPF') then
                           AGrid.Cells[i,ALinha] := '<font size="16">' +  ACBrValidador.FormatarCNPJouCPF(ATable.FieldByName(AListaFields[i]).AsString) + '</font>' else
-                      if AListaCaptionFields[i] = 'CEP' then
+                      if AListaCaptionFields[i]  = 'CEP' then
                           AGrid.Cells[i,ALinha] := '<font size="16">' +  ACBrValidador.FormatarCEP(ATable.FieldByName(AListaFields[i]).AsString) + '</font>' else
-                      if AListaCaptionFields[i] = 'Código' then
-                         AGrid.Cells[i,ALinha] := '<font size="16">' +  FormatFloat('0000', ATable.FieldByName(AListaFields[i]).AsInteger) + '</font>' else
+                      if AListaCaptionFields[i]  = 'Código' then
+                         AGrid.Cells[i,ALinha]  := '<font size="16">' +  FormatFloat('0000', ATable.FieldByName(AListaFields[i]).AsInteger) + '</font>' else
                           AGrid.Cells[i,ALinha] := '<font size="16">' +  ATable.FieldByName(AListaFields[i]).AsString + '</font>';
                   end;
 

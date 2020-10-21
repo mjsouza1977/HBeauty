@@ -14,11 +14,13 @@ const
      //grid do Form de Profissionais
      AFieldsProfissionais  : Array [0..10] of  String = ('ID_PROFIS', 'CPF_PROFIS','NOME_PROFIS','SOBRENOME_PROFIS','LOGRADOURO_PROFIS', 'NRLOG_PROFIS',
                                                          'COMPLLOG_PROFIS','BAIRROLOG_PROFIS','CEP_PROFIS','CIDADELOG_PROFIS','UFLOG_PROFIS');
-     ACaptionProfissionais : Array [0..10] of String = ('Código','CPF','Nome','SobreNome','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
+     ACaptionProfissionais : Array [0..10] of String  = ('Código','CPF','Nome','SobreNome','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
+     ASizeColProfissionais : Array [0..10] of Single  = (50, 150, 150, 250, 350, 70, 100, 200, 100, 180, 50);
 
      //grid do Form de cadastro de telefones
      AFieldsTelefones  : Array [0..4] of  String = ('ID_FONE','NR_FONE','CONTATO_FONE','WHATS_FONE','RESTRITO_FONE');
-     ACaptionTelefones : Array [0..4] of String = ('Código','Telefone','Contato','ZAP','Restrito');
+     ACaptionTelefones : Array [0..4] of String  = ('Código','Telefone','Contato','ZAP','Restrito');
+     ASizeColTelefones : Array [0..4] of Single  = (70, 150, 150, 50, 50);
 
      //Status da ação do form
      stInclusao  : String = 'Inclusao';

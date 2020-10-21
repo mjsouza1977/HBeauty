@@ -10,8 +10,8 @@ object frmCadastroTelefones: TfrmCadastroTelefones
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnCreate = FormCreate
   OnClose = FormClose
+  OnShow = FormShow
   DesignerMasterStyle = 0
   object recCabecarioTelefones: TRectangle
     Align = Top

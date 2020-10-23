@@ -10,6 +10,8 @@ uses
 
 
 function CarregaEmails(ATipoEmail : String; AIdTabEmail : Integer) : TFDJSONDataSets;
+function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
+
 function CarregaTelefones(ATipoFone : String; AIdTabFone : Integer) : TFDJSONDataSets;
 function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : Integer; AWhatsFone, ARestrito : Boolean) : Integer;
 
@@ -17,6 +19,33 @@ function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : 
 implementation
 
 uses Units.Utils.ServerBeauty;
+
+function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
+begin
+
+  try
+     try
+         ControllerConexao.qryQuery.Close;
+         ControllerConexao.qryQuery.SQL.Clear;
+         ControllerConexao.qryQuery.SQL.Add('INSERT INTO HBEMAILS');
+         ControllerConexao.qryQuery.SQL.Add('(EMAIL_EMAIL, NOMETAB_EMAIL, IDTAB_EMAIL, RESTRITO_EMAIL) VALUES');
+         ControllerConexao.qryQuery.SQL.Add('(:EMAIL_EMAIL, :NOMETAB_EMAIL, :IDTAB_EMAIL, :RESTRITO_EMAIL)');
+         ControllerConexao.qryQuery.ParamByName('EMAIL_EMAIL'   ).AsString  := AEmail;
+         ControllerConexao.qryQuery.ParamByName('NOMETAB_EMAIL' ).AsString  := APrefixoTabela;
+         ControllerConexao.qryQuery.ParamByName('IDTAB_EMAIL'   ).AsInteger := AIdRegTab;
+         ControllerConexao.qryQuery.ParamByName('RESTRITO_EMAIL').AsString  := BoolToStrValue(ARestrito,'F','T');
+         ControllerConexao.qryQuery.ExecSQL;
+
+         ControllerConexao.qryQuery.Open('SELECT GEN_ID(GEN_HBEMAILS_ID, 0) AS IDEMAIL FROM RDB$DATABASE');
+         Result := ControllerConexao.qryQuery.FieldByName('IDEMAIL').AsInteger;
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
+  except
+        Result := 0;
+  end;
+end;
+
 
 function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : Integer; AWhatsFone, ARestrito : Boolean) : Integer;
 begin

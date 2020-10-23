@@ -15,6 +15,7 @@ type
   private
 
   public
+    function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
     function CarregaEmails(ATipoEmail : String; AIdTabEmail : Integer) : TFDJSONDataSets;
     function CarregaTelefones(ATipoFone : String; AIdTabFone : Integer) : TFDJSONDataSets;
     function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
@@ -41,6 +42,11 @@ uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contat
 function TModelMetodos.ValidaLogin(Usuario, Senha : String) : TFDJSONDataSets;
 begin
     Result := Model.Metodos.Usuarios.ServerHBeauty.ValidaLogin(Usuario, Senha);
+end;
+
+function TModelMetodos.CadastraEmail(AEmail, APrefixoTabela: String; AIdRegTab: Integer; ARestrito: Boolean): Integer;
+begin
+     Result := Model.Metodos.Contatos.ServerHBeauty.CadastraEmail(AEmail, APrefixoTabela, AIdRegTab, ARestrito);
 end;
 
 function TModelMetodos.CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,

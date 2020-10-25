@@ -1,4 +1,4 @@
-object frmCadastroTelefones: TfrmCadastroTelefones
+object frmCadastroContatos: TfrmCadastroContatos
   Left = 0
   Top = 0
   BorderIcons = []
@@ -10,6 +10,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   OnClose = FormClose
   OnShow = FormShow
   DesignerMasterStyle = 0
@@ -20,7 +21,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
     Size.Height = 85.000000000000000000
     Size.PlatformDefault = False
     Stroke.Kind = None
-    object TMSFMXImage1: TTMSFMXImage
+    object imgIconeForm: TTMSFMXImage
       Position.X = 16.000000000000000000
       Position.Y = 15.000000000000000000
       ClipChildren = True
@@ -181,7 +182,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
     Margins.Left = 5.000000000000000000
     TabOrder = 1
     Size.Width = 755.000000000000000000
-    Size.Height = 200.000000000000000000
+    Size.Height = 317.000000000000000000
     Size.PlatformDefault = False
     DefaultRowHeight = 20.000000000000000000
     DefaultColumnWidth = 50.000000000000000000
@@ -257,6 +258,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
     Size.Width = 760.000000000000000000
     Size.Height = 117.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     TabOrder = 5
     object Rectangle15: TRectangle
       Fill.Color = claWhite

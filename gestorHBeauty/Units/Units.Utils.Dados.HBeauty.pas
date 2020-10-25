@@ -3,11 +3,13 @@ unit Units.Utils.Dados.HBeauty;
 interface
 
 uses
-    System.UIConsts, System.Classes, FireDAC.Comp.Client, FMX.TMSGrid, ACBrValidador;
+    System.UIConsts, System.Classes, FireDAC.Comp.Client, FMX.TMSGrid, ACBrValidador,
+    FMX.Forms;
 
 
 procedure CarregaVariaveisControle;
 procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String; AListaSizeColuna : Array of Single);
+procedure LimpaForm(AForm : TForm);
 
 implementation
 
@@ -17,8 +19,21 @@ uses
   Units.Consts.HBeauty,
   Model.Dados.Server.HBeauty,
   Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty, Units.Enumerados.HBeauty,
-  View.Principal.HBeauty;
+  View.Principal.HBeauty, FMX.Edit, FMX.ListBox, FMX.StdCtrls, FMX.NumberBox;
 
+procedure LimpaForm(AForm : TForm);
+var
+AIndex : Integer;
+begin
+     for AIndex := 0 to AForm.ComponentCount - 1 do
+         begin
+              if AForm.Components[AIndex] is TNumberBox then TNumberBox(AForm.Components[AIndex]).Value := 0;
+              if AForm.Components[AIndex] is TEdit      then TEdit(AForm.Components[AIndex]).Text := '';
+              if AForm.Components[AIndex] is TComboBox  then TComboBox(AForm.Components[AIndex]).ItemIndex := -1;
+              if AForm.Components[AIndex] is TCheckBox  then TCheckBox(AForm.Components[AIndex]).IsChecked := False;
+         end;
+
+end;
 
 function getValueControle(AControleValue: String): String;
 begin

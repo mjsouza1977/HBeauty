@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 24/10/2020 20:32:44
+// 25/10/2020 15:11:13
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -28,6 +28,7 @@ type
     FValidaLoginCommand: TDSRestCommand;
     FValidaLoginCommand_Cache: TDSRestCommand;
     FCadastraProfissionalCommand: TDSRestCommand;
+    FAtualizaProfissionalCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -45,6 +46,7 @@ type
     function ValidaLogin(Usuario: string; Senha: string; const ARequestFilter: string = ''): TFDJSONDataSets;
     function ValidaLogin_Cache(Usuario: string; Senha: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): Integer;
+    function AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss: Integer; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): Boolean;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -164,6 +166,29 @@ const
     (Name: 'ASalario'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
     (Name: 'AComissao'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
     (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
+  );
+
+  TModelMetodos_AtualizaProfissional: array [0..18] of TDSRestParameterMetaData =
+  (
+    (Name: 'ATerceirizado'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
+    (Name: 'AIdProfiss'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIdCargo'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIdEmpTer'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ASobreNome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ARG'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ALogradouro'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AComplemento'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ABairro'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AUF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACep'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ASalario'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'AComissao'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
   );
 
 implementation
@@ -444,6 +469,37 @@ begin
   Result := FCadastraProfissionalCommand.Parameters[17].Value.GetInt32;
 end;
 
+function TModelMetodosClient.AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss: Integer; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string): Boolean;
+begin
+  if FAtualizaProfissionalCommand = nil then
+  begin
+    FAtualizaProfissionalCommand := FConnection.CreateCommand;
+    FAtualizaProfissionalCommand.RequestType := 'GET';
+    FAtualizaProfissionalCommand.Text := 'TModelMetodos.AtualizaProfissional';
+    FAtualizaProfissionalCommand.Prepare(TModelMetodos_AtualizaProfissional);
+  end;
+  FAtualizaProfissionalCommand.Parameters[0].Value.SetBoolean(ATerceirizado);
+  FAtualizaProfissionalCommand.Parameters[1].Value.SetInt32(AIdProfiss);
+  FAtualizaProfissionalCommand.Parameters[2].Value.SetInt32(AIdCargo);
+  FAtualizaProfissionalCommand.Parameters[3].Value.SetInt32(AIdEmpTer);
+  FAtualizaProfissionalCommand.Parameters[4].Value.SetInt32(ANrLog);
+  FAtualizaProfissionalCommand.Parameters[5].Value.SetWideString(ACodigo);
+  FAtualizaProfissionalCommand.Parameters[6].Value.SetWideString(ANome);
+  FAtualizaProfissionalCommand.Parameters[7].Value.SetWideString(ASobreNome);
+  FAtualizaProfissionalCommand.Parameters[8].Value.SetWideString(ACPF);
+  FAtualizaProfissionalCommand.Parameters[9].Value.SetWideString(ARG);
+  FAtualizaProfissionalCommand.Parameters[10].Value.SetWideString(ALogradouro);
+  FAtualizaProfissionalCommand.Parameters[11].Value.SetWideString(AComplemento);
+  FAtualizaProfissionalCommand.Parameters[12].Value.SetWideString(ABairro);
+  FAtualizaProfissionalCommand.Parameters[13].Value.SetWideString(ACidade);
+  FAtualizaProfissionalCommand.Parameters[14].Value.SetWideString(AUF);
+  FAtualizaProfissionalCommand.Parameters[15].Value.SetWideString(ACep);
+  FAtualizaProfissionalCommand.Parameters[16].Value.AsCurrency := ASalario;
+  FAtualizaProfissionalCommand.Parameters[17].Value.AsCurrency := AComissao;
+  FAtualizaProfissionalCommand.Execute(ARequestFilter);
+  Result := FAtualizaProfissionalCommand.Parameters[18].Value.GetBoolean;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -469,6 +525,7 @@ begin
   FValidaLoginCommand.DisposeOf;
   FValidaLoginCommand_Cache.DisposeOf;
   FCadastraProfissionalCommand.DisposeOf;
+  FAtualizaProfissionalCommand.DisposeOf;
   inherited;
 end;
 

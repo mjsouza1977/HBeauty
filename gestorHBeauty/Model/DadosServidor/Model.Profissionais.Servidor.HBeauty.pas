@@ -7,12 +7,25 @@ uses
 
 procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer);
 function CadastraProfissional(AProfissional : TModelProfissionais) : Integer;
+function AtualizaProfissional(AProfissional : TModelProfissionais): Boolean;
 
 implementation
 
 uses
   Controller.ClientModule.HBeauty, Data.FireDACJSONReflect,
   Model.Dados.Server.HBeauty;
+
+function AtualizaProfissional(AProfissional : TModelProfissionais): Boolean;
+begin
+    Result := ControllerClientModule.ModelMetodosClient.AtualizaProfissional(AProfissional.TERC_PROFIS, AProfissional.ID_PROFIS, AProfissional.IDCARGO_PROFISS,
+                                                                             AProfissional.IDEMPTER_PROFIS, AProfissional.ENDERECO_PROFIS.NRLOG,
+                                                                             AProfissional.CODIGO_PROFIS, AProfissional.NOME_PROFIS, AProfissional.SOBRENOME_PROFIS,
+                                                                             AProfissional.CPF_PROFIS, AProfissional.RG_PROFIS, AProfissional.ENDERECO_PROFIS.LOGRADOURO,
+                                                                             AProfissional.ENDERECO_PROFIS.COMPLLOG, AProfissional.ENDERECO_PROFIS.BAIRROLOG,
+                                                                             AProfissional.ENDERECO_PROFIS.CIDADELOG, AProfissional.ENDERECO_PROFIS.UFLOG,
+                                                                             AProfissional.ENDERECO_PROFIS.CEP, AProfissional.SALARIO_PROFIS, AProfissional.COMISSAO_PROFIS);
+
+end;
 
 procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer);
 var

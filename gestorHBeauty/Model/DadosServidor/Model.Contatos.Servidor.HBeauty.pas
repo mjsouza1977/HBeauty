@@ -52,7 +52,7 @@ var
     dsTelefone : TFDJSONDataSets;
 begin
 
-    dsTelefone := ControllerClientModule.ModelMetodosClient.CarregaEmails(ATipoFone, AIdTabFone);
+    dsTelefone := ControllerClientModule.ModelMetodosClient.CarregaTelefones(ATipoFone, AIdTabFone);
     Assert(TFDJSONDataSetsReader.GetListCount(dsTelefone) = 1);
     ModelConexaoDados.memContatos.Active := False;
     ModelConexaoDados.memContatos.AppendData(TFDJSONDataSetsReader.GetListValue(dsTelefone, 0));

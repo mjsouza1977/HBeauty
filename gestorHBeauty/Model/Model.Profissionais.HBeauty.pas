@@ -132,7 +132,7 @@ end;
 
 procedure TModelProfissionais.SetNOME_PROFIS(const Value: String);
 begin
-    if Length(Trim(Value)) < 5 then
+    if Length(Trim(Value)) < 4 then
         begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                        'Nome do profissional inválido, verifique!',

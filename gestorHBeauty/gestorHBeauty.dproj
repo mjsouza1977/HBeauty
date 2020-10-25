@@ -229,12 +229,8 @@
         <DCCReference Include="Units\Units.Formata.HBeauty.pas"/>
         <DCCReference Include="Model\Model.Endereco.HBeauty.pas"/>
         <DCCReference Include="Model\Model.Chaves.HBeauty.pas"/>
-        <DCCReference Include="View\View.Telefones.HBeauty.pas">
-            <Form>frmCadastroTelefones</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
-        <DCCReference Include="View\View.Emails.HBeauty.pas">
-            <Form>frmCadastroEmails</Form>
+        <DCCReference Include="View\View.Contatos.HBeauty.pas">
+            <Form>frmCadastroContatos</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="Units\Units.Enumerados.HBeauty.pas"/>

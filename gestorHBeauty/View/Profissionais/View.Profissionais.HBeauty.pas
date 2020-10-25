@@ -7,13 +7,30 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TMSBaseGroup, FMX.TMSRadioGroup, FMX.Edit, FMX.TMSButton, FMX.TMSBaseControl, FMX.TMSGridCell,
   FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Objects, FMX.Layouts, FMX.TabControl,
   View.Principal.HBeauty, FMX.TMSListEditor, FMX.TMSCustomEdit, FMX.TMSEdit, FMX.TMSLabelEdit, FMX.ListBox, FMX.EditBox, FMX.NumberBox,
-  Units.Utils.HBeauty, View.Telefones.HBeauty, View.Emails.HBeauty,
+  Units.Utils.HBeauty, View.Contatos.HBeauty,
   Model.Profissionais.HBeauty, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
   Model.Dados.Server.HBeauty, ACBrBase, ACBrValidador,  Model.Contatos.Servidor.HBeauty,
-  Units.Enumerados.HBeauty;
+  Units.Enumerados.HBeauty, View.Loading.HBeauty;
 
 type
   TfrmGerenciadorProfissionais = class(TForm)
+    recRodapeGerenciadorProfissionais: TRectangle;
+    btnAlterar: TTMSFMXButton;
+    btnFechar: TTMSFMXButton;
+    btnIncluir: TTMSFMXButton;
+    recCabecarioGerenciadoProfissionais: TRectangle;
+    btnPesquisar: TTMSFMXButton;
+    Label1: TLabel;
+    Rectangle6: TRectangle;
+    edtPesquisaBase: TEdit;
+    rbOperador: TTMSFMXRadioGroup;
+    rbPor: TTMSFMXRadioGroup;
+    tabCabecarioProfissionais: TTabControl;
+    tabPesquisa: TTabItem;
+    tabDados: TTabItem;
+    btnSalvar: TTMSFMXButton;
+    btnCancelar: TTMSFMXButton;
+    ACBrValidador1: TACBrValidador;
     tabGerenciadorProfissionais: TTabControl;
     tabListaProfissionais: TTabItem;
     Layout4: TLayout;
@@ -32,36 +49,11 @@ type
     Rectangle11: TRectangle;
     grdListaProfissionais: TTMSFMXGrid;
     StyleBook1: TStyleBook;
-    recRodapeGerenciadorProfissionais: TRectangle;
-    btnAlterar: TTMSFMXButton;
-    btnAtualizar: TTMSFMXButton;
-    btnFechar: TTMSFMXButton;
-    btnIncluir: TTMSFMXButton;
-    recCabecarioGerenciadoProfissionais: TRectangle;
-    btnPesquisar: TTMSFMXButton;
-    Label1: TLabel;
-    Rectangle6: TRectangle;
-    edtPesquisaBase: TEdit;
-    rbOperador: TTMSFMXRadioGroup;
-    rbPor: TTMSFMXRadioGroup;
     tabFichaProfissional: TTabItem;
-    tabCabecarioProfissionais: TTabControl;
-    tabPesquisa: TTabItem;
-    tabDados: TTabItem;
-    btnSalvar: TTMSFMXButton;
-    btnCancelar: TTMSFMXButton;
-    cbEmpresaTerceirizada: TComboBox;
-    Rectangle14: TRectangle;
-    Rectangle17: TRectangle;
-    edtEmails: TEdit;
-    TMSFMXButton3: TTMSFMXButton;
-    TMSFMXButton4: TTMSFMXButton;
-    Rectangle3: TRectangle;
-    edtTelefones: TEdit;
-    gbTerceirizada: TGroupBox;
-    gbEmails: TGroupBox;
-    gbTelefones: TGroupBox;
     rgDados: TTMSFMXRadioGroup;
+    gbTerceirizada: TGroupBox;
+    Rectangle14: TRectangle;
+    cbEmpresaTerceirizada: TComboBox;
     Rectangle1: TRectangle;
     edtNome: TEdit;
     Label2: TLabel;
@@ -95,17 +87,24 @@ type
     Rectangle9: TRectangle;
     edtUFLog: TEdit;
     Label9: TLabel;
+    grpContatos: TGroupBox;
+    TMSFMXButton3: TTMSFMXButton;
+    TMSFMXButton4: TTMSFMXButton;
     tabCargoSalario: TTabItem;
     gbSalario: TGroupBox;
     Rectangle20: TRectangle;
-    NumberBox2: TNumberBox;
+    edtSalario: TNumberBox;
     gbComissao: TGroupBox;
     Rectangle22: TRectangle;
     Label15: TLabel;
-    NumberBox3: TNumberBox;
-    ListView1: TListView;
+    edtComissao: TNumberBox;
     Rectangle15: TRectangle;
-    ACBrValidador1: TACBrValidador;
+    ListView1: TListView;
+    Rectangle3: TRectangle;
+    Label4: TLabel;
+    lblNome: TLabel;
+    Label13: TLabel;
+    lblStatus: TLabel;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnIncluirClick(Sender: TObject);
@@ -125,14 +124,15 @@ type
     procedure edtBairroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edtUFLogKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
-    procedure edtComissaoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
-    procedure edtTelefonesKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure grdListaProfissionaisCellClick(Sender: TObject; ACol, ARow: Integer);
+
   private
     FStatus : TAcaoBotao;
     FIdSelecionado : Integer;
+    procedure HabilitaTab(AHabilita : Boolean);
+    procedure AlimentaClasseProfissional;
   public
 
   end;
@@ -150,6 +150,40 @@ uses
     Units.Strings.HBeauty, Winapi.Windows,
     FMX.Platform.Win, Units.Utils.Dados.HBeauty, Units.Consts.HBeauty;
 
+procedure TfrmGerenciadorProfissionais.AlimentaClasseProfissional;
+begin
+    gclProfissional.ID_PROFIS          := FIdSelecionado;
+    gclProfissional.IDCARGO_PROFISS    := 0;
+    gclProfissional.IDEMPTER_PROFIS    := 0;
+    gclProfissional.CODIGO_PROFIS      := '';
+    gclProfissional.NOME_PROFIS        := edtNome.Text;
+    gclProfissional.SOBRENOME_PROFIS   := edtSobreNome.Text;
+    gclProfissional.CPF_PROFIS         := ApenasNumeros(edtCPF.Text);
+    gclProfissional.RG_PROFIS          := edtRG.Text;
+    if cbEmpresaTerceirizada.ItemIndex <= 0 then
+       gclProfissional.TERC_PROFIS     := False else
+       gclProfissional.TERC_PROFIS     := True;
+
+    gclProfissional.SALARIO_PROFIS     := edtSalario.Value;
+    gclProfissional.COMISSAO_PROFIS    := edtComissao.Value;
+
+    gclProfissional.ENDERECO_PROFIS.LOGRADOURO  := edtLogradouro.Text;
+    gclProfissional.ENDERECO_PROFIS.NRLOG       := edtNumeroLog.Text.ToInteger;
+    gclProfissional.ENDERECO_PROFIS.BAIRROLOG   := edtBairroLog.Text;
+    gclProfissional.ENDERECO_PROFIS.CIDADELOG   := edtCidadeLog.Text;
+    gclProfissional.ENDERECO_PROFIS.UFLOG       := edtUFLog.Text;
+    gclProfissional.ENDERECO_PROFIS.CEP         := edtCepLog.Text;
+end;
+
+procedure TfrmGerenciadorProfissionais.HabilitaTab(AHabilita : Boolean);
+begin
+
+     tabFichaProfissional.Visible  := AHabilita;
+     tabCargoSalario.Visible       := AHabilita;
+     tabListaProfissionais.Visible := not AHabilita;
+
+end;
+
 procedure TfrmGerenciadorProfissionais.btnAlterarClick(Sender: TObject);
 begin
      if FIdSelecionado > 0 then
@@ -166,9 +200,15 @@ begin
              edtCepLog.Text         := ModelConexaoDados.memProfissionais.FieldByName('CEP_PROFIS').AsString;
              edtCidadeLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('CIDADELOG_PROFIS').AsString;
              edtUFLog.Text          := ModelConexaoDados.memProfissionais.FieldByName('UFLOG_PROFIS').AsString;
+             edtSalario.Value       := ModelConexaoDados.memProfissionais.FieldByName('SALARIO_PROFIS').AsCurrency;
+             edtComissao.Value      := ModelConexaoDados.memProfissionais.FieldByName('COMISSAO_PROFIS').AsCurrency;
+
+             AlimentaClasseProfissional;
              ControlaBotoes(Self, False);
              FStatus                := abAlterar;
+             HabilitaTab(True);
              tabGerenciadorProfissionais.TabIndex := 1;
+             tabCabecarioProfissionais.Next;
          end
      else
          begin
@@ -181,8 +221,28 @@ begin
 end;
 
 procedure TfrmGerenciadorProfissionais.btnCancelarClick(Sender: TObject);
+var
+AMensagem : String;
 begin
-     ControlaBotoes(Self, True);
+
+     case FStatus of
+         abIncluir : AMensagem := 'Tem certeza que deseja cancelar esta inclusão. ' +
+                                  'Os dados serão perdidos.'+#13#13+
+                                  'Deseja continuar?';
+         abAlterar : AMensagem := 'Tem certeza que deseja cancelar esta alteração. ' +
+                                  'Caso tenha feito alguma alteração os dados não serão salvos.'+#13#13+
+                                  'Deseja continuar?';
+     end;
+
+     if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                   pChar(AMensagem), apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
+         begin
+             LimpaForm(Self);
+             tabCabecarioProfissionais.TabIndex := 0;
+             tabGerenciadorProfissionais.TabIndex := 0;
+             ControlaBotoes(Self, True);
+         end;
+
 end;
 
 procedure TfrmGerenciadorProfissionais.btnFecharClick(Sender: TObject);
@@ -192,8 +252,13 @@ end;
 
 procedure TfrmGerenciadorProfissionais.btnIncluirClick(Sender: TObject);
 begin
+     HabilitaTab(True);
+     LimpaForm(Self);
      ControlaBotoes(Self, False);
      FStatus := abIncluir;
+     lblStatus.Text := 'Inclusão';
+     tabCabecarioProfissionais.Next;
+     tabGerenciadorProfissionais.ActiveTab := tabFichaProfissional;
 end;
 
 procedure TfrmGerenciadorProfissionais.btnPesquisarClick(Sender: TObject);
@@ -214,6 +279,9 @@ begin
      end;
 
      CarregaGrid(ModelConexaoDados.memProfissionais,grdListaProfissionais,AFieldsProfissionais, ACaptionProfissionais, ASizeColProfissionais);
+
+     if ModelConexaoDados.memProfissionais.RecordCount > 0 then
+        FIdSelecionado :=  ExtraiTextoGrid(grdListaProfissionais.Cells[0, 1]).ToInteger;
 end;
 
 procedure TfrmGerenciadorProfissionais.btnSalvarClick(Sender: TObject);
@@ -221,40 +289,75 @@ begin
 
     case FStatus of
          abIncluir : begin
-                         gclProfissional.IDCARGO_PROFISS    := 0;
-                         gclProfissional.IDEMPTER_PROFIS    := 0;
-                         gclProfissional.CODIGO_PROFIS      := '';
-                         gclProfissional.NOME_PROFIS        := edtNome.Text;
-                         gclProfissional.SOBRENOME_PROFIS   := edtSobreNome.Text;
-                         gclProfissional.CPF_PROFIS         := ApenasNumeros(edtCPF.Text);
-                         gclProfissional.RG_PROFIS          := edtRG.Text;
-                         gclProfissional.TERC_PROFIS        := False;
-                         gclProfissional.SALARIO_PROFIS     := 2.200;
-                         gclProfissional.COMISSAO_PROFIS    := 30;
+                         case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                         'Confirma a inclusão deste profissional?',
+                                         apTitulo, MB_YESNO + MB_ICONQUESTION) of
+                             IDYES : begin
+                                         AlimentaClasseProfissional;
+                                         Try
+                                            FIdSelecionado := CadastraProfissional(gclProfissional);
+                                            case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                            'Profissional cadastrado com sucesso.'+#13#13+
+                                                            'Deseja cadastrar outro profissional?', apTitulo,
+                                                             MB_YESNO + MB_ICONQUESTION) of
+                                                IDYES : begin
+                                                             FStatus := abIncluir;
+                                                             LimpaForm(Self);
+                                                             edtCPF.SetFocus;
+                                                        end;
+                                                 IDNO : begin
+                                                             FStatus := abNulo;
+                                                             tabGerenciadorProfissionais.TabIndex := 0;
+                                                             tabCabecarioProfissionais.Previous;
+                                                             HabilitaTab(False);
+                                                             ControlaBotoes(Self, True);
+                                                        end;
+                                            end;
 
-                         gclProfissional.ENDERECO_PROFIS.LOGRADOURO  := edtLogradouro.Text;
-                         gclProfissional.ENDERECO_PROFIS.NRLOG       := edtNumeroLog.Text.ToInteger;
-                         gclProfissional.ENDERECO_PROFIS.BAIRROLOG   := edtBairroLog.Text;
-                         gclProfissional.ENDERECO_PROFIS.CIDADELOG   := edtCidadeLog.Text;
-                         gclProfissional.ENDERECO_PROFIS.UFLOG       := edtUFLog.Text;
-                         gclProfissional.ENDERECO_PROFIS.CEP         := edtCepLog.Text;
+                                         Except
+                                             On E:Exception do
+                                                 begin
+                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                pChar('Ocorreu um erro ao tentar salvar o registro!'+#13+
+                                                                'Tente novamente, caso o problema persistir entre em contato ' +
+                                                                'com a MS Software e informe o erro abaixo.'+#13#13+
+                                                                'Erro: ' + E.Message), 'HBeauty', MB_OK +MB_ICONERROR);
+                                                     Exit;
+                                                 end;
 
-                         Try
-                            FIdSelecionado := CadastraProfissional(gclProfissional);
-                            FStatus        := abNulo;
-                         Except
-                             On E:Exception do
-                                 begin
-                                     if Pos('Session ID', E.Message) > 0 then
-                                         btnSalvarClick(Self) else
-                                         MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                    pChar('Ocorreu um erro ao tentar salvar o registro!'+#13+
-                                                    'Tente novamente, caso o problema persistir entre em contato ' +
-                                                    'com a MS Software e informe o erro abaixo.'+#13#13+
-                                                    'Erro: ' + E.Message), 'HBeauty', MB_OK +MB_ICONERROR);
-                                         Exit;
-                                 end;
-
+                                         end;
+                                     end;
+                         end;
+                     end;
+         abAlterar : begin
+                         case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                         'Confirma a alteração deste profissional?',
+                                         apTitulo, MB_YESNO + MB_ICONQUESTION) of
+                             IDYES : begin
+                                         try
+                                             AlimentaClasseProfissional;
+                                             AtualizaProfissional(gclProfissional);
+                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                        'Registro salvo com sucesso!', apTitulo,
+                                                        MB_OK + MB_ICONINFORMATION);
+                                             btnPesquisarClick(Self);
+                                             LimpaForm(Self);
+                                             HabilitaTab(False);
+                                             ControlaBotoes(Self, True);
+                                             tabCabecarioProfissionais.Previous;
+                                             tabGerenciadorProfissionais.TabIndex := 0;
+                                         except
+                                              On E:Exception do
+                                                 begin
+                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                pChar('Ocorreu um erro ao tentar salvar o registro!'+#13+
+                                                                'Tente novamente, caso o problema persistir entre em contato ' +
+                                                                'com a MS Software e informe o erro abaixo.'+#13#13+
+                                                                'Erro: ' + E.Message), 'HBeauty', MB_OK +MB_ICONERROR);
+                                                     Exit;
+                                                 end;
+                                         end;
+                                     end;
                          end;
                      end;
     end;
@@ -274,11 +377,6 @@ end;
 procedure TfrmGerenciadorProfissionais.edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
      NextField(Key, edtUFLog);
-end;
-
-procedure TfrmGerenciadorProfissionais.edtComissaoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
-begin
-     NextField(Key, edtTelefones);
 end;
 
 procedure TfrmGerenciadorProfissionais.edtComplementoLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -318,11 +416,6 @@ begin
      NextField(Key, edtCepLog);
 end;
 
-procedure TfrmGerenciadorProfissionais.edtTelefonesKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
-begin
-     NextField(Key, edtEmails);
-end;
-
 procedure TfrmGerenciadorProfissionais.edtUFLogKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
      NextField(Key, cbEmpresaTerceirizada);
@@ -336,6 +429,9 @@ end;
 
 procedure TfrmGerenciadorProfissionais.FormCreate(Sender: TObject);
 begin
+     HabilitaTab(False);
+     tabCabecarioProfissionais.TabIndex   := 0;
+     tabGerenciadorProfissionais.TabIndex := 0;
      gclProfissional := TModelProfissionais.Create(Self);
 
      grdListaProfissionais.Cells[0,0] := 'CPF';
@@ -359,7 +455,7 @@ end;
 procedure TfrmGerenciadorProfissionais.TMSFMXButton3Click(Sender: TObject);
 begin
 
-    if FIdSelecionado = 0 then
+    if FStatus = abIncluir then
         begin
             if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                          'Para cadastrar os telefones é necessário primeiro salvar o profissional'+#13#13+
@@ -369,21 +465,26 @@ begin
 
                     if FIdSelecionado <> 0 then
                         begin
-                            Application.CreateForm(TfrmCadastroTelefones, frmCadastroTelefones);
-                            frmCadastroTelefones.IdRegTab   := FIdSelecionado;
-                            frmCadastroTelefones.NomeTabela := PrefixoTabela(tcPtofissionais);
-                            frmCadastroTelefones.ShowModal;
+                            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+                            frmCadastroContatos.TipoForm   := tfTelefone;
+                            frmCadastroContatos.IdRegTab   := FIdSelecionado;
+                            frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
+                            frmCadastroContatos.Titulo     := 'Profissional';
+                            frmCadastroContatos.TituloForm := 'Cadastro de Telefones';
+                            frmCadastroContatos.ShowModal;
                         end;
                 end;
         end
     else
         begin
-            Application.CreateForm(TfrmCadastroTelefones, frmCadastroTelefones);
-            frmCadastroTelefones.IdRegTab   := FIdSelecionado;
-            frmCadastroTelefones.NomeTabela := PrefixoTabela(tcPtofissionais);
-            frmCadastroTelefones.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
-            frmCadastroTelefones.Titulo     := 'Profissional';
-            frmCadastroTelefones.ShowModal;
+            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+            frmCadastroContatos.TipoForm   := tfTelefone;
+            frmCadastroContatos.IdRegTab   := FIdSelecionado;
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
+            frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
+            frmCadastroContatos.Titulo     := 'Profissional';
+            frmCadastroContatos.TituloForm := 'Cadastro de E-Mails';
+            frmCadastroContatos.ShowModal;
         end;
 
 end;
@@ -391,20 +492,22 @@ end;
 procedure TfrmGerenciadorProfissionais.TMSFMXButton4Click(Sender: TObject);
 begin
 
-     if FIdSelecionado = 0 then
+     if FStatus = abIncluir then
         begin
             if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                          'Para cadastrar os e-mails é necessário primeiro salvar o profissional'+#13#13+
-                         'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
+                         'Deseja salvar agora?', apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
-                    btnSalvarClick(Self);
+                    FIdSelecionado := CadastraProfissional(gclProfissional);
+                    ControlaBotoes(Self, True);
 
                     if FIdSelecionado <> 0 then
                        begin
-                           Application.CreateForm(TfrmCadastroEmails, frmCadastroEmails);
-                           frmCadastroEmails.IdRegTab   := FIdSelecionado;
-                           frmCadastroEmails.NomeTabela := PrefixoTabela(tcPtofissionais);
-                           frmCadastroEmails.ShowModal;
+                           Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+                           frmCadastroContatos.TipoForm   := tfEmail;
+                           frmCadastroContatos.IdRegTab   := FIdSelecionado;
+                           frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
+                           frmCadastroContatos.ShowModal;
                        end;
                 end;
         end;

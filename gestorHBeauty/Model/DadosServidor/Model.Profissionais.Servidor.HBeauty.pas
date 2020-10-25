@@ -6,8 +6,7 @@ uses
   Model.Profissionais.HBeauty;
 
 procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer);
-function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
-                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
+function CadastraProfissional(AProfissional : TModelProfissionais) : Integer;
 
 implementation
 
@@ -29,12 +28,16 @@ begin
 
 end;
 
-function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
-                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
+function CadastraProfissional(AProfissional : TModelProfissionais) : Integer;
 begin
 
-    Result := ControllerClientModule.ModelMetodosClient.CadastraProfissional(ATerceirizado, AIdCargo, AIdEmpTer, ANrLog, ACodigo, ANome, ASobreNome, ACPF, ARG,
-                                                                             ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep, ASalario, AComissao);
+    Result := ControllerClientModule.ModelMetodosClient.CadastraProfissional(AProfissional.TERC_PROFIS, AProfissional.IDCARGO_PROFISS, AProfissional.IDEMPTER_PROFIS,
+                                                                             AProfissional.ENDERECO_PROFIS.NRLOG, AProfissional.CODIGO_PROFIS, AProfissional.NOME_PROFIS,
+                                                                             AProfissional.SOBRENOME_PROFIS, AProfissional.CPF_PROFIS, AProfissional.RG_PROFIS,
+                                                                             AProfissional.ENDERECO_PROFIS.LOGRADOURO, AProfissional.ENDERECO_PROFIS.COMPLLOG,
+                                                                             AProfissional.ENDERECO_PROFIS.BAIRROLOG, AProfissional.ENDERECO_PROFIS.CIDADELOG,
+                                                                             AProfissional.ENDERECO_PROFIS.UFLOG, AProfissional.ENDERECO_PROFIS.CEP,
+                                                                             AProfissional.SALARIO_PROFIS, AProfissional.COMISSAO_PROFIS);
 
 end;
 

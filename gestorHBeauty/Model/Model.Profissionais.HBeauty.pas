@@ -46,27 +46,27 @@ type
 
     public
 
-    property ID_PROFIS          : Integer  read FID_PROFIS         write SetID_PROFIS;
-    property IDCARGO_PROFISS    : Integer  read FIDCARGO_PROFISS   write SetIDCARGO_PROFISS;
-    property IDEMPTER_PROFIS    : Integer  read FIDEMPTER_PROFIS   write SetIDEMPTER_PROFIS;
-    property CODIGO_PROFIS      : String   read FCODIGO_PROFIS     write SetCODIGO_PROFIS;
-    property NOME_PROFIS        : String   read FNOME_PROFIS       write SetNOME_PROFIS;
-    property SOBRENOME_PROFIS   : String   read FSOBRENOME_PROFIS  write SetSOBRENOME_PROFIS;
-    property CPF_PROFIS         : String   read FCPF_PROFIS        write SetCPF_PROFIS;
-    property RG_PROFIS          : String   read FRG_PROFIS         write SetRG_PROFIS;
-    property TERC_PROFIS        : Boolean  read FTERC_PROFIS       write SetTERC_PROFIS;
-    property SALARIO_PROFIS     : Currency read FSALARIO_PROFIS    write SetSALARIO_PROFIS;
-    property COMISSAO_PROFIS    : Currency read FCOMISSAO_PROFIS   write SetCOMISSAO_PROFIS;
-    property SENHA_PROFIS       : String   read FSENHA_PROFIS      write SetSENHA_PROFIS;
-    property ENDERECO_PROFIS    : TModelEndereco read FENDERECO_PROFIS write SetENDERECO_PROFIS;
-    PROPERTY TOKEN_PROFIS       : TModelChaves read FTOKEN_PROFIS write SetTOKEN_PROFIS;
+    property ID_PROFIS          : Integer        read FID_PROFIS        write SetID_PROFIS;
+    property IDCARGO_PROFISS    : Integer        read FIDCARGO_PROFISS  write SetIDCARGO_PROFISS;
+    property IDEMPTER_PROFIS    : Integer        read FIDEMPTER_PROFIS  write SetIDEMPTER_PROFIS;
+    property CODIGO_PROFIS      : String         read FCODIGO_PROFIS    write SetCODIGO_PROFIS;
+    property NOME_PROFIS        : String         read FNOME_PROFIS      write SetNOME_PROFIS;
+    property SOBRENOME_PROFIS   : String         read FSOBRENOME_PROFIS write SetSOBRENOME_PROFIS;
+    property CPF_PROFIS         : String         read FCPF_PROFIS       write SetCPF_PROFIS;
+    property RG_PROFIS          : String         read FRG_PROFIS        write SetRG_PROFIS;
+    property TERC_PROFIS        : Boolean        read FTERC_PROFIS      write SetTERC_PROFIS;
+    property SALARIO_PROFIS     : Currency       read FSALARIO_PROFIS   write SetSALARIO_PROFIS;
+    property COMISSAO_PROFIS    : Currency       read FCOMISSAO_PROFIS  write SetCOMISSAO_PROFIS;
+    property SENHA_PROFIS       : String         read FSENHA_PROFIS     write SetSENHA_PROFIS;
+    property ENDERECO_PROFIS    : TModelEndereco read FENDERECO_PROFIS  write SetENDERECO_PROFIS;
+    PROPERTY TOKEN_PROFIS       : TModelChaves   read FTOKEN_PROFIS     write SetTOKEN_PROFIS;
     constructor Create(AForm : TForm);
     end;
 
 implementation
 
 uses
-  FMX.Platform.Win, Winapi.Windows, System.SysUtils;
+  FMX.Platform.Win, Winapi.Windows, System.SysUtils, Units.Consts.HBeauty;
 
 { TModelProfissionais }
 
@@ -99,8 +99,10 @@ begin
 
           True  : FCPF_PROFIS := Value;
           False : begin
-                       MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd, 'C.P.F. Inválido, verifique!', 'HBeauty',
-                                  MB_OK + MB_ICONWARNING);
+                       MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                                  'C.P.F. Inválido, verifique!',
+                                  apTitulo,
+                                  MB_OK + MB_ICONINFORMATION);
                        Abort;
                   end;
 
@@ -130,7 +132,18 @@ end;
 
 procedure TModelProfissionais.SetNOME_PROFIS(const Value: String);
 begin
-  FNOME_PROFIS := Value;
+    if Length(Trim(Value)) < 5 then
+        begin
+            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                       'Nome do profissional inválido, verifique!',
+                       apTitulo,
+                       MB_ICONINFORMATION);
+            Abort;
+        end
+    else
+        begin
+            FNOME_PROFIS := Value;
+        end;
 end;
 
 procedure TModelProfissionais.SetRG_PROFIS(const Value: String);
@@ -150,7 +163,18 @@ end;
 
 procedure TModelProfissionais.SetSOBRENOME_PROFIS(const Value: String);
 begin
-  FSOBRENOME_PROFIS := Value;
+    if Length(Trim(Value)) < 3 then
+        begin
+            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                       'Sobrenome do profissional inválido, verifique!',
+                       apTitulo,
+                       MB_ICONINFORMATION);
+            Abort;
+        end
+    else
+        begin
+            FSOBRENOME_PROFIS := Value;
+        end;
 end;
 
 procedure TModelProfissionais.SetTERC_PROFIS(const Value: Boolean);

@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 18/10/2020 19:09:12
+// 24/10/2020 20:32:44
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -15,6 +15,8 @@ type
 
   TModelMetodosClient = class(TDSAdminRestClient)
   private
+    FCadastraTelefoneCommand: TDSRestCommand;
+    FCadastraEmailCommand: TDSRestCommand;
     FCarregaEmailsCommand: TDSRestCommand;
     FCarregaEmailsCommand_Cache: TDSRestCommand;
     FCarregaTelefonesCommand: TDSRestCommand;
@@ -30,6 +32,8 @@ type
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
     destructor Destroy; override;
+    function CadastraTelefone(AFone: string; AContato: string; APrefixoTabela: string; AIdRegTab: Integer; AWhatsFone: Boolean; ARestrito: Boolean; const ARequestFilter: string = ''): Integer;
+    function CadastraEmail(AEmail: string; APrefixoTabela: string; AIdRegTab: Integer; ARestrito: Boolean; const ARequestFilter: string = ''): Integer;
     function CarregaEmails(ATipoEmail: string; AIdTabEmail: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
     function CarregaEmails_Cache(ATipoEmail: string; AIdTabEmail: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function CarregaTelefones(ATipoFone: string; AIdTabFone: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
@@ -50,6 +54,26 @@ type
   end;
 
 const
+  TModelMetodos_CadastraTelefone: array [0..6] of TDSRestParameterMetaData =
+  (
+    (Name: 'AFone'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AContato'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'APrefixoTabela'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIdRegTab'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AWhatsFone'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
+    (Name: 'ARestrito'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
+    (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
+  );
+
+  TModelMetodos_CadastraEmail: array [0..4] of TDSRestParameterMetaData =
+  (
+    (Name: 'AEmail'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'APrefixoTabela'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIdRegTab'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ARestrito'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
+    (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
+  );
+
   TModelMetodos_CarregaEmails: array [0..2] of TDSRestParameterMetaData =
   (
     (Name: 'ATipoEmail'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -143,6 +167,42 @@ const
   );
 
 implementation
+
+function TModelMetodosClient.CadastraTelefone(AFone: string; AContato: string; APrefixoTabela: string; AIdRegTab: Integer; AWhatsFone: Boolean; ARestrito: Boolean; const ARequestFilter: string): Integer;
+begin
+  if FCadastraTelefoneCommand = nil then
+  begin
+    FCadastraTelefoneCommand := FConnection.CreateCommand;
+    FCadastraTelefoneCommand.RequestType := 'GET';
+    FCadastraTelefoneCommand.Text := 'TModelMetodos.CadastraTelefone';
+    FCadastraTelefoneCommand.Prepare(TModelMetodos_CadastraTelefone);
+  end;
+  FCadastraTelefoneCommand.Parameters[0].Value.SetWideString(AFone);
+  FCadastraTelefoneCommand.Parameters[1].Value.SetWideString(AContato);
+  FCadastraTelefoneCommand.Parameters[2].Value.SetWideString(APrefixoTabela);
+  FCadastraTelefoneCommand.Parameters[3].Value.SetInt32(AIdRegTab);
+  FCadastraTelefoneCommand.Parameters[4].Value.SetBoolean(AWhatsFone);
+  FCadastraTelefoneCommand.Parameters[5].Value.SetBoolean(ARestrito);
+  FCadastraTelefoneCommand.Execute(ARequestFilter);
+  Result := FCadastraTelefoneCommand.Parameters[6].Value.GetInt32;
+end;
+
+function TModelMetodosClient.CadastraEmail(AEmail: string; APrefixoTabela: string; AIdRegTab: Integer; ARestrito: Boolean; const ARequestFilter: string): Integer;
+begin
+  if FCadastraEmailCommand = nil then
+  begin
+    FCadastraEmailCommand := FConnection.CreateCommand;
+    FCadastraEmailCommand.RequestType := 'GET';
+    FCadastraEmailCommand.Text := 'TModelMetodos.CadastraEmail';
+    FCadastraEmailCommand.Prepare(TModelMetodos_CadastraEmail);
+  end;
+  FCadastraEmailCommand.Parameters[0].Value.SetWideString(AEmail);
+  FCadastraEmailCommand.Parameters[1].Value.SetWideString(APrefixoTabela);
+  FCadastraEmailCommand.Parameters[2].Value.SetInt32(AIdRegTab);
+  FCadastraEmailCommand.Parameters[3].Value.SetBoolean(ARestrito);
+  FCadastraEmailCommand.Execute(ARequestFilter);
+  Result := FCadastraEmailCommand.Parameters[4].Value.GetInt32;
+end;
 
 function TModelMetodosClient.CarregaEmails(ATipoEmail: string; AIdTabEmail: Integer; const ARequestFilter: string): TFDJSONDataSets;
 begin
@@ -396,6 +456,8 @@ end;
 
 destructor TModelMetodosClient.Destroy;
 begin
+  FCadastraTelefoneCommand.DisposeOf;
+  FCadastraEmailCommand.DisposeOf;
   FCarregaEmailsCommand.DisposeOf;
   FCarregaEmailsCommand_Cache.DisposeOf;
   FCarregaTelefonesCommand.DisposeOf;

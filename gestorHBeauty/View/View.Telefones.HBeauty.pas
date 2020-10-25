@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, View.Principal.HBeauty, FMX.TMSButton, FMX.Layouts, FMX.TMSBaseControl, FMX.TMSGridCell, FMX.TMSGridOptions,
-  FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Edit, FMX.TMSBitmap;
+  FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Edit, FMX.TMSBitmap,
+  Units.Enumerados.HBeauty, View.Loading.HBeauty;
 
 type
   TfrmCadastroTelefones = class(TForm)
@@ -22,12 +23,12 @@ type
     btnIncluir: TTMSFMXButton;
     btnSalvar: TTMSFMXButton;
     Rectangle15: TRectangle;
-    Edit12: TEdit;
+    edtTelefone: TEdit;
     Label14: TLabel;
     Rectangle2: TRectangle;
-    Edit1: TEdit;
+    edtContato: TEdit;
     Label2: TLabel;
-    WhatsApp: TCheckBox;
+    chkWhatsApp: TCheckBox;
     chkRestrito: TCheckBox;
     chkInativar: TCheckBox;
     TMSFMXImage1: TTMSFMXImage;
@@ -45,6 +46,7 @@ type
     FIdRegTab: Integer;
     FTitulo: String;
     FNome: String;
+    FStatus : TAcaoBotao;
     procedure SetIdRegTab(const Value: Integer);
     procedure SetNomeTabela(const Value: String);
     procedure SetNome(const Value: String);
@@ -69,7 +71,12 @@ uses Units.Utils.HBeauty,
      Model.Dados.Server.HBeauty,
      Model.Contatos.Servidor.HBeauty,
      Units.Consts.HBeauty,
-     Units.Utils.Dados.HBeauty;
+     Units.Utils.Dados.HBeauty,
+     Model.Telefones.HBeauty,
+     Units.Classes.HBeauty,
+     Units.Strings.HBeauty,
+     Winapi.Windows,
+     FMX.PLatForm.Win;
 
 procedure TfrmCadastroTelefones.btnAlterarClick(Sender: TObject);
 begin
@@ -95,6 +102,8 @@ end;
 procedure TfrmCadastroTelefones.btnIncluirClick(Sender: TObject);
 begin
 
+     FStatus := TAcaoBotao.abIncluir;
+     gclTelefone := TModelTelefones.Create(Self);
      ControlaBotoes(Self, False);
 
 end;
@@ -102,7 +111,44 @@ end;
 procedure TfrmCadastroTelefones.btnSalvarClick(Sender: TObject);
 begin
 
-     ControlaBotoes(Self, True);
+    if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                  apTitulo,
+                  'Confirma a inclusão deste telefone?',
+                  MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
+        begin
+            case FStatus of
+                 abIncluir : begin
+                                  try
+                                      try
+                                          gclTelefone.Telefone   := ApenasNumeros(edtTelefone.Text);
+                                          gclTelefone.Contato    := edtContato.Text;
+                                          gclTelefone.WhatsApp   := chkWhatsApp.IsChecked;
+                                          gclTelefone.Restrito   := chkRestrito.IsChecked;
+                                          gclTelefone.NomeTabela := PrefixoTabela(tcTelefone)
+                                          CadastraTelefone(gclTelefone);
+                                          MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                     'Registro salvo com sucesso!', apTitulo,
+                                                     MB_OK + MB_ICONINFORMATION);
+                                          FormShow(Self);
+                                          ControlaBotoes(Self, True);
+                                      except on E:Exception do
+                                          begin
+                                               MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                          apTitulo, pChar('Ocorreu um erro ao tentar salvar este registro, ' +
+                                                                    'verifique sua conexão com a internet e tente ' +
+                                                                    'novamente. Caso o problema persistir entre em contato ' +
+                                                                    'com a MS Software informando a mensagem abaixo!' + #13#13 +
+                                                                    'Mensagem: ' + E.Message),
+                                                          MB_OK + MB_ICONWARNING);
+                                               Abort;
+                                          end;
+                                      end;
+                                      finally
+                                          FreeAndNil(frmLoading);
+                                  end;
+                             end;
+            end;
+        end;
 
 end;
 

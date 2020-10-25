@@ -4,16 +4,35 @@ interface
 
 uses
     Controller.ClientModule.HBeauty,
-    Model.Dados.Server.HBeauty;
+    Model.Dados.Server.HBeauty,
+    Model.Telefones.HBeauty, Model.Emails.HBeauty;
 
 procedure CarregaEmails(ATipoEmail : String; AIdTabEmail : Integer);
 procedure CarregaTelefones(ATipoFone : String; AIdTabFone : Integer);
+
+function CadastraTelefone(ATelefone : TModelTelefones) : Integer;
+function CadastraEmail(AEmail : TModelEmails) : Integer;
+
 
 implementation
 
 uses
   Data.FireDACJSONReflect;
 
+function CadastraTelefone(ATelefone : TModelTelefones) : Integer;
+begin
+
+    Result := ControllerClientModule.ModelMetodosClient.CadastraTelefone(ATelefone.Telefone, ATelefone.Contato, ATelefone.NomeTabela,
+                                                                          ATelefone.IdTabela, ATelefone.WhatsApp, ATelefone.Restrito);
+
+end;
+
+function CadastraEmail(AEmail : TModelEmails) : Integer;
+begin
+
+    Result := ControllerClientModule.ModelMetodosClient.CadastraEmail(AEmail.Email, AEmail.NomeTabela, AEmail.IdTabela, AEmail.Restrito);
+
+end;
 
 procedure CarregaEmails(ATipoEmail : String; AIdTabEmail : Integer);
 var

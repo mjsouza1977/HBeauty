@@ -21,7 +21,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Size.Height = 392.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -38,7 +38,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 165.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -4098,7 +4098,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 157.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -4491,6 +4491,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           StyleLookup = 'NumberBox1Style1'
           TabOrder = 6
           Cursor = crIBeam
+          Max = 9999999.000000000000000000
           TextSettings.Font.Size = 14.000000000000000000
           TextSettings.HorzAlign = Center
           Margins.Left = 10.000000000000000000

@@ -30,7 +30,10 @@ uses
   View.Emails.HBeauty in 'View\View.Emails.HBeauty.pas' {frmCadastroEmails},
   Units.Enumerados.HBeauty in 'Units\Units.Enumerados.HBeauty.pas',
   Model.Profissionais.Servidor.HBeauty in 'Model\DadosServidor\Model.Profissionais.Servidor.HBeauty.pas',
-  Model.Contatos.Servidor.HBeauty in 'Model\DadosServidor\Model.Contatos.Servidor.HBeauty.pas';
+  Model.Contatos.Servidor.HBeauty in 'Model\DadosServidor\Model.Contatos.Servidor.HBeauty.pas',
+  Model.Telefones.HBeauty in 'Model\Model.Telefones.HBeauty.pas',
+  Model.Emails.HBeauty in 'Model\Model.Emails.HBeauty.pas',
+  View.Loading.HBeauty in 'View\View.Loading.HBeauty.pas' {frmLoading};
 
 {$R *.res}
 

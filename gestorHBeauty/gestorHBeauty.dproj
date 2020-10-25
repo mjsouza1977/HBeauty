@@ -240,6 +240,12 @@
         <DCCReference Include="Units\Units.Enumerados.HBeauty.pas"/>
         <DCCReference Include="Model\DadosServidor\Model.Profissionais.Servidor.HBeauty.pas"/>
         <DCCReference Include="Model\DadosServidor\Model.Contatos.Servidor.HBeauty.pas"/>
+        <DCCReference Include="Model\Model.Telefones.HBeauty.pas"/>
+        <DCCReference Include="Model\Model.Emails.HBeauty.pas"/>
+        <DCCReference Include="View\View.Loading.HBeauty.pas">
+            <Form>frmLoading</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <RcItem Include="..\Imagens\Icones\Check.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>Check</ResourceId>
@@ -276,6 +282,20 @@
                 <Source>
                     <Source Name="MainSource">gestorHBeauty.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxDB26.bpl">FastReport 6.0 DB Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxDBX26.bpl">FastReport 6.0 DBX Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxe26.bpl">FastReport 6.0 Exports</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxIBX26.bpl">FastReport 6.0 IBX Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxIntIO26.bpl">FastReport 6.0 Internet transports</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxIntIOIndy26.bpl">FastReport 6.0 Internet transports</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxTee26.bpl">FastReport 6.0 Tee Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfs26.bpl">FastScript 1.9 Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfsADO26.bpl">FastScript 1.9 ADO Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfsDB26.bpl">FastScript 1.9 DB Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfsIBX26.bpl">FastScript 1.9 IBX Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfsTee26.bpl">FastScript 1.9 Tee Components</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
                 <DeployFile LocalName="bin\gestorHBeauty.exe" Configuration="Debug" Class="ProjectOutput">

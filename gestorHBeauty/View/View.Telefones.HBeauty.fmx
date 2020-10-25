@@ -181,7 +181,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
     Margins.Left = 5.000000000000000000
     TabOrder = 1
     Size.Width = 755.000000000000000000
-    Size.Height = 317.000000000000000000
+    Size.Height = 200.000000000000000000
     Size.PlatformDefault = False
     DefaultRowHeight = 20.000000000000000000
     DefaultColumnWidth = 50.000000000000000000
@@ -253,11 +253,10 @@ object frmCadastroTelefones: TfrmCadastroTelefones
   end
   object lytCadastro: TLayout
     Align = Bottom
-    Position.Y = 284.000000000000000000
-    Size.Width = 762.000000000000000000
+    Position.Y = 285.000000000000000000
+    Size.Width = 760.000000000000000000
     Size.Height = 117.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 5
     object Rectangle15: TRectangle
       Fill.Color = claWhite
@@ -273,7 +272,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
       Stroke.Thickness = 2.000000000000000000
       XRadius = 5.000000000000000000
       YRadius = 5.000000000000000000
-      object Edit12: TEdit
+      object edtTelefone: TEdit
         Touch.InteractiveGestures = [LongTap, DoubleTap]
         Align = Client
         StyleLookup = 'transparentedit'
@@ -315,7 +314,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
       Stroke.Thickness = 2.000000000000000000
       XRadius = 5.000000000000000000
       YRadius = 5.000000000000000000
-      object Edit1: TEdit
+      object edtContato: TEdit
         Touch.InteractiveGestures = [LongTap, DoubleTap]
         Align = Client
         StyleLookup = 'transparentedit'
@@ -343,7 +342,7 @@ object frmCadastroTelefones: TfrmCadastroTelefones
         TabOrder = 1
       end
     end
-    object WhatsApp: TCheckBox
+    object chkWhatsApp: TCheckBox
       StyledSettings = [Family, FontColor]
       Position.X = 600.000000000000000000
       Position.Y = 28.000000000000000000

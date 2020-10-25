@@ -5,6 +5,7 @@ interface
 uses
   System.UITypes;
 
+
 const
 
      AurlXMLGetIdCidade    : String = 'http://servicos.cptec.inpe.br/XML/listaCidades?city=%s';
@@ -23,9 +24,16 @@ const
      ASizeColTelefones : Array [0..4] of Single  = (70, 150, 150, 50, 50);
 
      //Status da ação do form
-     stInclusao  : String = 'Inclusao';
-     stAlteracao : String = 'Alteracao';
-     stNula      : String = 'Nulo';
+     tpInicia    : String = 'Inicia';
+     tpTermina   : String = 'Termina';
+     tpContenha  : String = 'Contenha';
+     tpIgual     : String = 'Igual';
+
+     apTitulo    : pWideChar = 'HBeauty';
+
+     sfIncluir   : Integer = 0;
+     sfAlterar   : Integer = 1;
+     sfExcluir   : Integer = 2;
 
 var
    ctrCOR_BOTOES_POSITIVO  : TAlphaColor;

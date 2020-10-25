@@ -24,6 +24,8 @@ type
     function ValidaLogin(Usuario, Senha : String) : TFDJSONDataSets;
     function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
                                   ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
+    function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
+                                  ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Boolean;
 
   end;
 {$METHODINFO OFF}
@@ -43,6 +45,13 @@ uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contat
 function TModelMetodos.ValidaLogin(Usuario, Senha : String) : TFDJSONDataSets;
 begin
     Result := Model.Metodos.Usuarios.ServerHBeauty.ValidaLogin(Usuario, Senha);
+end;
+
+function TModelMetodos.AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog: Integer; ACodigo, ANome, ASobreNome, ACPF, ARG, ALogradouro,
+  AComplemento, ABairro, ACidade, AUF, ACep: String; ASalario, AComissao: Currency): Boolean;
+begin
+     Result := Model.Metodos.Profissionais.ServerHBeauty.AtualizaProfissional(ATerceirizado, AIdProfiss, AIdCargo, AIdEmpTer, ANrLog, ACodigo, ANome, ASobreNome,
+                                                                              ACPF, ARG, ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep, ASalario, AComissao);
 end;
 
 function TModelMetodos.CadastraEmail(AEmail, APrefixoTabela: String; AIdRegTab: Integer; ARestrito: Boolean): Integer;

@@ -10,9 +10,9 @@ uses
 
 
 function CarregaEmails(ATipoEmail : String; AIdTabEmail : Integer) : TFDJSONDataSets;
-function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
-
 function CarregaTelefones(ATipoFone : String; AIdTabFone : Integer) : TFDJSONDataSets;
+
+function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
 function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : Integer; AWhatsFone, ARestrito : Boolean) : Integer;
 
 
@@ -82,7 +82,7 @@ begin
     try
         ControllerConexao.qryQuery.Close;
         ControllerConexao.qryQuery.SQL.Clear;
-        ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBTELEFONE');
+        ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBTELEFONES');
         ControllerConexao.qryQuery.SQL.Add('WHERE NOMETAB_FONE = ' + QuotedStr(ATipoFone));
         ControllerConexao.qryQuery.SQL.Add('AND IDTAB_FONE = ' + AIdTabFone.ToString);
         Result := TFDJSONDataSets.Create;

@@ -9,10 +9,13 @@ function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer) 
 function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
 
+function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
+                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Boolean;
+
 implementation
 
 uses
-  System.SysUtils, Units.Utils.ServerBeauty;
+  System.SysUtils, Units.Utils.ServerBeauty, Vcl.Dialogs;
 
 function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
 var
@@ -54,6 +57,66 @@ begin
      end;
 
 end;
+
+function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
+                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Boolean;
+begin
+
+    try
+        try
+            ControllerConexao.qryQuery.Close;
+            ControllerConexao.qryQuery.SQL.Clear;
+            ControllerConexao.qryQuery.SQL.Add('UPDATE HBPROFISSIONAIS SET');
+            ControllerConexao.qryQuery.SQL.Add('IDCARGO_PROFIS     = :IDCARGO_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('IDEMPTER_PROFIS    = :IDEMPTER_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('CODIGO_PROFIS      = :CODIGO_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('NOME_PROFIS        = :NOME_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('SOBRENOME_PROFIS   = :SOBRENOME_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('CPF_PROFIS         = :CPF_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('RG_PROFIS          = :RG_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('TERC_PROFIS        = :TERC_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('SALARIO_PROFIS     = :SALARIO_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('COMISSAO_PROFIS    = :COMISSAO_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('LOGRADOURO_PROFIS  = :LOGRADOURO_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('NRLOG_PROFIS       = :NRLOG_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('COMPLLOG_PROFIS    = :COMPLLOG_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('BAIRROLOG_PROFIS   = :BAIRROLOG_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('CIDADELOG_PROFIS   = :CIDADELOG_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('UFLOG_PROFIS       = :UFLOG_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('CEP_PROFIS         = :CEP_PROFIS');
+            ControllerConexao.qryQuery.SQL.Add('WHERE ID_PROFIS    = :ID_PROFIS');
+
+            ControllerConexao.qryQuery.ParamByName('IDCARGO_PROFIS'   ).AsInteger  := AIdCargo;
+            ControllerConexao.qryQuery.ParamByName('IDEMPTER_PROFIS'  ).AsInteger  := AIdEmpTer;
+            ControllerConexao.qryQuery.ParamByName('CODIGO_PROFIS'    ).AsString   := ACodigo;
+            ControllerConexao.qryQuery.ParamByName('NOME_PROFIS'      ).AsString   := ANome;
+            ControllerConexao.qryQuery.ParamByName('SOBRENOME_PROFIS' ).AsString   := ASobreNome;
+            ControllerConexao.qryQuery.ParamByName('CPF_PROFIS'       ).AsString   := ACPF;
+            ControllerConexao.qryQuery.ParamByName('RG_PROFIS'        ).AsString   := ARG;
+            ControllerConexao.qryQuery.ParamByName('TERC_PROFIS'      ).AsBoolean  := ATerceirizado;
+            ControllerConexao.qryQuery.ParamByName('SALARIO_PROFIS'   ).AsCurrency := ASalario;
+            ControllerConexao.qryQuery.ParamByName('COMISSAO_PROFIS'  ).AsCurrency := AComissao;
+            ControllerConexao.qryQuery.ParamByName('LOGRADOURO_PROFIS').AsString   := ALogradouro;
+            ControllerConexao.qryQuery.ParamByName('NRLOG_PROFIS'     ).AsInteger  := ANrLog;
+            ControllerConexao.qryQuery.ParamByName('COMPLLOG_PROFIS'  ).AsString   := AComplemento;
+            ControllerConexao.qryQuery.ParamByName('BAIRROLOG_PROFIS' ).AsString   := ABairro;
+            ControllerConexao.qryQuery.ParamByName('CIDADELOG_PROFIS' ).AsString   := ACidade;
+            ControllerConexao.qryQuery.ParamByName('UFLOG_PROFIS'     ).AsString   := AUF;
+            ControllerConexao.qryQuery.ParamByName('CEP_PROFIS'       ).AsString   := ACep;
+            ControllerConexao.qryQuery.ParamByName('ID_PROFIS'        ).AsInteger  := AIdProfiss;
+
+            ControllerConexao.qryQuery.ExecSQL;
+            Result := True;
+
+        except
+            Result := False;
+        end;
+    finally
+        ControllerConexao.qryQuery.Close;
+    end;
+end;
+
+
 
 function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;

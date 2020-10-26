@@ -461,7 +461,7 @@ begin
                          'Para cadastrar os telefones é necessário primeiro salvar o profissional'+#13#13+
                          'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
-                    btnSalvarClick(Self);
+                    FIdSelecionado := CadastraProfissional(gclProfissional);
 
                     if FIdSelecionado <> 0 then
                         begin
@@ -470,7 +470,6 @@ begin
                             frmCadastroContatos.IdRegTab   := FIdSelecionado;
                             frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
                             frmCadastroContatos.Titulo     := 'Profissional';
-                            frmCadastroContatos.TituloForm := 'Cadastro de Telefones';
                             frmCadastroContatos.ShowModal;
                         end;
                 end;
@@ -483,7 +482,6 @@ begin
             frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
             frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
             frmCadastroContatos.Titulo     := 'Profissional';
-            frmCadastroContatos.TituloForm := 'Cadastro de E-Mails';
             frmCadastroContatos.ShowModal;
         end;
 
@@ -507,10 +505,23 @@ begin
                            frmCadastroContatos.TipoForm   := tfEmail;
                            frmCadastroContatos.IdRegTab   := FIdSelecionado;
                            frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
+                           frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
+                           frmCadastroContatos.Titulo     := 'Profissional';
                            frmCadastroContatos.ShowModal;
                        end;
                 end;
+        end
+    else
+        begin
+            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+            frmCadastroContatos.TipoForm   := tfEmail;
+            frmCadastroContatos.IdRegTab   := FIdSelecionado;
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
+            frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
+            frmCadastroContatos.Titulo     := 'Profissional';
+            frmCadastroContatos.ShowModal;
         end;
+
 end;
 
 end.

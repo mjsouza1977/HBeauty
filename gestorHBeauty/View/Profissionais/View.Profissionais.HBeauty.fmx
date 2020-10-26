@@ -312,7 +312,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 1
+        TabOrder = 2
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -2747,7 +2747,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             Options.IO.XMLEncoding = 'ISO-8859-1'
             Options.Mouse.TouchScrollingSensitivity = 0.100000001490116100
             Options.Printing.PageNumberFormat = '%g'
-            Version = '2.3.2.7'
+            Version = '2.3.2.9'
             Fill.Kind = Solid
             Stroke.Kind = Solid
             StrokeThickness = 0.000000000000000000

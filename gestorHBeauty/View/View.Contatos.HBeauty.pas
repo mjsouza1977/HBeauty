@@ -15,8 +15,8 @@ type
     recRodapeTelefones: TRectangle;
     lblTitulo: TLabel;
     lblNome: TLabel;
-    grdListaTelefone: TTMSFMXGrid;
-    lytCadastro: TLayout;
+    grdListaContatos: TTMSFMXGrid;
+    lytCadastroTelefone: TLayout;
     btnFechar: TTMSFMXButton;
     btnCancelar: TTMSFMXButton;
     btnAlterar: TTMSFMXButton;
@@ -34,6 +34,12 @@ type
     imgIconeForm: TTMSFMXImage;
     lblTituloForm: TLabel;
     Line1: TLine;
+    lytCadastroEmail: TLayout;
+    Rectangle3: TRectangle;
+    edtEmail: TEdit;
+    Label3: TLabel;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
@@ -49,21 +55,18 @@ type
     FNome: String;
     FStatus : TAcaoBotao;
     FTipoForm: TTipoForm;
-    FTituloForm: String;
     procedure SetIdRegTab(const Value: Integer);
     procedure SetNomeTabela(const Value: String);
     procedure SetNome(const Value: String);
     procedure SetTitulo(const Value: String);
     procedure SetTipoForm(const Value: TTipoForm);
-    procedure SetTituloForm(const Value: String);
     { Private declarations }
   public
-     property NomeTabela : String    read FNomeTabela write SetNomeTabela;
-     property IdRegTab   : Integer   read FIdRegTab   write SetIdRegTab;
-     property Titulo     : String    read FTitulo     write SetTitulo;
-     property Nome       : String    read FNome       write SetNome;
-     property TituloForm : String    read FTituloForm write SetTituloForm;
-     property TipoForm   : TTipoForm read FTipoForm   write SetTipoForm;
+    property NomeTabela : String    read FNomeTabela write SetNomeTabela;
+    property IdRegTab   : Integer   read FIdRegTab   write SetIdRegTab;
+    property Titulo     : String    read FTitulo     write SetTitulo;
+    property Nome       : String    read FNome       write SetNome;
+    property TipoForm   : TTipoForm read FTipoForm   write SetTipoForm;
   end;
 
 
@@ -171,9 +174,11 @@ begin
      case TipoForm of
          tfEmail    : begin
                           imgIconeForm.BitmapName := 'Email';
+                          lblTituloForm.Text      := 'Cadastro de E-Mails';
                       end;
          tfTelefone : begin
                           imgIconeForm.BitmapName := 'Telefone';
+                          lblTituloForm.Text      := 'Cadastro de Telefones';
                       end;
      end;
 
@@ -184,31 +189,53 @@ var
 AIndex : Integer;
 S : String;
 begin
-     CarregaTelefones(FNomeTabela, FIdRegTab);
-     CarregaGrid(ModelConexaoDados.memContatos,grdListaTelefone,AFieldsTelefones, ACaptionTelefones, ASizeColTelefones);
-     for AIndex := 1 to grdListaTelefone.RowCount - 1 do
-         begin
-             if Trim(ExtraiTextoGrid(grdListaTelefone.Cells[3, AIndex])) = 'F' then
-                 begin
-                      grdListaTelefone.Cells[3, AIndex] := '';
-                      grdListaTelefone.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Error.png');
-                 end
-             else
-                 begin
-                      grdListaTelefone.Cells[3, AIndex] := '';
-                      grdListaTelefone.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\zap.png');
-                 end;
-             if Trim(ExtraiTextoGrid(grdListaTelefone.Cells[4, AIndex])) = 'F' then
-                 begin
-                      grdListaTelefone.Cells[4, AIndex] := '';
-                      grdListaTelefone.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Error.png');
-                 end
-             else
-                 begin
-                      grdListaTelefone.Cells[4, AIndex] := '';
-                      grdListaTelefone.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Check.png');
-                 end;
-         end;
+
+     case FTipoForm of
+        tfTelefone : begin
+                         CarregaTelefones(FNomeTabela, FIdRegTab);
+                         CarregaGrid(ModelConexaoDados.memContatos,grdListaContatos,AFieldsTelefones, ACaptionTelefones, ASizeColTelefones);
+                         for AIndex := 1 to grdListaContatos.RowCount - 1 do
+                             begin
+                                 if Trim(ExtraiTextoGrid(grdListaContatos.Cells[3, AIndex])) = 'F' then
+                                     begin
+                                          grdListaContatos.Cells[3, AIndex] := '';
+                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Error.png');
+                                     end
+                                 else
+                                     begin
+                                          grdListaContatos.Cells[3, AIndex] := '';
+                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\zap.png');
+                                     end;
+                                 if Trim(ExtraiTextoGrid(grdListaContatos.Cells[4, AIndex])) = 'F' then
+                                     begin
+                                          grdListaContatos.Cells[4, AIndex] := '';
+                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Error.png');
+                                     end
+                                 else
+                                     begin
+                                          grdListaContatos.Cells[4, AIndex] := '';
+                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Check.png');
+                                     end;
+                             end;
+                     end;
+           tfEmail : begin
+                        CarregaEmails(FNomeTabela, FIdRegTab);
+                        CarregaGrid(ModelConexaoDados.memContatos, grdListaContatos, AFieldsEmails, ACaptionEmails, ASizeColEmails);
+                        for AIndex := 1 to grdListaContatos.RowCount - 1 do
+                             begin
+                                 if Trim(ExtraiTextoGrid(grdListaContatos.Cells[2, AIndex])) = 'F' then
+                                     begin
+                                          grdListaContatos.Cells[3, AIndex] := '';
+                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Error.png');
+                                     end
+                                 else
+                                     begin
+                                          grdListaContatos.Cells[3, AIndex] := '';
+                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Check.png');
+                                     end;
+                             end;
+                     end;
+     end;
 end;
 
 procedure TfrmCadastroContatos.SetIdRegTab(const Value: Integer);
@@ -238,10 +265,5 @@ begin
   lblTitulo.Text := FTitulo;
 end;
 
-procedure TfrmCadastroContatos.SetTituloForm(const Value: String);
-begin
-  FTituloForm := Value;
-  lblTituloForm.Text := FTituloForm;
-end;
 
 end.

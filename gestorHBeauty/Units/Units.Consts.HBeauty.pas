@@ -23,6 +23,11 @@ const
      ACaptionTelefones : Array [0..4] of String  = ('Código','Telefone','Contato','ZAP','Restrito');
      ASizeColTelefones : Array [0..4] of Single  = (70, 150, 150, 50, 50);
 
+     //grid do Form de cadastro de telefones
+     AFieldsEmails  : Array [0..2] of  String = ('ID_EMAIL','EMAIL_EMAIL','RESTRITO_EMAIL');
+     ACaptionEmails : Array [0..2] of String  = ('Código','E-Mail','Restrito');
+     ASizeColEmails : Array [0..2] of Single  = (70, 200, 50);
+
      //Status da ação do form
      tpInicia    : String = 'Inicia';
      tpTermina   : String = 'Termina';

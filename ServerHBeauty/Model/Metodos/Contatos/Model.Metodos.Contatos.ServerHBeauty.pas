@@ -15,10 +15,38 @@ function CarregaTelefones(ATipoFone : String; AIdTabFone : Integer) : TFDJSONDat
 function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
 function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : Integer; AWhatsFone, ARestrito : Boolean) : Integer;
 
+function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : Boolean;
+function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito : Boolean) : Boolean;
 
 implementation
 
 uses Units.Utils.ServerBeauty;
+
+function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : Boolean;
+begin
+  try
+     try
+         ControllerConexao.qryQuery.Close;
+         ControllerConexao.qryQuery.SQL.Clear;
+         ControllerConexao.qryQuery.SQL.Add('UPDATE HBEMAILS SET');
+         ControllerConexao.qryQuery.SQL.Add('EMAIL_EMAIL    = :EMAIL_EMAIL,');
+         ControllerConexao.qryQuery.SQL.Add('RESTRITO_EMAIL = :RESTRITO_EMAIL');
+         ControllerConexao.qryQuery.SQL.Add('WHERE ID_EMAIL = :ID_EMAIL');
+
+         ControllerConexao.qryQuery.ParamByName('EMAIL_EMAIL'   ).AsString  := AEmail;
+         ControllerConexao.qryQuery.ParamByName('RESTRITO_EMAIL').AsString  := BoolToStrValue(ARestrito,'F','T');
+         ControllerConexao.qryQuery.ParamByName('ID_EMAIL'      ).AsInteger := AIdEmail;
+         ControllerConexao.qryQuery.ExecSQL;
+
+         Result := True;
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
+  except
+        Result := False;
+  end;
+
+end;
 
 function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
 begin
@@ -46,6 +74,35 @@ begin
   end;
 end;
 
+function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito : Boolean) : Boolean;
+begin
+  try
+     try
+         ControllerConexao.qryQuery.Close;
+         ControllerConexao.qryQuery.SQL.Clear;
+         ControllerConexao.qryQuery.SQL.Add('UPDATE HBTELEFONES SET');
+         ControllerConexao.qryQuery.SQL.Add('NR_FONE       = :NR_FONE,');
+         ControllerConexao.qryQuery.SQL.Add('CONTATO_FONE  = :CONTATO_FONE,');
+         ControllerConexao.qryQuery.SQL.Add('WHATS_FONE    = :WHATS_FONE,');
+         ControllerConexao.qryQuery.SQL.Add('RESTRITO_FONE = :RESTRITO_FONE');
+         ControllerConexao.qryQuery.SQL.Add('WHERE ID_FONE = :ID_FONE');
+
+         ControllerConexao.qryQuery.ParamByName('NR_FONE'      ).AsString  := AFone;
+         ControllerConexao.qryQuery.ParamByName('CONTATO_FONE' ).AsString  := AContato;
+         ControllerConexao.qryQuery.ParamByName('WHATS_FONE'   ).AsString  := BoolToStrValue(AWhatsFone,'F','T');
+         ControllerConexao.qryQuery.ParamByName('RESTRITO_FONE').AsString  := BoolToStrValue(ARestrito,'F','T');
+         ControllerConexao.qryQuery.ParamByName('ID_FONE'      ).AsInteger := AIdTelefone;
+         ControllerConexao.qryQuery.Open;
+
+         Result := True;
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
+  except
+        Result := False;
+  end;
+
+end;
 
 function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : Integer; AWhatsFone, ARestrito : Boolean) : Integer;
 begin

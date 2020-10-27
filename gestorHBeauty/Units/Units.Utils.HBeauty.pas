@@ -142,11 +142,6 @@ begin
          except
 
          end;
-         try
-             TLayout(AForm.FindComponent('lytCadastro')).Visible    := not AOpcao;
-         except
-
-         end;
 
 end;
 

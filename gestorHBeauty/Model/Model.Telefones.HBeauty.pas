@@ -17,6 +17,7 @@ type
     FInativo: Boolean;
     FTelefone: String;
     FFormulario : TForm;
+    FIdTelefone: Integer;
     procedure SetContato(const Value: String);
     procedure SetIdTabela(const Value: Integer);
     procedure SetInativo(const Value: Boolean);
@@ -24,6 +25,7 @@ type
     procedure SetRestrito(const Value: Boolean);
     procedure SetTelefone(const Value: String);
     procedure SetWhatsApp(const Value: Boolean);
+    procedure SetIdTelefone(const Value: Integer);
 
     public
 
@@ -34,6 +36,7 @@ type
         property IdTabela   : Integer read FIdTabela   write SetIdTabela;
         property WhatsApp   : Boolean read FWhatsApp   write SetWhatsApp;
         property Restrito   : Boolean read FRestrito   write SetRestrito;
+        property IdTelefone : Integer read FIdTelefone write SetIdTelefone;
 
         constructor create(AForm : TForm);
 
@@ -70,6 +73,11 @@ end;
 procedure TModelTelefones.SetIdTabela(const Value: Integer);
 begin
   FIdTabela := Value;
+end;
+
+procedure TModelTelefones.SetIdTelefone(const Value: Integer);
+begin
+  FIdTelefone := Value;
 end;
 
 procedure TModelTelefones.SetInativo(const Value: Boolean);

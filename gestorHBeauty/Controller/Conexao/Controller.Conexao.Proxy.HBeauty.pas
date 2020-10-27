@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 25/10/2020 15:11:13
+// 26/10/2020 21:48:06
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -15,6 +15,8 @@ type
 
   TModelMetodosClient = class(TDSAdminRestClient)
   private
+    FAtualizaEmailCommand: TDSRestCommand;
+    FAtualizaTelefoneCommand: TDSRestCommand;
     FCadastraTelefoneCommand: TDSRestCommand;
     FCadastraEmailCommand: TDSRestCommand;
     FCarregaEmailsCommand: TDSRestCommand;
@@ -33,6 +35,8 @@ type
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
     destructor Destroy; override;
+    function AtualizaEmail(AEmail: string; AIdEmail: Integer; ARestrito: Boolean; const ARequestFilter: string = ''): Boolean;
+    function AtualizaTelefone(AFone: string; AContato: string; AIdTelefone: Integer; AWhatsFone: Boolean; ARestrito: Boolean; const ARequestFilter: string = ''): Boolean;
     function CadastraTelefone(AFone: string; AContato: string; APrefixoTabela: string; AIdRegTab: Integer; AWhatsFone: Boolean; ARestrito: Boolean; const ARequestFilter: string = ''): Integer;
     function CadastraEmail(AEmail: string; APrefixoTabela: string; AIdRegTab: Integer; ARestrito: Boolean; const ARequestFilter: string = ''): Integer;
     function CarregaEmails(ATipoEmail: string; AIdTabEmail: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
@@ -56,6 +60,24 @@ type
   end;
 
 const
+  TModelMetodos_AtualizaEmail: array [0..3] of TDSRestParameterMetaData =
+  (
+    (Name: 'AEmail'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIdEmail'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ARestrito'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
+    (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
+  );
+
+  TModelMetodos_AtualizaTelefone: array [0..5] of TDSRestParameterMetaData =
+  (
+    (Name: 'AFone'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AContato'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIdTelefone'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AWhatsFone'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
+    (Name: 'ARestrito'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
+    (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
+  );
+
   TModelMetodos_CadastraTelefone: array [0..6] of TDSRestParameterMetaData =
   (
     (Name: 'AFone'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -192,6 +214,40 @@ const
   );
 
 implementation
+
+function TModelMetodosClient.AtualizaEmail(AEmail: string; AIdEmail: Integer; ARestrito: Boolean; const ARequestFilter: string): Boolean;
+begin
+  if FAtualizaEmailCommand = nil then
+  begin
+    FAtualizaEmailCommand := FConnection.CreateCommand;
+    FAtualizaEmailCommand.RequestType := 'GET';
+    FAtualizaEmailCommand.Text := 'TModelMetodos.AtualizaEmail';
+    FAtualizaEmailCommand.Prepare(TModelMetodos_AtualizaEmail);
+  end;
+  FAtualizaEmailCommand.Parameters[0].Value.SetWideString(AEmail);
+  FAtualizaEmailCommand.Parameters[1].Value.SetInt32(AIdEmail);
+  FAtualizaEmailCommand.Parameters[2].Value.SetBoolean(ARestrito);
+  FAtualizaEmailCommand.Execute(ARequestFilter);
+  Result := FAtualizaEmailCommand.Parameters[3].Value.GetBoolean;
+end;
+
+function TModelMetodosClient.AtualizaTelefone(AFone: string; AContato: string; AIdTelefone: Integer; AWhatsFone: Boolean; ARestrito: Boolean; const ARequestFilter: string): Boolean;
+begin
+  if FAtualizaTelefoneCommand = nil then
+  begin
+    FAtualizaTelefoneCommand := FConnection.CreateCommand;
+    FAtualizaTelefoneCommand.RequestType := 'GET';
+    FAtualizaTelefoneCommand.Text := 'TModelMetodos.AtualizaTelefone';
+    FAtualizaTelefoneCommand.Prepare(TModelMetodos_AtualizaTelefone);
+  end;
+  FAtualizaTelefoneCommand.Parameters[0].Value.SetWideString(AFone);
+  FAtualizaTelefoneCommand.Parameters[1].Value.SetWideString(AContato);
+  FAtualizaTelefoneCommand.Parameters[2].Value.SetInt32(AIdTelefone);
+  FAtualizaTelefoneCommand.Parameters[3].Value.SetBoolean(AWhatsFone);
+  FAtualizaTelefoneCommand.Parameters[4].Value.SetBoolean(ARestrito);
+  FAtualizaTelefoneCommand.Execute(ARequestFilter);
+  Result := FAtualizaTelefoneCommand.Parameters[5].Value.GetBoolean;
+end;
 
 function TModelMetodosClient.CadastraTelefone(AFone: string; AContato: string; APrefixoTabela: string; AIdRegTab: Integer; AWhatsFone: Boolean; ARestrito: Boolean; const ARequestFilter: string): Integer;
 begin
@@ -512,6 +568,8 @@ end;
 
 destructor TModelMetodosClient.Destroy;
 begin
+  FAtualizaEmailCommand.DisposeOf;
+  FAtualizaTelefoneCommand.DisposeOf;
   FCadastraTelefoneCommand.DisposeOf;
   FCadastraEmailCommand.DisposeOf;
   FCarregaEmailsCommand.DisposeOf;

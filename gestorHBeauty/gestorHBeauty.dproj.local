@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2020/09/27 18:32:13.000.844,D:\Dropbox\HBeauty\gestorHBeauty\View\View.Principal.HBeauty.fmx=C:\Users\Souza\Documents\Embarcadero\Studio\Projects\Unit1.fmx</Transaction>
-    <Transaction>2020/09/27 18:32:30.000.157,D:\Dropbox\HBeauty\gestorHBeauty\gestorHBeauty.dproj=C:\Users\Souza\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>2020/09/27 19:07:01.000.807,D:\Dropbox\HBeauty\gestorHBeauty\Unit1.pas=D:\Dropbox\HBeauty\gestorHBeauty\Controller\Controller.PrevisaoTempo.HBeauty.pas</Transaction>
-    <Transaction>2020/09/27 20:21:18.000.765,D:\Dropbox\HBeauty\gestorHBeauty\Unit1.pas=D:\Dropbox\HBeauty\gestorHBeauty\Controller\Controller.Manipula.XML.HBeauty.pas</Transaction>
-    <Transaction>2020/09/27 20:33:24.000.881,D:\Dropbox\HBeauty\gestorHBeauty\Unit1.pas=D:\Dropbox\HBeauty\gestorHBeauty\Controller\Controller.Consts.HBeauty.pas</Transaction>
-    <Transaction>2020/09/30 21:30:04.000.044,D:\Dropbox\HBeauty\gestorHBeauty\View\View.Login.HBeauty.fmx=D:\Dropbox\HBeauty\gestorHBeauty\Unit2.fmx</Transaction>
-    <Transaction>2020/09/30 21:42:38.000.422,D:\Dropbox\HBeauty\gestorHBeauty\Model\Conexao\Model.Conexao.FireDac.dfm=D:\Dropbox\HBeauty\gestorHBeauty\Unit1.dfm</Transaction>
-    <Transaction>2020/09/30 21:53:46.000.803,D:\Dropbox\HBeauty\gestorHBeauty\Model\Model.Dados.HBeauty.dfm=D:\Dropbox\HBeauty\gestorHBeauty\Unit1.dfm</Transaction>
-    <Transaction>2020/09/30 21:56:46.000.252,D:\Dropbox\HBeauty\gestorHBeauty\Model\Conexao\Model.Conexao.HBeauty.dfm=D:\Dropbox\HBeauty\gestorHBeauty\Model\Conexao\Model.Conexao.FireDac.dfm</Transaction>
-    <Transaction>2020/09/30 22:01:03.000.261,D:\Dropbox\HBeauty\gestorHBeauty\Model\Model.Dados.Server.HBeauty.dfm=D:\Dropbox\HBeauty\gestorHBeauty\Model\Model.Conexao.HBeauty.dfm</Transaction>
-    <Transaction>2020/10/04 08:56:47.000.019,E:\Projetos\HBeauty\trunk\gestorHBeauty\Controller\Conexao\Controller.ClientModule.HBeauty.dfm=E:\Projetos\HBeauty\trunk\gestorHBeauty\ClientModuleUnit1.dfm</Transaction>
-    <Transaction>2020/10/04 09:43:35.000.345,E:\Projetos\HBeauty\trunk\gestorHBeauty\Controller\Conexao\Controller.Dados.HBeauty.dfm=E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.dfm</Transaction>
-    <Transaction>2020/10/10 14:44:59.000.778,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Profissionais.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Base.HBeauty.fmx</Transaction>
-    <Transaction>2020/10/10 14:46:00.000.102,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Base.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Base.Gerenciador.HBeauty.fmx</Transaction>
-    <Transaction>2020/10/10 14:46:39.000.759,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Base.Gerenciador.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Profissionais.HBeauty.fmx</Transaction>
-    <Transaction>2020/10/10 19:08:22.000.017,E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Profissionais.HBeauty.fmx</Transaction>
-    <Transaction>2020/10/10 19:09:05.000.553,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Base.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\Base\View.Gerenciador.Base.HBeauty.fmx</Transaction>
-    <Transaction>2020/10/10 19:14:49.000.632,E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\Profissionais\View.Profissionais.HBeauty.fmx</Transaction>
-    <Transaction>2020/10/11 20:07:47.000.077,E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Telefones.HBeauty.fmx</Transaction>
-    <Transaction>2020/10/11 20:49:10.000.481,E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Emails.HBeauty.fmx</Transaction>
-    <Transaction>2020/10/24 21:26:12.000.551,E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Loading.HBeauty.fmx</Transaction>
-    <Transaction>2020/10/25 19:34:26.469,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Contatos.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Telefones.HBeauty.fmx</Transaction>
+    <Transaction>2020/09/27 18:32:13.000.844,C:\Users\Souza\Documents\Embarcadero\Studio\Projects\Unit1.fmx=D:\Dropbox\HBeauty\gestorHBeauty\View\View.Principal.HBeauty.fmx</Transaction>
+    <Transaction>2020/09/27 18:32:30.000.157,C:\Users\Souza\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\Dropbox\HBeauty\gestorHBeauty\gestorHBeauty.dproj</Transaction>
+    <Transaction>2020/09/27 19:07:01.000.807,D:\Dropbox\HBeauty\gestorHBeauty\Controller\Controller.PrevisaoTempo.HBeauty.pas=D:\Dropbox\HBeauty\gestorHBeauty\Unit1.pas</Transaction>
+    <Transaction>2020/09/27 20:21:18.000.765,D:\Dropbox\HBeauty\gestorHBeauty\Controller\Controller.Manipula.XML.HBeauty.pas=D:\Dropbox\HBeauty\gestorHBeauty\Unit1.pas</Transaction>
+    <Transaction>2020/09/27 20:33:24.000.881,D:\Dropbox\HBeauty\gestorHBeauty\Controller\Controller.Consts.HBeauty.pas=D:\Dropbox\HBeauty\gestorHBeauty\Unit1.pas</Transaction>
+    <Transaction>2020/09/30 21:30:04.000.044,D:\Dropbox\HBeauty\gestorHBeauty\Unit2.fmx=D:\Dropbox\HBeauty\gestorHBeauty\View\View.Login.HBeauty.fmx</Transaction>
+    <Transaction>2020/09/30 21:42:38.000.422,D:\Dropbox\HBeauty\gestorHBeauty\Unit1.dfm=D:\Dropbox\HBeauty\gestorHBeauty\Model\Conexao\Model.Conexao.FireDac.dfm</Transaction>
+    <Transaction>2020/09/30 21:53:46.000.803,D:\Dropbox\HBeauty\gestorHBeauty\Unit1.dfm=D:\Dropbox\HBeauty\gestorHBeauty\Model\Model.Dados.HBeauty.dfm</Transaction>
+    <Transaction>2020/09/30 21:56:46.000.252,D:\Dropbox\HBeauty\gestorHBeauty\Model\Conexao\Model.Conexao.FireDac.dfm=D:\Dropbox\HBeauty\gestorHBeauty\Model\Conexao\Model.Conexao.HBeauty.dfm</Transaction>
+    <Transaction>2020/09/30 22:01:03.000.261,D:\Dropbox\HBeauty\gestorHBeauty\Model\Model.Conexao.HBeauty.dfm=D:\Dropbox\HBeauty\gestorHBeauty\Model\Model.Dados.Server.HBeauty.dfm</Transaction>
+    <Transaction>2020/10/04 08:56:47.000.019,E:\Projetos\HBeauty\trunk\gestorHBeauty\ClientModuleUnit1.dfm=E:\Projetos\HBeauty\trunk\gestorHBeauty\Controller\Conexao\Controller.ClientModule.HBeauty.dfm</Transaction>
+    <Transaction>2020/10/04 09:43:35.000.345,E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.dfm=E:\Projetos\HBeauty\trunk\gestorHBeauty\Controller\Conexao\Controller.Dados.HBeauty.dfm</Transaction>
+    <Transaction>2020/10/10 14:44:59.000.778,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Base.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Profissionais.HBeauty.fmx</Transaction>
+    <Transaction>2020/10/10 14:46:00.000.102,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Base.Gerenciador.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Base.HBeauty.fmx</Transaction>
+    <Transaction>2020/10/10 14:46:39.000.759,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Profissionais.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Base.Gerenciador.HBeauty.fmx</Transaction>
+    <Transaction>2020/10/10 19:08:22.000.017,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Profissionais.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/10/10 19:09:05.000.553,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\Base\View.Gerenciador.Base.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Gerenciador.Base.HBeauty.fmx</Transaction>
+    <Transaction>2020/10/10 19:14:49.000.632,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\Profissionais\View.Profissionais.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/10/11 20:07:47.000.077,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Telefones.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/10/11 20:49:10.000.481,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Emails.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/10/24 21:26:12.000.551,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Loading.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/10/25 19:34:26.000.469,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Telefones.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Contatos.HBeauty.fmx</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5" Android64="" Android=""/>

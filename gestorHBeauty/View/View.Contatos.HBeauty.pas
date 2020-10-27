@@ -29,7 +29,7 @@ type
     edtContato: TEdit;
     Label2: TLabel;
     chkWhatsApp: TCheckBox;
-    chkRestrito: TCheckBox;
+    chkTelefoneRestrito: TCheckBox;
     chkInativar: TCheckBox;
     imgIconeForm: TTMSFMXImage;
     lblTituloForm: TLabel;
@@ -38,7 +38,7 @@ type
     Rectangle3: TRectangle;
     edtEmail: TEdit;
     Label3: TLabel;
-    CheckBox2: TCheckBox;
+    chkEmailRestrito: TCheckBox;
     CheckBox3: TCheckBox;
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -48,6 +48,7 @@ type
     procedure btnFecharClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure grdListaContatosCellClick(Sender: TObject; ACol, ARow: Integer);
   private
     FNomeTabela: String;
     FIdRegTab: Integer;
@@ -55,6 +56,7 @@ type
     FNome: String;
     FStatus : TAcaoBotao;
     FTipoForm: TTipoForm;
+    FIdContatoSelecionado : Integer;
     procedure SetIdRegTab(const Value: Integer);
     procedure SetNomeTabela(const Value: String);
     procedure SetNome(const Value: String);
@@ -86,12 +88,17 @@ uses Units.Utils.HBeauty,
      Units.Classes.HBeauty,
      Units.Strings.HBeauty,
      Winapi.Windows,
-     FMX.PLatForm.Win;
+     FMX.PLatForm.Win, Model.Emails.HBeauty;
 
 procedure TfrmCadastroContatos.btnAlterarClick(Sender: TObject);
 begin
 
-     ControlaBotoes(Self, False);
+    if FIdContatoSelecionado > 0 then
+        begin
+
+
+            ControlaBotoes(Self, False);
+        end;
 
 end;
 
@@ -113,7 +120,18 @@ procedure TfrmCadastroContatos.btnIncluirClick(Sender: TObject);
 begin
 
      FStatus := TAcaoBotao.abIncluir;
-     gclTelefone := TModelTelefones.Create(Self);
+
+     case TipoForm of
+         tfTelefone : begin
+                         gclTelefone := TModelTelefones.Create(Self);
+                         lytCadastroTelefone.Visible := True;
+                     end;
+         tfEmail    : begin
+                         gclEmails := TModelEmails.Create(Self);
+                         lytCadastroEmail.Visible := True;
+                     end;
+     end;
+
      ControlaBotoes(Self, False);
 
 end;
@@ -121,45 +139,110 @@ end;
 procedure TfrmCadastroContatos.btnSalvarClick(Sender: TObject);
 begin
 
-    if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                  'Confirma a inclusão deste telefone?', apTitulo,
-                  MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
-        begin
-            case FStatus of
-                 abIncluir : begin
-                                  try
-                                      try
-                                          gclTelefone.Telefone   := ApenasNumeros(edtTelefone.Text);
-                                          gclTelefone.Contato    := edtContato.Text;
-                                          gclTelefone.WhatsApp   := chkWhatsApp.IsChecked;
-                                          gclTelefone.Restrito   := chkRestrito.IsChecked;
-                                          gclTelefone.NomeTabela := PrefixoTabela(tcTelefone);
-                                          CadastraTelefone(gclTelefone);
-                                          MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                     'Registro salvo com sucesso!', apTitulo,
-                                                     MB_OK + MB_ICONINFORMATION);
-                                          FormShow(Self);
-                                          ControlaBotoes(Self, True);
-                                      except on E:Exception do
-                                          begin
-                                               MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                          pChar('Ocorreu um erro ao tentar salvar este registro, ' +
-                                                                'verifique sua conexão com a internet e tente ' +
-                                                                'novamente. Caso o problema persistir entre em contato ' +
-                                                                'com a MS Software informando a mensagem abaixo!' + #13#13 +
-                                                                'Mensagem: ' + E.Message),
-                                                          apTitulo,
-                                                          MB_OK + MB_ICONWARNING);
-                                               Abort;
-                                          end;
-                                      end;
-                                      finally
-                                          FreeAndNil(frmLoading);
-                                  end;
-                             end;
-            end;
-        end;
+    case TipoForm of
+        {$region 'Telefone'}
+        tfTelefone : begin
+                     if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                    'Confirma a inclusão deste telefone?', apTitulo,
+                                    MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
+                          begin
+                              case FStatus of
+                                   {$region 'Inclusao do Telefone'}
+                                   abIncluir : begin
+                                                   try
+                                                       try
+                                                           gclTelefone.Telefone   := ApenasNumeros(edtTelefone.Text);
+                                                           gclTelefone.Contato    := edtContato.Text;
+                                                           gclTelefone.WhatsApp   := chkWhatsApp.IsChecked;
+                                                           gclTelefone.Restrito   := chkTelefoneRestrito.IsChecked;
+                                                           gclTelefone.NomeTabela := PrefixoTabela(tcTelefone);
+                                                           gclTelefone.IdTabela   := FIdRegTab;
+                                                           CadastraTelefone(gclTelefone);
+                                                           MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                      'Registro salvo com sucesso!', apTitulo,
+                                                                      MB_OK + MB_ICONINFORMATION);
+                                                           FormShow(Self);
+                                                           ControlaBotoes(Self, True);
+                                                       except on E:Exception do
+                                                           begin
+                                                                MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                           pChar('Ocorreu um erro ao tentar salvar este registro, ' +
+                                                                                 'verifique sua conexão com a internet e tente ' +
+                                                                                 'novamente. Caso o problema persistir entre em contato ' +
+                                                                                 'com a MS Software informando a mensagem abaixo!' + #13#13 +
+                                                                                 'Mensagem: ' + E.Message + #13 +
+                                                                                 'Formulário: ' + Self.Name),
+                                                                           apTitulo,
+                                                                           MB_OK + MB_ICONWARNING);
+                                                                Abort;
+                                                           end;
+                                                       end;
+                                                       finally
+                                                           FreeAndNil(frmLoading);
+                                                   end;
+                                               end;
+                                   {$endregion}
+                                   {$region 'Alteração do Telefone'}
+                                   abAlterar : begin
 
+                                               end;
+                                   {$endregion}
+                              end;
+                          end;
+                     end;
+         {$endregion}
+         {$region 'Email'}
+           tfEmail : begin
+                     if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                    'Confirma a inclusão deste e-mail?', apTitulo,
+                                    MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
+                          begin
+                              case FStatus of
+                                   {$region 'Inclusao do Email'}
+                                   abIncluir : begin
+                                                   try
+                                                       try
+                                                           gclEmails.Email      := edtEmail.Text;
+                                                           gclEmails.NomeTabela := edtContato.Text;
+                                                           gclEmails.IdTabela   := FIdRegTab;
+                                                           gclEmails.Restrito   := chkEmailRestrito.IsChecked;
+                                                           CadastraEmail(gclEmails);
+                                                           MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                      'Registro salvo com sucesso!', apTitulo,
+                                                                      MB_OK + MB_ICONINFORMATION);
+                                                           FormShow(Self);
+                                                           ControlaBotoes(Self, True);
+                                                       except on E:Exception do
+                                                           begin
+                                                                MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                           pChar('Ocorreu um erro ao tentar salvar este registro, ' +
+                                                                                 'verifique sua conexão com a internet e tente ' +
+                                                                                 'novamente. Caso o problema persistir entre em contato ' +
+                                                                                 'com a MS Software informando a mensagem abaixo!' + #13#13 +
+                                                                                 'Mensagem: ' + E.Message + #13 +
+                                                                                 'Formulário: ' + Self.Name),
+                                                                           apTitulo,
+                                                                           MB_OK + MB_ICONWARNING);
+                                                                Abort;
+                                                           end;
+                                                       end;
+                                                       finally
+                                                           FreeAndNil(frmLoading);
+                                                   end;
+                                               end;
+                                   {$endregion}
+                                   {$region 'Alteração do Email'}
+                                   abAlterar : begin
+
+                                               end;
+                                   {$endregion}
+                              end;
+                          end;
+
+
+                     end;
+         {$endregion}
+    end;
 end;
 
 procedure TfrmCadastroContatos.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -171,6 +254,7 @@ end;
 
 procedure TfrmCadastroContatos.FormCreate(Sender: TObject);
 begin
+     FIdContatoSelecionado := 0;
      case TipoForm of
          tfEmail    : begin
                           imgIconeForm.BitmapName := 'Email';
@@ -190,10 +274,13 @@ AIndex : Integer;
 S : String;
 begin
 
+     LimpaForm(Self);
+
      case FTipoForm of
         tfTelefone : begin
                          CarregaTelefones(FNomeTabela, FIdRegTab);
                          CarregaGrid(ModelConexaoDados.memContatos,grdListaContatos,AFieldsTelefones, ACaptionTelefones, ASizeColTelefones);
+                         lytCadastroTelefone.Visible := False;
                          for AIndex := 1 to grdListaContatos.RowCount - 1 do
                              begin
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[3, AIndex])) = 'F' then
@@ -221,6 +308,7 @@ begin
            tfEmail : begin
                         CarregaEmails(FNomeTabela, FIdRegTab);
                         CarregaGrid(ModelConexaoDados.memContatos, grdListaContatos, AFieldsEmails, ACaptionEmails, ASizeColEmails);
+                        lytCadastroEmail.Visible := False;
                         for AIndex := 1 to grdListaContatos.RowCount - 1 do
                              begin
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[2, AIndex])) = 'F' then
@@ -236,6 +324,11 @@ begin
                              end;
                      end;
      end;
+end;
+
+procedure TfrmCadastroContatos.grdListaContatosCellClick(Sender: TObject; ACol, ARow: Integer);
+begin
+FIdContatoSelecionado := ExtraiTextoGrid(grdListaContatos.Cells[0, ARow]).ToInteger;
 end;
 
 procedure TfrmCadastroContatos.SetIdRegTab(const Value: Integer);

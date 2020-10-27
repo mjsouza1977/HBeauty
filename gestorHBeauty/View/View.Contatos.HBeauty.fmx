@@ -196,12 +196,13 @@ object frmCadastroContatos: TfrmCadastroContatos
     Options.IO.XMLEncoding = 'ISO-8859-1'
     Options.Mouse.TouchScrollingSensitivity = 0.100000001490116100
     Options.Printing.PageNumberFormat = '%g'
-    Version = '2.3.2.9'
+    Version = '2.3.2.7'
     Fill.Kind = Solid
     Stroke.Kind = Solid
     StrokeThickness = 0.000000000000000000
     TopRow = 1
     LeftCol = 0
+    OnCellClick = grdListaContatosCellClick
     Columns = <
       item
         Color = claNull
@@ -258,7 +259,6 @@ object frmCadastroContatos: TfrmCadastroContatos
     Size.Width = 760.000000000000000000
     Size.Height = 117.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 6
     object Rectangle15: TRectangle
       Fill.Color = claWhite
@@ -353,7 +353,7 @@ object frmCadastroContatos: TfrmCadastroContatos
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
     end
-    object chkRestrito: TCheckBox
+    object chkTelefoneRestrito: TCheckBox
       StyledSettings = [Family, FontColor]
       Position.X = 600.000000000000000000
       Position.Y = 56.000000000000000000
@@ -381,6 +381,7 @@ object frmCadastroContatos: TfrmCadastroContatos
     Size.Width = 760.000000000000000000
     Size.Height = 117.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     TabOrder = 5
     object Rectangle3: TRectangle
       Fill.Color = claWhite
@@ -424,7 +425,7 @@ object frmCadastroContatos: TfrmCadastroContatos
         TabOrder = 1
       end
     end
-    object CheckBox2: TCheckBox
+    object chkEmailRestrito: TCheckBox
       StyledSettings = [Family, FontColor]
       Position.X = 608.000000000000000000
       Position.Y = 40.000000000000000000

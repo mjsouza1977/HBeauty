@@ -182,7 +182,7 @@ object frmCadastroContatos: TfrmCadastroContatos
     Margins.Left = 5.000000000000000000
     TabOrder = 1
     Size.Width = 755.000000000000000000
-    Size.Height = 200.000000000000000000
+    Size.Height = 83.000000000000000000
     Size.PlatformDefault = False
     DefaultRowHeight = 20.000000000000000000
     DefaultColumnWidth = 50.000000000000000000
@@ -255,7 +255,7 @@ object frmCadastroContatos: TfrmCadastroContatos
   end
   object lytCadastroTelefone: TLayout
     Align = Bottom
-    Position.Y = 285.000000000000000000
+    Position.Y = 168.000000000000000000
     Size.Width = 760.000000000000000000
     Size.Height = 117.000000000000000000
     Size.PlatformDefault = False
@@ -381,7 +381,6 @@ object frmCadastroContatos: TfrmCadastroContatos
     Size.Width = 760.000000000000000000
     Size.Height = 117.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 5
     object Rectangle3: TRectangle
       Fill.Color = claWhite

@@ -12,9 +12,6 @@ uses
 function CarregaEmails(ATipoEmail : String; AIdTabEmail : Integer) : TFDJSONDataSets;
 function CarregaTelefones(ATipoFone : String; AIdTabFone : Integer) : TFDJSONDataSets;
 
-function CarregaEmail(AIdEmail : Integer; AInativo : String) : TFDJSONDataSets;
-function CarregaTelefone(AIdFone : Integer; AInativo : String) : TFDJSONDataSets;
-
 function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
 function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : Integer; AWhatsFone, ARestrito : Boolean) : Integer;
 
@@ -166,23 +163,6 @@ begin
         ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBTELEFONES');
         ControllerConexao.qryQuery.SQL.Add('WHERE NOMETAB_FONE = ' + QuotedStr(ATipoFone));
         ControllerConexao.qryQuery.SQL.Add('AND IDTAB_FONE = ' + AIdTabFone.ToString);
-        Result := TFDJSONDataSets.Create;
-        TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
-        ControllerConexao.qryQuery.Active := True;
-    finally
-        ControllerConexao.qryQuery.Close;
-    end;
-
-end;
-
-function CarregaEmail(AIdEmail : Integer; AInativo : String)) : TFDJSONDataSets;
-begin
-    try
-        ControllerConexao.qryQuery.Close;
-        ControllerConexao.qryQuery.SQL.Clear;
-        ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBEMAILS');
-        ControllerConexao.qryQuery.SQL.Add('WHERE NOMETAB_EMAIL = ' + QuotedStr(ATipoEmail));
-        ControllerConexao.qryQuery.SQL.Add('AND IDTAB_EMAIL = ' + AIdTabEmail.ToString);
         Result := TFDJSONDataSets.Create;
         TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
         ControllerConexao.qryQuery.Active := True;

@@ -30,7 +30,7 @@ type
         property Inativo    : Boolean read FInativo    write SetInativo;
         property Restrito   : Boolean read FRestrito   write SetRestrito;
         property IdEmail    : Integer read FIdEmail    write SetIdEmail;
-        constructor create(AForm : TForm);
+        constructor Create(AForm : TForm);
     end;
 
 implementation

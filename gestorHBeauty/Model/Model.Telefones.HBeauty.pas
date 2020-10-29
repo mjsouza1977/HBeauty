@@ -38,7 +38,7 @@ type
         property Restrito   : Boolean read FRestrito   write SetRestrito;
         property IdTelefone : Integer read FIdTelefone write SetIdTelefone;
 
-        constructor create(AForm : TForm);
+        constructor Create(AForm : TForm);
 
     end;
 

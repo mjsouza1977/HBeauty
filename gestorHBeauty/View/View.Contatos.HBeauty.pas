@@ -30,7 +30,7 @@ type
     Label2: TLabel;
     chkWhatsApp: TCheckBox;
     chkTelefoneRestrito: TCheckBox;
-    chkInativar: TCheckBox;
+    chkInativarFone: TCheckBox;
     imgIconeForm: TTMSFMXImage;
     lblTituloForm: TLabel;
     Line1: TLine;
@@ -39,7 +39,7 @@ type
     edtEmail: TEdit;
     Label3: TLabel;
     chkEmailRestrito: TCheckBox;
-    CheckBox3: TCheckBox;
+    chkInativarEmail: TCheckBox;
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
@@ -58,11 +58,13 @@ type
     FTipoForm: TTipoForm;
     FIdContatoSelecionado : Integer;
     FLinha : Integer;
+    FTituloForm: String;
     procedure SetIdRegTab(const Value: Integer);
     procedure SetNomeTabela(const Value: String);
     procedure SetNome(const Value: String);
     procedure SetTitulo(const Value: String);
     procedure SetTipoForm(const Value: TTipoForm);
+    procedure SetTituloForm(const Value: String);
     { Private declarations }
   public
     property NomeTabela : String    read FNomeTabela write SetNomeTabela;
@@ -70,6 +72,7 @@ type
     property Titulo     : String    read FTitulo     write SetTitulo;
     property Nome       : String    read FNome       write SetNome;
     property TipoForm   : TTipoForm read FTipoForm   write SetTipoForm;
+    property TituloForm : String read FTituloForm write SetTituloForm;
   end;
 
 
@@ -94,21 +97,48 @@ uses Units.Utils.HBeauty,
 procedure TfrmCadastroContatos.btnAlterarClick(Sender: TObject);
 begin
 
+    //Define o Status para Alteração
+    FStatus := TAcaoBotao.abAlterar;
+
     if FIdContatoSelecionado > 0 then
         begin
-            FStatus := TAcaoBotao.abIncluir;
 
+            //VErifica o tipo do cadastro
             case TipoForm of
                 tfTelefone : begin
+                                //Cria a classe de telefones e exibe o layout com os campos referidos
                                 gclTelefone := TModelTelefones.Create(Self);
                                 lytCadastroTelefone.Visible := True;
+
+                                //Filtra a tabela com o id correspondente
+                                ModelConexaoDados.memContatos.Filter   := 'ID_FONE=' + FIdContatoSelecionado.ToString;
+                                ModelConexaoDados.memContatos.Filtered := True;
+
+                                //Carrega as informações nos campos
+                                with ModelConexaoDados.memControles do
+                                    begin
+                                        edtTelefone.Text := FieldByName('NR_FONE').AsString;
+                                        edtContato.Text  := FieldByName('CONTATO_FONE').AsString;
+                                        chkWhatsApp.IsChecked := StringToBool('T','F',FieldByName('WHATS_FONE').AsString);
+                                        chkTelefoneRestrito.IsChecked := StringToBool('T','F',FieldByName('RESTRITO_FONE').AsString);
+                                        chkInativarFone.IsChecked := StringToBool('T','F',FieldByName('INATIVO_FONE').AsString);
+                                    end;
                             end;
                 tfEmail    : begin
+                                //Cria a classe de emails e exibe o layout com os campos referidos
                                 gclEmails := TModelEmails.Create(Self);
                                 lytCadastroEmail.Visible := True;
+
+                                //Carrega as informações nos campos
+                                with ModelConexaoDados.memControles do
+                                    begin
+                                        edtEmail.Text := FieldByName('EMAIL_EMAIL').AsString;
+                                        chkEmailRestrito.IsChecked := StringToBool('T','F',FieldByName('RESTRITO_EMAIL').AsString);
+                                        chkInativarEmail.IsChecked := StringToBool('T','F',FieldByName('INATIVO_EMAIL').AsString);
+                                    end;
                             end;
             end;
-
+            //Manipula a exibição dos botões
             ControlaBotoes(Self, False);
         end;
 
@@ -117,6 +147,15 @@ end;
 procedure TfrmCadastroContatos.btnCancelarClick(Sender: TObject);
 begin
 
+     //Destroi as variaveis das classes caso ja esteja criadas
+     if Assigned(gclEmails)   then FreeAndNil(gclEmails);
+     if Assigned(gclTelefone) then FreeAndNil(gclTelefone);
+
+     LimpaForm(Self);
+     lytCadastroTelefone.Visible := False;
+     lytCadastroEmail.Visible    := False;
+
+     //Manipula a exibição dos botões
      ControlaBotoes(Self, True);
 
 end;
@@ -124,6 +163,7 @@ end;
 procedure TfrmCadastroContatos.btnFecharClick(Sender: TObject);
 begin
 
+     //Fecha o form
      Close;
 
 end;
@@ -131,14 +171,18 @@ end;
 procedure TfrmCadastroContatos.btnIncluirClick(Sender: TObject);
 begin
 
+     //Define a ação do form
      FStatus := TAcaoBotao.abIncluir;
 
+     //Verifica o tipo do cadastro
      case TipoForm of
          tfTelefone : begin
+                         //Cria a variavel da classe e exibe o layout
                          gclTelefone := TModelTelefones.Create(Self);
                          lytCadastroTelefone.Visible := True;
                      end;
          tfEmail    : begin
+                         //Cria a variavel da classe e exibe o layout
                          gclEmails := TModelEmails.Create(Self);
                          lytCadastroEmail.Visible := True;
                      end;
@@ -154,17 +198,19 @@ begin
     {$region 'carrega a classe'}
     case TipoForm of
         tfEmail    : begin
+                         gclEmails            := TModelEmails.create(Self);
                          gclEmails.Email      := edtEmail.Text;
-                         gclEmails.NomeTabela := edtContato.Text;
+                         gclEmails.NomeTabela := PrefixoTabela(tcProfissionais);
                          gclEmails.IdTabela   := FIdRegTab;
                          gclEmails.Restrito   := chkEmailRestrito.IsChecked;
                      end;
         tfTelefone : begin
+                         gclTelefone := TModelTelefones.create(Self);
                          gclTelefone.Telefone   := ApenasNumeros(edtTelefone.Text);
                          gclTelefone.Contato    := edtContato.Text;
                          gclTelefone.WhatsApp   := chkWhatsApp.IsChecked;
                          gclTelefone.Restrito   := chkTelefoneRestrito.IsChecked;
-                         gclTelefone.NomeTabela := PrefixoTabela(tcTelefone);
+                         gclTelefone.NomeTabela := PrefixoTabela(tcProfissionais);
                          gclTelefone.IdTabela   := FIdRegTab;
                      end;
     end;
@@ -183,16 +229,19 @@ begin
                                                                      'Confirma a inclusão deste telefone?', apTitulo,
                                                                      MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
                                                            begin
+                                                               //Executa a inclusão dos dados no servidor
                                                                CadastraTelefone(gclTelefone);
                                                                MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                           'Registro salvo com sucesso!', apTitulo,
                                                                           MB_OK + MB_ICONINFORMATION);
+                                                               //caso tenha sucesso na inclusão executa o FormShow e Manipuloa os botões
                                                                FormShow(Self);
                                                                ControlaBotoes(Self, True);
                                                            end;
                                                    except
                                                    on E:Exception do
                                                        begin
+                                                            //Caso de erro na inclusão exibe a mensagem abaixo
                                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                        pChar('Ocorreu um erro ao tentar salvar este registro, ' +
                                                                              'verifique sua conexão com a internet e tente ' +
@@ -206,7 +255,8 @@ begin
                                                        end;
                                                    end;
                                                finally
-                                                   FreeAndNil(frmLoading);
+                                                   //Destroi a variavel
+                                                   FreeAndNil(gclTelefone);
                                                end;
                                            end;
                                {$endregion}
@@ -218,7 +268,10 @@ begin
                                                                      'Confirma a alteração deste telefone?', apTitulo,
                                                                      MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
                                                            begin
+                                                               //Executa a alteração e salva no servidor
                                                                AtualizaTelefone(gclTelefone);
+
+                                                               //caso tenha sucesso na operação fecha o form
                                                                MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                           'Registro atualizado com sucesso!', apTitulo,
                                                                           MB_OK + MB_ICONINFORMATION);
@@ -227,6 +280,7 @@ begin
                                                    except
                                                    on E:Exception do
                                                        begin
+                                                            //caso tenha algum erro exibe a mensagem abaixo
                                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                        pChar('Ocorreu um erro ao tentar salvar este registro, ' +
                                                                              'verifique sua conexão com a internet e tente ' +
@@ -240,7 +294,8 @@ begin
                                                        end;
                                                    end;
                                                finally
-                                                   FreeAndNil(frmLoading);
+                                                   //Destroi a variabel
+                                                   FreeAndNil(gclTelefone);
                                                end;
                                            end;
                                {$endregion}
@@ -248,7 +303,7 @@ begin
                      end;
          {$endregion}
          {$region 'Email'}
-           tfEmail : begin
+           tfEmail : begin //as ações abaixo seguem o mesmo padrao do telefone
                           case FStatus of
                                {$region 'Inclusao do Email'}
                                abIncluir : begin
@@ -281,6 +336,7 @@ begin
                                                    end;
                                                finally
                                                    FreeAndNil(frmLoading);
+                                                   FreeAndNil(gclEmails);
                                                end;
                                            end;
                                {$endregion}
@@ -314,6 +370,7 @@ begin
                                                    end;
                                                finally
                                                    FreeAndNil(frmLoading);
+                                                   FreeAndNil(gclEmails);
                                                end;
                                            end;
                                {$endregion}
@@ -334,18 +391,8 @@ end;
 
 procedure TfrmCadastroContatos.FormCreate(Sender: TObject);
 begin
+     //Zera a variavel do item selecionado
      FIdContatoSelecionado := 0;
-     case TipoForm of
-         tfEmail    : begin
-                          imgIconeForm.BitmapName := 'Email';
-                          lblTituloForm.Text      := 'Cadastro de E-Mails';
-                      end;
-         tfTelefone : begin
-                          imgIconeForm.BitmapName := 'Telefone';
-                          lblTituloForm.Text      := 'Cadastro de Telefones';
-                      end;
-     end;
-
 end;
 
 procedure TfrmCadastroContatos.FormShow(Sender: TObject);
@@ -354,13 +401,22 @@ AIndex : Integer;
 S : String;
 begin
 
+     //Limpa os campos do form
      LimpaForm(Self);
 
+     //Oculta os campos de edição
+     lytCadastroEmail.Visible    := False;
+     lytCadastroTelefone.Visible := False;
+
+     //verifica o tipo do form (e-mail/telefone)
      case FTipoForm of
         tfTelefone : begin
+                         //faz o download dos dados do servidor
                          CarregaTelefones(FNomeTabela, FIdRegTab);
+                         //formata o grid para a exibição dos dados
                          CarregaGrid(ModelConexaoDados.memContatos,grdListaContatos,AFieldsTelefones, ACaptionTelefones, ASizeColTelefones);
-                         lytCadastroTelefone.Visible := False;
+
+                         //Da um loop nos registros para colocar os icones nos campos RESTRITO/WHATSAPP
                          for AIndex := 1 to grdListaContatos.RowCount - 1 do
                              begin
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[3, AIndex])) = 'F' then
@@ -386,9 +442,12 @@ begin
                              end;
                      end;
            tfEmail : begin
+                        //faz o download dos dados do servidor
                         CarregaEmails(FNomeTabela, FIdRegTab);
+                        //formata o grid para a exibição dos dados
                         CarregaGrid(ModelConexaoDados.memContatos, grdListaContatos, AFieldsEmails, ACaptionEmails, ASizeColEmails);
-                        lytCadastroEmail.Visible := False;
+
+                        //Da um loop nos registros para colocar o icone no campo restrito
                         for AIndex := 1 to grdListaContatos.RowCount - 1 do
                              begin
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[2, AIndex])) = 'F' then
@@ -438,5 +497,11 @@ begin
   lblTitulo.Text := FTitulo;
 end;
 
+
+procedure TfrmCadastroContatos.SetTituloForm(const Value: String);
+begin
+  FTituloForm := Value;
+  lblTituloForm.Text := FTituloForm;
+end;
 
 end.

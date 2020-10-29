@@ -466,10 +466,12 @@ begin
                     if FIdSelecionado <> 0 then
                         begin
                             Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
-                            frmCadastroContatos.TipoForm   := tfTelefone;
-                            frmCadastroContatos.IdRegTab   := FIdSelecionado;
-                            frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
-                            frmCadastroContatos.Titulo     := 'Profissional';
+                            frmCadastroContatos.TipoForm     := tfTelefone;
+                            frmCadastroContatos.IdRegTab     := FIdSelecionado;
+                            frmCadastroContatos.NomeTabela   := PrefixoTabela(tcProfissionais);
+                            frmCadastroContatos.Titulo       := 'Profissional';
+                            frmCadastroContatos.TituloForm   := 'Cadastro de Telefone';
+                            frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
                             frmCadastroContatos.ShowModal;
                         end;
                 end;
@@ -482,6 +484,9 @@ begin
             frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
             frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
             frmCadastroContatos.Titulo     := 'Profissional';
+            frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
+            frmCadastroContatos.TituloForm := 'Cadastro de Telefone';
+
             frmCadastroContatos.ShowModal;
         end;
 
@@ -507,6 +512,8 @@ begin
                            frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
                            frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
                            frmCadastroContatos.Titulo     := 'Profissional';
+                           frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
+                           frmCadastroContatos.imgIconeForm.BitmapName := 'Email';
                            frmCadastroContatos.ShowModal;
                        end;
                 end;
@@ -519,6 +526,8 @@ begin
             frmCadastroContatos.NomeTabela := PrefixoTabela(tcProfissionais);
             frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
             frmCadastroContatos.Titulo     := 'Profissional';
+            frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
+            frmCadastroContatos.imgIconeForm.BitmapName := 'Email';
             frmCadastroContatos.ShowModal;
         end;
 

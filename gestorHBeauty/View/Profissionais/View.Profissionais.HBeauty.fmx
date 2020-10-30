@@ -312,7 +312,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 5
+        TabOrder = 6
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -334,7 +334,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Size.Height = 392.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -4411,7 +4411,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 157.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -5008,7 +5008,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 194.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -5019,7 +5019,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       ExplicitSize.cy = 29.000000000000000000
       object gbSalario: TGroupBox
         StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 248.000000000000000000
+        Position.X = 308.000000000000000000
         Position.Y = 24.000000000000000000
         Size.Width = 220.000000000000000000
         Size.Height = 75.000000000000000000
@@ -5063,7 +5063,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       end
       object gbComissao: TGroupBox
         StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 248.000000000000000000
+        Position.X = 308.000000000000000000
         Position.Y = 108.000000000000000000
         Size.Width = 220.000000000000000000
         Size.Height = 75.000000000000000000
@@ -5117,61 +5117,53 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           end
         end
       end
-      object Rectangle15: TRectangle
+      object rectHabilidades: TRectangle
         Fill.Color = claWhite
         Margins.Left = 150.000000000000000000
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 25.000000000000000000
         Position.Y = 20.000000000000000000
-        Size.Width = 212.000000000000000000
+        Size.Width = 248.000000000000000000
         Size.Height = 309.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = claGainsboro
         Stroke.Thickness = 2.000000000000000000
         XRadius = 5.000000000000000000
         YRadius = 5.000000000000000000
-        object ListView1: TListView
-          ItemAppearanceClassName = 'TDynamicAppearance'
-          ItemEditAppearanceClassName = 'TDynamicAppearance'
-          HeaderAppearanceClassName = 'TListHeaderObjects'
-          FooterAppearanceClassName = 'TListHeaderObjects'
-          ItemSpaces.Left = 0.000000000000000000
-          ItemSpaces.Right = 0.000000000000000000
+        object vsbHabilidades: TVertScrollBox
           Align = Client
           Margins.Left = 5.000000000000000000
           Margins.Top = 5.000000000000000000
           Margins.Right = 5.000000000000000000
           Margins.Bottom = 5.000000000000000000
-          Size.Width = 202.000000000000000000
+          Size.Width = 238.000000000000000000
           Size.Height = 299.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 11
-          ItemAppearance.ItemHeight = 25
-          ItemAppearanceObjects.ItemObjects.ObjectsCollection = <
-            item
-              AppearanceObjectName = 'Text1'
-              AppearanceClassName = 'TTextObjectAppearance'
-              Appearance.Font.Size = 14.000000000000000000
-              Appearance.Font.StyleExt = {00070000000000000004000000}
-              Appearance.Width = 167.000000000000000000
-              Appearance.Height = 43.000000000000000000
-              Appearance.PlaceOffset.X = 29.000000000000000000
+          Viewport.Width = 238.000000000000000000
+          Viewport.Height = 299.000000000000000000
+          object lytModelo: TLayout
+            Align = Top
+            Size.Width = 238.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            object CheckBox6: TCheckBox
+              Align = Client
+              StyledSettings = [Family]
+              Margins.Left = 10.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Size.Width = 223.000000000000000000
+              Size.Height = 35.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = 'Cabelereiro'
+              TextSettings.Font.Size = 14.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.FontColor = xFF980000
             end
-            item
-              AppearanceObjectName = 'Image2'
-              AppearanceClassName = 'TImageObjectAppearance'
-              Appearance.Width = 20.000000000000000000
-              Appearance.Height = 20.000000000000000000
-              Appearance.PlaceOffset.X = 5.000000000000000000
-              Appearance.PlaceOffset.Y = 2.000000000000000000
-            end>
-          ItemAppearanceObjects.ItemEditObjects.ObjectsCollection = <
-            item
-              AppearanceObjectName = 'Text1'
-              AppearanceClassName = 'TTextObjectAppearance'
-            end>
-          StyleLookup = 'ListView1Style1'
+          end
         end
       end
     end
@@ -5179,7 +5171,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
   object ACBrValidador1: TACBrValidador
     TipoDocto = docEmail
     IgnorarChar = './-'
-    Left = 285
-    Top = 210
+    Left = 885
+    Top = 126
   end
 end

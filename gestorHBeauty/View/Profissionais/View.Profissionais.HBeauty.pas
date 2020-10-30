@@ -10,7 +10,8 @@ uses
   Units.Utils.HBeauty, View.Contatos.HBeauty,
   Model.Profissionais.HBeauty, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
   Model.Dados.Server.HBeauty, ACBrBase, ACBrValidador,  Model.Contatos.Servidor.HBeauty,
-  Units.Enumerados.HBeauty, View.Loading.HBeauty;
+  Units.Enumerados.HBeauty, View.Loading.HBeauty, FMX.TMSCustomPicker, FMX.TMSCheckGroupPicker, FMX.TMSCheckGroup, FMX.TMSBitmapContainer, FMX.TMSRichEditorEmoticons,
+  FireDAC.Comp.Client;
 
 type
   TfrmGerenciadorProfissionais = class(TForm)
@@ -98,13 +99,15 @@ type
     Rectangle22: TRectangle;
     Label15: TLabel;
     edtComissao: TNumberBox;
-    Rectangle15: TRectangle;
-    ListView1: TListView;
+    rectHabilidades: TRectangle;
     Rectangle3: TRectangle;
     Label4: TLabel;
     lblNome: TLabel;
     Label13: TLabel;
     lblStatus: TLabel;
+    vsbHabilidades: TVertScrollBox;
+    lytModelo: TLayout;
+    CheckBox6: TCheckBox;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnIncluirClick(Sender: TObject);
@@ -133,13 +136,15 @@ type
     FIdSelecionado : Integer;
     procedure HabilitaTab(AHabilita : Boolean);
     procedure AlimentaClasseProfissional;
+    procedure CarregaListaHabilidades(ADataSet : TFDMemTable);
+
   public
 
   end;
 
 var
   frmGerenciadorProfissionais: TfrmGerenciadorProfissionais;
-
+  lcScrollListaHabilidade : TVertScrollBox;
 implementation
 
 {$R *.fmx}
@@ -149,6 +154,41 @@ uses
     Model.Profissionais.Servidor.HBeauty,
     Units.Strings.HBeauty, Winapi.Windows,
     FMX.Platform.Win, Units.Utils.Dados.HBeauty, Units.Consts.HBeauty;
+
+procedure TfrmGerenciadorProfissionais.CarregaListaHabilidades(ADataSet : TFDMemTable);
+var
+ALayout   : TLayout;
+ACheckBox : TCheckBox;
+begin
+
+     lcScrollListaHabilidade := TVertScrollBox.Create(Self);
+     lcScrollListaHabilidade.Parent := rectHabilidades;
+     lcScrollListaHabilidade.Align := TAlignLayout.Client;
+     lcScrollListaHabilidade.Margins.Left   := 5;
+     lcScrollListaHabilidade.Margins.Right  := 5;
+     lcScrollListaHabilidade.Margins.Top    := 5;
+     lcScrollListaHabilidade.Margins.Bottom := 5;
+
+     ADataSet.First;
+
+     while not ADataSet.Eof do
+         begin
+             ALayout := TLayout.Create(nil);
+             ALayout.Parent := lcScrollListaHabilidade;
+             ALayout.Align  := TAlignLayout.Top;
+             ALayout.Height := 35;
+
+             ACheckBox := TCheckBox.Create(Self);
+             ACheckBox.Parent := ALayout;
+             ACheckBox.Align  := TAlignLayout.Client;
+             ACheckBox.Margins.Left  := 10;
+             ACheckBox.Margins.Right := 5;
+             ACheckBox.Text := //Nome da habilidade Campo da tabela
+             ACheckBox.Tag  := //Id Campo da tabela
+
+             ADataSet.Next;
+         end;
+end;
 
 procedure TfrmGerenciadorProfissionais.AlimentaClasseProfissional;
 begin
@@ -238,6 +278,7 @@ begin
                    pChar(AMensagem), apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
          begin
              LimpaForm(Self);
+             HabilitaTab(False);
              tabCabecarioProfissionais.TabIndex := 0;
              tabGerenciadorProfissionais.TabIndex := 0;
              ControlaBotoes(Self, True);

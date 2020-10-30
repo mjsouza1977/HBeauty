@@ -410,7 +410,7 @@ object frmCadastroContatos: TfrmCadastroContatos
         Size.Height = 25.000000000000000000
         Size.PlatformDefault = False
         StyledSettings = [Family, Style, FontColor]
-        CharCase = ecUpperCase
+        CharCase = ecLowerCase
       end
       object Label3: TLabel
         StyledSettings = [Family, Size]

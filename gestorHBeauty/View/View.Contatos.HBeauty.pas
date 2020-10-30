@@ -115,7 +115,7 @@ begin
                                 ModelConexaoDados.memContatos.Filtered := True;
 
                                 //Carrega as informações nos campos
-                                with ModelConexaoDados.memControles do
+                                with ModelConexaoDados.memContatos do
                                     begin
                                         edtTelefone.Text := FieldByName('NR_FONE').AsString;
                                         edtContato.Text  := FieldByName('CONTATO_FONE').AsString;
@@ -129,8 +129,12 @@ begin
                                 gclEmails := TModelEmails.Create(Self);
                                 lytCadastroEmail.Visible := True;
 
+                                //Filtra a tabela com o id correspondente
+                                ModelConexaoDados.memContatos.Filter   := 'ID_EMAIL=' + FIdContatoSelecionado.ToString;
+                                ModelConexaoDados.memContatos.Filtered := True;
+
                                 //Carrega as informações nos campos
-                                with ModelConexaoDados.memControles do
+                                with ModelConexaoDados.memContatos do
                                     begin
                                         edtEmail.Text := FieldByName('EMAIL_EMAIL').AsString;
                                         chkEmailRestrito.IsChecked := StringToBool('T','F',FieldByName('RESTRITO_EMAIL').AsString);
@@ -140,6 +144,7 @@ begin
             end;
             //Manipula a exibição dos botões
             ControlaBotoes(Self, False);
+            ModelConexaoDados.memContatos.Filtered := False;
         end;
 
 end;
@@ -199,13 +204,15 @@ begin
     case TipoForm of
         tfEmail    : begin
                          gclEmails            := TModelEmails.create(Self);
+                         gclEmails.IdEmail    := FIdContatoSelecionado;
                          gclEmails.Email      := edtEmail.Text;
                          gclEmails.NomeTabela := PrefixoTabela(tcProfissionais);
                          gclEmails.IdTabela   := FIdRegTab;
                          gclEmails.Restrito   := chkEmailRestrito.IsChecked;
                      end;
         tfTelefone : begin
-                         gclTelefone := TModelTelefones.create(Self);
+                         gclTelefone            := TModelTelefones.create(Self);
+                         gclTelefone.IdTelefone := FIdContatoSelecionado;
                          gclTelefone.Telefone   := ApenasNumeros(edtTelefone.Text);
                          gclTelefone.Contato    := edtContato.Text;
                          gclTelefone.WhatsApp   := chkWhatsApp.IsChecked;
@@ -414,7 +421,7 @@ begin
                          //faz o download dos dados do servidor
                          CarregaTelefones(FNomeTabela, FIdRegTab);
                          //formata o grid para a exibição dos dados
-                         CarregaGrid(ModelConexaoDados.memContatos,grdListaContatos,AFieldsTelefones, ACaptionTelefones, ASizeColTelefones);
+                         CarregaGrid(ModelConexaoDados.memContatos,grdListaContatos, AFieldsTelefones, ACaptionTelefones, ASizeColTelefones);
 
                          //Da um loop nos registros para colocar os icones nos campos RESTRITO/WHATSAPP
                          for AIndex := 1 to grdListaContatos.RowCount - 1 do
@@ -422,22 +429,22 @@ begin
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[3, AIndex])) = 'F' then
                                      begin
                                           grdListaContatos.Cells[3, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Error.png');
+                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\error.png');
                                      end
                                  else
                                      begin
                                           grdListaContatos.Cells[3, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\zap.png');
+                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\ok.png');
                                      end;
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[4, AIndex])) = 'F' then
                                      begin
                                           grdListaContatos.Cells[4, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Error.png');
+                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\error.png');
                                      end
                                  else
                                      begin
                                           grdListaContatos.Cells[4, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Check.png');
+                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\ok.png');
                                      end;
                              end;
                      end;
@@ -453,12 +460,12 @@ begin
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[2, AIndex])) = 'F' then
                                      begin
                                           grdListaContatos.Cells[2, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(2, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Error.png');
+                                          grdListaContatos.AddBitmapFile(2, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\error.png');
                                      end
                                  else
                                      begin
                                           grdListaContatos.Cells[2, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(2, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Check.png');
+                                          grdListaContatos.AddBitmapFile(2, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\ok.png');
                                      end;
                              end;
                      end;

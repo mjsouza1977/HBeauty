@@ -20,7 +20,7 @@ function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhat
 
 implementation
 
-uses Units.Utils.ServerBeauty;
+uses Units.Utils.ServerBeauty, Vcl.Dialogs;
 
 function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : Boolean;
 begin
@@ -92,7 +92,7 @@ begin
          ControllerConexao.qryQuery.ParamByName('WHATS_FONE'   ).AsString  := BoolToStrValue(AWhatsFone,'F','T');
          ControllerConexao.qryQuery.ParamByName('RESTRITO_FONE').AsString  := BoolToStrValue(ARestrito,'F','T');
          ControllerConexao.qryQuery.ParamByName('ID_FONE'      ).AsInteger := AIdTelefone;
-         ControllerConexao.qryQuery.Open;
+         ControllerConexao.qryQuery.ExecSql;
 
          Result := True;
      finally
@@ -121,7 +121,6 @@ begin
          ControllerConexao.qryQuery.ParamByName('WHATS_FONE'   ).AsString  := BoolToStrValue(AWhatsFone,'F','T');
          ControllerConexao.qryQuery.ParamByName('RESTRITO_FONE').AsString  := BoolToStrValue(ARestrito,'F','T');
          ControllerConexao.qryQuery.ExecSQL;
-
          ControllerConexao.qryQuery.Open('SELECT GEN_ID(GEN_HBTELEFONES_ID, 0) AS IDTELEFONE FROM RDB$DATABASE');
          Result := ControllerConexao.qryQuery.FieldByName('IDTELEFONE').AsInteger;
      finally

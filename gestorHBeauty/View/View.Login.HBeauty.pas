@@ -61,6 +61,7 @@ type
     lblCaptionVoltar: TLabel;
     recEnviarPositivo: TRectangle;
     Label9: TLabel;
+    Image1: TImage;
     procedure recbtnEntrarPositivoClick(Sender: TObject);
     procedure edtValidacao1KeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);

@@ -56,6 +56,8 @@ type
     Layout12: TLayout;
     TMSFMXPlanner1: TTMSFMXPlanner;
     MenuItem14: TMenuItem;
+    Layout11: TLayout;
+    Image1: TImage;
     procedure FormCreate(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
   private

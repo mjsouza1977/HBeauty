@@ -136,7 +136,7 @@ type
     FIdSelecionado : Integer;
     procedure HabilitaTab(AHabilita : Boolean);
     procedure AlimentaClasseProfissional;
-    procedure CarregaListaHabilidades(ADataSet : TFDMemTable);
+    procedure CarregaListaHabilidades(ADataSet : TFDMemTable; ADataSetEdit : TFDMemTable = nil);
 
   public
 
@@ -153,9 +153,11 @@ uses
     Units.Classes.HBeauty,
     Model.Profissionais.Servidor.HBeauty,
     Units.Strings.HBeauty, Winapi.Windows,
-    FMX.Platform.Win, Units.Utils.Dados.HBeauty, Units.Consts.HBeauty;
+    FMX.Platform.Win, Units.Utils.Dados.HBeauty, Units.Consts.HBeauty,
+    System.UIConsts,
+    Controller.Manipula.Design.HBeauty;
 
-procedure TfrmGerenciadorProfissionais.CarregaListaHabilidades(ADataSet : TFDMemTable);
+procedure TfrmGerenciadorProfissionais.CarregaListaHabilidades(ADataSet : TFDMemTable; ADataSetEdit : TFDMemTable = nil);
 var
 ALayout   : TLayout;
 ACheckBox : TCheckBox;
@@ -183,8 +185,29 @@ begin
              ACheckBox.Align  := TAlignLayout.Client;
              ACheckBox.Margins.Left  := 10;
              ACheckBox.Margins.Right := 5;
-             ACheckBox.Text := //Nome da habilidade Campo da tabela
-             ACheckBox.Tag  := //Id Campo da tabela
+             ACheckBox.Text      := ADataSet.FieldByName('NOME_HABILIDADE').AsString;
+             ACheckBox.TagString := ADataSet.FieldByName('ID_HABILIDADE').AsString;
+             ACheckBox.IsChecked := False;
+             ACheckBox.StyledSettings := ACheckBox.StyledSettings - [TStyledSetting.Size,
+                                                                     TStyledSetting.FontColor,
+                                                                     TStyledSetting.Family,
+                                                                     TStyledSetting.Style];
+             ACheckBox.FontColor := StringToAlphaColor('#FF980000');
+             ACheckBox.Font.Size := 14;
+             ACheckBox.Font.Style := [TFontStyle.fsBold];
+
+             if ADataSetEdit <> nil then
+                 begin
+                     if ADataSetEdit.RecordCount > 0 then
+                         begin
+                              ADataSetEdit.Filtered := False;
+                              ADataSetEdit.Filter   := 'IDHABIL_PROFXHABIL=' + QuotedStr(ADataSet.FieldByName('ID_HABILIDADE').AsString);
+                              ADataSetEdit.Filtered := True;
+                              if ADataSetEdit.RecordCount > 0 then
+                                  ACheckBox.IsChecked := True else
+                                  ACheckBox.IsChecked := False;
+                         end;
+                 end;
 
              ADataSet.Next;
          end;
@@ -294,12 +317,15 @@ end;
 procedure TfrmGerenciadorProfissionais.btnIncluirClick(Sender: TObject);
 begin
      HabilitaTab(True);
+     carregaHabilidades;
+     CarregaListaHabilidades(ModelConexaoDados.memHabilidades);
      LimpaForm(Self);
      ControlaBotoes(Self, False);
      FStatus := abIncluir;
      lblStatus.Text := 'Inclusão';
      tabCabecarioProfissionais.Next;
      tabGerenciadorProfissionais.ActiveTab := tabFichaProfissional;
+
 end;
 
 procedure TfrmGerenciadorProfissionais.btnPesquisarClick(Sender: TObject);
@@ -470,6 +496,7 @@ end;
 
 procedure TfrmGerenciadorProfissionais.FormCreate(Sender: TObject);
 begin
+     CarregaPersonalizacaoCabecarioRodape(Self);
      HabilitaTab(False);
      tabCabecarioProfissionais.TabIndex   := 0;
      tabGerenciadorProfissionais.TabIndex := 0;
@@ -502,6 +529,7 @@ begin
                          'Para cadastrar os telefones é necessário primeiro salvar o profissional'+#13#13+
                          'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
+                    AlimentaClasseProfissional;
                     FIdSelecionado := CadastraProfissional(gclProfissional);
 
                     if FIdSelecionado <> 0 then

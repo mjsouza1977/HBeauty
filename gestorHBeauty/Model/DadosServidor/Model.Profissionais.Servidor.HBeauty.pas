@@ -3,17 +3,62 @@ unit Model.Profissionais.Servidor.HBeauty;
 interface
 
 uses
-  Model.Profissionais.HBeauty;
+  Model.Profissionais.HBeauty, Model.Habilidades.HBeauty;
 
 procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer);
 function CadastraProfissional(AProfissional : TModelProfissionais) : Integer;
 function AtualizaProfissional(AProfissional : TModelProfissionais): Boolean;
+
+procedure carregaHabilidades;
+procedure carregaHabilidadesProfissional(AAIdProfissional : Integer);
+function cadastraHabilidade(AHabilidade : TModelHabilidades) : Integer;
+function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
+function atualizaHabilidade(AHabilidade : TModelHabilidades) : Boolean;
+
 
 implementation
 
 uses
   Controller.ClientModule.HBeauty, Data.FireDACJSONReflect,
   Model.Dados.Server.HBeauty;
+
+procedure carregaHabilidades;
+var
+   dsHabilidades : TFDJSONDataSets;
+begin
+   dsHabilidades := ControllerClientModule.ModelMetodosClient.carregaHabilidades;
+   Assert(TFDJSONDataSetsReader.GetListCount(dsHabilidades) = 1);
+   ModelConexaoDados.memHabilidades.Active := False;
+   ModelConexaoDados.memHabilidades.AppendData(TFDJSONDataSetsReader.GetListValue(dsHabilidades, 0));
+   ModelConexaoDados.memHabilidades.Active := True;
+end;
+
+procedure carregaHabilidadesProfissional(AAIdProfissional : Integer);
+var
+   dsHabilidadesProfissional : TFDJSONDataSets;
+begin
+   dsHabilidadesProfissional := ControllerClientModule.ModelMetodosClient.carregaHabilidadesProfissional(AAIdProfissional);
+   Assert(TFDJSONDataSetsReader.GetListCount(dsHabilidadesProfissional) = 1);
+   ModelConexaoDados.memHabilidades.Active := False;
+   ModelConexaoDados.memHabilidades.AppendData(TFDJSONDataSetsReader.GetListValue(dsHabilidadesProfissional, 0));
+   ModelConexaoDados.memHabilidades.Active := True;
+end;
+
+function cadastraHabilidade(AHabilidade : TModelHabilidades) : Integer;
+begin
+   Result := ControllerClientModule.ModelMetodosClient.cadastraHabilidade(AHabilidade.NomeHabilidade, AHabilidade.DescricaoHabilidade);
+end;
+
+function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
+begin
+     Result := ControllerClientModule.ModelMetodosClient.apagaHabilidadesProfissional(AIdProfissional);
+end;
+
+function atualizaHabilidade(AHabilidade : TModelHabilidades) : Boolean;
+begin
+     Result := ControllerClientModule.ModelMetodosClient.atualizaHabilidade(AHabilidade.Idabilidade, AHabilidade.NomeHabilidade, AHabilidade.DescricaoHabilidade);
+end;
+
 
 function AtualizaProfissional(AProfissional : TModelProfissionais): Boolean;
 begin

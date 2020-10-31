@@ -14,7 +14,7 @@ uses
 
 type
   TfrmLogin = class(TForm)
-    recTopFormLogin: TRectangle;
+    recCabecarioFormLogin: TRectangle;
     Rectangle2: TRectangle;
     imgLogoLogin: TImage;
     Label5: TLabel;
@@ -26,9 +26,9 @@ type
     Rectangle4: TRectangle;
     edtSenhaPrincipal: TEdit;
     Label1: TLabel;
-    recbtnEntrar: TRectangle;
+    recbtnEntrarPositivo: TRectangle;
     Label6: TLabel;
-    recbtnSair: TRectangle;
+    recbtnSairNegativo: TRectangle;
     Label4: TLabel;
     recRodapeLogin: TRectangle;
     lblEsqueciSenha: TLabel;
@@ -55,16 +55,16 @@ type
     edtValidacao5: TEdit;
     Label7: TLabel;
     imgStatuValidacao: TImage;
-    recbtnValidar: TRectangle;
+    recbtnValidarPositivo: TRectangle;
     lblValidar: TLabel;
-    recbtnVoltar: TRectangle;
+    recbtnVoltarNegativo: TRectangle;
     lblCaptionVoltar: TLabel;
-    Rectangle12: TRectangle;
+    recEnviarPositivo: TRectangle;
     Label9: TLabel;
-    procedure recbtnEntrarClick(Sender: TObject);
+    procedure recbtnEntrarPositivoClick(Sender: TObject);
     procedure edtValidacao1KeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
-    procedure recbtnVoltarClick(Sender: TObject);
+    procedure recbtnVoltarNegativoClick(Sender: TObject);
     procedure lblEsqueciSenhaClick(Sender: TObject);
   private
     lcCodigoValidacao : String;
@@ -99,12 +99,12 @@ begin
         if vIdValidacao = lcCodigoValidacao then
            begin
                 CarregaImagemRessource(imgStatuValidacao, 'Check');
-                recbtnValidar.Visible := True;
+                recbtnValidarPositivo.Visible := True;
            end
         else
            begin
                 CarregaImagemRessource(imgStatuValidacao, 'UnCheck');
-                recbtnValidar.Visible := False;
+                recbtnValidarPositivo.Visible := False;
            end;
 
 end;
@@ -114,6 +114,7 @@ begin
 
      CarregaVariaveisControle;
      CarregaPesonalizacaoLogin;
+     CarregaPersonalizacaoCabecarioRodape(Self);
      tbcLogin.ActiveTab := tbLogin;
 
 end;
@@ -126,7 +127,7 @@ begin
 
 end;
 
-procedure TfrmLogin.recbtnEntrarClick(Sender: TObject);
+procedure TfrmLogin.recbtnEntrarPositivoClick(Sender: TObject);
 begin
      Application.CreateForm(TfrmPrincipal, frmPrincipal);
      Application.MainForm := frmPrincipal;
@@ -134,7 +135,7 @@ begin
      frmLogin.Close;
 end;
 
-procedure TfrmLogin.recbtnVoltarClick(Sender: TObject);
+procedure TfrmLogin.recbtnVoltarNegativoClick(Sender: TObject);
 begin
 
      lblEsqueciSenha.Visible := True;

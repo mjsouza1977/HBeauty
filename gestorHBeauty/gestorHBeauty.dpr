@@ -32,7 +32,8 @@ uses
   Model.Contatos.Servidor.HBeauty in 'Model\DadosServidor\Model.Contatos.Servidor.HBeauty.pas',
   Model.Telefones.HBeauty in 'Model\Model.Telefones.HBeauty.pas',
   Model.Emails.HBeauty in 'Model\Model.Emails.HBeauty.pas',
-  View.Loading.HBeauty in 'View\View.Loading.HBeauty.pas' {frmLoading};
+  View.Loading.HBeauty in 'View\View.Loading.HBeauty.pas' {frmLoading},
+  Model.Habilidades.HBeauty in 'Model\Model.Habilidades.HBeauty.pas';
 
 {$R *.res}
 

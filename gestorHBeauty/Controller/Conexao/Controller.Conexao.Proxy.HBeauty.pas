@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 26/10/2020 21:48:06
+// 31/10/2020 16:31:30
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -31,6 +31,13 @@ type
     FValidaLoginCommand_Cache: TDSRestCommand;
     FCadastraProfissionalCommand: TDSRestCommand;
     FAtualizaProfissionalCommand: TDSRestCommand;
+    FcarregaHabilidadesCommand: TDSRestCommand;
+    FcarregaHabilidadesCommand_Cache: TDSRestCommand;
+    FcarregaHabilidadesProfissionalCommand: TDSRestCommand;
+    FcarregaHabilidadesProfissionalCommand_Cache: TDSRestCommand;
+    FcadastraHabilidadeCommand: TDSRestCommand;
+    FapagaHabilidadesProfissionalCommand: TDSRestCommand;
+    FatualizaHabilidadeCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -51,6 +58,13 @@ type
     function ValidaLogin_Cache(Usuario: string; Senha: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): Integer;
     function AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss: Integer; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): Boolean;
+    function carregaHabilidades(const ARequestFilter: string = ''): TFDJSONDataSets;
+    function carregaHabilidades_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function carregaHabilidadesProfissional(AAIdProfissional: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function carregaHabilidadesProfissional_Cache(AAIdProfissional: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function cadastraHabilidade(ANomeHabilidade: string; ADescricaoHabilidade: string; const ARequestFilter: string = ''): Integer;
+    function apagaHabilidadesProfissional(AIdProfissional: Integer; const ARequestFilter: string = ''): Boolean;
+    function atualizaHabilidade(AIdHabilidade: Integer; ANomeHabilidade: string; ADescricaoHabilidade: string; const ARequestFilter: string = ''): Boolean;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -210,6 +224,49 @@ const
     (Name: 'ACep'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ASalario'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
     (Name: 'AComissao'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
+  );
+
+  TModelMetodos_carregaHabilidades: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_carregaHabilidades_Cache: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_carregaHabilidadesProfissional: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'AAIdProfissional'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_carregaHabilidadesProfissional_Cache: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'AAIdProfissional'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_cadastraHabilidade: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANomeHabilidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ADescricaoHabilidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
+  );
+
+  TModelMetodos_apagaHabilidadesProfissional: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdProfissional'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
+  );
+
+  TModelMetodos_atualizaHabilidade: array [0..3] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdHabilidade'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ANomeHabilidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ADescricaoHabilidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
   );
 
@@ -556,6 +613,129 @@ begin
   Result := FAtualizaProfissionalCommand.Parameters[18].Value.GetBoolean;
 end;
 
+function TModelMetodosClient.carregaHabilidades(const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FcarregaHabilidadesCommand = nil then
+  begin
+    FcarregaHabilidadesCommand := FConnection.CreateCommand;
+    FcarregaHabilidadesCommand.RequestType := 'GET';
+    FcarregaHabilidadesCommand.Text := 'TModelMetodos.carregaHabilidades';
+    FcarregaHabilidadesCommand.Prepare(TModelMetodos_carregaHabilidades);
+  end;
+  FcarregaHabilidadesCommand.Execute(ARequestFilter);
+  if not FcarregaHabilidadesCommand.Parameters[0].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FcarregaHabilidadesCommand.Parameters[0].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FcarregaHabilidadesCommand.Parameters[0].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FcarregaHabilidadesCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.carregaHabilidades_Cache(const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FcarregaHabilidadesCommand_Cache = nil then
+  begin
+    FcarregaHabilidadesCommand_Cache := FConnection.CreateCommand;
+    FcarregaHabilidadesCommand_Cache.RequestType := 'GET';
+    FcarregaHabilidadesCommand_Cache.Text := 'TModelMetodos.carregaHabilidades';
+    FcarregaHabilidadesCommand_Cache.Prepare(TModelMetodos_carregaHabilidades_Cache);
+  end;
+  FcarregaHabilidadesCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FcarregaHabilidadesCommand_Cache.Parameters[0].Value.GetString);
+end;
+
+function TModelMetodosClient.carregaHabilidadesProfissional(AAIdProfissional: Integer; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FcarregaHabilidadesProfissionalCommand = nil then
+  begin
+    FcarregaHabilidadesProfissionalCommand := FConnection.CreateCommand;
+    FcarregaHabilidadesProfissionalCommand.RequestType := 'GET';
+    FcarregaHabilidadesProfissionalCommand.Text := 'TModelMetodos.carregaHabilidadesProfissional';
+    FcarregaHabilidadesProfissionalCommand.Prepare(TModelMetodos_carregaHabilidadesProfissional);
+  end;
+  FcarregaHabilidadesProfissionalCommand.Parameters[0].Value.SetInt32(AAIdProfissional);
+  FcarregaHabilidadesProfissionalCommand.Execute(ARequestFilter);
+  if not FcarregaHabilidadesProfissionalCommand.Parameters[1].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FcarregaHabilidadesProfissionalCommand.Parameters[1].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FcarregaHabilidadesProfissionalCommand.Parameters[1].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FcarregaHabilidadesProfissionalCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.carregaHabilidadesProfissional_Cache(AAIdProfissional: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FcarregaHabilidadesProfissionalCommand_Cache = nil then
+  begin
+    FcarregaHabilidadesProfissionalCommand_Cache := FConnection.CreateCommand;
+    FcarregaHabilidadesProfissionalCommand_Cache.RequestType := 'GET';
+    FcarregaHabilidadesProfissionalCommand_Cache.Text := 'TModelMetodos.carregaHabilidadesProfissional';
+    FcarregaHabilidadesProfissionalCommand_Cache.Prepare(TModelMetodos_carregaHabilidadesProfissional_Cache);
+  end;
+  FcarregaHabilidadesProfissionalCommand_Cache.Parameters[0].Value.SetInt32(AAIdProfissional);
+  FcarregaHabilidadesProfissionalCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FcarregaHabilidadesProfissionalCommand_Cache.Parameters[1].Value.GetString);
+end;
+
+function TModelMetodosClient.cadastraHabilidade(ANomeHabilidade: string; ADescricaoHabilidade: string; const ARequestFilter: string): Integer;
+begin
+  if FcadastraHabilidadeCommand = nil then
+  begin
+    FcadastraHabilidadeCommand := FConnection.CreateCommand;
+    FcadastraHabilidadeCommand.RequestType := 'GET';
+    FcadastraHabilidadeCommand.Text := 'TModelMetodos.cadastraHabilidade';
+    FcadastraHabilidadeCommand.Prepare(TModelMetodos_cadastraHabilidade);
+  end;
+  FcadastraHabilidadeCommand.Parameters[0].Value.SetWideString(ANomeHabilidade);
+  FcadastraHabilidadeCommand.Parameters[1].Value.SetWideString(ADescricaoHabilidade);
+  FcadastraHabilidadeCommand.Execute(ARequestFilter);
+  Result := FcadastraHabilidadeCommand.Parameters[2].Value.GetInt32;
+end;
+
+function TModelMetodosClient.apagaHabilidadesProfissional(AIdProfissional: Integer; const ARequestFilter: string): Boolean;
+begin
+  if FapagaHabilidadesProfissionalCommand = nil then
+  begin
+    FapagaHabilidadesProfissionalCommand := FConnection.CreateCommand;
+    FapagaHabilidadesProfissionalCommand.RequestType := 'GET';
+    FapagaHabilidadesProfissionalCommand.Text := 'TModelMetodos.apagaHabilidadesProfissional';
+    FapagaHabilidadesProfissionalCommand.Prepare(TModelMetodos_apagaHabilidadesProfissional);
+  end;
+  FapagaHabilidadesProfissionalCommand.Parameters[0].Value.SetInt32(AIdProfissional);
+  FapagaHabilidadesProfissionalCommand.Execute(ARequestFilter);
+  Result := FapagaHabilidadesProfissionalCommand.Parameters[1].Value.GetBoolean;
+end;
+
+function TModelMetodosClient.atualizaHabilidade(AIdHabilidade: Integer; ANomeHabilidade: string; ADescricaoHabilidade: string; const ARequestFilter: string): Boolean;
+begin
+  if FatualizaHabilidadeCommand = nil then
+  begin
+    FatualizaHabilidadeCommand := FConnection.CreateCommand;
+    FatualizaHabilidadeCommand.RequestType := 'GET';
+    FatualizaHabilidadeCommand.Text := 'TModelMetodos.atualizaHabilidade';
+    FatualizaHabilidadeCommand.Prepare(TModelMetodos_atualizaHabilidade);
+  end;
+  FatualizaHabilidadeCommand.Parameters[0].Value.SetInt32(AIdHabilidade);
+  FatualizaHabilidadeCommand.Parameters[1].Value.SetWideString(ANomeHabilidade);
+  FatualizaHabilidadeCommand.Parameters[2].Value.SetWideString(ADescricaoHabilidade);
+  FatualizaHabilidadeCommand.Execute(ARequestFilter);
+  Result := FatualizaHabilidadeCommand.Parameters[3].Value.GetBoolean;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -584,6 +764,13 @@ begin
   FValidaLoginCommand_Cache.DisposeOf;
   FCadastraProfissionalCommand.DisposeOf;
   FAtualizaProfissionalCommand.DisposeOf;
+  FcarregaHabilidadesCommand.DisposeOf;
+  FcarregaHabilidadesCommand_Cache.DisposeOf;
+  FcarregaHabilidadesProfissionalCommand.DisposeOf;
+  FcarregaHabilidadesProfissionalCommand_Cache.DisposeOf;
+  FcadastraHabilidadeCommand.DisposeOf;
+  FapagaHabilidadesProfissionalCommand.DisposeOf;
+  FatualizaHabilidadeCommand.DisposeOf;
   inherited;
 end;
 

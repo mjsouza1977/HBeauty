@@ -92,7 +92,9 @@ uses Units.Utils.HBeauty,
      Units.Classes.HBeauty,
      Units.Strings.HBeauty,
      Winapi.Windows,
-     FMX.PLatForm.Win, Model.Emails.HBeauty;
+     FMX.PLatForm.Win,
+     Model.Emails.HBeauty,
+     Controller.Manipula.Design.HBeauty;
 
 procedure TfrmCadastroContatos.btnAlterarClick(Sender: TObject);
 begin
@@ -400,6 +402,7 @@ procedure TfrmCadastroContatos.FormCreate(Sender: TObject);
 begin
      //Zera a variavel do item selecionado
      FIdContatoSelecionado := 0;
+     CarregaPersonalizacaoCabecarioRodape(Self);
 end;
 
 procedure TfrmCadastroContatos.FormShow(Sender: TObject);
@@ -429,22 +432,22 @@ begin
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[3, AIndex])) = 'F' then
                                      begin
                                           grdListaContatos.Cells[3, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\error.png');
+                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Unchecked.png');
                                      end
                                  else
                                      begin
                                           grdListaContatos.Cells[3, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\ok.png');
+                                          grdListaContatos.AddBitmapFile(3, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Checked.png');
                                      end;
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[4, AIndex])) = 'F' then
                                      begin
                                           grdListaContatos.Cells[4, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\error.png');
+                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Unchecked.png');
                                      end
                                  else
                                      begin
                                           grdListaContatos.Cells[4, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\ok.png');
+                                          grdListaContatos.AddBitmapFile(4, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Checked.png');
                                      end;
                              end;
                      end;
@@ -460,12 +463,12 @@ begin
                                  if Trim(ExtraiTextoGrid(grdListaContatos.Cells[2, AIndex])) = 'F' then
                                      begin
                                           grdListaContatos.Cells[2, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(2, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\error.png');
+                                          grdListaContatos.AddBitmapFile(2, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Unchecked.png');
                                      end
                                  else
                                      begin
                                           grdListaContatos.Cells[2, AIndex] := '';
-                                          grdListaContatos.AddBitmapFile(2, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\ok.png');
+                                          grdListaContatos.AddBitmapFile(2, AIndex, ExtractFilePath(ParamStr(0)) + 'Imagens\Icones\Checked.png');
                                      end;
                              end;
                      end;

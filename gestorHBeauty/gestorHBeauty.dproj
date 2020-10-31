@@ -242,6 +242,7 @@
             <Form>frmLoading</Form>
             <FormType>fmx</FormType>
         </DCCReference>
+        <DCCReference Include="Model\Model.Habilidades.HBeauty.pas"/>
         <RcItem Include="..\Imagens\Icones\Check.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>Check</ResourceId>

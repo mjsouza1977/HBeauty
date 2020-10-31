@@ -2479,7 +2479,7 @@ object frmLogin: TfrmLogin
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   DesignerMasterStyle = 0
-  object recTopFormLogin: TRectangle
+  object recCabecarioFormLogin: TRectangle
     Align = Top
     Fill.Color = xFF424242
     Size.Width = 614.000000000000000000
@@ -2706,7 +2706,7 @@ object frmLogin: TfrmLogin
     Size.Height = 334.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'TabControl1Style1'
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 4
     TabPosition = None
     Sizes = (
@@ -2718,7 +2718,7 @@ object frmLogin: TfrmLogin
       CustomIcon = <
         item
         end>
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -2757,7 +2757,7 @@ object frmLogin: TfrmLogin
           Text = 'Login'
           TabOrder = 1
         end
-        object recbtnEntrar: TRectangle
+        object recbtnEntrarPositivo: TRectangle
           Cursor = crHandPoint
           Fill.Color = xFFC10F71
           Margins.Left = 150.000000000000000000
@@ -2772,7 +2772,7 @@ object frmLogin: TfrmLogin
           Stroke.Thickness = 2.000000000000000000
           XRadius = 5.000000000000000000
           YRadius = 5.000000000000000000
-          OnClick = recbtnEntrarClick
+          OnClick = recbtnEntrarPositivoClick
           object Label6: TLabel
             Align = Client
             Cursor = crHandPoint
@@ -2790,7 +2790,7 @@ object frmLogin: TfrmLogin
             TabOrder = 0
           end
         end
-        object recbtnSair: TRectangle
+        object recbtnSairNegativo: TRectangle
           Cursor = crHandPoint
           Fill.Color = xFF909090
           Margins.Left = 150.000000000000000000
@@ -2893,7 +2893,7 @@ object frmLogin: TfrmLogin
       CustomIcon = <
         item
         end>
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -2961,7 +2961,7 @@ object frmLogin: TfrmLogin
               StyledSettings = [Family, Style, FontColor]
             end
           end
-          object Rectangle12: TRectangle
+          object recEnviarPositivo: TRectangle
             Cursor = crHandPoint
             Fill.Color = xFFC10F71
             Margins.Left = 150.000000000000000000
@@ -3192,7 +3192,7 @@ object frmLogin: TfrmLogin
             Size.PlatformDefault = False
           end
         end
-        object recbtnValidar: TRectangle
+        object recbtnValidarPositivo: TRectangle
           Cursor = crHandPoint
           Fill.Color = xFFC10F71
           Margins.Left = 150.000000000000000000
@@ -3225,7 +3225,7 @@ object frmLogin: TfrmLogin
             TabOrder = 0
           end
         end
-        object recbtnVoltar: TRectangle
+        object recbtnVoltarNegativo: TRectangle
           Cursor = crHandPoint
           Fill.Color = xFF909090
           Margins.Left = 150.000000000000000000
@@ -3240,7 +3240,7 @@ object frmLogin: TfrmLogin
           Stroke.Thickness = 2.000000000000000000
           XRadius = 5.000000000000000000
           YRadius = 5.000000000000000000
-          OnClick = recbtnVoltarClick
+          OnClick = recbtnVoltarNegativoClick
           object lblCaptionVoltar: TLabel
             Align = Client
             Cursor = crHandPoint

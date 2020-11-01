@@ -8,7 +8,9 @@ uses
 function carregaHabilidades : TFDJSONDataSets;
 function carregaHabilidadesProfissional(AAIdProfissional : Integer) : TFDJSONDataSets;
 
+function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : Boolean;
 function cadastraHabilidade(ANomeHabilidade, ADescricaoHabilidade : String) : Integer;
+
 function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
 
 function atualizaHabilidade(AIdHabilidade : Integer; ANomeHabilidade, ADescricaoHabilidade : String) : Boolean;
@@ -18,21 +20,6 @@ implementation
 
 uses
   System.SysUtils, Controller.Conexao.HBeautyServer;
-
-function carregaHabilidades : TFDJSONDataSets;
-begin
-    try
-        ControllerConexao.qryQuery.Close;
-        ControllerConexao.qryQuery.SQL.Clear;
-        ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBHABILIDADES');
-
-        Result := TFDJSONDataSets.Create;
-        TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
-        ControllerConexao.qryQuery.Active := True;
-    finally
-        ControllerConexao.qryQuery.Close;
-    end;
-end;
 
 function carregaHabilidadesProfissional(AAIdProfissional : Integer) : TFDJSONDataSets;
 begin
@@ -50,6 +37,22 @@ begin
         ControllerConexao.qryQuery.Close;
     end;
 end;
+
+function carregaHabilidades : TFDJSONDataSets;
+begin
+    try
+        ControllerConexao.qryQuery.Close;
+        ControllerConexao.qryQuery.SQL.Clear;
+        ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBHABILIDADES');
+
+        Result := TFDJSONDataSets.Create;
+        TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
+        ControllerConexao.qryQuery.Active := True;
+    finally
+        ControllerConexao.qryQuery.Close;
+    end;
+end;
+
 
 function cadastraHabilidade(ANomeHabilidade, ADescricaoHabilidade : String) : Integer;
 begin
@@ -78,7 +81,7 @@ begin
 
 end;
 
-function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : Integer;
+function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : Boolean;
 begin
 
     try
@@ -92,15 +95,12 @@ begin
             ControllerConexao.qryQuery.ParamByName('IDHABIL_PROFXHABIL').AsInteger  := AIdHabilidade;
             ControllerConexao.qryQuery.ExecSQL;
 
-            ControllerConexao.qryQuery.Open('SELECT GEN_ID(GEN_HBPROFXHABIL_ID, 0) AS IDHBPROFXHABIL FROM RDB$DATABASE');
-
-            Result := ControllerConexao.qryQuery.FieldByName('IDHBPROFXHABIL').AsInteger;
-
+            Result := True;
         finally
             ControllerConexao.qryQuery.Close;
         end;
     except
-        Result := 0;
+        Result := False;
     end;
 
 end;

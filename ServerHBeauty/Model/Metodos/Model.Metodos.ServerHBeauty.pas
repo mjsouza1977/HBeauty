@@ -35,6 +35,7 @@ type
     function cadastraHabilidade(ANomeHabilidade, ADescricaoHabilidade : String) : Integer;
     function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
     function atualizaHabilidade(AIdHabilidade : Integer; ANomeHabilidade, ADescricaoHabilidade : String) : Boolean;
+    function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : Boolean;
 
   end;
 {$METHODINFO OFF}
@@ -93,6 +94,11 @@ begin
      Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.cadastraHabilidade(ANomeHabilidade, ADescricaoHabilidade);
 end;
 
+function TModelMetodos.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
+begin
+     Result:= Model.Metodos.Profissionais.Hablidades.ServerHBeauty.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional);
+end;
+
 function TModelMetodos.CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
                                             ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
 begin
@@ -123,7 +129,7 @@ end;
 
 function TModelMetodos.carregaHabilidadesProfissional(AAIdProfissional: Integer): TFDJSONDataSets;
 begin
-
+     Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.carregaHabilidadesProfissional(AAIdProfissional);
 end;
 
 function TModelMetodos.CarregaTelefones(ATipoFone: String; AIdTabFone: Integer): TFDJSONDataSets;

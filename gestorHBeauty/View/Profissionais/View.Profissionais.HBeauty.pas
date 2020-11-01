@@ -134,9 +134,11 @@ type
   private
     FStatus : TAcaoBotao;
     FIdSelecionado : Integer;
+    FQtdeHabilidades : Integer;
     procedure HabilitaTab(AHabilita : Boolean);
     procedure AlimentaClasseProfissional;
-    procedure CarregaListaHabilidades(ADataSet : TFDMemTable; ADataSetEdit : TFDMemTable = nil);
+    function CarregaListaHabilidades(ADataSet : TFDMemTable; ADataSetEdit : TFDMemTable = nil) : Integer;
+    procedure gravaHabilidadesSelecionadas;
 
   public
 
@@ -157,20 +159,34 @@ uses
     System.UIConsts,
     Controller.Manipula.Design.HBeauty;
 
-procedure TfrmGerenciadorProfissionais.CarregaListaHabilidades(ADataSet : TFDMemTable; ADataSetEdit : TFDMemTable = nil);
+procedure TfrmGerenciadorProfissionais.gravaHabilidadesSelecionadas;
+var
+    AIndex : Integer;
+begin
+    for AIndex := 0 to FQtdeHabilidades - 1 do
+        begin
+            if TCheckBox(Self.FindComponent('chkHabilidade' + AIndex.ToString)).IsChecked then
+                cadastraHabilidadeProfissional(TCheckBox(Self.FindComponent('chkHabilidade' + AIndex.ToString)).TagString.ToInteger, FIdSelecionado);
+        end;
+end;
+
+function TfrmGerenciadorProfissionais.CarregaListaHabilidades(ADataSet : TFDMemTable; ADataSetEdit : TFDMemTable = nil) : Integer;
 var
 ALayout   : TLayout;
 ACheckBox : TCheckBox;
+AIndex    : Integer;
 begin
+
 
      lcScrollListaHabilidade := TVertScrollBox.Create(Self);
      lcScrollListaHabilidade.Parent := rectHabilidades;
-     lcScrollListaHabilidade.Align := TAlignLayout.Client;
+     lcScrollListaHabilidade.Align  := TAlignLayout.Client;
      lcScrollListaHabilidade.Margins.Left   := 5;
      lcScrollListaHabilidade.Margins.Right  := 5;
      lcScrollListaHabilidade.Margins.Top    := 5;
      lcScrollListaHabilidade.Margins.Bottom := 5;
 
+     AIndex := 0;
      ADataSet.First;
 
      while not ADataSet.Eof do
@@ -192,15 +208,16 @@ begin
                                                                      TStyledSetting.FontColor,
                                                                      TStyledSetting.Family,
                                                                      TStyledSetting.Style];
-             ACheckBox.FontColor := StringToAlphaColor('#FF980000');
-             ACheckBox.Font.Size := 14;
+             ACheckBox.FontColor  := StringToAlphaColor('#FF980000');
+             ACheckBox.Font.Size  := 14;
              ACheckBox.Font.Style := [TFontStyle.fsBold];
-
+             ACheckBox.Name       := 'chkHabilidade' + AIndex.ToString;
+             AIndex := AIndex + 1;
              if ADataSetEdit <> nil then
                  begin
+                     ADataSetEdit.Filtered := False;
                      if ADataSetEdit.RecordCount > 0 then
                          begin
-                              ADataSetEdit.Filtered := False;
                               ADataSetEdit.Filter   := 'IDHABIL_PROFXHABIL=' + QuotedStr(ADataSet.FieldByName('ID_HABILIDADE').AsString);
                               ADataSetEdit.Filtered := True;
                               if ADataSetEdit.RecordCount > 0 then
@@ -211,6 +228,7 @@ begin
 
              ADataSet.Next;
          end;
+     Result := AIndex;
 end;
 
 procedure TfrmGerenciadorProfissionais.AlimentaClasseProfissional;
@@ -267,6 +285,11 @@ begin
              edtComissao.Value      := ModelConexaoDados.memProfissionais.FieldByName('COMISSAO_PROFIS').AsCurrency;
 
              AlimentaClasseProfissional;
+
+             carregaHabilidades;
+             carregaHabilidadesProfissional(FIdSelecionado);
+             FQtdeHabilidades := CarregaListaHabilidades(ModelConexaoDados.memHabilidades, ModelConexaoDados.memHbilXProfis);
+
              ControlaBotoes(Self, False);
              FStatus                := abAlterar;
              HabilitaTab(True);
@@ -318,7 +341,7 @@ procedure TfrmGerenciadorProfissionais.btnIncluirClick(Sender: TObject);
 begin
      HabilitaTab(True);
      carregaHabilidades;
-     CarregaListaHabilidades(ModelConexaoDados.memHabilidades);
+     FQtdeHabilidades := CarregaListaHabilidades(ModelConexaoDados.memHabilidades);
      LimpaForm(Self);
      ControlaBotoes(Self, False);
      FStatus := abIncluir;
@@ -363,11 +386,15 @@ begin
                                          AlimentaClasseProfissional;
                                          Try
                                             FIdSelecionado := CadastraProfissional(gclProfissional);
+                                            apagaHabilidadesProfissional(FIdSelecionado);
+                                            gravaHabilidadesSelecionadas;
+
                                             case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                             'Profissional cadastrado com sucesso.'+#13#13+
                                                             'Deseja cadastrar outro profissional?', apTitulo,
                                                              MB_YESNO + MB_ICONQUESTION) of
                                                 IDYES : begin
+                                                             lcScrollListaHabilidade.DisposeOf;
                                                              FStatus := abIncluir;
                                                              LimpaForm(Self);
                                                              edtCPF.SetFocus;
@@ -404,10 +431,14 @@ begin
                                          try
                                              AlimentaClasseProfissional;
                                              AtualizaProfissional(gclProfissional);
+                                             apagaHabilidadesProfissional(FIdSelecionado);
+                                             gravaHabilidadesSelecionadas;
+
                                              MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                         'Registro salvo com sucesso!', apTitulo,
                                                         MB_OK + MB_ICONINFORMATION);
                                              btnPesquisarClick(Self);
+                                             lcScrollListaHabilidade.DisposeOf;
                                              LimpaForm(Self);
                                              HabilitaTab(False);
                                              ControlaBotoes(Self, True);

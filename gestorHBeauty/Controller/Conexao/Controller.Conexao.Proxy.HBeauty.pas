@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 31/10/2020 16:31:30
+// 01/11/2020 12:34:48
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -38,6 +38,7 @@ type
     FcadastraHabilidadeCommand: TDSRestCommand;
     FapagaHabilidadesProfissionalCommand: TDSRestCommand;
     FatualizaHabilidadeCommand: TDSRestCommand;
+    FcadastraHabilidadeProfissionalCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -65,6 +66,7 @@ type
     function cadastraHabilidade(ANomeHabilidade: string; ADescricaoHabilidade: string; const ARequestFilter: string = ''): Integer;
     function apagaHabilidadesProfissional(AIdProfissional: Integer; const ARequestFilter: string = ''): Boolean;
     function atualizaHabilidade(AIdHabilidade: Integer; ANomeHabilidade: string; ADescricaoHabilidade: string; const ARequestFilter: string = ''): Boolean;
+    function cadastraHabilidadeProfissional(AIdHabilidade: Integer; AIdProfissional: Integer; const ARequestFilter: string = ''): Boolean;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -267,6 +269,13 @@ const
     (Name: 'AIdHabilidade'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'ANomeHabilidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ADescricaoHabilidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
+  );
+
+  TModelMetodos_cadastraHabilidadeProfissional: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdHabilidade'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIdProfissional'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
   );
 
@@ -736,6 +745,21 @@ begin
   Result := FatualizaHabilidadeCommand.Parameters[3].Value.GetBoolean;
 end;
 
+function TModelMetodosClient.cadastraHabilidadeProfissional(AIdHabilidade: Integer; AIdProfissional: Integer; const ARequestFilter: string): Boolean;
+begin
+  if FcadastraHabilidadeProfissionalCommand = nil then
+  begin
+    FcadastraHabilidadeProfissionalCommand := FConnection.CreateCommand;
+    FcadastraHabilidadeProfissionalCommand.RequestType := 'GET';
+    FcadastraHabilidadeProfissionalCommand.Text := 'TModelMetodos.cadastraHabilidadeProfissional';
+    FcadastraHabilidadeProfissionalCommand.Prepare(TModelMetodos_cadastraHabilidadeProfissional);
+  end;
+  FcadastraHabilidadeProfissionalCommand.Parameters[0].Value.SetInt32(AIdHabilidade);
+  FcadastraHabilidadeProfissionalCommand.Parameters[1].Value.SetInt32(AIdProfissional);
+  FcadastraHabilidadeProfissionalCommand.Execute(ARequestFilter);
+  Result := FcadastraHabilidadeProfissionalCommand.Parameters[2].Value.GetBoolean;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -771,6 +795,7 @@ begin
   FcadastraHabilidadeCommand.DisposeOf;
   FapagaHabilidadesProfissionalCommand.DisposeOf;
   FatualizaHabilidadeCommand.DisposeOf;
+  FcadastraHabilidadeProfissionalCommand.DisposeOf;
   inherited;
 end;
 

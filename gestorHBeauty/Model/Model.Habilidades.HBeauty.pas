@@ -10,10 +10,10 @@ type
     FIdabilidade: Integer;
             procedure SetDescricaoHabilidade(const Value: String);
             procedure SetNomeHabilidade(const Value: String);
-    procedure SetIdabilidade(const Value: Integer);
+            procedure SetIdHabilidade(const Value: Integer);
 
         public
-            property Idabilidade         : Integer read FIdabilidade         write SetIdabilidade;
+            property IdHabilidade        : Integer read FIdabilidade         write SetIdHabilidade;
             property NomeHabilidade      : String  read FNomeHabilidade      write SetNomeHabilidade;
             property DescricaoHabilidade : String  read FDescricaoHabilidade write SetDescricaoHabilidade;
     end;
@@ -27,7 +27,7 @@ begin
   FDescricaoHabilidade := Value;
 end;
 
-procedure TModelHabilidades.SetIdabilidade(const Value: Integer);
+procedure TModelHabilidades.SetIdHabilidade(const Value: Integer);
 begin
   FIdabilidade := Value;
 end;

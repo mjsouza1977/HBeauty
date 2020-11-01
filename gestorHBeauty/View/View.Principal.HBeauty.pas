@@ -18,7 +18,7 @@ type
     imgLogoPrincipal: TImage;
     Layout1: TLayout;
     Layout2: TLayout;
-    Label1: TLabel;
+    lblHora: TLabel;
     Layout3: TLayout;
     Layout4: TLayout;
     Layout5: TLayout;
@@ -58,8 +58,13 @@ type
     MenuItem14: TMenuItem;
     Layout11: TLayout;
     Image1: TImage;
+    tmHora: TTimer;
+    lblSegundos: TLabel;
+    Layout13: TLayout;
+    Layout14: TLayout;
     procedure FormCreate(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
+    procedure tmHoraTimer(Sender: TObject);
   private
     { Private declarations }
   public
@@ -80,6 +85,9 @@ var
 Node : IXMLNode;
 AMin, AMax, AIdCidade : String;
 begin
+
+    lblHora.Text := FormatDateTime('hh:mm',Now);
+    lblSegundos.Text := FormatDateTime(':ss',Now);
 
     //Carrega a personalização do form
     CarregaPesonalizacaoPrincipal;
@@ -125,6 +133,12 @@ begin
      Application.CreateForm(TfrmGerenciadorProfissionais, frmGerenciadorProfissionais);
      frmGerenciadorProfissionais.ShowModal;
 
+end;
+
+procedure TfrmPrincipal.tmHoraTimer(Sender: TObject);
+begin
+lblHora.Text := FormatDateTime('hh:mm',Now);
+lblSegundos.Text := FormatDateTime(':ss',Now);
 end;
 
 end.

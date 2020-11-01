@@ -13,6 +13,7 @@ type
     memProfissionais: TFDMemTable;
     memContatos: TFDMemTable;
     memHabilidades: TFDMemTable;
+    memHbilXProfis: TFDMemTable;
   private
     { Private declarations }
   public

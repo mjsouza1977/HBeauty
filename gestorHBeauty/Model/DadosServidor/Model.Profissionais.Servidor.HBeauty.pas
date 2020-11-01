@@ -14,6 +14,7 @@ procedure carregaHabilidadesProfissional(AAIdProfissional : Integer);
 function cadastraHabilidade(AHabilidade : TModelHabilidades) : Integer;
 function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
 function atualizaHabilidade(AHabilidade : TModelHabilidades) : Boolean;
+function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
 
 
 implementation
@@ -21,6 +22,11 @@ implementation
 uses
   Controller.ClientModule.HBeauty, Data.FireDACJSONReflect,
   Model.Dados.Server.HBeauty;
+
+function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
+begin
+    ControllerClientModule.ModelMetodosClient.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional);
+end;
 
 procedure carregaHabilidades;
 var
@@ -39,9 +45,9 @@ var
 begin
    dsHabilidadesProfissional := ControllerClientModule.ModelMetodosClient.carregaHabilidadesProfissional(AAIdProfissional);
    Assert(TFDJSONDataSetsReader.GetListCount(dsHabilidadesProfissional) = 1);
-   ModelConexaoDados.memHabilidades.Active := False;
-   ModelConexaoDados.memHabilidades.AppendData(TFDJSONDataSetsReader.GetListValue(dsHabilidadesProfissional, 0));
-   ModelConexaoDados.memHabilidades.Active := True;
+   ModelConexaoDados.memHbilXProfis.Active := False;
+   ModelConexaoDados.memHbilXProfis.AppendData(TFDJSONDataSetsReader.GetListValue(dsHabilidadesProfissional, 0));
+   ModelConexaoDados.memHbilXProfis.Active := True;
 end;
 
 function cadastraHabilidade(AHabilidade : TModelHabilidades) : Integer;
@@ -56,7 +62,7 @@ end;
 
 function atualizaHabilidade(AHabilidade : TModelHabilidades) : Boolean;
 begin
-     Result := ControllerClientModule.ModelMetodosClient.atualizaHabilidade(AHabilidade.Idabilidade, AHabilidade.NomeHabilidade, AHabilidade.DescricaoHabilidade);
+     Result := ControllerClientModule.ModelMetodosClient.atualizaHabilidade(AHabilidade.IdHabilidade, AHabilidade.NomeHabilidade, AHabilidade.DescricaoHabilidade);
 end;
 
 

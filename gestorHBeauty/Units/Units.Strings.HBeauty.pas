@@ -7,31 +7,55 @@ uses
 
 function RemoveAcento(aText : string) : string;
 function CriptografaMD5(const ASenha : String) : String;
-function ApenasNumeros(const S: string): string;
+function ApenasNumeros(const Str:String):String;
+function ApenasLetras(const Str:String):String;
+
+
+const
+    IntegerSet = [#33..#47,#58..#255] ;
+    StringSet = [#46..#57];
 
 implementation
 
 uses
-  System.SysUtils;
+  System.SysUtils, System.Classes;
 
-function ApenasNumeros(const S: string): string;
+function ApenasLetras(const Str:String):String;
 var
-  vText : PChar;
+   _Separators: TSysCharSet;
+   lista: TStrings;
 begin
-  vText := PChar(S);
-  Result := '';
 
-  while (vText^ <> #0) do
-  begin
-    {$IFDEF UNICODE}
-    if CharInSet(vText^, ['0'..'9']) then
-    {$ELSE}
-    if vText^ in ['0'..'9'] then
-    {$ENDIF}
-      Result := Result + vText^;
+    _Separators := StringSet;
+    lista := TStringList.Create;
 
-    Inc(vText);
-  end;
+    try
+        ExtractStrings(_Separators,[],pchar(str),lista);
+        lista.StrictDelimiter := True;
+        lista.QuoteChar := #0;
+        result := StringReplace(lista.DelimitedText, lista.Delimiter, EmptyStr, [rfReplaceAll]);
+    finally
+         lista.Free;
+    end;
+end;
+
+function ApenasNumeros(const Str:String):String;
+var
+   _Separators: TSysCharSet;
+   lista: TStrings;
+begin
+
+    _Separators := IntegerSet;
+    lista := TStringList.Create;
+
+    try
+        ExtractStrings(_Separators,[],pchar(str),lista);
+        lista.StrictDelimiter := True;
+        lista.QuoteChar := #0;
+        result := StringReplace(lista.DelimitedText, lista.Delimiter, EmptyStr, [rfReplaceAll]);
+    finally
+         lista.Free;
+    end;
 end;
 
 function CriptografaMD5(const ASenha : String) : String;

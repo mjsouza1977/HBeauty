@@ -474,7 +474,7 @@ begin
      if Key = VK_RETURN then
         begin
             try
-                AEndereco := TModelEndereco.Create;
+                AEndereco := TModelEndereco.Create(Self);
                 AEndereco := PesquisaCEP(Self, edtCepLog.Text);
 
                 edtCepLog.Text     := AEndereco.CEP;

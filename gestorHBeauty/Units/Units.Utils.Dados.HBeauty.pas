@@ -29,7 +29,7 @@ AValidador : TACBrValidador;
 AResultado : TModelEndereco;
 begin
      try
-         AResultado := TModelEndereco.Create;
+         AResultado := TModelEndereco.Create(AForm);
          AValidador := TACBrValidador.Create(nil);
          AValidador.Documento := ACep;
          AValidador.TipoDocto := TACBrValTipoDocto.docCEP;

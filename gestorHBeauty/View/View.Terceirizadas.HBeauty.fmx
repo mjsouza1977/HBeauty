@@ -301,7 +301,7 @@ object Form1: TForm1
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 12
+        TabOrder = 13
       end
       object lblStatus: TLabel
         StyledSettings = [Family]

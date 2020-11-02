@@ -1,6 +1,6 @@
 program gestorHBeauty;
 
-{$R *.dres}
+
 
 uses
   System.StartUpCopy,
@@ -34,7 +34,8 @@ uses
   Model.Emails.HBeauty in 'Model\Model.Emails.HBeauty.pas',
   View.Loading.HBeauty in 'View\View.Loading.HBeauty.pas' {frmLoading},
   Model.Habilidades.HBeauty in 'Model\Model.Habilidades.HBeauty.pas',
-  View.Terceirizadas.HBeauty in 'View\View.Terceirizadas.HBeauty.pas' {Form1};
+  View.Terceirizadas.HBeauty in 'View\View.Terceirizadas.HBeauty.pas' {Form1},
+  Model.Terceirizada.HBeauty in 'Model\Model.Terceirizada.HBeauty.pas';
 
 {$R *.res}
 

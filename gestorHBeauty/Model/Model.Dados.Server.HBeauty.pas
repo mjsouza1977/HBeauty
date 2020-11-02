@@ -4,7 +4,7 @@ interface
 
 uses
   System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Stan.StorageBin;
+  Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, FireDAC.Stan.StorageBin, REST.Types, REST.Response.Adapter, REST.Client, Data.Bind.Components, Data.Bind.ObjectScope;
 
 type
   TModelConexaoDados = class(TDataModule)
@@ -14,6 +14,16 @@ type
     memContatos: TFDMemTable;
     memHabilidades: TFDMemTable;
     memHbilXProfis: TFDMemTable;
+    RESTClient: TRESTClient;
+    RESTResponse: TRESTResponse;
+    RESTRequest: TRESTRequest;
+    RESTResponseDataSetAdapter: TRESTResponseDataSetAdapter;
+    memCep: TFDMemTable;
+    memCepcep: TWideStringField;
+    memCeplogradouro: TWideStringField;
+    memCepbairro: TWideStringField;
+    memCeplocalidade: TWideStringField;
+    memCepuf: TWideStringField;
   private
     { Private declarations }
   public

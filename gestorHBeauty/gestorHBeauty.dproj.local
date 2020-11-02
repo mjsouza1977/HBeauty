@@ -23,6 +23,7 @@
     <Transaction>2020/10/11 20:49:10.000.481,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Emails.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
     <Transaction>2020/10/24 21:26:12.000.551,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Loading.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
     <Transaction>2020/10/25 19:34:26.000.469,E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Telefones.HBeauty.fmx=E:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Contatos.HBeauty.fmx</Transaction>
+    <Transaction>2020/11/01 16:13:22.236,C:\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Terceirizadas.HBeauty.fmx=C:\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5" Android64="" Android=""/>

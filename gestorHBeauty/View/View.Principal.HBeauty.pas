@@ -8,7 +8,7 @@ uses
   Xml.XMLIntf, FMX.ScrollBox, FMX.Memo, Xml.XMLDoc, Controller.ConexaoWS.HBeauty, REST.Types, REST.Client, Data.Bind.Components,
   Data.Bind.ObjectScope, REST.Response.Adapter, System.Actions, FMX.ActnList, FMX.Menus, Controller.Manipula.XML.HBeauty, Units.Strings.HBeauty, Xml.omnixmldom,
   Xml.adomxmldom, Units.Consts.HBeauty, Units.Utils.HBeauty, Xml.Win.msxmldom, Controller.Manipula.Design.HBeauty,
-  FMX.TMSBitmapContainer, FMX.TMSBaseControl, FMX.TMSPlannerBase, FMX.TMSPlannerData, FMX.TMSPlanner, ACBrBase, ACBrValidador
+  FMX.TMSBitmapContainer, FMX.TMSBaseControl, FMX.TMSPlannerBase, FMX.TMSPlannerData, FMX.TMSPlanner, ACBrBase, ACBrValidador, System.ImageList, FMX.ImgList
   ;
 
 type
@@ -35,11 +35,8 @@ type
     Circle1: TCircle;
     MenuPrincipal: TMenuBar;
     MenuLogo: TMenuItem;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
     StyleBook1: TStyleBook;
     MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuItem9: TMenuItem;
@@ -47,8 +44,6 @@ type
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
     MenuItem13: TMenuItem;
-    MenuItem5: TMenuItem;
-    MenuItem6: TMenuItem;
     aniLoadingTemperatura: TAniIndicator;
     Rectangle3: TRectangle;
     ContainerButtons: TTMSFMXBitmapContainer;
@@ -62,6 +57,8 @@ type
     lblSegundos: TLabel;
     Layout13: TLayout;
     Layout14: TLayout;
+    MenuItem2: TMenuItem;
+    ListaIconesMenuPrincipal: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure tmHoraTimer(Sender: TObject);

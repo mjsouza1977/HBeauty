@@ -4,12 +4,13 @@ interface
 
 uses
     System.UIConsts, System.Classes, FireDAC.Comp.Client, FMX.TMSGrid, ACBrValidador,
-    FMX.Forms;
+    FMX.Forms, Model.Endereco.HBeauty, Units.Strings.HBeauty;
 
 
 procedure CarregaVariaveisControle;
 procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String; AListaSizeColuna : Array of Single);
 procedure LimpaForm(AForm : TForm);
+function PesquisaCEP(AForm: TForm;ACep : String) : TModelEndereco;
 
 implementation
 
@@ -19,7 +20,54 @@ uses
   Units.Consts.HBeauty,
   Model.Dados.Server.HBeauty,
   Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty, Units.Enumerados.HBeauty,
-  View.Principal.HBeauty, FMX.Edit, FMX.ListBox, FMX.StdCtrls, FMX.NumberBox;
+  View.Principal.HBeauty, FMX.Edit, FMX.ListBox, FMX.StdCtrls, FMX.NumberBox,
+  Winapi.Windows, FMX.Platform.Win;
+
+function PesquisaCEP(AForm : TForm; ACep : String) : TModelEndereco;
+var
+AValidador : TACBrValidador;
+AResultado : TModelEndereco;
+begin
+     try
+         AResultado := TModelEndereco.Create;
+         AValidador := TACBrValidador.Create(nil);
+         AValidador.Documento := ACep;
+         AValidador.TipoDocto := TACBrValTipoDocto.docCEP;
+         case AValidador.Validar of
+              False : begin
+                          MessageBox(WindowHandleToPlatform(AForm.Handle).wnd,
+                                     'Cep inválido, verifique!', apTitulo,
+                                     MB_OK + MB_ICONINFORMATION);
+                          TEdit(AForm.FindComponent('edtCepLog')).SetFocus;
+                          Abort;
+                      end;
+               True : begin
+                          ModelConexaoDados.RESTRequest.Params.ParameterByName('pCEP').Value := ApenasNumeros(ACep);
+                          ModelConexaoDados.RESTRequest.Execute;
+                           if ModelConexaoDados.memCep.RecordCount > 0 then
+                              begin
+                                  AResultado.CEP        := ACBrValidador.FormatarCEP(ModelConexaoDados.memCepcep.Value);
+                                  AResultado.LOGRADOURO := ModelConexaoDados.memCeplogradouro.Value;
+                                  AResultado.BAIRROLOG  := ModelConexaoDados.memCepbairro.Value;
+                                  AResultado.CIDADELOG  := ModelConexaoDados.memCeplocalidade.Value;
+                                  AResultado.UFLOG      := ModelConexaoDados.memCepuf.Value;
+
+                                  Result := AResultado;
+                              end
+                          else
+                              begin
+                                   MessageBox(WindowHandleToPlatform(AForm.Handle).Wnd,
+                                              'Cep não encontrado, verifique!', apTitulo,
+                                              MB_OK + MB_ICONINFORMATION);
+                                   TEdit(AForm.FindComponent('edtCep')).SetFocus;
+                                   Abort;
+                              end;
+                      end;
+         end;
+     finally
+         AValidador.DisposeOf;
+     end;
+end;
 
 procedure LimpaForm(AForm : TForm);
 var

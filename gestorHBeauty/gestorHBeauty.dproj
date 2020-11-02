@@ -243,6 +243,10 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="Model\Model.Habilidades.HBeauty.pas"/>
+        <DCCReference Include="View\View.Terceirizadas.HBeauty.pas">
+            <Form>Form1</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <RcItem Include="..\Imagens\Icones\Check.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>Check</ResourceId>

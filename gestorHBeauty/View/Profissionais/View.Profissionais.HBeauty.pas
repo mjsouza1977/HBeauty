@@ -11,7 +11,7 @@ uses
   Model.Profissionais.HBeauty, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
   Model.Dados.Server.HBeauty, ACBrBase, ACBrValidador,  Model.Contatos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, View.Loading.HBeauty, FMX.TMSCustomPicker, FMX.TMSCheckGroupPicker, FMX.TMSCheckGroup, FMX.TMSBitmapContainer, FMX.TMSRichEditorEmoticons,
-  FireDAC.Comp.Client;
+  FireDAC.Comp.Client, Model.Endereco.HBeauty;
 
 type
   TfrmGerenciadorProfissionais = class(TForm)
@@ -468,7 +468,24 @@ begin
 end;
 
 procedure TfrmGerenciadorProfissionais.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+var
+AEndereco : TModelEndereco;
 begin
+     if Key = VK_RETURN then
+        begin
+            try
+                AEndereco := TModelEndereco.Create;
+                AEndereco := PesquisaCEP(Self, edtCepLog.Text);
+
+                edtCepLog.Text     := AEndereco.CEP;
+                edtLogradouro.Text := AEndereco.LOGRADOURO;
+                edtBairroLog.Text  := AEndereco.BAIRROLOG;
+                edtCidadeLog.Text  := AEndereco.CIDADELOG;
+                edtUFLog.Text      := AEndereco.UFLOG;
+            finally
+                AEndereco.DisposeOf;
+            end;
+        end;
      NextField(Key, edtLogradouro);
 end;
 

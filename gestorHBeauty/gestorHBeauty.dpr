@@ -33,7 +33,8 @@ uses
   Model.Telefones.HBeauty in 'Model\Model.Telefones.HBeauty.pas',
   Model.Emails.HBeauty in 'Model\Model.Emails.HBeauty.pas',
   View.Loading.HBeauty in 'View\View.Loading.HBeauty.pas' {frmLoading},
-  Model.Habilidades.HBeauty in 'Model\Model.Habilidades.HBeauty.pas';
+  Model.Habilidades.HBeauty in 'Model\Model.Habilidades.HBeauty.pas',
+  View.Terceirizadas.HBeauty in 'View\View.Terceirizadas.HBeauty.pas' {Form1};
 
 {$R *.res}
 
@@ -42,5 +43,6 @@ begin
   Application.CreateForm(TControllerClientModule, ControllerClientModule);
   Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
   Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

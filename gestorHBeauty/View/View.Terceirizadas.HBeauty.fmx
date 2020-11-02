@@ -1,22 +1,17 @@
-object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
+object Form1: TForm1
   Left = 0
   Top = 0
-  BorderIcons = []
-  BorderStyle = Single
   Caption = 'Form1'
-  ClientHeight = 570
+  ClientHeight = 625
   ClientWidth = 1020
-  Position = MainFormCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnCreate = FormCreate
-  OnClose = FormClose
   DesignerMasterStyle = 0
-  object recRodapeGerenciadorProfissionais: TRectangle
+  object recRodapeTerceirizada: TRectangle
     Align = Bottom
     Fill.Color = xFF424242
-    Position.Y = 508.000000000000000000
+    Position.Y = 563.000000000000000000
     Size.Width = 1020.000000000000000000
     Size.Height = 62.000000000000000000
     Size.PlatformDefault = False
@@ -32,11 +27,10 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 740.000000000000000000
+      Position.X = 742.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 0
       Text = 'Alterar'
-      OnClick = btnAlterarClick
     end
     object btnFechar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -49,11 +43,10 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 880.000000000000000000
+      Position.X = 882.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 1
       Text = 'Fechar'
-      OnClick = btnFecharClick
     end
     object btnIncluir: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -66,11 +59,10 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 600.000000000000000000
+      Position.X = 602.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 2
       Text = 'Incluir'
-      OnClick = btnIncluirClick
     end
     object btnSalvar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -83,12 +75,11 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 320.000000000000000000
+      Position.X = 322.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 3
       Text = 'Salvar'
       Visible = False
-      OnClick = btnSalvarClick
     end
     object btnCancelar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -101,12 +92,11 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 180.000000000000000000
+      Position.X = 182.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 4
       Text = 'Cancelar'
       Visible = False
-      OnClick = btnCancelarClick
     end
   end
   object tabCabecarioProfissionais: TTabControl
@@ -135,7 +125,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       Text = 'tabPesquisa'
       ExplicitSize.cx = 8.000000000000000000
       ExplicitSize.cy = 8.000000000000000000
-      object recCabecarioGerenciadoProfissionais: TRectangle
+      object recCabecarioTerceirizada: TRectangle
         Align = Top
         Fill.Color = xFF424242
         Size.Width = 1020.000000000000000000
@@ -157,7 +147,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Position.Y = 12.000000000000000000
           TabOrder = 0
           Text = 'Pesquisar'
-          OnClick = btnPesquisarClick
         end
         object Label1: TLabel
           StyledSettings = [Family, Size]
@@ -244,7 +233,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
               Text = 'Nome'
             end
             item
-              Text = 'CPF'
+              Text = 'CNPJ'
             end>
           BitmapHeight = 2.000000000000000000
           BitmapWidth = 2.000000000000000000
@@ -331,7 +320,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Align = Client
     Locked = True
     Size.Width = 1020.000000000000000000
-    Size.Height = 395.000000000000000000
+    Size.Height = 450.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
     TabIndex = 1
@@ -339,12 +328,12 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     TabPosition = PlatformDefault
     Sizes = (
       1020s
-      366s
+      421s
       1020s
-      366s
+      421s
       1020s
-      366s)
-    object tabListaProfissionais: TTabItem
+      421s)
+    object tabListaTerceirizadas: TTabItem
       CustomIcon = <
         item
         end>
@@ -352,18 +341,18 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
       IsSelected = False
-      Size.Width = 165.000000000000000000
+      Size.Width = 166.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'Lista dos Profissionais'
+      Text = 'Lista das Terceirizadas'
       ExplicitSize.cx = 165.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
       object Layout4: TLayout
         Align = Client
         Size.Width = 1020.000000000000000000
-        Size.Height = 366.000000000000000000
+        Size.Height = 421.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         object recModal: TRectangle
@@ -2724,16 +2713,16 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         object Rectangle11: TRectangle
           Align = Client
           Size.Width = 1020.000000000000000000
-          Size.Height = 366.000000000000000000
+          Size.Height = 421.000000000000000000
           Size.PlatformDefault = False
           Stroke.Kind = None
-          object grdListaProfissionais: TTMSFMXGrid
+          object grdListaTerceirizada: TTMSFMXGrid
             Align = Client
             DisableFocusEffect = False
             Margins.Left = 5.000000000000000000
             TabOrder = 1
             Size.Width = 1015.000000000000000000
-            Size.Height = 366.000000000000000000
+            Size.Height = 421.000000000000000000
             Size.PlatformDefault = False
             DefaultRowHeight = 20.000000000000000000
             DefaultColumnWidth = 50.000000000000000000
@@ -2753,7 +2742,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             StrokeThickness = 0.000000000000000000
             TopRow = 1
             LeftCol = 0
-            OnCellClick = grdListaProfissionaisCellClick
             Columns = <
               item
                 BorderColor = claNull
@@ -4400,8 +4388,8 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
               2E506C6174666F726D44656661756C74080B5374796C654C6F6F6B7570060B76
               7468756D627374796C65000000}
           end>
-        Left = 408
-        Top = 16
+        Left = 861
+        Top = 264
       end
     end
     object tabFichaProfissional: TTabItem
@@ -4417,7 +4405,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'Ficha do Profissional'
+      Text = 'Ficha da Terceirizada'
       ExplicitSize.cx = 157.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
       object rgDados: TTMSFMXRadioGroup
@@ -4426,57 +4414,15 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Position.Y = 18.000000000000000000
         TabOrder = 3
         Size.Width = 639.000000000000000000
-        Size.Height = 325.000000000000000000
+        Size.Height = 379.000000000000000000
         Size.PlatformDefault = False
         Items = <>
-        Text = 'Profissional'
+        Text = 'Empresa (Terceirizada)'
         Font.StyleExt = {00070000000000000004000000}
         ItemFont.StyleExt = {00070000000000000004000000}
         ItemFontColor = claWhite
         ItemIndex = 0
         Version = '1.0.2.6'
-      end
-      object gbTerceirizada: TGroupBox
-        StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 676.000000000000000000
-        Position.Y = 17.000000000000000000
-        Size.Width = 325.000000000000000000
-        Size.Height = 75.000000000000000000
-        Size.PlatformDefault = False
-        Text = 'Empresa Terceirizada'
-        TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 5
-        object Rectangle14: TRectangle
-          Align = Center
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Size.Width = 288.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object cbEmpresaTerceirizada: TComboBox
-            Align = Client
-            Items.Strings = (
-              'ASDasd'
-              'asdfasdf'
-              'asdfasdf'
-              'asdf')
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 268.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyleLookup = 'ComboBox1Style1'
-            TabOrder = 11
-          end
-        end
       end
       object Rectangle1: TRectangle
         Fill.Color = claWhite
@@ -4484,15 +4430,15 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 48.000000000000000000
-        Position.Y = 128.000000000000000000
-        Size.Width = 261.000000000000000000
+        Position.Y = 121.000000000000000000
+        Size.Width = 597.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = claGainsboro
         Stroke.Thickness = 2.000000000000000000
         XRadius = 5.000000000000000000
         YRadius = 5.000000000000000000
-        object edtNome: TEdit
+        object edtRazaoSocial: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Client
           StyleLookup = 'transparentedit'
@@ -4502,12 +4448,11 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Margins.Top = 2.000000000000000000
           Margins.Right = 10.000000000000000000
           Margins.Bottom = 2.000000000000000000
-          Size.Width = 241.000000000000000000
+          Size.Width = 577.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyUp = edtNomeKeyUp
         end
         object Label2: TLabel
           StyledSettings = [Family, Size]
@@ -4517,7 +4462,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'Nome'
+          Text = 'Raz'#227'o Social'
           TabOrder = 0
         end
       end
@@ -4535,7 +4480,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Stroke.Thickness = 2.000000000000000000
         XRadius = 5.000000000000000000
         YRadius = 5.000000000000000000
-        object edtCPF: TEdit
+        object edtCNPJ: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Client
           StyleLookup = 'transparentedit'
@@ -4551,7 +4496,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyUp = edtCPFKeyUp
         end
         object Label10: TLabel
           StyledSettings = [Family, Size]
@@ -4560,7 +4504,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'CPF'
+          Text = 'C.N.P.J.'
           TabOrder = 1
         end
       end
@@ -4578,7 +4522,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Stroke.Thickness = 2.000000000000000000
         XRadius = 5.000000000000000000
         YRadius = 5.000000000000000000
-        object edtRG: TEdit
+        object edtIE: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Client
           StyleLookup = 'transparentedit'
@@ -4593,7 +4537,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyUp = edtRGKeyUp
         end
         object Label11: TLabel
           StyledSettings = [Family, Size]
@@ -4603,7 +4546,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'R.G.'
+          Text = 'I.E.'
           TabOrder = 0
         end
       end
@@ -4612,16 +4555,16 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Left = 150.000000000000000000
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
-        Position.X = 314.000000000000000000
-        Position.Y = 128.000000000000000000
-        Size.Width = 329.000000000000000000
+        Position.X = 50.000000000000000000
+        Position.Y = 178.000000000000000000
+        Size.Width = 595.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = claGainsboro
         Stroke.Thickness = 2.000000000000000000
         XRadius = 5.000000000000000000
         YRadius = 5.000000000000000000
-        object edtSobreNome: TEdit
+        object edtNomeFantasia: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Client
           StyleLookup = 'transparentedit'
@@ -4631,12 +4574,11 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Margins.Top = 2.000000000000000000
           Margins.Right = 10.000000000000000000
           Margins.Bottom = 2.000000000000000000
-          Size.Width = 309.000000000000000000
+          Size.Width = 575.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyUp = edtSobreNomeKeyUp
         end
         object Label12: TLabel
           StyledSettings = [Family, Size]
@@ -4646,7 +4588,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.Height = 17.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'Sobrenome'
+          Text = 'Nome Fantasia'
           TabOrder = 0
         end
       end
@@ -4656,7 +4598,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 432.000000000000000000
-        Position.Y = 184.000000000000000000
+        Position.Y = 234.000000000000000000
         Size.Width = 73.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -4692,7 +4634,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
-          OnKeyUp = edtNumeroLogKeyUp
         end
       end
       object Rectangle2: TRectangle
@@ -4701,7 +4642,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 48.000000000000000000
-        Position.Y = 184.000000000000000000
+        Position.Y = 234.000000000000000000
         Size.Width = 377.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -4724,7 +4665,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyUp = edtLogradouroKeyUp
         end
         object Label3: TLabel
           StyledSettings = [Family, Size]
@@ -4744,7 +4684,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 510.000000000000000000
-        Position.Y = 184.000000000000000000
+        Position.Y = 234.000000000000000000
         Size.Width = 133.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -4767,7 +4707,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyUp = edtComplementoLogKeyUp
         end
         object Label5: TLabel
           AutoSize = True
@@ -4787,7 +4726,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 48.000000000000000000
-        Position.Y = 241.000000000000000000
+        Position.Y = 291.000000000000000000
         Size.Width = 460.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -4810,7 +4749,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyUp = edtBairroLogKeyUp
         end
         object Label6: TLabel
           StyledSettings = [Family, Size]
@@ -4830,7 +4768,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 514.000000000000000000
-        Position.Y = 241.000000000000000000
+        Position.Y = 291.000000000000000000
         Size.Width = 129.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -4853,7 +4791,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyUp = edtCepLogKeyUp
         end
         object Label7: TLabel
           AutoSize = True
@@ -4873,7 +4810,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 48.000000000000000000
-        Position.Y = 296.000000000000000000
+        Position.Y = 348.000000000000000000
         Size.Width = 531.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -4896,7 +4833,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyUp = edtCidadeLogKeyUp
         end
         object Label8: TLabel
           StyledSettings = [Family, Size]
@@ -4916,7 +4852,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 586.000000000000000000
-        Position.Y = 296.000000000000000000
+        Position.Y = 348.000000000000000000
         Size.Width = 57.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -4939,7 +4875,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
-          OnKeyDown = edtUFLogKeyDown
         end
         object Label9: TLabel
           AutoSize = True
@@ -4957,9 +4892,9 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       object grpContatos: TGroupBox
         StyledSettings = [Family, Size, FontColor, Other]
         Position.X = 676.000000000000000000
-        Position.Y = 268.000000000000000000
+        Position.Y = 320.000000000000000000
         Size.Width = 325.000000000000000000
-        Size.Height = 75.000000000000000000
+        Size.Height = 77.000000000000000000
         Size.PlatformDefault = False
         Text = 'Contatos'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -4979,7 +4914,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Position.Y = 28.000000000000000000
           TabOrder = 0
           Text = 'Cadastrar Telefones'
-          OnClick = TMSFMXButton3Click
         end
         object TMSFMXButton4: TTMSFMXButton
           BitmapContainer = frmPrincipal.ContainerButtons
@@ -4997,7 +4931,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Position.Y = 28.000000000000000000
           TabOrder = 1
           Text = 'Cadastrar E-Mails'
-          OnClick = TMSFMXButton4Click
         end
       end
     end
@@ -5009,170 +4942,20 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
       IsSelected = False
-      Size.Width = 194.000000000000000000
+      Size.Width = 104.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'Habilidades\Remunera'#231#227'o'
+      Text = 'Profissionais'
       ExplicitSize.cx = 150.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
-      object gbSalario: TGroupBox
-        StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 308.000000000000000000
-        Position.Y = 24.000000000000000000
-        Size.Width = 220.000000000000000000
-        Size.Height = 75.000000000000000000
-        Size.PlatformDefault = False
-        Text = 'Sal'#225'rio'
-        TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 0
-        object Rectangle20: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 21.000000000000000000
-          Position.Y = 33.000000000000000000
-          Size.Width = 180.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object edtSalario: TNumberBox
-            Touch.InteractiveGestures = [LongTap, DoubleTap]
-            Align = Client
-            StyleLookup = 'NumberBox1Style1'
-            TabOrder = 11
-            Cursor = crIBeam
-            ValueType = Float
-            TextSettings.Font.Size = 14.000000000000000000
-            TextSettings.HorzAlign = Center
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 160.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyledSettings = [Family, Style, FontColor]
-          end
-        end
-      end
-      object gbComissao: TGroupBox
-        StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 308.000000000000000000
-        Position.Y = 108.000000000000000000
-        Size.Width = 220.000000000000000000
-        Size.Height = 75.000000000000000000
-        Size.PlatformDefault = False
-        Text = 'Comiss'#227'o'
-        TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 1
-        object Rectangle22: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 118.000000000000000000
-          Position.Y = 33.000000000000000000
-          Size.Width = 61.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object Label15: TLabel
-            AutoSize = True
-            StyledSettings = [Family, Size]
-            Position.X = -96.000000000000000000
-            Position.Y = 8.000000000000000000
-            Size.Width = 85.000000000000000000
-            Size.Height = 16.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.StyleExt = {00070000000000000004000000}
-            Text = 'Comiss'#227'o (%)'
-            TabOrder = 0
-          end
-          object edtComissao: TNumberBox
-            Touch.InteractiveGestures = [LongTap, DoubleTap]
-            Align = Client
-            StyleLookup = 'NumberBox1Style1'
-            TabOrder = 12
-            Cursor = crIBeam
-            ValueType = Float
-            TextSettings.Font.Size = 14.000000000000000000
-            TextSettings.HorzAlign = Center
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 41.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyledSettings = [Family, Style, FontColor]
-          end
-        end
-      end
-      object rectHabilidades: TRectangle
-        Fill.Color = claWhite
-        Margins.Left = 150.000000000000000000
-        Margins.Top = 20.000000000000000000
-        Margins.Right = 150.000000000000000000
-        Position.X = 25.000000000000000000
-        Position.Y = 20.000000000000000000
-        Size.Width = 248.000000000000000000
-        Size.Height = 309.000000000000000000
-        Size.PlatformDefault = False
-        Stroke.Color = claGainsboro
-        Stroke.Thickness = 2.000000000000000000
-        XRadius = 5.000000000000000000
-        YRadius = 5.000000000000000000
-        object vsbHabilidades: TVertScrollBox
-          Align = Client
-          Margins.Left = 5.000000000000000000
-          Margins.Top = 5.000000000000000000
-          Margins.Right = 5.000000000000000000
-          Margins.Bottom = 5.000000000000000000
-          Size.Width = 238.000000000000000000
-          Size.Height = 299.000000000000000000
-          Size.PlatformDefault = False
-          TabOrder = 11
-          Visible = False
-          Viewport.Width = 238.000000000000000000
-          Viewport.Height = 299.000000000000000000
-          object lytModelo: TLayout
-            Align = Top
-            Size.Width = 238.000000000000000000
-            Size.Height = 35.000000000000000000
-            Size.PlatformDefault = False
-            TabOrder = 0
-            object CheckBox6: TCheckBox
-              Align = Client
-              StyledSettings = [Family]
-              Margins.Left = 10.000000000000000000
-              Margins.Right = 5.000000000000000000
-              Size.Width = 223.000000000000000000
-              Size.Height = 35.000000000000000000
-              Size.PlatformDefault = False
-              TabOrder = 0
-              Text = 'Cabelereiro'
-              TextSettings.Font.Size = 14.000000000000000000
-              TextSettings.Font.StyleExt = {00070000000000000004000000}
-              TextSettings.FontColor = xFF980000
-            end
-          end
-        end
-      end
     end
   end
   object ACBrValidador1: TACBrValidador
     TipoDocto = docEmail
     IgnorarChar = './-'
-    Left = 885
-    Top = 126
+    Left = 861
+    Top = 322
   end
 end

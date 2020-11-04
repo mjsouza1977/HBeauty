@@ -2,6 +2,7 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2020/10/08 05:55:10.000.282,E:\Projetos\HBeauty\trunk\ServerHBeauty\ServerHBeauty.dproj=C:\Users\Souza\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2020/11/03 19:46:13.407,C:\Projetos\HBeauty\trunk\ServerHBeauty\Model\Metodos\Terceirizadas\Model.Metodos.Terceirizadas.ServerHBeauty.pas=C:\Projetos\HBeauty\trunk\ServerHBeauty\Unit1.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5" Android64="0048627021" Android="0048627021"/>

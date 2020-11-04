@@ -24,6 +24,12 @@ type
     memCepbairro: TWideStringField;
     memCeplocalidade: TWideStringField;
     memCepuf: TWideStringField;
+    memTerceirizada: TFDMemTable;
+    WideStringField1: TWideStringField;
+    WideStringField2: TWideStringField;
+    WideStringField3: TWideStringField;
+    WideStringField4: TWideStringField;
+    WideStringField5: TWideStringField;
   private
     { Private declarations }
   public

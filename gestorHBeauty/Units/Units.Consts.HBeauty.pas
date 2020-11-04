@@ -28,6 +28,12 @@ const
      ACaptionEmails : Array [0..2] of String  = ('Código','E-Mail','Restrito');
      ASizeColEmails : Array [0..2] of Single  = (70, 400, 50);
 
+     //grid do Form de Empresas Terceirizadas
+     AFieldsTerceirizadas  : Array [0..10] of  String = ('ID_TERCEIRIZADA', 'CNPJ_TERCEIRIZADA','RAZAO_TERCEIRIZADA','FANTASIA_TERCEIRIZADA','LOGLOG_TERCEIRIZADA', 'NRLOG_TERCEIRIZADA',
+                                                         'COMPLLOG_TERCEIRIZADA','BAIRROLOG_TERCEIRIZADA','CEP_TERCEIRIZADA','CIDADELOG_TERCEIRIZADA','UFLOG_TERCEIRIZADA');
+     ACaptionTerceirizadas : Array [0..10] of String  = ('Código','CNPJ','Razão Social','Nome Fantasia','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
+     ASizeColTerceirizadas : Array [0..10] of Single  = (50, 150, 200, 200, 350, 70, 100, 200, 100, 180, 50);
+
      //Status da ação do form
      tpInicia    : String = 'Inicia';
      tpTermina   : String = 'Termina';

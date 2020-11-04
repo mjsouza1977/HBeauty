@@ -133,4 +133,35 @@ object ModelConexaoDados: TModelConexaoDados
       Size = 255
     end
   end
+  object memTerceirizada: TFDMemTable
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 48
+    Top = 352
+    object WideStringField1: TWideStringField
+      FieldName = 'cep'
+      Size = 255
+    end
+    object WideStringField2: TWideStringField
+      FieldName = 'logradouro'
+      Size = 255
+    end
+    object WideStringField3: TWideStringField
+      FieldName = 'bairro'
+      Size = 255
+    end
+    object WideStringField4: TWideStringField
+      FieldName = 'localidade'
+      Size = 255
+    end
+    object WideStringField5: TWideStringField
+      FieldName = 'uf'
+      Size = 255
+    end
+  end
 end

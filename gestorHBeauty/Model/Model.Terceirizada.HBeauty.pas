@@ -20,6 +20,7 @@ type
     FCNPJ_TERCEIRIZADA: String;
     FValidador : TACBRValidador;
     FForm : TForm;
+    FCODIGO_TERCEIRIZADA: String;
     procedure SetCNPJ_TERCEIRIZADA(const Value: String);
     procedure SetDATACADASTRO_TERCEIRIZADA(const Value: TDate);
     procedure SetENDERECO_TERCEIRIZADA(const Value: TModelEndereco);
@@ -27,15 +28,17 @@ type
     procedure SetID_TERCEIRIZADA(const Value: Integer);
     procedure SetIE_TERCEIRIZADA(const Value: String);
     procedure SetRAZAO_TERCEIRIZADA(const Value: String);
+    procedure SetCODIGO_TERCEIRIZADA(const Value: String);
 
         public
-            property ID_TERCEIRIZADA           : Integer read FID_TERCEIRIZADA write SetID_TERCEIRIZADA;
-            property CNPJ_TERCEIRIZADA         : String read FCNPJ_TERCEIRIZADA write SetCNPJ_TERCEIRIZADA;
-            property IE_TERCEIRIZADA           : String read FIE_TERCEIRIZADA write SetIE_TERCEIRIZADA;
-            property RAZAO_TERCEIRIZADA        : String read FRAZAO_TERCEIRIZADA write SetRAZAO_TERCEIRIZADA;
-            property FANTASIA_TERCEIRIZADA     : String read FFANTASIA_TERCEIRIZADA write SetFANTASIA_TERCEIRIZADA;
-            property ENDERECO_TERCEIRIZADA     : TModelEndereco read FENDERECO_TERCEIRIZADA write SetENDERECO_TERCEIRIZADA;
-            property DATACADASTRO_TERCEIRIZADA : TDate read FDATACADASTRO_TERCEIRIZADA write SetDATACADASTRO_TERCEIRIZADA;
+            property ID_TERCEIRIZADA           : Integer        read FID_TERCEIRIZADA           write SetID_TERCEIRIZADA;
+            property CNPJ_TERCEIRIZADA         : String         read FCNPJ_TERCEIRIZADA         write SetCNPJ_TERCEIRIZADA;
+            property IE_TERCEIRIZADA           : String         read FIE_TERCEIRIZADA           write SetIE_TERCEIRIZADA;
+            property RAZAO_TERCEIRIZADA        : String         read FRAZAO_TERCEIRIZADA        write SetRAZAO_TERCEIRIZADA;
+            property FANTASIA_TERCEIRIZADA     : String         read FFANTASIA_TERCEIRIZADA     write SetFANTASIA_TERCEIRIZADA;
+            property ENDERECO_TERCEIRIZADA     : TModelEndereco read FENDERECO_TERCEIRIZADA     write SetENDERECO_TERCEIRIZADA;
+            property DATACADASTRO_TERCEIRIZADA : TDate          read FDATACADASTRO_TERCEIRIZADA write SetDATACADASTRO_TERCEIRIZADA;
+            property CODIGO_TERCEIRIZADA       : String         read FCODIGO_TERCEIRIZADA       write SetCODIGO_TERCEIRIZADA;
             constructor create(AForm : TForm);
     end;
 
@@ -75,6 +78,11 @@ begin
             FCNPJ_TERCEIRIZADA := ApenasNumeros(Value);
         end;
 
+end;
+
+procedure TModelTerceirizada.SetCODIGO_TERCEIRIZADA(const Value: String);
+begin
+  FCODIGO_TERCEIRIZADA := Value;
 end;
 
 procedure TModelTerceirizada.SetDATACADASTRO_TERCEIRIZADA(const Value: TDate);

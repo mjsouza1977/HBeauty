@@ -8,7 +8,8 @@ uses
   Xml.XMLIntf, FMX.ScrollBox, FMX.Memo, Xml.XMLDoc, Controller.ConexaoWS.HBeauty, REST.Types, REST.Client, Data.Bind.Components,
   Data.Bind.ObjectScope, REST.Response.Adapter, System.Actions, FMX.ActnList, FMX.Menus, Controller.Manipula.XML.HBeauty, Units.Strings.HBeauty, Xml.omnixmldom,
   Xml.adomxmldom, Units.Consts.HBeauty, Units.Utils.HBeauty, Xml.Win.msxmldom, Controller.Manipula.Design.HBeauty,
-  FMX.TMSBitmapContainer, FMX.TMSBaseControl, FMX.TMSPlannerBase, FMX.TMSPlannerData, FMX.TMSPlanner, ACBrBase, ACBrValidador, System.ImageList, FMX.ImgList, FMX.Edit
+  FMX.TMSBitmapContainer, FMX.TMSBaseControl, FMX.TMSPlannerBase, FMX.TMSPlannerData, FMX.TMSPlanner, ACBrBase, ACBrValidador, System.ImageList, FMX.ImgList, FMX.Edit,
+  View.Terceirizadas.HBeauty
   ;
 
 type
@@ -59,9 +60,11 @@ type
     Layout14: TLayout;
     MenuItem2: TMenuItem;
     ListaIconesMenuPrincipal: TImageList;
+    MenuItem1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure tmHoraTimer(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -130,6 +133,12 @@ begin
      Application.CreateForm(TfrmGerenciadorProfissionais, frmGerenciadorProfissionais);
      frmGerenciadorProfissionais.ShowModal;
 
+end;
+
+procedure TfrmPrincipal.MenuItem1Click(Sender: TObject);
+begin
+    Application.CreateForm(TfrmGerenciadorTerceirizadas, frmGerenciadorTerceirizadas);
+    frmGerenciadorTerceirizadas.ShowModal;
 end;
 
 procedure TfrmPrincipal.tmHoraTimer(Sender: TObject);

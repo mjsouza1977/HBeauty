@@ -128,7 +128,7 @@ begin
                             end;
                 tfEmail    : begin
                                 //Cria a classe de emails e exibe o layout com os campos referidos
-                                gclEmails := TModelEmails.Create(Self);
+                                gclEmail := TModelEmails.Create(Self);
                                 lytCadastroEmail.Visible := True;
 
                                 //Filtra a tabela com o id correspondente
@@ -155,7 +155,7 @@ procedure TfrmCadastroContatos.btnCancelarClick(Sender: TObject);
 begin
 
      //Destroi as variaveis das classes caso ja esteja criadas
-     if Assigned(gclEmails)   then FreeAndNil(gclEmails);
+     if Assigned(gclEmail)   then FreeAndNil(gclEmail);
      if Assigned(gclTelefone) then FreeAndNil(gclTelefone);
 
      LimpaForm(Self);
@@ -190,7 +190,7 @@ begin
                      end;
          tfEmail    : begin
                          //Cria a variavel da classe e exibe o layout
-                         gclEmails := TModelEmails.Create(Self);
+                         gclEmail := TModelEmails.Create(Self);
                          lytCadastroEmail.Visible := True;
                      end;
      end;
@@ -205,12 +205,12 @@ begin
     {$region 'carrega a classe'}
     case TipoForm of
         tfEmail    : begin
-                         gclEmails            := TModelEmails.create(Self);
-                         gclEmails.IdEmail    := FIdContatoSelecionado;
-                         gclEmails.Email      := edtEmail.Text;
-                         gclEmails.NomeTabela := PrefixoTabela(tcProfissionais);
-                         gclEmails.IdTabela   := FIdRegTab;
-                         gclEmails.Restrito   := chkEmailRestrito.IsChecked;
+                         gclEmail            := TModelEmails.create(Self);
+                         gclEmail.IdEmail    := FIdContatoSelecionado;
+                         gclEmail.Email      := edtEmail.Text;
+                         gclEmail.NomeTabela := PrefixoTabela(tcProfissionais);
+                         gclEmail.IdTabela   := FIdRegTab;
+                         gclEmail.Restrito   := chkEmailRestrito.IsChecked;
                      end;
         tfTelefone : begin
                          gclTelefone            := TModelTelefones.create(Self);
@@ -322,7 +322,7 @@ begin
                                                                      'Confirma a inclusão deste e-mail?', apTitulo,
                                                                      MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
                                                            begin
-                                                               CadastraEmail(gclEmails);
+                                                               CadastraEmail(gclEmail);
                                                                MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                           'Registro salvo com sucesso!', apTitulo,
                                                                           MB_OK + MB_ICONINFORMATION);
@@ -345,7 +345,7 @@ begin
                                                    end;
                                                finally
                                                    FreeAndNil(frmLoading);
-                                                   FreeAndNil(gclEmails);
+                                                   FreeAndNil(gclEmail);
                                                end;
                                            end;
                                {$endregion}
@@ -357,7 +357,7 @@ begin
                                                                      'Confirma a alteração deste e-mail?', apTitulo,
                                                                      MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
                                                            begin
-                                                               AtualizaEmail(gclEmails);
+                                                               AtualizaEmail(gclEmail);
                                                                MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                           'Registro salvo com sucesso!', apTitulo,
                                                                           MB_OK + MB_ICONINFORMATION);
@@ -379,7 +379,7 @@ begin
                                                    end;
                                                finally
                                                    FreeAndNil(frmLoading);
-                                                   FreeAndNil(gclEmails);
+                                                   FreeAndNil(gclEmail);
                                                end;
                                            end;
                                {$endregion}

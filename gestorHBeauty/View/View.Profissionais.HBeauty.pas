@@ -89,8 +89,8 @@ type
     edtUFLog: TEdit;
     Label9: TLabel;
     grpContatos: TGroupBox;
-    TMSFMXButton3: TTMSFMXButton;
-    TMSFMXButton4: TTMSFMXButton;
+    btnCadastraTelefone: TTMSFMXButton;
+    btnCadastraEmail: TTMSFMXButton;
     tabCargoSalario: TTabItem;
     gbSalario: TGroupBox;
     Rectangle20: TRectangle;
@@ -114,8 +114,8 @@ type
     procedure btnAlterarClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
-    procedure TMSFMXButton3Click(Sender: TObject);
-    procedure TMSFMXButton4Click(Sender: TObject);
+    procedure btnCadastraTelefoneClick(Sender: TObject);
+    procedure btnCadastraEmailClick(Sender: TObject);
     procedure edtCPFKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edtRGKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edtNomeKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -568,7 +568,7 @@ begin
 FIdSelecionado := ExtraiTextoGrid(grdListaProfissionais.Cells[0, ARow]).ToInteger;
 end;
 
-procedure TfrmGerenciadorProfissionais.TMSFMXButton3Click(Sender: TObject);
+procedure TfrmGerenciadorProfissionais.btnCadastraTelefoneClick(Sender: TObject);
 begin
 
     if FStatus = abIncluir then
@@ -609,7 +609,7 @@ begin
 
 end;
 
-procedure TfrmGerenciadorProfissionais.TMSFMXButton4Click(Sender: TObject);
+procedure TfrmGerenciadorProfissionais.btnCadastraEmailClick(Sender: TObject);
 begin
 
      if FStatus = abIncluir then

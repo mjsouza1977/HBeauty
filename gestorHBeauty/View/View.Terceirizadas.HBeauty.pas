@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, ACBrBase, ACBrValidador, FMX.StdCtrls, FMX.Layouts, FMX.EditBox, FMX.NumberBox, FMX.ListBox,
   FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.TMSBaseControl, FMX.TMSBaseGroup, FMX.TMSRadioGroup, FMX.Edit,
-  FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton, Model.Terceirizadas.Servidor.HBeauty, Units.Strings.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty;
+  FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton, Model.Terceirizadas.Servidor.HBeauty, Units.Strings.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty,
+  Units.Enumerados.HBeauty;
 
 type
   TfrmGerenciadorTerceirizadas = class(TForm)
@@ -49,7 +50,7 @@ type
     Rectangle11: TRectangle;
     grdListaTerceirizada: TTMSFMXGrid;
     StyleBook1: TStyleBook;
-    tabFichaProfissional: TTabItem;
+    tabFichaTerceirizada: TTabItem;
     rgDados: TTMSFMXRadioGroup;
     Rectangle1: TRectangle;
     edtRazaoSocial: TEdit;
@@ -85,15 +86,21 @@ type
     edtUFLog: TEdit;
     Label9: TLabel;
     grpContatos: TGroupBox;
-    TMSFMXButton3: TTMSFMXButton;
-    TMSFMXButton4: TTMSFMXButton;
-    tabCargoSalario: TTabItem;
+    btnCadastraTelefone: TTMSFMXButton;
+    btnCadastraEmail: TTMSFMXButton;
+    tabListaProfissionais: TTabItem;
     ACBrValidador1: TACBrValidador;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnPesquisarClick(Sender: TObject);
+    procedure grdListaTerceirizadaCellClick(Sender: TObject; ACol, ARow: Integer);
+    procedure btnIncluirClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
   private
     FIdSelecionado : Integer;
+    FStatus : TAcaoBotao;
+    procedure HabilitaTab(AHabilita: Boolean);
+    procedure AlimentaClasseTerceirizada;
     { Private declarations }
   public
     { Public declarations }
@@ -107,9 +114,45 @@ implementation
 uses
   Units.Classes.HBeauty,
   Controller.Manipula.Design.HBeauty, Model.Terceirizada.HBeauty, Model.Dados.Server.HBeauty,
-  Units.Consts.HBeauty;
+  Units.Consts.HBeauty, Winapi.Windows, FMX.Platform.Win;
 
 {$R *.fmx}
+
+procedure TfrmGerenciadorTerceirizadas.HabilitaTab(AHabilita : Boolean);
+begin
+
+     tabFichaTerceirizada.Visible  := AHabilita;
+     tabListaProfissionais.Visible := AHabilita;
+     tabListaTerceirizadas.Visible := not AHabilita;
+
+end;
+
+procedure TfrmGerenciadorTerceirizadas.btnIncluirClick(Sender: TObject);
+begin
+     HabilitaTab(True);
+     LimpaForm(Self);
+     ControlaBotoes(Self, False);
+     FStatus := abIncluir;
+     lblStatus.Text := 'Inclusão';
+     tabCabecarioTerceirizada.Next;
+     tabGerenciadorTerceirizada.ActiveTab := tabFichaTerceirizada;
+end;
+
+procedure TfrmGerenciadorTerceirizadas.AlimentaClasseTerceirizada;
+begin
+    gclTerceirizada.ID_TERCEIRIZADA       := FIdSelecionado;
+    gclTerceirizada.CNPJ_TERCEIRIZADA     := ApenasNumeros(edtCNPJ.Text);
+    gclTerceirizada.IE_TERCEIRIZADA       := ApenasNumeros(edtIE.Text);
+    gclTerceirizada.RAZAO_TERCEIRIZADA    := edtRazaoSocial.Text;
+    gclTerceirizada.FANTASIA_TERCEIRIZADA := edtNomeFantasia.Text;
+    gclTerceirizada.ENDERECO_TERCEIRIZADA.LOGRADOURO := edtLogradouro.Text;
+    gclTerceirizada.ENDERECO_TERCEIRIZADA.NRLOG      := StrToInt(edtNumeroLog.Text);
+    gclTerceirizada.ENDERECO_TERCEIRIZADA.COMPLLOG   := edtComplementoLog.Text;
+    gclTerceirizada.ENDERECO_TERCEIRIZADA.BAIRROLOG  := edtBairroLog.Text;
+    gclTerceirizada.ENDERECO_TERCEIRIZADA.CEP        := edtCepLog.Text;
+    gclTerceirizada.ENDERECO_TERCEIRIZADA.CIDADELOG  := edtCidadeLog.Text;
+    gclTerceirizada.ENDERECO_TERCEIRIZADA.UFLOG      := edtUFLog.Text;
+end;
 
 procedure TfrmGerenciadorTerceirizadas.btnPesquisarClick(Sender: TObject);
 var
@@ -133,6 +176,87 @@ begin
 
      if ModelConexaoDados.memTerceirizada.RecordCount > 0 then
         FIdSelecionado :=  ExtraiTextoGrid(grdListaTerceirizada.Cells[0, 1]).ToInteger;
+
+end;
+
+procedure TfrmGerenciadorTerceirizadas.btnSalvarClick(Sender: TObject);
+begin
+    case FStatus of
+         abIncluir : begin
+                         case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                         'Confirma a inclusão desta empresa?',
+                                         apTitulo, MB_YESNO + MB_ICONQUESTION) of
+                             IDYES : begin
+                                         AlimentaClasseTerceirizada;
+                                         Try
+                                            FIdSelecionado := CadastraTerceirizada(gclTerceirizada);
+
+                                            case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                            'Empresa cadastrado com sucesso.'+#13#13+
+                                                            'Deseja cadastrar outra empresa?', apTitulo,
+                                                             MB_YESNO + MB_ICONQUESTION) of
+                                                IDYES : begin
+                                                             FStatus := abIncluir;
+                                                             LimpaForm(Self);
+                                                             edtCNPJ.SetFocus;
+                                                        end;
+                                                 IDNO : begin
+                                                             FStatus := abNulo;
+                                                             tabGerenciadorTerceirizada.TabIndex := 0;
+                                                             tabCabecarioTerceirizada.Previous;
+                                                             HabilitaTab(False);
+                                                             ControlaBotoes(Self, True);
+                                                        end;
+                                            end;
+
+                                         Except
+                                             On E:Exception do
+                                                 begin
+                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                pChar('Ocorreu um erro ao tentar salvar o registro!'+#13+
+                                                                'Tente novamente, caso o problema persistir entre em contato ' +
+                                                                'com a MS Software e informe o erro abaixo.'+#13#13+
+                                                                'Erro: ' + E.Message), 'HBeauty', MB_OK +MB_ICONERROR);
+                                                     Exit;
+                                                 end;
+
+                                         end;
+                                     end;
+                         end;
+                     end;
+         abAlterar : begin
+                         case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                         'Confirma a alteração desta empresa?',
+                                         apTitulo, MB_YESNO + MB_ICONQUESTION) of
+                             IDYES : begin
+                                         try
+                                             AlimentaClasseTerceirizada;
+                                             AtualizaTerceirizada(gclTerceirizada);
+
+                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                        'Registro salvo com sucesso!', apTitulo,
+                                                        MB_OK + MB_ICONINFORMATION);
+                                             btnPesquisarClick(Self);
+                                             LimpaForm(Self);
+                                             HabilitaTab(False);
+                                             ControlaBotoes(Self, True);
+                                             tabCabecarioTerceirizada.Previous;
+                                             tabGerenciadorTerceirizada.TabIndex := 0;
+                                         except
+                                              On E:Exception do
+                                                 begin
+                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                pChar('Ocorreu um erro ao tentar salvar o registro!'+#13+
+                                                                'Tente novamente, caso o problema persistir entre em contato ' +
+                                                                'com a MS Software e informe o erro abaixo.'+#13#13+
+                                                                'Erro: ' + E.Message), 'HBeauty', MB_OK +MB_ICONERROR);
+                                                     Exit;
+                                                 end;
+                                         end;
+                                     end;
+                         end;
+                     end;
+    end;
 
 end;
 
@@ -160,6 +284,11 @@ begin
      grdListaTerceirizada.Cells[8,0]  := 'CEP';
      grdListaTerceirizada.Cells[9,0]  := 'Cidade';
      grdListaTerceirizada.Cells[10,0] := 'UF';
+end;
+
+procedure TfrmGerenciadorTerceirizadas.grdListaTerceirizadaCellClick(Sender: TObject; ACol, ARow: Integer);
+begin
+FIdSelecionado := ExtraiTextoGrid(grdListaTerceirizada.Cells[0, ARow]).ToInteger;
 end;
 
 end.

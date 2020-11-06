@@ -50,11 +50,11 @@ function PrefixoTabela(ATabela : TTabelaCadastrada) : String;
 begin
 
      case ATabela of
-         tcProfissionais      : Result := 'PROFIS';
-         tcFornecedores       : Result := 'FORNEC';
-         tcClientes           : Result := 'CLIENT';
-         tcEmpresaTercerizada : Result := 'EMPTER';
-         tcTelefone           : Result := 'TELEFO';
+         tcProfissionais  : Result := 'PROFIS';
+         tcFornecedores   : Result := 'FORNEC';
+         tcClientes       : Result := 'CLIENT';
+         tcTercerizada    : Result := 'EMPTER';
+         tcTelefone       : Result := 'TELEFO';
      end;
 
 end;

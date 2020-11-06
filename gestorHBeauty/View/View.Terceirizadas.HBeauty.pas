@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, ACBrBase, ACBrValidador, FMX.StdCtrls, FMX.Layouts, FMX.EditBox, FMX.NumberBox, FMX.ListBox,
   FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.TMSBaseControl, FMX.TMSBaseGroup, FMX.TMSRadioGroup, FMX.Edit,
   FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton, Model.Terceirizadas.Servidor.HBeauty, Units.Strings.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty,
-  Units.Enumerados.HBeauty;
+  Units.Enumerados.HBeauty, Model.Profissionais.Servidor.HBeauty;
 
 type
   TfrmGerenciadorTerceirizadas = class(TForm)
@@ -88,14 +88,32 @@ type
     grpContatos: TGroupBox;
     btnCadastraTelefone: TTMSFMXButton;
     btnCadastraEmail: TTMSFMXButton;
-    tabListaProfissionais: TTabItem;
+    tabListaProfissionaisTerceirizados: TTabItem;
     ACBrValidador1: TACBrValidador;
+    grdListaProfissionalTerceirizado: TTMSFMXGrid;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnPesquisarClick(Sender: TObject);
     procedure grdListaTerceirizadaCellClick(Sender: TObject; ACol, ARow: Integer);
     procedure btnIncluirClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
+    procedure btnCadastraTelefoneClick(Sender: TObject);
+    procedure btnCadastraEmailClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure edtCNPJKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtIEKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtRazaoSocialKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtNomeFantasiaKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtLogradouroKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtNumeroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtComplementoLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtBairroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtUFLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtCNPJExit(Sender: TObject);
+    procedure edtCepLogExit(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
@@ -114,7 +132,8 @@ implementation
 uses
   Units.Classes.HBeauty,
   Controller.Manipula.Design.HBeauty, Model.Terceirizada.HBeauty, Model.Dados.Server.HBeauty,
-  Units.Consts.HBeauty, Winapi.Windows, FMX.Platform.Win;
+  Units.Consts.HBeauty, Winapi.Windows, FMX.Platform.Win, View.Contatos.HBeauty,
+  Model.Endereco.HBeauty;
 
 {$R *.fmx}
 
@@ -122,9 +141,130 @@ procedure TfrmGerenciadorTerceirizadas.HabilitaTab(AHabilita : Boolean);
 begin
 
      tabFichaTerceirizada.Visible  := AHabilita;
-     tabListaProfissionais.Visible := AHabilita;
+     tabListaProfissionaisTerceirizados.Visible := AHabilita;
      tabListaTerceirizadas.Visible := not AHabilita;
 
+end;
+
+procedure TfrmGerenciadorTerceirizadas.btnAlterarClick(Sender: TObject);
+begin
+     if FIdSelecionado > 0 then
+         begin
+             ListaTerceirizadas('','','','',FIdSelecionado);
+             edtCNPJ.Text           := FormatarCNPJouCPF(ModelConexaoDados.memTerceirizada.FieldByName('CNPJ_TERCEIRIZADA').AsString);
+             edtIE.Text             := ModelConexaoDados.memTerceirizada.FieldByName('IE_TERCEIRIZADA').AsString;
+             edtRazaoSocial.Text    := ModelConexaoDados.memTerceirizada.FieldByName('RAZAO_TERCEIRIZADA').AsString;
+             edtNomeFantasia.Text   := ModelConexaoDados.memTerceirizada.FieldByName('FANTASIA_TERCEIRIZADA').AsString;
+             edtLogradouro.Text     := ModelConexaoDados.memTerceirizada.FieldByName('LOGLOG_TERCEIRIZADA').AsString;
+             edtNumeroLog.Text      := ModelConexaoDados.memTerceirizada.FieldByName('NRLOG_TERCEIRIZADA').AsString;
+             edtComplementoLog.Text := ModelConexaoDados.memTerceirizada.FieldByName('COMPLLOG_TERCEIRIZADA').AsString;
+             edtBairroLog.Text      := ModelConexaoDados.memTerceirizada.FieldByName('BAIRROLOG_TERCEIRIZADA').AsString;
+             edtCepLog.Text         := ModelConexaoDados.memTerceirizada.FieldByName('CEP_TERCEIRIZADA').AsString;
+             edtCidadeLog.Text      := ModelConexaoDados.memTerceirizada.FieldByName('CIDADELOG_TERCEIRIZADA').AsString;
+             edtUFLog.Text          := ModelConexaoDados.memTerceirizada.FieldByName('UFLOG_TERCEIRIZADA').AsString;
+
+             AlimentaClasseTerceirizada;
+
+             CarregaProfissionalTerceirizado(FIdSelecionado);
+             CarregaGrid(ModelConexaoDados.memProfissionais,grdListaProfissionalTerceirizado,AFieldsProfissionais, ACaptionProfissionais, ASizeColProfissionais);
+
+             ControlaBotoes(Self, False);
+             FStatus                := abAlterar;
+             HabilitaTab(True);
+             tabGerenciadorTerceirizada.TabIndex := 1;
+             tabCabecarioTerceirizada.Next;
+         end
+     else
+         begin
+             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                        'Selecione um profissional na lista para alterar!',
+                        'HBeauty', MB_OK + MB_ICONINFORMATION);
+             Exit;
+         end;
+end;
+
+procedure TfrmGerenciadorTerceirizadas.btnCadastraEmailClick(Sender: TObject);
+begin
+
+     if FStatus = abIncluir then
+        begin
+            if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                         'Para cadastrar os e-mails é necessário primeiro salvar a empresa.'+#13#13+
+                         'Deseja salvar agora?', apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
+                begin
+                    FIdSelecionado := CadastraTerceirizada(gclTerceirizada);
+                    ControlaBotoes(Self, True);
+
+                    if FIdSelecionado <> 0 then
+                       begin
+                           Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+                           frmCadastroContatos.TipoForm   := tfEmail;
+                           frmCadastroContatos.IdRegTab   := FIdSelecionado;
+                           frmCadastroContatos.NomeTabela := PrefixoTabela(tcTercerizada);
+                           frmCadastroContatos.Nome       := edtRazaoSocial.Text;
+                           frmCadastroContatos.Titulo     := 'Empresa Terceirizada';
+                           frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
+                           frmCadastroContatos.imgIconeForm.BitmapName := 'Email';
+                           frmCadastroContatos.ShowModal;
+                       end;
+                end;
+        end
+    else
+        begin
+            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+            frmCadastroContatos.TipoForm   := tfEmail;
+            frmCadastroContatos.IdRegTab   := FIdSelecionado;
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcTercerizada);
+            frmCadastroContatos.Nome       := edtRazaoSocial.Text;
+            frmCadastroContatos.Titulo     := 'Empresa Terceirizada';
+            frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
+            frmCadastroContatos.imgIconeForm.BitmapName := 'Email';
+            frmCadastroContatos.ShowModal;
+        end;
+end;
+
+procedure TfrmGerenciadorTerceirizadas.btnCadastraTelefoneClick(Sender: TObject);
+begin
+if FStatus = abIncluir then
+        begin
+            if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                         'Para cadastrar os telefones é necessário primeiro salvar a empresa.'+#13#13+
+                         'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
+                begin
+                    AlimentaClasseTerceirizada;
+                    FIdSelecionado := CadastraTerceirizada(gclTerceirizada);
+
+                    if FIdSelecionado <> 0 then
+                        begin
+                            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+                            frmCadastroContatos.TipoForm     := tfTelefone;
+                            frmCadastroContatos.IdRegTab     := FIdSelecionado;
+                            frmCadastroContatos.NomeTabela   := PrefixoTabela(tcTercerizada);
+                            frmCadastroContatos.Titulo       := 'Empresa Terceirizada';
+                            frmCadastroContatos.TituloForm   := 'Cadastro de Telefone';
+                            frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
+                            frmCadastroContatos.ShowModal;
+                        end;
+                end;
+        end
+    else
+        begin
+            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+            frmCadastroContatos.TipoForm   := tfTelefone;
+            frmCadastroContatos.IdRegTab   := FIdSelecionado;
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcTercerizada);
+            frmCadastroContatos.Nome       := edtRazaoSocial.Text;
+            frmCadastroContatos.Titulo     := 'Empresa Terceirizada';
+            frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
+            frmCadastroContatos.TituloForm := 'Cadastro de Telefone';
+
+            frmCadastroContatos.ShowModal;
+        end;
+end;
+
+procedure TfrmGerenciadorTerceirizadas.btnFecharClick(Sender: TObject);
+begin
+     Close;
 end;
 
 procedure TfrmGerenciadorTerceirizadas.btnIncluirClick(Sender: TObject);
@@ -260,6 +400,88 @@ begin
 
 end;
 
+procedure TfrmGerenciadorTerceirizadas.edtBairroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtCidadeLog);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtCepLogExit(Sender: TObject);
+var
+AEndereco : TModelEndereco;
+begin
+     if Key = VK_RETURN then
+        begin
+            try
+                AEndereco := TModelEndereco.Create(Self);
+                AEndereco := PesquisaCEP(Self, edtCepLog.Text);
+
+                edtCepLog.Text     := AEndereco.CEP;
+                edtLogradouro.Text := AEndereco.LOGRADOURO;
+                edtBairroLog.Text  := AEndereco.BAIRROLOG;
+                edtCidadeLog.Text  := AEndereco.CIDADELOG;
+                edtUFLog.Text      := AEndereco.UFLOG;
+            finally
+                AEndereco.DisposeOf;
+            end;
+        end;
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtLogradouro);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtUFLog);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtCNPJExit(Sender: TObject);
+begin
+     if Length(ApenasNumeros(edtCNPJ.Text)) = 14 then
+        edtCNPJ.Text := ACBrValidador.FormatarCNPJ(edtCNPJ.Text);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtCNPJKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtIE);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtComplementoLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtBairroLog);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtIEKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtRazaoSocial);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtLogradouroKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtNumeroLog);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtNomeFantasiaKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtCepLog);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtNumeroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtComplementoLog);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtRazaoSocialKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtNomeFantasia);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtUFLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(kEY, edtCNPJ);
+end;
+
 procedure TfrmGerenciadorTerceirizadas.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
      FreeAndNil(gclTerceirizada);
@@ -284,6 +506,17 @@ begin
      grdListaTerceirizada.Cells[8,0]  := 'CEP';
      grdListaTerceirizada.Cells[9,0]  := 'Cidade';
      grdListaTerceirizada.Cells[10,0] := 'UF';
+
+     grdListaProfissionalTerceirizado.Cells[0,0] := 'CPF';
+     grdListaProfissionalTerceirizado.Cells[1,0] := 'Nome';
+     grdListaProfissionalTerceirizado.Cells[2,0] := 'SobreNome';
+     grdListaProfissionalTerceirizado.Cells[3,0] := 'Logradouro';
+     grdListaProfissionalTerceirizado.Cells[4,0] := 'Nr.';
+     grdListaProfissionalTerceirizado.Cells[5,0] := 'Complemento';
+     grdListaProfissionalTerceirizado.Cells[6,0] := 'Bairro';
+     grdListaProfissionalTerceirizado.Cells[7,0] := 'CEP';
+     grdListaProfissionalTerceirizado.Cells[8,0] := 'Cidade';
+     grdListaProfissionalTerceirizado.Cells[9,0] := 'UF';
 end;
 
 procedure TfrmGerenciadorTerceirizadas.grdListaTerceirizadaCellClick(Sender: TObject; ACol, ARow: Integer);

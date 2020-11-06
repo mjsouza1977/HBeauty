@@ -15,6 +15,7 @@ function cadastraHabilidade(AHabilidade : TModelHabilidades) : Integer;
 function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
 function atualizaHabilidade(AHabilidade : TModelHabilidades) : Boolean;
 function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
+procedure CarregaProfissionalTerceirizado(AIdTerceirizado: Integer);
 
 
 implementation
@@ -26,6 +27,17 @@ uses
 function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
 begin
     ControllerClientModule.ModelMetodosClient.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional);
+end;
+
+procedure CarregaProfissionalTerceirizado(AIdTerceirizado: Integer);
+var
+   dsProfissionalTerceirizado : TFDJSONDataSets;
+begin
+   dsProfissionalTerceirizado := ControllerClientModule.ModelMetodosClient.CarregaProfissionalTerceirizado(AIdTerceirizado);
+   Assert(TFDJSONDataSetsReader.GetListCount(dsProfissionalTerceirizado) = 1);
+   ModelConexaoDados.memProfissionais.Active := False;
+   ModelConexaoDados.memProfissionais.AppendData(TFDJSONDataSetsReader.GetListValue(dsProfissionalTerceirizado, 0));
+   ModelConexaoDados.memProfissionais.Active := True;
 end;
 
 procedure carregaHabilidades;

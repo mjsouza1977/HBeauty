@@ -21,7 +21,7 @@ uses
   Model.Dados.Server.HBeauty,
   Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty, Units.Enumerados.HBeauty,
   View.Principal.HBeauty, FMX.Edit, FMX.ListBox, FMX.StdCtrls, FMX.NumberBox,
-  Winapi.Windows, FMX.Platform.Win;
+  Winapi.Windows, FMX.Platform.Win, Vcl.Dialogs;
 
 function PesquisaCEP(AForm : TForm; ACep : String) : TModelEndereco;
 var
@@ -33,6 +33,7 @@ begin
          AValidador := TACBrValidador.Create(nil);
          AValidador.Documento := ACep;
          AValidador.TipoDocto := TACBrValTipoDocto.docCEP;
+
          case AValidador.Validar of
               False : begin
                           MessageBox(WindowHandleToPlatform(AForm.Handle).wnd,
@@ -46,11 +47,12 @@ begin
                           ModelConexaoDados.RESTRequest.Execute;
                            if ModelConexaoDados.memCep.RecordCount > 0 then
                               begin
+                                  ShowMessage(ModelConexaoDados.memCepuf.Value);
+                                  AResultado.UFLOG      := ModelConexaoDados.memCepuf.Value;
                                   AResultado.CEP        := ACBrValidador.FormatarCEP(ModelConexaoDados.memCepcep.Value);
                                   AResultado.LOGRADOURO := ModelConexaoDados.memCeplogradouro.Value;
                                   AResultado.BAIRROLOG  := ModelConexaoDados.memCepbairro.Value;
                                   AResultado.CIDADELOG  := ModelConexaoDados.memCeplocalidade.Value;
-                                  AResultado.UFLOG      := ModelConexaoDados.memCepuf.Value;
 
                                   Result := AResultado;
                               end

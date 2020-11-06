@@ -59,7 +59,7 @@ end;
 
 procedure TModelEndereco.SetBAIRROLOG(const Value: String);
 begin
-    if FBAIRROLOG = '' then
+    if Value = '' then
        begin
            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                      'Bairro inválido, verifique!', apTitulo,
@@ -75,7 +75,7 @@ end;
 procedure TModelEndereco.SetCEP(const Value: String);
 begin
 
-    FMsg := ACBRValidador.ValidarCEP(FCEP, FUFLOG);
+    FMsg := ACBRValidador.ValidarCEP(Value, FUFLOG);
 
     if FMsg <> '' then
         begin
@@ -92,7 +92,7 @@ end;
 
 procedure TModelEndereco.SetCIDADELOG(const Value: String);
 begin
-    if FCIDADELOG = '' then
+    if Value = '' then
         begin
            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                      'Cidade inválida, verifique!', apTitulo,
@@ -112,7 +112,7 @@ end;
 
 procedure TModelEndereco.SetLOGRADOURO(const Value: String);
 begin
-    if FLOGRADOURO = '' then
+    if Value = '' then
         begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                       'Logradouro inválido, verifique!', apTitulo,
@@ -133,7 +133,7 @@ end;
 procedure TModelEndereco.SetUFLOG(const Value: String);
 begin
 
-    FMsg := ACBRValidador.ValidarUF(FUFLOG);
+    FMsg := ACBRValidador.ValidarUF(Value);
     if FMsg <> '' then
         begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,

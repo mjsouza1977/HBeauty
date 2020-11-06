@@ -1,7 +1,7 @@
-// 
+//
 // Created by the DataSnap proxy generator.
-// 03/11/2020 20:46:27
-// 
+// 05/11/2020 20:42:11
+//
 
 unit Controller.Conexao.Proxy.HBeauty;
 
@@ -15,6 +15,8 @@ type
 
   TModelMetodosClient = class(TDSAdminRestClient)
   private
+    FCarregaProfissionalTerceirizadoCommand: TDSRestCommand;
+    FCarregaProfissionalTerceirizadoCommand_Cache: TDSRestCommand;
     FAtualizaEmailCommand: TDSRestCommand;
     FAtualizaTelefoneCommand: TDSRestCommand;
     FCadastraTelefoneCommand: TDSRestCommand;
@@ -47,6 +49,8 @@ type
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
     destructor Destroy; override;
+    function CarregaProfissionalTerceirizado(AIdTerceirizado: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function CarregaProfissionalTerceirizado_Cache(AIdTerceirizado: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function AtualizaEmail(AEmail: string; AIdEmail: Integer; ARestrito: Boolean; const ARequestFilter: string = ''): Boolean;
     function AtualizaTelefone(AFone: string; AContato: string; AIdTelefone: Integer; AWhatsFone: Boolean; ARestrito: Boolean; const ARequestFilter: string = ''): Boolean;
     function CadastraTelefone(AFone: string; AContato: string; APrefixoTabela: string; AIdRegTab: Integer; AWhatsFone: Boolean; ARestrito: Boolean; const ARequestFilter: string = ''): Integer;
@@ -84,6 +88,18 @@ type
   end;
 
 const
+  TModelMetodos_CarregaProfissionalTerceirizado: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdTerceirizado'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_CarregaProfissionalTerceirizado_Cache: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdTerceirizado'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
   TModelMetodos_AtualizaEmail: array [0..3] of TDSRestParameterMetaData =
   (
     (Name: 'AEmail'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -344,6 +360,46 @@ const
   );
 
 implementation
+
+function TModelMetodosClient.CarregaProfissionalTerceirizado(AIdTerceirizado: Integer; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FCarregaProfissionalTerceirizadoCommand = nil then
+  begin
+    FCarregaProfissionalTerceirizadoCommand := FConnection.CreateCommand;
+    FCarregaProfissionalTerceirizadoCommand.RequestType := 'GET';
+    FCarregaProfissionalTerceirizadoCommand.Text := 'TModelMetodos.CarregaProfissionalTerceirizado';
+    FCarregaProfissionalTerceirizadoCommand.Prepare(TModelMetodos_CarregaProfissionalTerceirizado);
+  end;
+  FCarregaProfissionalTerceirizadoCommand.Parameters[0].Value.SetInt32(AIdTerceirizado);
+  FCarregaProfissionalTerceirizadoCommand.Execute(ARequestFilter);
+  if not FCarregaProfissionalTerceirizadoCommand.Parameters[1].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FCarregaProfissionalTerceirizadoCommand.Parameters[1].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FCarregaProfissionalTerceirizadoCommand.Parameters[1].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FCarregaProfissionalTerceirizadoCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.CarregaProfissionalTerceirizado_Cache(AIdTerceirizado: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FCarregaProfissionalTerceirizadoCommand_Cache = nil then
+  begin
+    FCarregaProfissionalTerceirizadoCommand_Cache := FConnection.CreateCommand;
+    FCarregaProfissionalTerceirizadoCommand_Cache.RequestType := 'GET';
+    FCarregaProfissionalTerceirizadoCommand_Cache.Text := 'TModelMetodos.CarregaProfissionalTerceirizado';
+    FCarregaProfissionalTerceirizadoCommand_Cache.Prepare(TModelMetodos_CarregaProfissionalTerceirizado_Cache);
+  end;
+  FCarregaProfissionalTerceirizadoCommand_Cache.Parameters[0].Value.SetInt32(AIdTerceirizado);
+  FCarregaProfissionalTerceirizadoCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FCarregaProfissionalTerceirizadoCommand_Cache.Parameters[1].Value.GetString);
+end;
 
 function TModelMetodosClient.AtualizaEmail(AEmail: string; AIdEmail: Integer; ARestrito: Boolean; const ARequestFilter: string): Boolean;
 begin
@@ -936,6 +992,8 @@ end;
 
 destructor TModelMetodosClient.Destroy;
 begin
+  FCarregaProfissionalTerceirizadoCommand.DisposeOf;
+  FCarregaProfissionalTerceirizadoCommand_Cache.DisposeOf;
   FAtualizaEmailCommand.DisposeOf;
   FAtualizaTelefoneCommand.DisposeOf;
   FCadastraTelefoneCommand.DisposeOf;
@@ -968,3 +1026,4 @@ begin
 end;
 
 end.
+

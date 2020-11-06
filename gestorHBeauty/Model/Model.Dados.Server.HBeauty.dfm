@@ -143,25 +143,5 @@ object ModelConexaoDados: TModelConexaoDados
     UpdateOptions.AutoCommitUpdates = True
     Left = 48
     Top = 352
-    object WideStringField1: TWideStringField
-      FieldName = 'cep'
-      Size = 255
-    end
-    object WideStringField2: TWideStringField
-      FieldName = 'logradouro'
-      Size = 255
-    end
-    object WideStringField3: TWideStringField
-      FieldName = 'bairro'
-      Size = 255
-    end
-    object WideStringField4: TWideStringField
-      FieldName = 'localidade'
-      Size = 255
-    end
-    object WideStringField5: TWideStringField
-      FieldName = 'uf'
-      Size = 255
-    end
   end
 end

@@ -130,17 +130,19 @@ type
     procedure FormCreate(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure grdListaProfissionaisCellClick(Sender: TObject; ACol, ARow: Integer);
+    procedure edtCPFExit(Sender: TObject);
+    procedure edtCepLogExit(Sender: TObject);
 
   private
     FStatus : TAcaoBotao;
     FIdSelecionado : Integer;
     FQtdeHabilidades : Integer;
     procedure HabilitaTab(AHabilita : Boolean);
-    procedure AlimentaClasseProfissional;
     function CarregaListaHabilidades(ADataSet : TFDMemTable; ADataSetEdit : TFDMemTable = nil) : Integer;
     procedure gravaHabilidadesSelecionadas;
 
   public
+    procedure AlimentaClasseProfissional;
 
   end;
 
@@ -348,7 +350,6 @@ begin
      lblStatus.Text := 'Inclusão';
      tabCabecarioProfissionais.Next;
      tabGerenciadorProfissionais.ActiveTab := tabFichaProfissional;
-
 end;
 
 procedure TfrmGerenciadorProfissionais.btnPesquisarClick(Sender: TObject);
@@ -467,25 +468,29 @@ begin
      NextField(Key, edtCidadeLog);
 end;
 
-procedure TfrmGerenciadorProfissionais.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+procedure TfrmGerenciadorProfissionais.edtCepLogExit(Sender: TObject);
 var
 AEndereco : TModelEndereco;
 begin
-     if Key = VK_RETURN then
-        begin
-            try
-                AEndereco := TModelEndereco.Create(Self);
-                AEndereco := PesquisaCEP(Self, edtCepLog.Text);
+if Key = VK_RETURN then
+   begin
+       try
+           AEndereco := TModelEndereco.Create(Self);
+           AEndereco := PesquisaCEP(Self, edtCepLog.Text);
 
-                edtCepLog.Text     := AEndereco.CEP;
-                edtLogradouro.Text := AEndereco.LOGRADOURO;
-                edtBairroLog.Text  := AEndereco.BAIRROLOG;
-                edtCidadeLog.Text  := AEndereco.CIDADELOG;
-                edtUFLog.Text      := AEndereco.UFLOG;
-            finally
-                AEndereco.DisposeOf;
-            end;
-        end;
+           edtCepLog.Text     := AEndereco.CEP;
+           edtLogradouro.Text := AEndereco.LOGRADOURO;
+           edtBairroLog.Text  := AEndereco.BAIRROLOG;
+           edtCidadeLog.Text  := AEndereco.CIDADELOG;
+           edtUFLog.Text      := AEndereco.UFLOG;
+       finally
+           AEndereco.DisposeOf;
+       end;
+   end;
+end;
+
+procedure TfrmGerenciadorProfissionais.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
      NextField(Key, edtLogradouro);
 end;
 
@@ -497,6 +502,12 @@ end;
 procedure TfrmGerenciadorProfissionais.edtComplementoLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
      NextField(Key, edtBairroLog);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtCPFExit(Sender: TObject);
+begin
+     if Length(ApenasNumeros(edtCPF.Text)) = 11 then
+        edtCPF.Text := ACBrValidador.FormatarCPF(edtCPF.Text);
 end;
 
 procedure TfrmGerenciadorProfissionais.edtCPFKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);

@@ -16,6 +16,7 @@ type
   private
 
   public
+    function CarregaProfissionalTerceirizado(AIdTerceirizado : Integer) : TFDJSONDataSets;
     function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : Boolean;
     function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito : Boolean) : Boolean;
     function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : Integer; AWhatsFone, ARestrito : Boolean) : Integer;
@@ -149,6 +150,11 @@ end;
 function TModelMetodos.carregaHabilidadesProfissional(AAIdProfissional: Integer): TFDJSONDataSets;
 begin
      Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.carregaHabilidadesProfissional(AAIdProfissional);
+end;
+
+function TModelMetodos.CarregaProfissionalTerceirizado(AIdTerceirizado: Integer): TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Profissionais.ServerHBeauty.CarregaProfissionalTerceirizado(AIdTerceirizado);
 end;
 
 function TModelMetodos.CarregaTelefones(ATipoFone: String; AIdTabFone: Integer): TFDJSONDataSets;

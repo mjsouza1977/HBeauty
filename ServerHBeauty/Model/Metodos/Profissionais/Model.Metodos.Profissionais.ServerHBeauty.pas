@@ -12,6 +12,8 @@ function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrL
 function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Boolean;
 
+function CarregaProfissionalTerceirizado(AIdTerceirizado : Integer) : TFDJSONDataSets;
+
 implementation
 
 uses
@@ -52,6 +54,25 @@ begin
          Result := TFDJSONDataSets.Create;
          TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
          ControllerConexao.qryQuery.Active := True;
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
+
+end;
+
+function CarregaProfissionalTerceirizado(AIdTerceirizado : Integer) : TFDJSONDataSets;
+begin
+
+     try
+         ControllerConexao.qryQuery.Close;
+         ControllerConexao.qryQuery.SQL.Clear;
+         ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBPROFISSIONAIS');
+         ControllerConexao.qryQuery.SQL.Add('WHERE IDEMPTER_PROFIS = ' + AIdTerceirizado.ToString);
+
+         Result := TFDJSONDataSets.Create;
+         TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
+         ControllerConexao.qryQuery.Active := True;
+
      finally
          ControllerConexao.qryQuery.Close;
      end;

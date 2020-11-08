@@ -11,7 +11,8 @@ uses
   Model.Profissionais.HBeauty, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
   Model.Dados.Server.HBeauty, ACBrBase, ACBrValidador,  Model.Contatos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, View.Loading.HBeauty, FMX.TMSCustomPicker, FMX.TMSCheckGroupPicker, FMX.TMSCheckGroup, FMX.TMSBitmapContainer, FMX.TMSRichEditorEmoticons,
-  FireDAC.Comp.Client, Model.Endereco.HBeauty, FMX.Effects, FMX.Filter.Effects;
+  FireDAC.Comp.Client, Model.Endereco.HBeauty, FMX.Effects, FMX.Filter.Effects, Controller.Formata.HBeauty, Model.Terceirizada.HBeauty,
+  Model.Terceirizadas.Servidor.HBeauty;
 
 type
   TfrmGerenciadorProfissionais = class(TForm)
@@ -137,6 +138,8 @@ type
     procedure grdListaProfissionaisCellClick(Sender: TObject; ACol, ARow: Integer);
     procedure edtCPFExit(Sender: TObject);
     procedure edtCepLogExit(Sender: TObject);
+    procedure edtCPFTyping(Sender: TObject);
+    procedure edtCepLogTyping(Sender: TObject);
 
   private
     FStatus : TAcaoBotao;
@@ -286,7 +289,7 @@ begin
              edtNumeroLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('NRLOG_PROFIS').AsString;
              edtComplementoLog.Text := ModelConexaoDados.memProfissionais.FieldByName('COMPLLOG_PROFIS').AsString;
              edtBairroLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('BAIRROLOG_PROFIS').AsString;
-             edtCepLog.Text         := ModelConexaoDados.memProfissionais.FieldByName('CEP_PROFIS').AsString;
+             edtCepLog.Text         := FormatarCEP(ModelConexaoDados.memProfissionais.FieldByName('CEP_PROFIS').AsString);
              edtCidadeLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('CIDADELOG_PROFIS').AsString;
              edtUFLog.Text          := ModelConexaoDados.memProfissionais.FieldByName('UFLOG_PROFIS').AsString;
              edtSalario.Value       := ModelConexaoDados.memProfissionais.FieldByName('SALARIO_PROFIS').AsCurrency;
@@ -400,7 +403,7 @@ begin
                              IDYES : begin
                                          AlimentaClasseProfissional;
                                          Try
-                                            FIdSelecionado := CadastraProfissional(gclProfissional);
+                                            FIdSelecionado := CadastraProfissional(gclProfissional, Self);
                                             apagaHabilidadesProfissional(FIdSelecionado);
                                             gravaHabilidadesSelecionadas;
 
@@ -505,6 +508,11 @@ begin
      NextField(Key, edtLogradouro);
 end;
 
+procedure TfrmGerenciadorProfissionais.edtCepLogTyping(Sender: TObject);
+begin
+Formatar(edtCepLog, erCEP);
+end;
+
 procedure TfrmGerenciadorProfissionais.edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
      NextField(Key, edtUFLog);
@@ -524,6 +532,11 @@ end;
 procedure TfrmGerenciadorProfissionais.edtCPFKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
      NextField(Key, edtRG);
+end;
+
+procedure TfrmGerenciadorProfissionais.edtCPFTyping(Sender: TObject);
+begin
+Formatar(edtCPF, erCPF);
 end;
 
 procedure TfrmGerenciadorProfissionais.edtLogradouroKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -572,6 +585,16 @@ begin
      tabGerenciadorProfissionais.TabIndex := 0;
      gclProfissional := TModelProfissionais.Create(Self);
 
+     CarregaCamposTerceirizada('ID_TERCEIRIZADA, FANTASIA_TERCEIRIZADA');
+
+     cbEmpresaTerceirizada.Items.Clear;
+     while not ModelConexaoDados.memTerceirizada.Eof do
+          begin
+              cbEmpresaTerceirizada.Items.AddObject(ModelConexaoDados.memTerceirizada.FieldByName('FANTASIA_TERCEIRIZADA').AsString ,
+                                                    TObject(ModelConexaoDados.memTerceirizada.FieldByName('ID_TERCEIRIZADA').AsInteger));
+              ModelConexaoDados.memTerceirizada.Next;
+          end;
+
      grdListaProfissionais.Cells[0,0] := 'CPF';
      grdListaProfissionais.Cells[1,0] := 'Nome';
      grdListaProfissionais.Cells[2,0] := 'SobreNome';
@@ -600,7 +623,7 @@ begin
                          'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
                     AlimentaClasseProfissional;
-                    FIdSelecionado := CadastraProfissional(gclProfissional);
+                    FIdSelecionado := CadastraProfissional(gclProfissional, Self);
 
                     if FIdSelecionado <> 0 then
                         begin
@@ -641,7 +664,7 @@ begin
                          'Para cadastrar os e-mails é necessário primeiro salvar o profissional'+#13#13+
                          'Deseja salvar agora?', apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
-                    FIdSelecionado := CadastraProfissional(gclProfissional);
+                    FIdSelecionado := CadastraProfissional(gclProfissional, Self);
                     ControlaBotoes(Self, True);
 
                     if FIdSelecionado <> 0 then

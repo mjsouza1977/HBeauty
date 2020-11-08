@@ -315,7 +315,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 18
+        TabOrder = 21
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -4512,6 +4512,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnTyping = edtCNPJTyping
           OnKeyUp = edtCNPJKeyUp
           OnExit = edtCNPJExit
         end
@@ -4815,8 +4816,8 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnTyping = edtCepLogTyping
           OnKeyUp = edtCepLogKeyUp
-          OnExit = edtCepLogExit
         end
         object Label7: TLabel
           AutoSize = True

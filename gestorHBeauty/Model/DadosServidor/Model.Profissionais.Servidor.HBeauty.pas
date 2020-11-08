@@ -3,10 +3,11 @@ unit Model.Profissionais.Servidor.HBeauty;
 interface
 
 uses
-  Model.Profissionais.HBeauty, Model.Habilidades.HBeauty;
+  Model.Profissionais.HBeauty, Model.Habilidades.HBeauty, Model.Genericos.Servidor.HBeauty,
+  FMX.Forms;
 
 procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer);
-function CadastraProfissional(AProfissional : TModelProfissionais) : Integer;
+function CadastraProfissional(AProfissional : TModelProfissionais; AForm : TForm) : Integer;
 function AtualizaProfissional(AProfissional : TModelProfissionais): Boolean;
 
 procedure carregaHabilidades;
@@ -16,6 +17,7 @@ function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
 function atualizaHabilidade(AHabilidade : TModelHabilidades) : Boolean;
 function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
 procedure CarregaProfissionalTerceirizado(AIdTerceirizado: Integer);
+procedure CarregaCamposProfissional(ACampos : String);
 
 
 implementation
@@ -23,6 +25,17 @@ implementation
 uses
   Controller.ClientModule.HBeauty, Data.FireDACJSONReflect,
   Model.Dados.Server.HBeauty;
+
+procedure CarregaCamposProfissional(ACampos : String);
+var
+   dsCamposProfissional : TFDJSONDataSets;
+begin
+   dsCamposProfissional := ControllerClientModule.ModelMetodosClient.CarregaCamposProfissional(ACampos);
+   Assert(TFDJSONDataSetsReader.GetListCount(dsCamposProfissional) = 1);
+   ModelConexaoDados.memTerceirizada.Active := False;
+   ModelConexaoDados.memTerceirizada.AppendData(TFDJSONDataSetsReader.GetListValue(dsCamposProfissional, 0));
+   ModelConexaoDados.memTerceirizada.Active := True;
+end;
 
 function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
 begin
@@ -104,9 +117,10 @@ begin
 
 end;
 
-function CadastraProfissional(AProfissional : TModelProfissionais) : Integer;
+function CadastraProfissional(AProfissional : TModelProfissionais; AForm : TForm) : Integer;
 begin
 
+    DocumentoRepetido(AProfissional.CPF_PROFIS, 'CPF_PROFIS', 'NOME_PROFIS', 'HBPROFISSIONAIS', AForm);
     Result := ControllerClientModule.ModelMetodosClient.CadastraProfissional(AProfissional.TERC_PROFIS, AProfissional.IDCARGO_PROFISS, AProfissional.IDEMPTER_PROFIS,
                                                                              AProfissional.ENDERECO_PROFIS.NRLOG, AProfissional.CODIGO_PROFIS, AProfissional.NOME_PROFIS,
                                                                              AProfissional.SOBRENOME_PROFIS, AProfissional.CPF_PROFIS, AProfissional.RG_PROFIS,

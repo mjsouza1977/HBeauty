@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 07/11/2020 20:43:30
+// 08/11/2020 15:53:27
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -45,6 +45,11 @@ type
     FListaTerceirizadasCommand_Cache: TDSRestCommand;
     FCadastraTerceirizadaCommand: TDSRestCommand;
     FAtualizaTerceirizadaCommand: TDSRestCommand;
+    FCarregaCamposTerceirizadaCommand: TDSRestCommand;
+    FCarregaCamposTerceirizadaCommand_Cache: TDSRestCommand;
+    FCarregaCamposProfissionalCommand: TDSRestCommand;
+    FCarregaCamposProfissionalCommand_Cache: TDSRestCommand;
+    FDocumentoRepetidoCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -79,6 +84,11 @@ type
     function ListaTerceirizadas_Cache(ARazao: string; AFantasia: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function CadastraTerceirizada(ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string = ''): Integer;
     function AtualizaTerceirizada(AIdTerc: Integer; ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string = ''): Boolean;
+    function CarregaCamposTerceirizada(ACampos: string; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function CarregaCamposTerceirizada_Cache(ACampos: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function CarregaCamposProfissional(ACampos: string; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function CarregaCamposProfissional_Cache(ACampos: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function DocumentoRepetido(ADocumento: string; ACampoDocumento: string; ACampoNome: string; ATabela: string; const ARequestFilter: string = ''): string;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -356,6 +366,39 @@ const
     (Name: 'AUF'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACep'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
+  );
+
+  TModelMetodos_CarregaCamposTerceirizada: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'ACampos'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_CarregaCamposTerceirizada_Cache: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'ACampos'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_CarregaCamposProfissional: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'ACampos'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_CarregaCamposProfissional_Cache: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'ACampos'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_DocumentoRepetido: array [0..4] of TDSRestParameterMetaData =
+  (
+    (Name: 'ADocumento'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACampoDocumento'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACampoNome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATabela'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
   );
 
 implementation
@@ -978,6 +1021,103 @@ begin
   Result := FAtualizaTerceirizadaCommand.Parameters[13].Value.GetBoolean;
 end;
 
+function TModelMetodosClient.CarregaCamposTerceirizada(ACampos: string; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FCarregaCamposTerceirizadaCommand = nil then
+  begin
+    FCarregaCamposTerceirizadaCommand := FConnection.CreateCommand;
+    FCarregaCamposTerceirizadaCommand.RequestType := 'GET';
+    FCarregaCamposTerceirizadaCommand.Text := 'TModelMetodos.CarregaCamposTerceirizada';
+    FCarregaCamposTerceirizadaCommand.Prepare(TModelMetodos_CarregaCamposTerceirizada);
+  end;
+  FCarregaCamposTerceirizadaCommand.Parameters[0].Value.SetWideString(ACampos);
+  FCarregaCamposTerceirizadaCommand.Execute(ARequestFilter);
+  if not FCarregaCamposTerceirizadaCommand.Parameters[1].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FCarregaCamposTerceirizadaCommand.Parameters[1].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FCarregaCamposTerceirizadaCommand.Parameters[1].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FCarregaCamposTerceirizadaCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.CarregaCamposTerceirizada_Cache(ACampos: string; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FCarregaCamposTerceirizadaCommand_Cache = nil then
+  begin
+    FCarregaCamposTerceirizadaCommand_Cache := FConnection.CreateCommand;
+    FCarregaCamposTerceirizadaCommand_Cache.RequestType := 'GET';
+    FCarregaCamposTerceirizadaCommand_Cache.Text := 'TModelMetodos.CarregaCamposTerceirizada';
+    FCarregaCamposTerceirizadaCommand_Cache.Prepare(TModelMetodos_CarregaCamposTerceirizada_Cache);
+  end;
+  FCarregaCamposTerceirizadaCommand_Cache.Parameters[0].Value.SetWideString(ACampos);
+  FCarregaCamposTerceirizadaCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FCarregaCamposTerceirizadaCommand_Cache.Parameters[1].Value.GetString);
+end;
+
+function TModelMetodosClient.CarregaCamposProfissional(ACampos: string; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FCarregaCamposProfissionalCommand = nil then
+  begin
+    FCarregaCamposProfissionalCommand := FConnection.CreateCommand;
+    FCarregaCamposProfissionalCommand.RequestType := 'GET';
+    FCarregaCamposProfissionalCommand.Text := 'TModelMetodos.CarregaCamposProfissional';
+    FCarregaCamposProfissionalCommand.Prepare(TModelMetodos_CarregaCamposProfissional);
+  end;
+  FCarregaCamposProfissionalCommand.Parameters[0].Value.SetWideString(ACampos);
+  FCarregaCamposProfissionalCommand.Execute(ARequestFilter);
+  if not FCarregaCamposProfissionalCommand.Parameters[1].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FCarregaCamposProfissionalCommand.Parameters[1].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FCarregaCamposProfissionalCommand.Parameters[1].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FCarregaCamposProfissionalCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.CarregaCamposProfissional_Cache(ACampos: string; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FCarregaCamposProfissionalCommand_Cache = nil then
+  begin
+    FCarregaCamposProfissionalCommand_Cache := FConnection.CreateCommand;
+    FCarregaCamposProfissionalCommand_Cache.RequestType := 'GET';
+    FCarregaCamposProfissionalCommand_Cache.Text := 'TModelMetodos.CarregaCamposProfissional';
+    FCarregaCamposProfissionalCommand_Cache.Prepare(TModelMetodos_CarregaCamposProfissional_Cache);
+  end;
+  FCarregaCamposProfissionalCommand_Cache.Parameters[0].Value.SetWideString(ACampos);
+  FCarregaCamposProfissionalCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FCarregaCamposProfissionalCommand_Cache.Parameters[1].Value.GetString);
+end;
+
+function TModelMetodosClient.DocumentoRepetido(ADocumento: string; ACampoDocumento: string; ACampoNome: string; ATabela: string; const ARequestFilter: string): string;
+begin
+  if FDocumentoRepetidoCommand = nil then
+  begin
+    FDocumentoRepetidoCommand := FConnection.CreateCommand;
+    FDocumentoRepetidoCommand.RequestType := 'GET';
+    FDocumentoRepetidoCommand.Text := 'TModelMetodos.DocumentoRepetido';
+    FDocumentoRepetidoCommand.Prepare(TModelMetodos_DocumentoRepetido);
+  end;
+  FDocumentoRepetidoCommand.Parameters[0].Value.SetWideString(ADocumento);
+  FDocumentoRepetidoCommand.Parameters[1].Value.SetWideString(ACampoDocumento);
+  FDocumentoRepetidoCommand.Parameters[2].Value.SetWideString(ACampoNome);
+  FDocumentoRepetidoCommand.Parameters[3].Value.SetWideString(ATabela);
+  FDocumentoRepetidoCommand.Execute(ARequestFilter);
+  Result := FDocumentoRepetidoCommand.Parameters[4].Value.GetWideString;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -1020,6 +1160,11 @@ begin
   FListaTerceirizadasCommand_Cache.DisposeOf;
   FCadastraTerceirizadaCommand.DisposeOf;
   FAtualizaTerceirizadaCommand.DisposeOf;
+  FCarregaCamposTerceirizadaCommand.DisposeOf;
+  FCarregaCamposTerceirizadaCommand_Cache.DisposeOf;
+  FCarregaCamposProfissionalCommand.DisposeOf;
+  FCarregaCamposProfissionalCommand_Cache.DisposeOf;
+  FDocumentoRepetidoCommand.DisposeOf;
   inherited;
 end;
 

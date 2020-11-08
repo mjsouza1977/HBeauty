@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, View.Principal.HBeauty, FMX.TMSButton, FMX.Layouts, FMX.TMSBaseControl, FMX.TMSGridCell, FMX.TMSGridOptions,
   FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Edit, FMX.TMSBitmap,
-  Units.Enumerados.HBeauty, View.Loading.HBeauty;
+  Units.Enumerados.HBeauty, View.Loading.HBeauty, Controller.Formata.HBeauty;
 
 type
   TfrmCadastroContatos = class(TForm)
@@ -49,6 +49,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure grdListaContatosCellClick(Sender: TObject; ACol, ARow: Integer);
+    procedure edtTelefoneTyping(Sender: TObject);
   private
     FNomeTabela: String;
     FIdRegTab: Integer;
@@ -72,7 +73,7 @@ type
     property Titulo     : String    read FTitulo     write SetTitulo;
     property Nome       : String    read FNome       write SetNome;
     property TipoForm   : TTipoForm read FTipoForm   write SetTipoForm;
-    property TituloForm : String read FTituloForm write SetTituloForm;
+    property TituloForm : String    read FTituloForm write SetTituloForm;
   end;
 
 
@@ -240,13 +241,19 @@ begin
                                                                      MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
                                                            begin
                                                                //Executa a inclusão dos dados no servidor
-                                                               CadastraTelefone(gclTelefone);
-                                                               MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                          'Registro salvo com sucesso!', apTitulo,
-                                                                          MB_OK + MB_ICONINFORMATION);
-                                                               //caso tenha sucesso na inclusão executa o FormShow e Manipuloa os botões
-                                                               FormShow(Self);
-                                                               ControlaBotoes(Self, True);
+                                                               if CadastraTelefone(gclTelefone) > 0 then
+                                                                   begin
+                                                                       MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                                  'Registro salvo com sucesso!', apTitulo,
+                                                                                  MB_OK + MB_ICONINFORMATION);
+                                                                       //caso tenha sucesso na inclusão executa o FormShow e Manipuloa os botões
+                                                                       FormShow(Self);
+                                                                       ControlaBotoes(Self, True);
+                                                                   end
+                                                               else
+                                                                   begin
+                                                                       Abort;
+                                                                   end;
                                                            end;
                                                    except
                                                    on E:Exception do
@@ -390,6 +397,11 @@ begin
          {$endregion}
     end;
     {$endregion}
+end;
+
+procedure TfrmCadastroContatos.edtTelefoneTyping(Sender: TObject);
+begin
+Formatar(edtTelefone, erCelular);
 end;
 
 procedure TfrmCadastroContatos.FormClose(Sender: TObject; var Action: TCloseAction);

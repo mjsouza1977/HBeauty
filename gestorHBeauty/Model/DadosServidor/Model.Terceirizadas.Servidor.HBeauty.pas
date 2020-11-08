@@ -2,19 +2,32 @@ unit Model.Terceirizadas.Servidor.HBeauty;
 
 interface
 
-uses Model.Terceirizada.HBeauty;
+uses Model.Terceirizada.HBeauty, Model.Genericos.Servidor.HBeauty, FMX.Forms;
 
 procedure ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer);
-function CadastraTerceirizada(ATerceirizada : TModelTerceirizada) : Integer;
+function CadastraTerceirizada(ATerceirizada : TModelTerceirizada; AForm : TForm) : Integer;
 
 function AtualizaTerceirizada(ATerceirizada : TModelTerceirizada) : Boolean;
+procedure CarregaCamposTerceirizada(ACampos : String);
+
 
 implementation
 
 uses
   Model.Dados.Server.HBeauty, Data.FireDACJSONReflect,
-  Controller.ClientModule.HBeauty;
+  Controller.ClientModule.HBeauty, Winapi.Windows, FMX.Platform.Win,
+  ACBrValidador;
 
+procedure CarregaCamposTerceirizada(ACampos : String);
+var
+   dsCamposTerceirizada : TFDJSONDataSets;
+begin
+   dsCamposTerceirizada := ControllerClientModule.ModelMetodosClient.CarregaCamposTerceirizada(ACampos);
+   Assert(TFDJSONDataSetsReader.GetListCount(dsCamposTerceirizada) = 1);
+   ModelConexaoDados.memTerceirizada.Active := False;
+   ModelConexaoDados.memTerceirizada.AppendData(TFDJSONDataSetsReader.GetListValue(dsCamposTerceirizada, 0));
+   ModelConexaoDados.memTerceirizada.Active := True;
+end;
 
 procedure ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer);
 var
@@ -25,11 +38,13 @@ begin
    ModelConexaoDados.memTerceirizada.Active := False;
    ModelConexaoDados.memTerceirizada.AppendData(TFDJSONDataSetsReader.GetListValue(dsTerceirizada, 0));
    ModelConexaoDados.memTerceirizada.Active := True;
-
 end;
 
-function CadastraTerceirizada(ATerceirizada : TModelTerceirizada) : Integer;
+function CadastraTerceirizada(ATerceirizada : TModelTerceirizada; AForm : TForm) : Integer;
 begin
+
+    DocumentoRepetido(ATerceirizada.CNPJ_TERCEIRIZADA, 'CNPJ_TERCEIRIZADA', 'FANTASIA_TERCEIRIZADA', 'HBTERCEIRIZADA', AForm);
+
     Result := ControllerClientModule.ModelMetodosClient.CadastraTerceirizada(ATerceirizada.ENDERECO_TERCEIRIZADA.NRLOG,
                                                                              ATerceirizada.CODIGO_TERCEIRIZADA, ATerceirizada.RAZAO_TERCEIRIZADA,
                                                                              ATerceirizada.FANTASIA_TERCEIRIZADA, ATerceirizada.CNPJ_TERCEIRIZADA,

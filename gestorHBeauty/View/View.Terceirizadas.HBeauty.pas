@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, ACBrBase, ACBrValidador, FMX.StdCtrls, FMX.Layouts, FMX.EditBox, FMX.NumberBox, FMX.ListBox,
   FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.TMSBaseControl, FMX.TMSBaseGroup, FMX.TMSRadioGroup, FMX.Edit,
   FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton, Model.Terceirizadas.Servidor.HBeauty, Units.Strings.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty,
-  Units.Enumerados.HBeauty, Model.Profissionais.Servidor.HBeauty, FMX.Effects, FMX.Filter.Effects;
+  Units.Enumerados.HBeauty, Model.Profissionais.Servidor.HBeauty, FMX.Effects, FMX.Filter.Effects, Controller.Formata.HBeauty;
 
 type
   TfrmGerenciadorTerceirizadas = class(TForm)
@@ -113,9 +113,10 @@ type
     procedure edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edtUFLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edtCNPJExit(Sender: TObject);
-    procedure edtCepLogExit(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure edtCNPJTyping(Sender: TObject);
+    procedure edtCepLogTyping(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
@@ -161,7 +162,7 @@ begin
              edtNumeroLog.Text      := ModelConexaoDados.memTerceirizada.FieldByName('NRLOG_TERCEIRIZADA').AsString;
              edtComplementoLog.Text := ModelConexaoDados.memTerceirizada.FieldByName('COMPLLOG_TERCEIRIZADA').AsString;
              edtBairroLog.Text      := ModelConexaoDados.memTerceirizada.FieldByName('BAIRROLOG_TERCEIRIZADA').AsString;
-             edtCepLog.Text         := ModelConexaoDados.memTerceirizada.FieldByName('CEP_TERCEIRIZADA').AsString;
+             edtCepLog.Text         := FormatarCEP(ModelConexaoDados.memTerceirizada.FieldByName('CEPLOG_TERCEIRIZADA').AsString);
              edtCidadeLog.Text      := ModelConexaoDados.memTerceirizada.FieldByName('CIDADELOG_TERCEIRIZADA').AsString;
              edtUFLog.Text          := ModelConexaoDados.memTerceirizada.FieldByName('UFLOG_TERCEIRIZADA').AsString;
 
@@ -194,7 +195,7 @@ begin
                          'Para cadastrar os e-mails é necessário primeiro salvar a empresa.'+#13#13+
                          'Deseja salvar agora?', apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
-                    FIdSelecionado := CadastraTerceirizada(gclTerceirizada);
+                    FIdSelecionado := CadastraTerceirizada(gclTerceirizada, Self);
                     ControlaBotoes(Self, True);
 
                     if FIdSelecionado <> 0 then
@@ -234,7 +235,7 @@ begin
                          'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
                     AlimentaClasseTerceirizada;
-                    FIdSelecionado := CadastraTerceirizada(gclTerceirizada);
+                    FIdSelecionado := CadastraTerceirizada(gclTerceirizada, Self);
 
                     if FIdSelecionado <> 0 then
                         begin
@@ -369,7 +370,7 @@ begin
                              IDYES : begin
                                          AlimentaClasseTerceirizada;
                                          Try
-                                            FIdSelecionado := CadastraTerceirizada(gclTerceirizada);
+                                            FIdSelecionado := CadastraTerceirizada(gclTerceirizada, Self);
 
                                             case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                             'Empresa cadastrado com sucesso.'+#13#13+
@@ -445,27 +446,31 @@ begin
 NextField(kEY, edtCidadeLog);
 end;
 
-procedure TfrmGerenciadorTerceirizadas.edtCepLogExit(Sender: TObject);
+procedure TfrmGerenciadorTerceirizadas.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 var
 AEndereco : TModelEndereco;
 begin
-    try
-        AEndereco := TModelEndereco.Create(Self);
-        AEndereco := PesquisaCEP(Self, edtCepLog.Text);
+    if Key = VK_RETURN then
+        begin
+            try
+                AEndereco := TModelEndereco.Create(Self);
+                AEndereco := PesquisaCEP(Self, edtCepLog.Text);
 
-        edtCepLog.Text     := AEndereco.CEP;
-        edtLogradouro.Text := AEndereco.LOGRADOURO;
-        edtBairroLog.Text  := AEndereco.BAIRROLOG;
-        edtCidadeLog.Text  := AEndereco.CIDADELOG;
-        edtUFLog.Text      := AEndereco.UFLOG;
-    finally
-        AEndereco.DisposeOf;
-    end;
+                edtCepLog.Text     := FormatarCEP(AEndereco.CEP);
+                edtLogradouro.Text := AEndereco.LOGRADOURO;
+                edtBairroLog.Text  := AEndereco.BAIRROLOG;
+                edtCidadeLog.Text  := AEndereco.CIDADELOG;
+                edtUFLog.Text      := AEndereco.UFLOG;
+                NextField(Key, edtLogradouro);
+            finally
+                AEndereco.DisposeOf;
+            end;
+        end;
 end;
 
-procedure TfrmGerenciadorTerceirizadas.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+procedure TfrmGerenciadorTerceirizadas.edtCepLogTyping(Sender: TObject);
 begin
-     NextField(Key, edtLogradouro);
+Formatar(edtCepLog, erCEP);
 end;
 
 procedure TfrmGerenciadorTerceirizadas.edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -482,6 +487,11 @@ end;
 procedure TfrmGerenciadorTerceirizadas.edtCNPJKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
 NextField(kEY, edtIE);
+end;
+
+procedure TfrmGerenciadorTerceirizadas.edtCNPJTyping(Sender: TObject);
+begin
+Formatar(edtCNPJ, erCNPJ);
 end;
 
 procedure TfrmGerenciadorTerceirizadas.edtComplementoLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);

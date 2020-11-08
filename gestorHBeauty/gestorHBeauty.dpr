@@ -21,7 +21,6 @@ uses
   Units.Utils.Dados.HBeauty in 'Units\Units.Utils.Dados.HBeauty.pas',
   Controller.Manipula.Design.HBeauty in 'Controller\Controle\Controller.Manipula.Design.HBeauty.pas',
   Model.Profissionais.HBeauty in 'Model\Model.Profissionais.HBeauty.pas',
-  Units.Formata.HBeauty in 'Units\Units.Formata.HBeauty.pas',
   Model.Endereco.HBeauty in 'Model\Model.Endereco.HBeauty.pas',
   Model.Chaves.HBeauty in 'Model\Model.Chaves.HBeauty.pas',
   View.Contatos.HBeauty in 'View\View.Contatos.HBeauty.pas' {frmCadastroContatos},
@@ -36,7 +35,9 @@ uses
   Model.Terceirizada.HBeauty in 'Model\Model.Terceirizada.HBeauty.pas',
   Controller.Conexao.Proxy.HBeauty in 'Controller\Conexao\Controller.Conexao.Proxy.HBeauty.pas',
   Model.Terceirizadas.Servidor.HBeauty in 'Model\DadosServidor\Model.Terceirizadas.Servidor.HBeauty.pas',
-  View.Profissionais.HBeauty in 'View\View.Profissionais.HBeauty.pas' {frmGerenciadorProfissionais};
+  View.Profissionais.HBeauty in 'View\View.Profissionais.HBeauty.pas' {frmGerenciadorProfissionais},
+  Controller.Formata.HBeauty in 'Controller\Controller.Formata.HBeauty.pas',
+  Model.Genericos.Servidor.HBeauty in 'Model\DadosServidor\Model.Genericos.Servidor.HBeauty.pas';
 
 {$R *.res}
 

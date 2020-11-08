@@ -27,6 +27,7 @@ function PesquisaCEP(AForm : TForm; ACep : String) : TModelEndereco;
 var
 AValidador : TACBrValidador;
 AResultado : TModelEndereco;
+i : Integer;
 begin
      try
          AResultado := TModelEndereco.Create(AForm);
@@ -45,7 +46,8 @@ begin
                True : begin
                           ModelConexaoDados.RESTRequest.Params.ParameterByName('pCEP').Value := ApenasNumeros(ACep);
                           ModelConexaoDados.RESTRequest.Execute;
-                           if ModelConexaoDados.memCep.RecordCount > 0 then
+                          i := ModelConexaoDados.memCep.RecordCount;
+                          if (ModelConexaoDados.memCep.RecordCount > 0) and (ModelConexaoDados.memCeplogradouro.AsString <> '') then
                               begin
                                   AResultado.UFLOG      := ModelConexaoDados.memCepuf.Value;
                                   AResultado.CEP        := ACBrValidador.FormatarCEP(ModelConexaoDados.memCepcep.Value);
@@ -60,7 +62,6 @@ begin
                                    MessageBox(WindowHandleToPlatform(AForm.Handle).Wnd,
                                               'Cep não encontrado, verifique!', apTitulo,
                                               MB_OK + MB_ICONINFORMATION);
-                                   TEdit(AForm.FindComponent('edtCep')).SetFocus;
                                    Abort;
                               end;
                       end;

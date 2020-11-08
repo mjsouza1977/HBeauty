@@ -164,11 +164,11 @@ object frmCadastroContatos: TfrmCadastroContatos
     TabOrder = 3
   end
   object lblNome: TLabel
-    AutoSize = True
     StyledSettings = [Family]
     Position.X = 84.000000000000000000
     Position.Y = 50.000000000000000000
-    Size.Height = 80.000000000000000000
+    Size.Width = 648.000000000000000000
+    Size.Height = 27.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 20.000000000000000000
     TextSettings.FontColor = claWhite
@@ -287,6 +287,7 @@ object frmCadastroContatos: TfrmCadastroContatos
         Size.PlatformDefault = False
         StyledSettings = [Family, Style, FontColor]
         CharCase = ecUpperCase
+        OnTyping = edtTelefoneTyping
       end
       object Label14: TLabel
         StyledSettings = [Family, Size]

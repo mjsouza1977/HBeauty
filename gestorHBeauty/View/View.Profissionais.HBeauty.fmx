@@ -312,7 +312,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 20
+        TabOrder = 23
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -2762,7 +2762,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             Fill.Kind = Solid
             Stroke.Kind = Solid
             StrokeThickness = 0.000000000000000000
-            TopRow = 1
+            TopRow = 0
             LeftCol = 0
             OnCellClick = grdListaProfissionaisCellClick
             Columns = <
@@ -4616,6 +4616,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnTyping = edtCPFTyping
           OnKeyUp = edtCPFKeyUp
           OnExit = edtCPFExit
         end
@@ -4919,6 +4920,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnTyping = edtCepLogTyping
           OnKeyUp = edtCepLogKeyUp
           OnExit = edtCepLogExit
         end

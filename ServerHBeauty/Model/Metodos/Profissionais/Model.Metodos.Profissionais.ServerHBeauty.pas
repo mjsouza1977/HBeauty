@@ -13,11 +13,29 @@ function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AId
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Boolean;
 
 function CarregaProfissionalTerceirizado(AIdTerceirizado : Integer) : TFDJSONDataSets;
+function CarregaCamposProfissionais(ACampos : String) : TFDJSONDataSets;
 
 implementation
 
 uses
   System.SysUtils, Units.Utils.ServerBeauty, Vcl.Dialogs;
+
+function CarregaCamposProfissionais(ACampos : String) : TFDJSONDataSets;
+begin
+
+     try
+         ControllerConexao.qryQuery.Close;
+         ControllerConexao.qryQuery.SQL.Clear;
+         ControllerConexao.qryQuery.SQL.Add('SELECT ' + ACampos + ' FROM HBPROFISSIONAIS');
+
+         Result := TFDJSONDataSets.Create;
+         TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
+         ControllerConexao.qryQuery.Active := True;
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
+
+end;
 
 function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
 var

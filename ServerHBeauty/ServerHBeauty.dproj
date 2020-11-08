@@ -127,6 +127,7 @@
         <DCCReference Include="Model\Metodos\Contatos\Model.Metodos.Contatos.ServerHBeauty.pas"/>
         <DCCReference Include="Model\Metodos\Profissionais\Model.Metodos.Profissionais.Hablidades.ServerHBeauty.pas"/>
         <DCCReference Include="Model\Metodos\Terceirizadas\Model.Metodos.Terceirizadas.ServerHBeauty.pas"/>
+        <DCCReference Include="Model\Metodos\Model.Metodos.Genericos.ServerHBeauty.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

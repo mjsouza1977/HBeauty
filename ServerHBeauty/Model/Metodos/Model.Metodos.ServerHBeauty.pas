@@ -8,7 +8,7 @@ uses System.SysUtils, System.Classes, System.Json,
      Controller.Conexao.HBeautyServer,
      Model.Metodos.Usuarios.ServerHBeauty,
      Model.Metodos.Profissionais.ServerHBeauty,
-     Model.Metodos.Profissionais.Hablidades.ServerHBeauty, Model.Metodos.Terceirizadas.ServerHBeauty;
+     Model.Metodos.Profissionais.Hablidades.ServerHBeauty, Model.Metodos.Terceirizadas.ServerHBeauty, Model.Metodos.Genericos.ServerHBeauty;
 
 type
 {$METHODINFO ON}
@@ -43,6 +43,10 @@ type
                                   ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Integer;
     function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
                                   ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Boolean;
+    function CarregaCamposTerceirizada(ACampos : String) : TFDJSONDataSets;
+    function CarregaCamposProfissional(ACampos : String) : TFDJSONDataSets;
+
+    function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
 
   end;
 {$METHODINFO OFF}
@@ -58,6 +62,11 @@ uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contat
 
 
 { TModelMetodos }
+
+function TModelMetodos.DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
+begin
+    Result := Model.Metodos.Genericos.ServerHBeauty.DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela);
+end;
 
 function TModelMetodos.ValidaLogin(Usuario, Senha : String) : TFDJSONDataSets;
 begin
@@ -128,6 +137,16 @@ function TModelMetodos.CadastraTerceirizada(ANrLog: Integer; ACodigo, ARazao, AF
 begin
      Result := MOdel.Metodos.Terceirizadas.ServerHBeauty.CadastraTerceirizada(ANrLog, ACodigo, ARazao, AFantasia, ACNPJ, AIE, ALogradouro,
                                                                               AComplemento, ABairro, ACidade, AUF, ACep);
+end;
+
+function TModelMetodos.CarregaCamposProfissional(ACampos: String): TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Profissionais.ServerHBeauty.CarregaCamposProfissionais(ACampos);
+end;
+
+function TModelMetodos.CarregaCamposTerceirizada(ACampos: String): TFDJSONDataSets;
+begin
+     Result:= Model.Metodos.Terceirizadas.ServerHBeauty.CarregaCamposTerceirizada(ACampos);
 end;
 
 function TModelMetodos.CarregaControle: TFDJSONDataSets;

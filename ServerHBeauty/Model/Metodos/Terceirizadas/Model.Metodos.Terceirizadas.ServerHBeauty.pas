@@ -8,7 +8,7 @@ uses Controller.Conexao.HBeautyServer,
 function ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
 function CadastraTerceirizada(ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Integer;
-
+function CarregaCamposTerceirizada(ACampos : String) : TFDJSONDataSets;
 function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Boolean;
 
@@ -16,6 +16,24 @@ implementation
 
 uses
   System.SysUtils, Units.Utils.ServerBeauty, Vcl.Dialogs;
+
+
+function CarregaCamposTerceirizada(ACampos : String) : TFDJSONDataSets;
+begin
+
+     try
+         ControllerConexao.qryQuery.Close;
+         ControllerConexao.qryQuery.SQL.Clear;
+         ControllerConexao.qryQuery.SQL.Add('SELECT ' + ACampos + ' FROM HBTERCEIRIZADA');
+
+         Result := TFDJSONDataSets.Create;
+         TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
+         ControllerConexao.qryQuery.Active := True;
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
+
+end;
 
 function ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
 var

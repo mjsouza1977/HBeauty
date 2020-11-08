@@ -30,7 +30,7 @@ const
 
      //grid do Form de Empresas Terceirizadas
      AFieldsTerceirizadas  : Array [0..10] of  String = ('ID_TERCEIRIZADA', 'CNPJ_TERCEIRIZADA','RAZAO_TERCEIRIZADA','FANTASIA_TERCEIRIZADA','LOGLOG_TERCEIRIZADA', 'NRLOG_TERCEIRIZADA',
-                                                         'COMPLLOG_TERCEIRIZADA','BAIRROLOG_TERCEIRIZADA','CEP_TERCEIRIZADA','CIDADELOG_TERCEIRIZADA','UFLOG_TERCEIRIZADA');
+                                                         'COMPLLOG_TERCEIRIZADA','BAIRROLOG_TERCEIRIZADA','CEPlog_TERCEIRIZADA','CIDADELOG_TERCEIRIZADA','UFLOG_TERCEIRIZADA');
      ACaptionTerceirizadas : Array [0..10] of String  = ('Código','CNPJ','Razão Social','Nome Fantasia','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
      ASizeColTerceirizadas : Array [0..10] of Single  = (50, 150, 200, 200, 350, 70, 100, 200, 100, 180, 50);
 

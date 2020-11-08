@@ -47,7 +47,6 @@ begin
                           ModelConexaoDados.RESTRequest.Execute;
                            if ModelConexaoDados.memCep.RecordCount > 0 then
                               begin
-                                  ShowMessage(ModelConexaoDados.memCepuf.Value);
                                   AResultado.UFLOG      := ModelConexaoDados.memCepuf.Value;
                                   AResultado.CEP        := ACBrValidador.FormatarCEP(ModelConexaoDados.memCepcep.Value);
                                   AResultado.LOGRADOURO := ModelConexaoDados.memCeplogradouro.Value;

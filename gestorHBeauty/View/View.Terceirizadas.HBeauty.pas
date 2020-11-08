@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, ACBrBase, ACBrValidador, FMX.StdCtrls, FMX.Layouts, FMX.EditBox, FMX.NumberBox, FMX.ListBox,
   FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.TMSBaseControl, FMX.TMSBaseGroup, FMX.TMSRadioGroup, FMX.Edit,
   FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton, Model.Terceirizadas.Servidor.HBeauty, Units.Strings.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty,
-  Units.Enumerados.HBeauty, Model.Profissionais.Servidor.HBeauty;
+  Units.Enumerados.HBeauty, Model.Profissionais.Servidor.HBeauty, FMX.Effects, FMX.Filter.Effects;
 
 type
   TfrmGerenciadorTerceirizadas = class(TForm)
@@ -91,6 +91,7 @@ type
     tabListaProfissionaisTerceirizados: TTabItem;
     ACBrValidador1: TACBrValidador;
     grdListaProfissionalTerceirizado: TTMSFMXGrid;
+    FillRGBEffect2: TFillRGBEffect;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnPesquisarClick(Sender: TObject);
@@ -114,6 +115,7 @@ type
     procedure edtCNPJExit(Sender: TObject);
     procedure edtCepLogExit(Sender: TObject);
     procedure btnFecharClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
@@ -225,7 +227,7 @@ end;
 
 procedure TfrmGerenciadorTerceirizadas.btnCadastraTelefoneClick(Sender: TObject);
 begin
-if FStatus = abIncluir then
+    if FStatus = abIncluir then
         begin
             if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                          'Para cadastrar os telefones é necessário primeiro salvar a empresa.'+#13#13+
@@ -244,6 +246,7 @@ if FStatus = abIncluir then
                             frmCadastroContatos.TituloForm   := 'Cadastro de Telefone';
                             frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
                             frmCadastroContatos.ShowModal;
+                            FStatus := abNulo;
                         end;
                 end;
         end
@@ -260,6 +263,40 @@ if FStatus = abIncluir then
 
             frmCadastroContatos.ShowModal;
         end;
+end;
+
+procedure TfrmGerenciadorTerceirizadas.btnCancelarClick(Sender: TObject);
+var
+AMensagem : String;
+begin
+
+     case FStatus of
+         abIncluir : AMensagem := 'Tem certeza que deseja cancelar esta inclusão. ' +
+                                  'Os dados serão perdidos.'+#13#13+
+                                  'Deseja continuar?';
+         abAlterar : AMensagem := 'Tem certeza que deseja cancelar esta alteração. ' +
+                                  'Caso tenha feito alguma alteração os dados não serão salvos.'+#13#13+
+                                  'Deseja continuar?';
+            abNulo : begin
+                         LimpaForm(Self);
+                         HabilitaTab(False);
+                         tabCabecarioTerceirizada.TabIndex := 0;
+                         tabGerenciadorTerceirizada.TabIndex := 0;
+                         ControlaBotoes(Self, True);
+                         Abort;
+                     end;
+     end;
+
+     if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                   pChar(AMensagem), apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
+         begin
+             LimpaForm(Self);
+             HabilitaTab(False);
+             tabCabecarioTerceirizada.TabIndex := 0;
+             tabGerenciadorTerceirizada.TabIndex := 0;
+             ControlaBotoes(Self, True);
+         end;
+
 end;
 
 procedure TfrmGerenciadorTerceirizadas.btnFecharClick(Sender: TObject);
@@ -282,7 +319,6 @@ procedure TfrmGerenciadorTerceirizadas.AlimentaClasseTerceirizada;
 begin
     gclTerceirizada.ID_TERCEIRIZADA       := FIdSelecionado;
     gclTerceirizada.CNPJ_TERCEIRIZADA     := ApenasNumeros(edtCNPJ.Text);
-    gclTerceirizada.IE_TERCEIRIZADA       := ApenasNumeros(edtIE.Text);
     gclTerceirizada.RAZAO_TERCEIRIZADA    := edtRazaoSocial.Text;
     gclTerceirizada.FANTASIA_TERCEIRIZADA := edtNomeFantasia.Text;
     gclTerceirizada.ENDERECO_TERCEIRIZADA.LOGRADOURO := edtLogradouro.Text;
@@ -292,6 +328,10 @@ begin
     gclTerceirizada.ENDERECO_TERCEIRIZADA.CEP        := edtCepLog.Text;
     gclTerceirizada.ENDERECO_TERCEIRIZADA.CIDADELOG  := edtCidadeLog.Text;
     gclTerceirizada.ENDERECO_TERCEIRIZADA.UFLOG      := edtUFLog.Text;
+    if edtIE.Text <> 'ISENTO' then
+       gclTerceirizada.IE_TERCEIRIZADA    := ApenasNumeros(edtIE.Text) else
+       gclTerceirizada.IE_TERCEIRIZADA    := edtIE.Text;
+
 end;
 
 procedure TfrmGerenciadorTerceirizadas.btnPesquisarClick(Sender: TObject);
@@ -409,21 +449,18 @@ procedure TfrmGerenciadorTerceirizadas.edtCepLogExit(Sender: TObject);
 var
 AEndereco : TModelEndereco;
 begin
-     if Key = VK_RETURN then
-        begin
-            try
-                AEndereco := TModelEndereco.Create(Self);
-                AEndereco := PesquisaCEP(Self, edtCepLog.Text);
+    try
+        AEndereco := TModelEndereco.Create(Self);
+        AEndereco := PesquisaCEP(Self, edtCepLog.Text);
 
-                edtCepLog.Text     := AEndereco.CEP;
-                edtLogradouro.Text := AEndereco.LOGRADOURO;
-                edtBairroLog.Text  := AEndereco.BAIRROLOG;
-                edtCidadeLog.Text  := AEndereco.CIDADELOG;
-                edtUFLog.Text      := AEndereco.UFLOG;
-            finally
-                AEndereco.DisposeOf;
-            end;
-        end;
+        edtCepLog.Text     := AEndereco.CEP;
+        edtLogradouro.Text := AEndereco.LOGRADOURO;
+        edtBairroLog.Text  := AEndereco.BAIRROLOG;
+        edtCidadeLog.Text  := AEndereco.CIDADELOG;
+        edtUFLog.Text      := AEndereco.UFLOG;
+    finally
+        AEndereco.DisposeOf;
+    end;
 end;
 
 procedure TfrmGerenciadorTerceirizadas.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);

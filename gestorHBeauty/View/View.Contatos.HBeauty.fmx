@@ -155,7 +155,7 @@ object frmCadastroContatos: TfrmCadastroContatos
     StyledSettings = [Family, Size]
     Position.X = 84.000000000000000000
     Position.Y = 34.000000000000000000
-    Size.Width = 81.000000000000000000
+    Size.Width = 221.000000000000000000
     Size.Height = 17.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -168,12 +168,10 @@ object frmCadastroContatos: TfrmCadastroContatos
     StyledSettings = [Family]
     Position.X = 84.000000000000000000
     Position.Y = 50.000000000000000000
-    Size.Width = 377.000000000000000000
-    Size.Height = 27.000000000000000000
+    Size.Height = 80.000000000000000000
     Size.PlatformDefault = False
     TextSettings.Font.Size = 20.000000000000000000
     TextSettings.FontColor = claWhite
-    Text = 'M'#193'RCIO JOS'#201' DE SOUZA'
     TabOrder = 2
   end
   object grdListaContatos: TTMSFMXGrid

@@ -133,6 +133,7 @@ end;
 procedure TModelEndereco.SetUFLOG(const Value: String);
 begin
 
+    FMsg := '';
     FMsg := ACBRValidador.ValidarUF(Value);
     if FMsg <> '' then
         begin

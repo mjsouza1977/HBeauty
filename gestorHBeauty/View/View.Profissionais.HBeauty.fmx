@@ -114,7 +114,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Size.Width = 1014.000000000000000000
     Size.Height = 113.000000000000000000
     Size.PlatformDefault = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TabPosition = None
     Sizes = (
@@ -126,7 +126,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       CustomIcon = <
         item
         end>
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -261,7 +261,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       CustomIcon = <
         item
         end>
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -312,7 +312,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 17
+        TabOrder = 20
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -324,6 +324,17 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.Size = 14.000000000000000000
         TextSettings.FontColor = xFF60FF0C
         TabOrder = 0
+      end
+      object Circle2: TCircle
+        Cursor = crHandPoint
+        Fill.Bitmap.WrapMode = TileStretch
+        Fill.Kind = Bitmap
+        Position.X = 723.000000000000000000
+        Position.Y = 16.000000000000000000
+        Size.Width = 80.000000000000000000
+        Size.Height = 80.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFFD4D4D4
       end
     end
   end
@@ -4420,6 +4431,60 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       Text = 'Ficha do Profissional'
       ExplicitSize.cx = 157.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
+      object Image1: TImage
+        MultiResBitmap.Height = 64
+        MultiResBitmap.Width = 64
+        MultiResBitmap = <
+          item
+            Width = 64
+            Height = 64
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000040000000400806000000AA6971
+              DE000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+              012F49444154785EED99C10AC2301044AB47C1DF10F1E745F1287E9228EA5977
+              E9081293D8524C49671E0CD38B629E6D0FBB8D10428CC0C672B03C2C77CBDEB2
+              B650E087BF5A9E412E160A09FECF87877F6767993C7EDBC70EEFB9598A324397
+              C40F9AA3E86F9AA3699100342D1280A64502D0B448009A160940D32201685A24
+              004D8B04A0699100342D29019F73FB70703934BF887D66487AEF1D5273FBDAD3
+              79EF909BDBD79EAFBD436C04EDB7FDA2BD9C1CFE382CDBCB96D83BC04DD11013
+              70424F91233A8BBF28FC85113E3FB5E76C59593AE112FC85E1BBBAD897D5143F
+              C3D6123DBC7683685A24004D8B04A0699100342D1280A64502D0B448009A1609
+              40D32201685A24004DCB18027CF192C21717451943406EEFD0696E5F3BA9BD43
+              AFB97DED7CEE1DB2737B2184F81F4DF30236E92F15B49D85FF0000000049454E
+              44AE426082}
+            FileName = 'C:\Projetos\HBeauty\trunk\Imagens\Icones\Add.png'
+          end>
+        Position.X = 816.000000000000000000
+        Position.Y = 83.000000000000000000
+        Size.Width = 35.000000000000000000
+        Size.Height = 35.000000000000000000
+        Size.PlatformDefault = False
+        object FillRGBEffect1: TFillRGBEffect
+          Color = xFF717171
+        end
+      end
+      object Label14: TLabel
+        StyledSettings = [Family, Size]
+        Position.X = 819.000000000000000000
+        Position.Y = 116.000000000000000000
+        Size.Width = 29.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = 'Foto'
+        TabOrder = 1
+      end
+      object Circle1: TCircle
+        Cursor = crHandPoint
+        Fill.Bitmap.WrapMode = TileStretch
+        Fill.Kind = Bitmap
+        Position.X = 771.000000000000000000
+        Position.Y = 36.000000000000000000
+        Size.Width = 125.000000000000000000
+        Size.Height = 129.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFFD4D4D4
+      end
       object rgDados: TTMSFMXRadioGroup
         DisableFocusEffect = False
         Position.X = 26.000000000000000000
@@ -4439,7 +4504,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       object gbTerceirizada: TGroupBox
         StyledSettings = [Family, Size, FontColor, Other]
         Position.X = 676.000000000000000000
-        Position.Y = 17.000000000000000000
+        Position.Y = 185.000000000000000000
         Size.Width = 325.000000000000000000
         Size.Height = 75.000000000000000000
         Size.PlatformDefault = False

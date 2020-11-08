@@ -11,7 +11,7 @@ uses
   Model.Profissionais.HBeauty, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
   Model.Dados.Server.HBeauty, ACBrBase, ACBrValidador,  Model.Contatos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, View.Loading.HBeauty, FMX.TMSCustomPicker, FMX.TMSCheckGroupPicker, FMX.TMSCheckGroup, FMX.TMSBitmapContainer, FMX.TMSRichEditorEmoticons,
-  FireDAC.Comp.Client, Model.Endereco.HBeauty;
+  FireDAC.Comp.Client, Model.Endereco.HBeauty, FMX.Effects, FMX.Filter.Effects;
 
 type
   TfrmGerenciadorProfissionais = class(TForm)
@@ -108,6 +108,11 @@ type
     vsbHabilidades: TVertScrollBox;
     lytModelo: TLayout;
     CheckBox6: TCheckBox;
+    Image1: TImage;
+    FillRGBEffect1: TFillRGBEffect;
+    Label14: TLabel;
+    Circle1: TCircle;
+    Circle2: TCircle;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnIncluirClick(Sender: TObject);
@@ -271,6 +276,7 @@ procedure TfrmGerenciadorProfissionais.btnAlterarClick(Sender: TObject);
 begin
      if FIdSelecionado > 0 then
          begin
+             lcScrollListaHabilidade.DisposeOf;
              ListaProfissionais('','','',FIdSelecionado);
              edtCPF.Text            := FormatarCNPJouCPF(ModelConexaoDados.memProfissionais.FieldByName('CPF_PROFIS').AsString);
              edtRG.Text             := ModelConexaoDados.memProfissionais.FieldByName('RG_PROFIS').AsString;
@@ -320,6 +326,14 @@ begin
          abAlterar : AMensagem := 'Tem certeza que deseja cancelar esta alteração. ' +
                                   'Caso tenha feito alguma alteração os dados não serão salvos.'+#13#13+
                                   'Deseja continuar?';
+            abNulo : begin
+                         LimpaForm(Self);
+                         HabilitaTab(False);
+                         tabCabecarioProfissionais.TabIndex := 0;
+                         tabGerenciadorProfissionais.TabIndex := 0;
+                         ControlaBotoes(Self, True);
+                         Abort;
+                     end;
      end;
 
      if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
@@ -472,20 +486,17 @@ procedure TfrmGerenciadorProfissionais.edtCepLogExit(Sender: TObject);
 var
 AEndereco : TModelEndereco;
 begin
-if Key = VK_RETURN then
-   begin
-       try
-           AEndereco := TModelEndereco.Create(Self);
-           AEndereco := PesquisaCEP(Self, edtCepLog.Text);
+   try
+       AEndereco := TModelEndereco.Create(Self);
+       AEndereco := PesquisaCEP(Self, edtCepLog.Text);
 
-           edtCepLog.Text     := AEndereco.CEP;
-           edtLogradouro.Text := AEndereco.LOGRADOURO;
-           edtBairroLog.Text  := AEndereco.BAIRROLOG;
-           edtCidadeLog.Text  := AEndereco.CIDADELOG;
-           edtUFLog.Text      := AEndereco.UFLOG;
-       finally
-           AEndereco.DisposeOf;
-       end;
+       edtCepLog.Text     := AEndereco.CEP;
+       edtLogradouro.Text := AEndereco.LOGRADOURO;
+       edtBairroLog.Text  := AEndereco.BAIRROLOG;
+       edtCidadeLog.Text  := AEndereco.CIDADELOG;
+       edtUFLog.Text      := AEndereco.UFLOG;
+   finally
+       AEndereco.DisposeOf;
    end;
 end;
 
@@ -601,6 +612,7 @@ begin
                             frmCadastroContatos.TituloForm   := 'Cadastro de Telefone';
                             frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
                             frmCadastroContatos.ShowModal;
+                            FStatus := abNulo;
                         end;
                 end;
         end

@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 05/11/2020 20:42:11
+// 07/11/2020 20:43:30
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -77,7 +77,7 @@ type
     function cadastraHabilidadeProfissional(AIdHabilidade: Integer; AIdProfissional: Integer; const ARequestFilter: string = ''): Boolean;
     function ListaTerceirizadas(ARazao: string; AFantasia: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
     function ListaTerceirizadas_Cache(ARazao: string; AFantasia: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
-    function CadastraTerceirizada(AIdTerc: Integer; ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string = ''): Integer;
+    function CadastraTerceirizada(ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string = ''): Integer;
     function AtualizaTerceirizada(AIdTerc: Integer; ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string = ''): Boolean;
   end;
 
@@ -323,9 +323,8 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
 
-  TModelMetodos_CadastraTerceirizada: array [0..13] of TDSRestParameterMetaData =
+  TModelMetodos_CadastraTerceirizada: array [0..12] of TDSRestParameterMetaData =
   (
-    (Name: 'AIdTerc'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ARazao'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -928,7 +927,7 @@ begin
   Result := TDSRestCachedTFDJSONDataSets.Create(FListaTerceirizadasCommand_Cache.Parameters[5].Value.GetString);
 end;
 
-function TModelMetodosClient.CadastraTerceirizada(AIdTerc: Integer; ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string): Integer;
+function TModelMetodosClient.CadastraTerceirizada(ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string): Integer;
 begin
   if FCadastraTerceirizadaCommand = nil then
   begin
@@ -937,21 +936,20 @@ begin
     FCadastraTerceirizadaCommand.Text := 'TModelMetodos.CadastraTerceirizada';
     FCadastraTerceirizadaCommand.Prepare(TModelMetodos_CadastraTerceirizada);
   end;
-  FCadastraTerceirizadaCommand.Parameters[0].Value.SetInt32(AIdTerc);
-  FCadastraTerceirizadaCommand.Parameters[1].Value.SetInt32(ANrLog);
-  FCadastraTerceirizadaCommand.Parameters[2].Value.SetWideString(ACodigo);
-  FCadastraTerceirizadaCommand.Parameters[3].Value.SetWideString(ARazao);
-  FCadastraTerceirizadaCommand.Parameters[4].Value.SetWideString(AFantasia);
-  FCadastraTerceirizadaCommand.Parameters[5].Value.SetWideString(ACNPJ);
-  FCadastraTerceirizadaCommand.Parameters[6].Value.SetWideString(AIE);
-  FCadastraTerceirizadaCommand.Parameters[7].Value.SetWideString(ALogradouro);
-  FCadastraTerceirizadaCommand.Parameters[8].Value.SetWideString(AComplemento);
-  FCadastraTerceirizadaCommand.Parameters[9].Value.SetWideString(ABairro);
-  FCadastraTerceirizadaCommand.Parameters[10].Value.SetWideString(ACidade);
-  FCadastraTerceirizadaCommand.Parameters[11].Value.SetWideString(AUF);
-  FCadastraTerceirizadaCommand.Parameters[12].Value.SetWideString(ACep);
+  FCadastraTerceirizadaCommand.Parameters[0].Value.SetInt32(ANrLog);
+  FCadastraTerceirizadaCommand.Parameters[1].Value.SetWideString(ACodigo);
+  FCadastraTerceirizadaCommand.Parameters[2].Value.SetWideString(ARazao);
+  FCadastraTerceirizadaCommand.Parameters[3].Value.SetWideString(AFantasia);
+  FCadastraTerceirizadaCommand.Parameters[4].Value.SetWideString(ACNPJ);
+  FCadastraTerceirizadaCommand.Parameters[5].Value.SetWideString(AIE);
+  FCadastraTerceirizadaCommand.Parameters[6].Value.SetWideString(ALogradouro);
+  FCadastraTerceirizadaCommand.Parameters[7].Value.SetWideString(AComplemento);
+  FCadastraTerceirizadaCommand.Parameters[8].Value.SetWideString(ABairro);
+  FCadastraTerceirizadaCommand.Parameters[9].Value.SetWideString(ACidade);
+  FCadastraTerceirizadaCommand.Parameters[10].Value.SetWideString(AUF);
+  FCadastraTerceirizadaCommand.Parameters[11].Value.SetWideString(ACep);
   FCadastraTerceirizadaCommand.Execute(ARequestFilter);
-  Result := FCadastraTerceirizadaCommand.Parameters[13].Value.GetInt32;
+  Result := FCadastraTerceirizadaCommand.Parameters[12].Value.GetInt32;
 end;
 
 function TModelMetodosClient.AtualizaTerceirizada(AIdTerc: Integer; ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string): Boolean;

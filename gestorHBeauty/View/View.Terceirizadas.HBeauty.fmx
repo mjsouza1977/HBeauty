@@ -106,6 +106,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
       TabOrder = 4
       Text = 'Cancelar'
       Visible = False
+      OnClick = btnCancelarClick
     end
   end
   object tabCabecarioTerceirizada: TTabControl
@@ -314,7 +315,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 17
+        TabOrder = 18
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -4402,8 +4403,8 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
               2E506C6174666F726D44656661756C74080B5374796C654C6F6F6B7570060B76
               7468756D627374796C65000000}
           end>
-        Left = 861
-        Top = 264
+        Left = 25
+        Top = 428
       end
     end
     object tabFichaTerceirizada: TTabItem
@@ -5137,10 +5138,13 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
       end
     end
   end
+  object FillRGBEffect2: TFillRGBEffect
+    Color = xFF203040
+  end
   object ACBrValidador1: TACBrValidador
     TipoDocto = docEmail
     IgnorarChar = './-'
-    Left = 861
-    Top = 322
+    Left = 25
+    Top = 486
   end
 end

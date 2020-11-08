@@ -65,8 +65,8 @@ var
 AMsg : String;
 begin
 
-    AMsg := ACBRValidador.ValidarCNPJ(ApenasNumeros(FCNPJ_TERCEIRIZADA));
-    if AMsg = '' then
+    AMsg := ACBRValidador.ValidarCNPJ(ApenasNumeros(Value));
+    if AMsg <> '' then
         begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                       pChar(AMsg), apTitulo,
@@ -92,17 +92,7 @@ end;
 
 procedure TModelTerceirizada.SetENDERECO_TERCEIRIZADA(const Value: TModelEndereco);
 begin
-     if FENDERECO_TERCEIRIZADA.LOGRADOURO = '' then
-         begin
-            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                       'Logradouro inválido, verifique!', apTitulo,
-                        MB_OK + MB_ICONINFORMATION);
-                      Abort;
-         end
-     else
-         begin
-              FENDERECO_TERCEIRIZADA := Value;
-         end;
+    FENDERECO_TERCEIRIZADA := Value;
 end;
 
 procedure TModelTerceirizada.SetFANTASIA_TERCEIRIZADA(const Value: String);
@@ -119,18 +109,13 @@ procedure TModelTerceirizada.SetIE_TERCEIRIZADA(const Value: String);
 var
 AMsg : String;
 begin
-    if (FIE_TERCEIRIZADA = '') or (ApenasLetras(FIE_TERCEIRIZADA) <> 'ISENTO') then
+    AMsg := '';
+    if ApenasNumeros(Value) <> '' then
         begin
-            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                       'Caso seja isento preencha "ISENTO" no campo.', apTitulo,
-                       MB_OK + MB_ICONINFORMATION);
-                       Abort;
-        end
-    else
-        begin
-            if ApenasNumeros(FIE_TERCEIRIZADA) <> '' then
+            if Value <> 'ISENTO' then
                 begin
-                    AMsg := ACBRValidador.ValidarIE(ApenasNumeros(FIE_TERCEIRIZADA), FENDERECO_TERCEIRIZADA.UFLOG);
+                    AMsg := ACBRValidador.ValidarIE(ApenasNumeros(Value), FENDERECO_TERCEIRIZADA.UFLOG);
+                    AMsg := AMsg + #13#13 + 'Caso seja isento preencha "ISENTO" no campo I.E.';
                     if AMsg <> '' then
                         begin
                             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
@@ -141,6 +126,10 @@ begin
                        begin
                            FIE_TERCEIRIZADA := ApenasNumeros(Value);
                        end;
+                end
+            else
+                begin
+                     FIE_TERCEIRIZADA := Value;
                 end;
         end;
 end;
@@ -148,7 +137,7 @@ end;
 procedure TModelTerceirizada.SetRAZAO_TERCEIRIZADA(const Value: String);
 begin
 
-    if Length(FRAZAO_TERCEIRIZADA) < 5 then
+    if Length(Value) < 5 then
         begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                        'Razão Social inválida, verifique!.', apTitulo,

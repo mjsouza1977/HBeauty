@@ -30,7 +30,7 @@ end;
 
 function CadastraTerceirizada(ATerceirizada : TModelTerceirizada) : Integer;
 begin
-    Result := ControllerClientModule.ModelMetodosClient.CadastraTerceirizada(ATerceirizada.ID_TERCEIRIZADA, ATerceirizada.ENDERECO_TERCEIRIZADA.NRLOG,
+    Result := ControllerClientModule.ModelMetodosClient.CadastraTerceirizada(ATerceirizada.ENDERECO_TERCEIRIZADA.NRLOG,
                                                                              ATerceirizada.CODIGO_TERCEIRIZADA, ATerceirizada.RAZAO_TERCEIRIZADA,
                                                                              ATerceirizada.FANTASIA_TERCEIRIZADA, ATerceirizada.CNPJ_TERCEIRIZADA,
                                                                              ATerceirizada.IE_TERCEIRIZADA, ATerceirizada.ENDERECO_TERCEIRIZADA.LOGRADOURO,

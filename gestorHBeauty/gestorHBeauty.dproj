@@ -318,6 +318,11 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
+        <DCC_ExeOutput>.\bin</DCC_ExeOutput>
+        <DCC_DcuOutput>.\dcu</DCC_DcuOutput>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Icon_MainIcon>gestorHBeauty_Icon2.ico</Icon_MainIcon>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -394,6 +399,20 @@
                 <Source>
                     <Source Name="MainSource">gestorHBeauty.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxDB26.bpl">FastReport 6.0 DB Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxDBX26.bpl">FastReport 6.0 DBX Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxe26.bpl">FastReport 6.0 Exports</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxIBX26.bpl">FastReport 6.0 IBX Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxIntIO26.bpl">FastReport 6.0 Internet transports</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxIntIOIndy26.bpl">FastReport 6.0 Internet transports</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfrxTee26.bpl">FastReport 6.0 Tee Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfs26.bpl">FastScript 1.9 Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfsADO26.bpl">FastScript 1.9 ADO Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfsDB26.bpl">FastScript 1.9 DB Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfsIBX26.bpl">FastScript 1.9 IBX Components</Excluded_Packages>
+                    <Excluded_Packages Name="E:\Componentes\FastReport VCL 6.3.3\LibD26\dclfsTee26.bpl">FastScript 1.9 Tee Components</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>
                 <Platform value="Android">False</Platform>

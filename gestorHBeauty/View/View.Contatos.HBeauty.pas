@@ -208,7 +208,7 @@ begin
                          gclEmail            := TModelEmails.create(Self);
                          gclEmail.IdEmail    := FIdContatoSelecionado;
                          gclEmail.Email      := edtEmail.Text;
-                         gclEmail.NomeTabela := PrefixoTabela(tcProfissionais);
+                         gclEmail.NomeTabela := frmCadastroContatos.NomeTabela;
                          gclEmail.IdTabela   := FIdRegTab;
                          gclEmail.Restrito   := chkEmailRestrito.IsChecked;
                      end;
@@ -219,8 +219,9 @@ begin
                          gclTelefone.Contato    := edtContato.Text;
                          gclTelefone.WhatsApp   := chkWhatsApp.IsChecked;
                          gclTelefone.Restrito   := chkTelefoneRestrito.IsChecked;
-                         gclTelefone.NomeTabela := PrefixoTabela(tcProfissionais);
+                         gclTelefone.NomeTabela := frmCadastroContatos.NomeTabela;
                          gclTelefone.IdTabela   := FIdRegTab;
+
                      end;
     end;
     {$endregion}

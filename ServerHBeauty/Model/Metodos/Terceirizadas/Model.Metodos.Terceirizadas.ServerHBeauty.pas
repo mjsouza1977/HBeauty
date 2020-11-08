@@ -6,7 +6,7 @@ uses Controller.Conexao.HBeautyServer,
      Data.FireDACJSONReflect;
 
 function ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
-function CadastraTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
+function CadastraTerceirizada(ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Integer;
 
 function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
@@ -115,7 +115,7 @@ end;
 
 
 
-function CadastraTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
+function CadastraTerceirizada(ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Integer;
 begin
 
@@ -125,16 +125,15 @@ begin
              ControllerConexao.qryQuery.Close;
              ControllerConexao.qryQuery.SQL.Clear;
              ControllerConexao.qryQuery.SQL.Add('INSERT INTO HBTERCEIRIZADA');
-             ControllerConexao.qryQuery.SQL.Add('(ID_TERCEIRIZADA, CODIGO_TERCEIRIZADA, CNPJ_TERCEIRIZADA, IE_TERCEIRIZADA,');
+             ControllerConexao.qryQuery.SQL.Add('(CODIGO_TERCEIRIZADA, CNPJ_TERCEIRIZADA, IE_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add('RAZAO_TERCEIRIZADA, FANTASIA_TERCEIRIZADA, CEPLOG_TERCEIRIZADA, LOGLOG_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add('NRLOG_TERCEIRIZADA, COMPLLOG_TERCEIRIZADA, BAIRROLOG_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add('CIDADELOG_TERCEIRIZADA, UFLOG_TERCEIRIZADA) VALUES');
-             ControllerConexao.qryQuery.SQL.Add('(:ID_TERCEIRIZADA, :CODIGO_TERCEIRIZADA, :CNPJ_TERCEIRIZADA, :IE_TERCEIRIZADA,');
+             ControllerConexao.qryQuery.SQL.Add('(:CODIGO_TERCEIRIZADA, :CNPJ_TERCEIRIZADA, :IE_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add(':RAZAO_TERCEIRIZADA, :FANTASIA_TERCEIRIZADA, :CEPLOG_TERCEIRIZADA, :LOGLOG_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add(':NRLOG_TERCEIRIZADA, :COMPLLOG_TERCEIRIZADA, :BAIRROLOG_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add(':CIDADELOG_TERCEIRIZADA, :UFLOG_TERCEIRIZADA)');
 
-             ControllerConexao.qryQuery.ParamByName('ID_TERCEIRIZADA'          ).AsInteger := AIdTerc;
              ControllerConexao.qryQuery.ParamByName('CODIGO_TERCEIRIZADA'      ).AsString  := ACodigo;
              ControllerConexao.qryQuery.ParamByName('CNPJ_TERCEIRIZADA'        ).AsString  := ACNPJ;
              ControllerConexao.qryQuery.ParamByName('IE_TERCEIRIZADA'          ).AsString  := AIE;

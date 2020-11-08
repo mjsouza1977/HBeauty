@@ -39,7 +39,7 @@ type
     function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : Boolean;
 
     function ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
-    function CadastraTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
+    function CadastraTerceirizada(ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
                                   ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Integer;
     function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
                                   ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Boolean;
@@ -124,10 +124,9 @@ begin
      Result := Model.Metodos.Contatos.ServerHBeauty.CadastraTelefone(AFone, AContato, APrefixoTabela, AIdRegTab, AWhatsFone, ARestrito);
 end;
 
-function TModelMetodos.CadastraTerceirizada(AIdTerc, ANrLog: Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE, ALogradouro, AComplemento, ABairro, ACidade, AUF,
-  ACep: String): Integer;
+function TModelMetodos.CadastraTerceirizada(ANrLog: Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE, ALogradouro, AComplemento, ABairro, ACidade, AUF,  ACep: String): Integer;
 begin
-     Result := MOdel.Metodos.Terceirizadas.ServerHBeauty.CadastraTerceirizada(AIdTerc, ANrLog, ACodigo, ARazao, AFantasia, ACNPJ, AIE, ALogradouro,
+     Result := MOdel.Metodos.Terceirizadas.ServerHBeauty.CadastraTerceirizada(ANrLog, ACodigo, ARazao, AFantasia, ACNPJ, AIE, ALogradouro,
                                                                               AComplemento, ABairro, ACidade, AUF, ACep);
 end;
 

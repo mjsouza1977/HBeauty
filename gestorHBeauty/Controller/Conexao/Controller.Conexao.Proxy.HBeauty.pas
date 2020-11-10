@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 08/11/2020 15:53:27
+// 09/11/2020 22:11:00
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -50,6 +50,7 @@ type
     FCarregaCamposProfissionalCommand: TDSRestCommand;
     FCarregaCamposProfissionalCommand_Cache: TDSRestCommand;
     FDocumentoRepetidoCommand: TDSRestCommand;
+    FManipulaEstadoRegistroCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -89,6 +90,7 @@ type
     function CarregaCamposProfissional(ACampos: string; const ARequestFilter: string = ''): TFDJSONDataSets;
     function CarregaCamposProfissional_Cache(ACampos: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function DocumentoRepetido(ADocumento: string; ACampoDocumento: string; ACampoNome: string; ATabela: string; const ARequestFilter: string = ''): string;
+    function ManipulaEstadoRegistro(ABloqueia: Boolean; AIdRegistro: Integer; ACampoID: string; ATabela: string; ACampoLock: string; const ARequestFilter: string = ''): Boolean;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -399,6 +401,16 @@ const
     (Name: 'ACampoNome'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ATabela'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_ManipulaEstadoRegistro: array [0..5] of TDSRestParameterMetaData =
+  (
+    (Name: 'ABloqueia'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
+    (Name: 'AIdRegistro'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ACampoID'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATabela'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACampoLock'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
   );
 
 implementation
@@ -1118,6 +1130,24 @@ begin
   Result := FDocumentoRepetidoCommand.Parameters[4].Value.GetWideString;
 end;
 
+function TModelMetodosClient.ManipulaEstadoRegistro(ABloqueia: Boolean; AIdRegistro: Integer; ACampoID: string; ATabela: string; ACampoLock: string; const ARequestFilter: string): Boolean;
+begin
+  if FManipulaEstadoRegistroCommand = nil then
+  begin
+    FManipulaEstadoRegistroCommand := FConnection.CreateCommand;
+    FManipulaEstadoRegistroCommand.RequestType := 'GET';
+    FManipulaEstadoRegistroCommand.Text := 'TModelMetodos.ManipulaEstadoRegistro';
+    FManipulaEstadoRegistroCommand.Prepare(TModelMetodos_ManipulaEstadoRegistro);
+  end;
+  FManipulaEstadoRegistroCommand.Parameters[0].Value.SetBoolean(ABloqueia);
+  FManipulaEstadoRegistroCommand.Parameters[1].Value.SetInt32(AIdRegistro);
+  FManipulaEstadoRegistroCommand.Parameters[2].Value.SetWideString(ACampoID);
+  FManipulaEstadoRegistroCommand.Parameters[3].Value.SetWideString(ATabela);
+  FManipulaEstadoRegistroCommand.Parameters[4].Value.SetWideString(ACampoLock);
+  FManipulaEstadoRegistroCommand.Execute(ARequestFilter);
+  Result := FManipulaEstadoRegistroCommand.Parameters[5].Value.GetBoolean;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -1165,6 +1195,7 @@ begin
   FCarregaCamposProfissionalCommand.DisposeOf;
   FCarregaCamposProfissionalCommand_Cache.DisposeOf;
   FDocumentoRepetidoCommand.DisposeOf;
+  FManipulaEstadoRegistroCommand.DisposeOf;
   inherited;
 end;
 

@@ -151,6 +151,7 @@ type
 
   public
     procedure AlimentaClasseProfissional;
+    function BloqueiaRegistro(ABloqueia : Boolean) : Boolean;
 
   end;
 
@@ -167,7 +168,12 @@ uses
     Units.Strings.HBeauty, Winapi.Windows,
     FMX.Platform.Win, Units.Utils.Dados.HBeauty, Units.Consts.HBeauty,
     System.UIConsts,
-    Controller.Manipula.Design.HBeauty;
+    Controller.Manipula.Design.HBeauty, Model.Genericos.Servidor.HBeauty;
+
+function TfrmGerenciadorProfissionais.BloqueiaRegistro(ABloqueia : Boolean) : Boolean;
+begin
+    Result := ManipulaEstadoRegistro(ABloqueia, FIdSelecionado, 'ID_PROFIS','HBPROFISSIONAIS', 'LOCK_PROFIS');
+end;
 
 procedure TfrmGerenciadorProfissionais.gravaHabilidadesSelecionadas;
 var
@@ -279,39 +285,49 @@ procedure TfrmGerenciadorProfissionais.btnAlterarClick(Sender: TObject);
 begin
      if FIdSelecionado > 0 then
          begin
-             lcScrollListaHabilidade.DisposeOf;
-             ListaProfissionais('','','',FIdSelecionado);
-             edtCPF.Text            := FormatarCNPJouCPF(ModelConexaoDados.memProfissionais.FieldByName('CPF_PROFIS').AsString);
-             edtRG.Text             := ModelConexaoDados.memProfissionais.FieldByName('RG_PROFIS').AsString;
-             edtNome.Text           := ModelConexaoDados.memProfissionais.FieldByName('NOME_PROFIS').AsString;
-             edtSobreNome.Text      := ModelConexaoDados.memProfissionais.FieldByName('SOBRENOME_PROFIS').AsString;
-             edtLogradouro.Text     := ModelConexaoDados.memProfissionais.FieldByName('LOGRADOURO_PROFIS').AsString;
-             edtNumeroLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('NRLOG_PROFIS').AsString;
-             edtComplementoLog.Text := ModelConexaoDados.memProfissionais.FieldByName('COMPLLOG_PROFIS').AsString;
-             edtBairroLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('BAIRROLOG_PROFIS').AsString;
-             edtCepLog.Text         := FormatarCEP(ModelConexaoDados.memProfissionais.FieldByName('CEP_PROFIS').AsString);
-             edtCidadeLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('CIDADELOG_PROFIS').AsString;
-             edtUFLog.Text          := ModelConexaoDados.memProfissionais.FieldByName('UFLOG_PROFIS').AsString;
-             edtSalario.Value       := ModelConexaoDados.memProfissionais.FieldByName('SALARIO_PROFIS').AsCurrency;
-             edtComissao.Value      := ModelConexaoDados.memProfissionais.FieldByName('COMISSAO_PROFIS').AsCurrency;
+             Case BloqueiaRegistro(True) of
+                  False : begin
+                              ListaProfissionais('','','',FIdSelecionado);
 
-             AlimentaClasseProfissional;
+                              edtCPF.Text            := FormatarCNPJouCPF(ModelConexaoDados.memProfissionais.FieldByName('CPF_PROFIS').AsString);
+                              edtRG.Text             := ModelConexaoDados.memProfissionais.FieldByName('RG_PROFIS').AsString;
+                              edtNome.Text           := ModelConexaoDados.memProfissionais.FieldByName('NOME_PROFIS').AsString;
+                              edtSobreNome.Text      := ModelConexaoDados.memProfissionais.FieldByName('SOBRENOME_PROFIS').AsString;
+                              edtLogradouro.Text     := ModelConexaoDados.memProfissionais.FieldByName('LOGRADOURO_PROFIS').AsString;
+                              edtNumeroLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('NRLOG_PROFIS').AsString;
+                              edtComplementoLog.Text := ModelConexaoDados.memProfissionais.FieldByName('COMPLLOG_PROFIS').AsString;
+                              edtBairroLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('BAIRROLOG_PROFIS').AsString;
+                              edtCepLog.Text         := FormatarCEP(ModelConexaoDados.memProfissionais.FieldByName('CEP_PROFIS').AsString);
+                              edtCidadeLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('CIDADELOG_PROFIS').AsString;
+                              edtUFLog.Text          := ModelConexaoDados.memProfissionais.FieldByName('UFLOG_PROFIS').AsString;
+                              edtSalario.Value       := ModelConexaoDados.memProfissionais.FieldByName('SALARIO_PROFIS').AsCurrency;
+                              edtComissao.Value      := ModelConexaoDados.memProfissionais.FieldByName('COMISSAO_PROFIS').AsCurrency;
 
-             carregaHabilidades;
-             carregaHabilidadesProfissional(FIdSelecionado);
-             FQtdeHabilidades := CarregaListaHabilidades(ModelConexaoDados.memHabilidades, ModelConexaoDados.memHbilXProfis);
+                              AlimentaClasseProfissional;
 
-             ControlaBotoes(Self, False);
-             FStatus                := abAlterar;
-             HabilitaTab(True);
-             tabGerenciadorProfissionais.TabIndex := 1;
-             tabCabecarioProfissionais.Next;
+                              carregaHabilidades;
+                              carregaHabilidadesProfissional(FIdSelecionado);
+                              FQtdeHabilidades := CarregaListaHabilidades(ModelConexaoDados.memHabilidades, ModelConexaoDados.memHbilXProfis);
+
+                              ControlaBotoes(Self, False);
+                              FStatus                := abAlterar;
+                              HabilitaTab(True);
+                              tabGerenciadorProfissionais.TabIndex := 1;
+                              tabCabecarioProfissionais.Next;
+                          end;
+                   True : begin
+                               MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                          'Este registro esta sendo editado por outro usuário!',
+                                          apTitulo, MB_OK + MB_ICONSTOP);
+                               Exit;
+                          end;
+             end;
          end
      else
          begin
              MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                         'Selecione um profissional na lista para alterar!',
-                        'HBeauty', MB_OK + MB_ICONINFORMATION);
+                        apTitulo, MB_OK + MB_ICONINFORMATION);
              Exit;
          end;
 
@@ -347,6 +363,7 @@ begin
              tabCabecarioProfissionais.TabIndex := 0;
              tabGerenciadorProfissionais.TabIndex := 0;
              ControlaBotoes(Self, True);
+             BloqueiaRegistro(False);
          end;
 
 end;
@@ -451,7 +468,7 @@ begin
                                              AtualizaProfissional(gclProfissional);
                                              apagaHabilidadesProfissional(FIdSelecionado);
                                              gravaHabilidadesSelecionadas;
-
+                                             BloqueiaRegistro(False);
                                              MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                         'Registro salvo com sucesso!', apTitulo,
                                                         MB_OK + MB_ICONINFORMATION);

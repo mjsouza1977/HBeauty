@@ -6,12 +6,17 @@ uses Controller.Conexao.Proxy.HBeauty, Controller.ClientModule.HBeauty,
   FMX.Forms;
 
 function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String; AForm : TForm) : Boolean;
+function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdRegistro: Integer; ACampoID, ATabela, ACampoLock: String) : Boolean;
 
 implementation
 
 uses
   Winapi.Windows, FMX.Platform.Win, Units.Consts.HBeauty, System.SysUtils;
 
+function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdRegistro: Integer; ACampoID, ATabela, ACampoLock: String) : Boolean;
+begin
+    Result := ControllerClientModule.ModelMetodosClient.ManipulaEstadoRegistro(ABloqueia ,AIdRegistro, ACampoID, ATabela, ACampoLock);
+end;
 
 function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String; AForm : TForm) : Boolean;
 var

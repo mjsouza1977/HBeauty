@@ -312,7 +312,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 23
+        TabOrder = 26
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -345,7 +345,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Size.Height = 395.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -362,7 +362,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 165.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -2762,7 +2762,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             Fill.Kind = Solid
             Stroke.Kind = Solid
             StrokeThickness = 0.000000000000000000
-            TopRow = 0
+            TopRow = 1
             LeftCol = 0
             OnCellClick = grdListaProfissionaisCellClick
             Columns = <
@@ -4422,7 +4422,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 157.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False

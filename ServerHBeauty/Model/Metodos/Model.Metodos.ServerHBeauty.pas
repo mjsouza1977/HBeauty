@@ -47,6 +47,7 @@ type
     function CarregaCamposProfissional(ACampos : String) : TFDJSONDataSets;
 
     function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
+    function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdRegistro : Integer; ACampoID, ATabela, ACampoLock : String) : Boolean;
 
   end;
 {$METHODINFO OFF}
@@ -188,6 +189,11 @@ end;
 function TModelMetodos.ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa: String; AId: Integer): TFDJSONDataSets;
 begin
      Result := Model.Metodos.Terceirizadas.ServerHBeauty.ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa,  AId);
+end;
+
+function TModelMetodos.ManipulaEstadoRegistro(ABloqueia : Boolean; AIdRegistro : Integer; ACampoID, ATabela, ACampoLock : String) : Boolean;
+begin
+     Result := Model.Metodos.Genericos.ServerHBeauty.ManipulaEstadoRegistro(ABloqueia, AIdRegistro, ACampoID, ATabela, ACampoLock);
 end;
 
 end.

@@ -41,4 +41,10 @@ object ControllerConexao: TControllerConexao
     Left = 548
     Top = 368
   end
+  object fdTransacao: TFDTransaction
+    Options.AutoStop = False
+    Connection = Conexao
+    Left = 544
+    Top = 436
+  end
 end

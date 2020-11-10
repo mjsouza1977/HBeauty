@@ -145,6 +145,7 @@ begin
             ControllerConexao.qryQuery.ParamByName('ID_PROFIS'        ).AsInteger  := AIdProfiss;
 
             ControllerConexao.qryQuery.ExecSQL;
+            ControllerConexao.fdTransacao.Commit;
             Result := True;
 
         except

@@ -16,6 +16,7 @@ type
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     FDPhysFBDriverLink2: TFDPhysFBDriverLink;
     Conexao: TFDConnection;
+    fdTransacao: TFDTransaction;
   private
 
 

@@ -3,7 +3,8 @@ unit Model.Metodos.Profissionais.Hablidades.ServerHBeauty;
 interface
 
 uses
-  Data.FireDACJSONReflect;
+  Data.FireDACJSONReflect,
+  FireDAC.Stan.Param;
 
 function carregaHabilidades : TFDJSONDataSets;
 function carregaHabilidadesProfissional(AAIdProfissional : Integer) : TFDJSONDataSets;
@@ -111,7 +112,7 @@ begin
         try
             ControllerConexao.qryQuery.Close;
             ControllerConexao.qryQuery.SQL.Clear;
-            ControllerConexao.qryQuery.SQL.Add('UPDATE HBPROFISSIONAL SET');
+            ControllerConexao.qryQuery.SQL.Add('UPDATE HBPROFISSIONAIS SET');
             ControllerConexao.qryQuery.SQL.Add('NOME_HABILIDADE     = :NOMEHABILIDADE,');
             ControllerConexao.qryQuery.SQL.Add('DESCR_HABILIDADE    = :DESCRHABILIDADE');
             ControllerConexao.qryQuery.SQL.Add('WHERE ID_HABILIDADE = :IDHABILIDADE');

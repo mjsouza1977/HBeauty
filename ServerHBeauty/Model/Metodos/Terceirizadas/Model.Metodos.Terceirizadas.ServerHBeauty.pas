@@ -3,7 +3,8 @@ unit Model.Metodos.Terceirizadas.ServerHBeauty;
 interface
 
 uses Controller.Conexao.HBeautyServer,
-     Data.FireDACJSONReflect;
+     Data.FireDACJSONReflect,
+     FireDAC.Stan.Param;
 
 function ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
 function CadastraTerceirizada(ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,

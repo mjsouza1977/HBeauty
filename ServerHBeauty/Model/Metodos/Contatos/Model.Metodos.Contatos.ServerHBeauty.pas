@@ -5,7 +5,8 @@ interface
 uses
   Data.FireDACJSONReflect,
   System.SysUtils,
-  Controller.Conexao.HBeautyServer;
+  Controller.Conexao.HBeautyServer,
+  FireDAC.Stan.Param;
 
 
 

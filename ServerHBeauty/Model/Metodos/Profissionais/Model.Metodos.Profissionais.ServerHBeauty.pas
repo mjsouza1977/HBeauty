@@ -3,7 +3,8 @@ unit Model.Metodos.Profissionais.ServerHBeauty;
 interface
 
 uses Controller.Conexao.HBeautyServer,
-     Data.FireDACJSONReflect;
+     Data.FireDACJSONReflect,
+     FireDAC.Stan.Param;
 
 function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
 function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,

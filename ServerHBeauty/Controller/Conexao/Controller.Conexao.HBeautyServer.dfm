@@ -35,7 +35,7 @@ object ControllerConexao: TControllerConexao
     Params.Strings = (
       'User_Name=SYSDBA'
       'Password=masterkey'
-      'Database=C:\Projetos\HBeauty\trunk\bd\HBEAUTY.FDB'
+      'Database=E:\MSSoftware\Projetos\HBeauty\trunk\bd\HBEAUTY.FDB'
       'DriverID=FB')
     LoginPrompt = False
     Left = 548

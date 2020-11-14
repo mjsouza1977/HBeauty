@@ -3,7 +3,11 @@ unit Units.Consts.HBeauty;
 interface
 
 uses
-  System.UITypes;
+  System.UITypes,
+  Model.Genericos.Servidor.HBeauty,
+  Units.Enumerados.HBeauty;
+
+function BloqueiaRegistro(ABloqueia : Boolean; AIdSelecionado : Integer; ATabela : TTabelaCadastrada) : Boolean;
 
 
 const
@@ -60,7 +64,23 @@ var
    ctrMINI_LOGO_EMPRESA    : String;
 
    ctrFULL_SCREEN          : Boolean;
+
+   gIDUsuarioConectado     : Integer = 0;
 implementation
+
+function BloqueiaRegistro(ABloqueia : Boolean; AIdSelecionado : Integer; ATabela : TTabelaCadastrada) : Boolean;
+begin
+    case ATabela of
+        tcProfissionais : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_PROFIS','HBPROFISSIONAIS');
+        tcFornecedores  : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_FORN','HBFORNECEDOR');
+        tcClientes      : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_CLI','HBCLIENTE');
+        tcTercerizadas  : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_TERCEIRIZADA','HBTERCEIRIZADA');
+        tcTelefones     : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_FONE','HBTELEFONES');
+        tcEmails        : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_EMAIL','HBEMAILS');
+
+    end;
+end;
+
 
 
 end.

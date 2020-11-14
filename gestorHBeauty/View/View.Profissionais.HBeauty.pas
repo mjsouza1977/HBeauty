@@ -100,7 +100,7 @@ type
     Rectangle22: TRectangle;
     Label15: TLabel;
     edtComissao: TNumberBox;
-    rectHabilidades: TRectangle;
+    recHabilidades: TRectangle;
     Rectangle3: TRectangle;
     Label4: TLabel;
     lblNome: TLabel;
@@ -172,7 +172,7 @@ uses
 
 function TfrmGerenciadorProfissionais.BloqueiaRegistro(ABloqueia : Boolean) : Boolean;
 begin
-    Result := ManipulaEstadoRegistro(ABloqueia, FIdSelecionado, 'ID_PROFIS','HBPROFISSIONAIS', 'LOCK_PROFIS');
+    Result := ManipulaEstadoRegistro(ABloqueia, FIdSelecionado, 'ID_PROFIS','HBPROFISSIONAIS');
 end;
 
 procedure TfrmGerenciadorProfissionais.gravaHabilidadesSelecionadas;
@@ -195,7 +195,7 @@ begin
 
 
      lcScrollListaHabilidade := TVertScrollBox.Create(Self);
-     lcScrollListaHabilidade.Parent := rectHabilidades;
+     lcScrollListaHabilidade.Parent := recHabilidades;
      lcScrollListaHabilidade.Align  := TAlignLayout.Client;
      lcScrollListaHabilidade.Margins.Left   := 5;
      lcScrollListaHabilidade.Margins.Right  := 5;
@@ -358,6 +358,7 @@ begin
      if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                    pChar(AMensagem), apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
          begin
+             lcScrollListaHabilidade.DisposeOf;
              LimpaForm(Self);
              HabilitaTab(False);
              tabCabecarioProfissionais.TabIndex := 0;
@@ -435,6 +436,7 @@ begin
                                                              edtCPF.SetFocus;
                                                         end;
                                                  IDNO : begin
+                                                             lcScrollListaHabilidade.DisposeOf;
                                                              FStatus := abNulo;
                                                              tabGerenciadorProfissionais.TabIndex := 0;
                                                              tabCabecarioProfissionais.Previous;

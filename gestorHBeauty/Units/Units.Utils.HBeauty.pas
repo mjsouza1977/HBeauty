@@ -53,8 +53,9 @@ begin
          tcProfissionais  : Result := 'PROFIS';
          tcFornecedores   : Result := 'FORNEC';
          tcClientes       : Result := 'CLIENT';
-         tcTercerizada    : Result := 'EMPTER';
-         tcTelefone       : Result := 'TELEFO';
+         tcTercerizadas   : Result := 'EMPTER';
+         tcTelefones      : Result := 'TELEFO';
+         tcEmails         : Result := 'EMAILS';
      end;
 
 end;
@@ -81,17 +82,28 @@ begin
 end;
 
 function StringToBool(ATrue, AFalse, AValue : String) : Boolean;
+var
+ARes : Boolean;
 begin
-     if AValue = ATrue  then Result := True;
-     if AValue = AFalse then Result := False;
+     ARes := False;
+     if AValue = ATrue  then ARes := True;
+     if AValue = AFalse then ARes := False;
+
+     Result := ARes;
 end;
 
 function BooleanToString(ATrue, AFalse : String; AValue : Boolean) : String;
+var
+ARes : String;
 begin
+     ARes := '';
      case AValue of
-          True : Result := ATrue;
-         False : Result := AFalse;
+          True : ARes := ATrue;
+         False : ARes := AFalse;
      end;
+
+     Result := ARes;
+
 end;
 
 procedure CarregaImagemRessource(Image : TImage; NomeImagem : String);

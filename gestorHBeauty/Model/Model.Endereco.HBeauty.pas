@@ -20,7 +20,6 @@ type
     FCIDADELOG: String;
     FBAIRROLOG: String;
     FUFLOG: String;
-    FValidador : TACBRValidador;
     FForm : TForm;
     FMsg : String;
     procedure SetBAIRROLOG(const Value: String);

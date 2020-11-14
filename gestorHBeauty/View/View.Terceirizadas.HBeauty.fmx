@@ -315,7 +315,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 21
+        TabOrder = 22
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -2754,7 +2754,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
             Fill.Kind = Solid
             Stroke.Kind = Solid
             StrokeThickness = 0.000000000000000000
-            TopRow = 1
+            TopRow = 0
             LeftCol = 0
             OnCellClick = grdListaTerceirizadaCellClick
             Columns = <
@@ -5005,7 +5005,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
         Fill.Kind = Solid
         Stroke.Kind = Solid
         StrokeThickness = 0.000000000000000000
-        TopRow = 1
+        TopRow = 0
         LeftCol = 0
         OnCellClick = grdListaTerceirizadaCellClick
         Columns = <

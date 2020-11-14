@@ -39,7 +39,7 @@ end;
 
 function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
 begin
-    ControllerClientModule.ModelMetodosClient.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional);
+    Result := ControllerClientModule.ModelMetodosClient.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional);
 end;
 
 procedure CarregaProfissionalTerceirizado(AIdTerceirizado: Integer);

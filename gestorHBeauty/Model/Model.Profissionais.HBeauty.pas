@@ -16,12 +16,10 @@ type
     FIDCARGO_PROFISS   : Integer;
     FRG_PROFIS         : String;
     FSOBRENOME_PROFIS  : String;
-    FCOMPLLOG_PROFIS   : String;
     FTERC_PROFIS       : Boolean;
     FCODIGO_PROFIS     : String;
     FCPF_PROFIS        : String;
     FSALARIO_PROFIS    : Currency;
-    FCEP_PROFIS        : String;
     FID_PROFIS         : Integer;
     FCOMISSAO_PROFIS   : Currency;
     FValidador         : TACBRValidador;

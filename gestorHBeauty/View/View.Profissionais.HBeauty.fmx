@@ -312,7 +312,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 26
+        TabOrder = 27
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -345,7 +345,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Size.Height = 395.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -362,7 +362,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 165.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -5077,7 +5077,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 194.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -5186,7 +5186,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           end
         end
       end
-      object rectHabilidades: TRectangle
+      object recHabilidades: TRectangle
         Fill.Color = claWhite
         Margins.Left = 150.000000000000000000
         Margins.Top = 20.000000000000000000

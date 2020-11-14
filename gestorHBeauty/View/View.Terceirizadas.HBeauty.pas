@@ -203,7 +203,7 @@ begin
                            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
                            frmCadastroContatos.TipoForm   := tfEmail;
                            frmCadastroContatos.IdRegTab   := FIdSelecionado;
-                           frmCadastroContatos.NomeTabela := PrefixoTabela(tcTercerizada);
+                           frmCadastroContatos.NomeTabela := PrefixoTabela(tcTercerizadas);
                            frmCadastroContatos.Nome       := edtRazaoSocial.Text;
                            frmCadastroContatos.Titulo     := 'Empresa Terceirizada';
                            frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
@@ -217,7 +217,7 @@ begin
             Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
             frmCadastroContatos.TipoForm   := tfEmail;
             frmCadastroContatos.IdRegTab   := FIdSelecionado;
-            frmCadastroContatos.NomeTabela := PrefixoTabela(tcTercerizada);
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcTercerizadas);
             frmCadastroContatos.Nome       := edtRazaoSocial.Text;
             frmCadastroContatos.Titulo     := 'Empresa Terceirizada';
             frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
@@ -242,7 +242,7 @@ begin
                             Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
                             frmCadastroContatos.TipoForm     := tfTelefone;
                             frmCadastroContatos.IdRegTab     := FIdSelecionado;
-                            frmCadastroContatos.NomeTabela   := PrefixoTabela(tcTercerizada);
+                            frmCadastroContatos.NomeTabela   := PrefixoTabela(tcTercerizadas);
                             frmCadastroContatos.Titulo       := 'Empresa Terceirizada';
                             frmCadastroContatos.TituloForm   := 'Cadastro de Telefone';
                             frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
@@ -256,7 +256,7 @@ begin
             Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
             frmCadastroContatos.TipoForm   := tfTelefone;
             frmCadastroContatos.IdRegTab   := FIdSelecionado;
-            frmCadastroContatos.NomeTabela := PrefixoTabela(tcTercerizada);
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcTercerizadas);
             frmCadastroContatos.Nome       := edtRazaoSocial.Text;
             frmCadastroContatos.Titulo     := 'Empresa Terceirizada';
             frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';

@@ -27,7 +27,6 @@ function PesquisaCEP(AForm : TForm; ACep : String) : TModelEndereco;
 var
 AValidador : TACBrValidador;
 AResultado : TModelEndereco;
-i : Integer;
 begin
      try
          AResultado := TModelEndereco.Create(AForm);
@@ -46,7 +45,6 @@ begin
                True : begin
                           ModelConexaoDados.RESTRequest.Params.ParameterByName('pCEP').Value := ApenasNumeros(ACep);
                           ModelConexaoDados.RESTRequest.Execute;
-                          i := ModelConexaoDados.memCep.RecordCount;
                           if (ModelConexaoDados.memCep.RecordCount > 0) and (ModelConexaoDados.memCeplogradouro.AsString <> '') then
                               begin
                                   AResultado.UFLOG      := ModelConexaoDados.memCepuf.Value;

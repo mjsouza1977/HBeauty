@@ -58,7 +58,6 @@ type
     FStatus : TAcaoBotao;
     FTipoForm: TTipoForm;
     FIdContatoSelecionado : Integer;
-    FLinha : Integer;
     FTituloForm: String;
     procedure SetIdRegTab(const Value: Integer);
     procedure SetNomeTabela(const Value: String);
@@ -421,7 +420,6 @@ end;
 procedure TfrmCadastroContatos.FormShow(Sender: TObject);
 var
 AIndex : Integer;
-S : String;
 begin
 
      //Limpa os campos do form

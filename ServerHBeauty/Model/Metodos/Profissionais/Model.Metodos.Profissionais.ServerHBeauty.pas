@@ -6,7 +6,7 @@ uses Controller.Conexao.HBeautyServer,
      Data.FireDACJSONReflect,
      FireDAC.Stan.Param;
 
-function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
+function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AIDTerceirizada, AId : Integer) : TFDJSONDataSets;
 function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
 
@@ -38,7 +38,7 @@ begin
 
 end;
 
-function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
+function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AIDTerceirizada, AId : Integer) : TFDJSONDataSets;
 var
 ASql : String;
 begin
@@ -62,6 +62,9 @@ begin
          if AId > 0 then
             ASql := ASql + ' AND ID_PROFIS = ' + AID.ToString;
 
+         if AIDTerceirizada > 0 then
+            ASql := ASql + ' AND IDEMPTER_PROFIS = ' + AIDTerceirizada.ToString;
+
          ASql := Copy(ASql,5, Length(ASql));
 
          ControllerConexao.qryQuery.Close;
@@ -69,6 +72,9 @@ begin
          ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBPROFISSIONAIS');
          ControllerConexao.qryQuery.SQL.Add('LEFT JOIN HBIMAGENS');
          ControllerConexao.qryQuery.SQL.Add('ON (HBPROFISSIONAIS.IDFOTO_PROFIS = HBIMAGENS.IDIMAGEM)');
+         ControllerConexao.qryQuery.SQL.Add('LEFT JOIN HBTERCEIRIZADA');
+         ControllerConexao.qryQuery.SQL.Add('ON (HBPROFISSIONAIS.IDEMPTER_PROFIS = HBTERCEIRIZADA.ID_TERCEIRIZADA)');
+
 
          if ASql <> '' then
             ControllerConexao.qryQuery.SQL.Add('WHERE ' + ASql);

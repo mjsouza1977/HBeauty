@@ -400,7 +400,7 @@ end;
 
 procedure TfrmCadastroContatos.edtTelefoneTyping(Sender: TObject);
 begin
-Formatar(edtTelefone, erCelular);
+Formatar(edtTelefone, erTelefone);
 end;
 
 procedure TfrmCadastroContatos.FormClose(Sender: TObject; var Action: TCloseAction);

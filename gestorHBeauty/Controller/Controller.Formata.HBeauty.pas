@@ -14,7 +14,7 @@ uses System.SysUtils, FMX.Edit, Classes, System.MaskUtils;
 
 type
     TFormato = (erCNPJ, erCPF, erInscricaoEstadual, erCNPJouCPF, erTelefoneFixo, erCelular, erPersonalizado,
-                erValor, erMoney, erCEP, erData, erPeso);
+                erValor, erMoney, erCEP, erData, erPeso, erTelefone);
 
 procedure Formatar(Obj: TObject; Formato : TFormato; Extra : string = '');
 
@@ -141,6 +141,13 @@ begin
     begin
         if obj is TEdit then
             texto := TEdit(obj).Text;
+
+        // Telefone Fixo ou Celular
+        if formato = erTelefone then
+           if Length(SomenteNumero(texto)) <= 10 then
+               texto := Mask('(##)####-####', SomenteNumero(texto))
+           else
+               texto := Mask('(##)#####-####', SomenteNumero(texto));
 
         // Telefone Fixo...
         if formato = erTelefoneFixo then

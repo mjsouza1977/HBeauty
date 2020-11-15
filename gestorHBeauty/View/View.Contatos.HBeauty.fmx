@@ -184,7 +184,6 @@ object frmCadastroContatos: TfrmCadastroContatos
     Size.PlatformDefault = False
     DefaultRowHeight = 20.000000000000000000
     DefaultColumnWidth = 50.000000000000000000
-    FixedColumns = 0
     ColumnCount = 1
     RowCount = 1
     SelectionMode = smRowRange
@@ -199,7 +198,7 @@ object frmCadastroContatos: TfrmCadastroContatos
     Stroke.Kind = Solid
     StrokeThickness = 0.000000000000000000
     TopRow = 1
-    LeftCol = 0
+    LeftCol = 1
     OnCellClick = grdListaContatosCellClick
     Columns = <
       item

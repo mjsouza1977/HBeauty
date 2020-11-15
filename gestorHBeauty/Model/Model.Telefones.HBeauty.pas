@@ -97,7 +97,7 @@ end;
 
 procedure TModelTelefones.SetTelefone(const Value: String);
 begin
-    if Length(ApenasNumeros(Value)) < 11 then
+    if Length(ApenasNumeros(Value)) < 10 then
         begin
             MessageBox(WindowHandleToPlatform(FFormulario.Handle).Wnd,
                        'Número de telefone inválido, verifique!',

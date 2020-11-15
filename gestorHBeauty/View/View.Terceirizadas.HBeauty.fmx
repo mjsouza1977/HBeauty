@@ -315,7 +315,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 22
+        TabOrder = 25
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -337,7 +337,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
     Size.Height = 438.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -354,7 +354,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 166.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -2740,7 +2740,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
             Size.PlatformDefault = False
             DefaultRowHeight = 20.000000000000000000
             DefaultColumnWidth = 50.000000000000000000
-            FixedColumns = 0
+            FixedColumns = 2
             ColumnCount = 10
             RowCount = 1
             SelectionMode = smRowRange
@@ -2754,8 +2754,8 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
             Fill.Kind = Solid
             Stroke.Kind = Solid
             StrokeThickness = 0.000000000000000000
-            TopRow = 0
-            LeftCol = 0
+            TopRow = 1
+            LeftCol = 2
             OnCellClick = grdListaTerceirizadaCellClick
             Columns = <
               item
@@ -4414,13 +4414,14 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 157.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
       Text = 'Ficha da Terceirizada'
+      Visible = False
       ExplicitSize.cx = 157.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
       object rgDados: TTMSFMXRadioGroup
@@ -4979,6 +4980,8 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
       StyleLookup = ''
       TabOrder = 0
       Text = 'Profissionais'
+      Visible = False
+      OnClick = tabListaProfissionaisTerceirizadosClick
       ExplicitSize.cx = 150.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
       object grdListaProfissionalTerceirizado: TTMSFMXGrid
@@ -4991,7 +4994,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
         Size.PlatformDefault = False
         DefaultRowHeight = 20.000000000000000000
         DefaultColumnWidth = 50.000000000000000000
-        FixedColumns = 0
+        FixedColumns = 2
         ColumnCount = 10
         RowCount = 1
         SelectionMode = smRowRange
@@ -5005,8 +5008,8 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
         Fill.Kind = Solid
         Stroke.Kind = Solid
         StrokeThickness = 0.000000000000000000
-        TopRow = 0
-        LeftCol = 0
+        TopRow = 1
+        LeftCol = 2
         OnCellClick = grdListaTerceirizadaCellClick
         Columns = <
           item

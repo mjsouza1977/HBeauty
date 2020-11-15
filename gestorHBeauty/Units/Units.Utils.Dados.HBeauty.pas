@@ -22,7 +22,7 @@ uses
   Model.Dados.Server.HBeauty,
   Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty, Units.Enumerados.HBeauty,
   View.Principal.HBeauty, FMX.Edit, FMX.ListBox, FMX.StdCtrls, FMX.NumberBox,
-  Winapi.Windows, FMX.Platform.Win, Vcl.Dialogs, FMX.Graphics;
+  Winapi.Windows, FMX.Platform.Win, Vcl.Dialogs, FMX.Graphics, Controller.Formata.HBeauty;
 
 function PesquisaCEP(AForm : TForm; ACep : String) : TModelEndereco;
 var
@@ -160,6 +160,9 @@ begin
                       if AListaCaptionFields[i]  = 'Código' then
                          AGrid.Cells[i,ALinha]  := '<font size="16">' +  FormatFloat('0000', ATable.FieldByName(AListaFields[i]).AsInteger) + '</font>' else
                           AGrid.Cells[i,ALinha] := '<font size="16">' +  ATable.FieldByName(AListaFields[i]).AsString + '</font>';
+                      if AListaCaptionFields[i]  = 'Telefone' then
+                         AGrid.Cells[i,ALinha]  := '<font size="16">' +  ACBrValidador.FormatarFone(ATable.FieldByName(AListaFields[i]).AsString) + '</font>';
+
                   end;
 
               ATable.Next;

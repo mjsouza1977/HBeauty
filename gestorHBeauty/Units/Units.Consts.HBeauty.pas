@@ -20,7 +20,7 @@ const
      AFieldsProfissionais  : Array [0..10] of  String = ('ID_PROFIS', 'CPF_PROFIS','NOME_PROFIS','SOBRENOME_PROFIS','LOGRADOURO_PROFIS', 'NRLOG_PROFIS',
                                                          'COMPLLOG_PROFIS','BAIRROLOG_PROFIS','CEP_PROFIS','CIDADELOG_PROFIS','UFLOG_PROFIS');
      ACaptionProfissionais : Array [0..10] of String  = ('Código','CPF','Nome','SobreNome','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
-     ASizeColProfissionais : Array [0..10] of Single  = (50, 150, 150, 250, 350, 70, 100, 200, 100, 180, 50);
+     ASizeColProfissionais : Array [0..10] of Single  = (50, 170, 150, 250, 350, 70, 100, 200, 100, 180, 50);
 
      //grid do Form de cadastro de telefones
      AFieldsTelefones  : Array [0..4] of  String = ('ID_FONE','NR_FONE','CONTATO_FONE','WHATS_FONE','RESTRITO_FONE');
@@ -36,7 +36,7 @@ const
      AFieldsTerceirizadas  : Array [0..10] of  String = ('ID_TERCEIRIZADA', 'CNPJ_TERCEIRIZADA','RAZAO_TERCEIRIZADA','FANTASIA_TERCEIRIZADA','LOGLOG_TERCEIRIZADA', 'NRLOG_TERCEIRIZADA',
                                                          'COMPLLOG_TERCEIRIZADA','BAIRROLOG_TERCEIRIZADA','CEPlog_TERCEIRIZADA','CIDADELOG_TERCEIRIZADA','UFLOG_TERCEIRIZADA');
      ACaptionTerceirizadas : Array [0..10] of String  = ('Código','CNPJ','Razão Social','Nome Fantasia','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
-     ASizeColTerceirizadas : Array [0..10] of Single  = (50, 150, 300, 200, 350, 70, 100, 200, 100, 180, 50);
+     ASizeColTerceirizadas : Array [0..10] of Single  = (50, 170, 300, 200, 350, 70, 100, 200, 100, 180, 50);
 
      //Status da ação do form
      tpInicia    : String = 'Inicia';

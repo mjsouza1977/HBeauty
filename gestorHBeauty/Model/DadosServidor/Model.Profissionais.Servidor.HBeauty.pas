@@ -6,7 +6,7 @@ uses
   Model.Profissionais.HBeauty, Model.Habilidades.HBeauty, Model.Genericos.Servidor.HBeauty,
   FMX.Forms;
 
-procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer);
+procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AIDTerceirizada, AId : Integer);
 function CadastraProfissional(AProfissional : TModelProfissionais; AForm : TForm) : Integer;
 function AtualizaProfissional(AProfissional : TModelProfissionais): Boolean;
 
@@ -109,12 +109,12 @@ begin
 
 end;
 
-procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer);
+procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AIDTerceirizada, AId : Integer);
 var
    PesquisaProfissionais : TFDJSONDataSets;
 begin
 
-   PesquisaProfissionais := ControllerClientModule.ModelMetodosClient.ListaProfissionais(ANome, ACPF, ATipoPesquisa, AID);
+   PesquisaProfissionais := ControllerClientModule.ModelMetodosClient.ListaProfissionais(ANome, ACPF, ATipoPesquisa, AIDTerceirizada, AID);
    Assert(TFDJSONDataSetsReader.GetListCount(PesquisaProfissionais) = 1);
    ModelConexaoDados.memProfissionais.Active := False;
    ModelConexaoDados.memProfissionais.AppendData(TFDJSONDataSetsReader.GetListValue(PesquisaProfissionais, 0));

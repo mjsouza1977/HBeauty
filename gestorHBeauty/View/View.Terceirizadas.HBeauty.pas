@@ -117,6 +117,7 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure edtCNPJTyping(Sender: TObject);
     procedure edtCepLogTyping(Sender: TObject);
+    procedure tabListaProfissionaisTerceirizadosClick(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
@@ -147,6 +148,22 @@ begin
      tabListaProfissionaisTerceirizados.Visible := AHabilita;
      tabListaTerceirizadas.Visible := not AHabilita;
 
+end;
+
+procedure TfrmGerenciadorTerceirizadas.tabListaProfissionaisTerceirizadosClick(Sender: TObject);
+begin
+    if FIdSelecionado < 0 then
+        begin
+            MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                       'Selecione uma empresa na lista para para vizualizar os profissionais vinculados!',
+                       'HBeauty', MB_OK + MB_ICONINFORMATION);
+             Exit;
+        end
+    else
+        begin
+            ListaProfissionais('','','',FIdSelecionado,0);
+            CarregaGrid(ModelConexaoDados.memProfissionais,grdListaProfissionalTerceirizado,AFieldsProfissionais, ACaptionProfissionais, ASizeColProfissionais);
+        end;
 end;
 
 procedure TfrmGerenciadorTerceirizadas.btnAlterarClick(Sender: TObject);
@@ -354,6 +371,7 @@ begin
      end;
 
      CarregaGrid(ModelConexaoDados.memTerceirizada,grdListaTerceirizada,AFieldsTerceirizadas, ACaptionTerceirizadas, ASizeColTerceirizadas);
+     //CarregaGrid(ModelConexaoDados.memProfissionais,grdListaProfissionais,AFieldsProfissionais, ACaptionProfissionais, ASizeColProfissionais);
 
      if ModelConexaoDados.memTerceirizada.RecordCount > 0 then
         FIdSelecionado :=  ExtraiTextoGrid(grdListaTerceirizada.Cells[0, 1]).ToInteger;

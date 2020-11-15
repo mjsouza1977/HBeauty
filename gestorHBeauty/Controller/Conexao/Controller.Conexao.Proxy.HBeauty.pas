@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 14/11/2020 20:29:39
+// 15/11/2020 17:15:45
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -68,8 +68,8 @@ type
     function CarregaEmails_Cache(ATipoEmail: string; AIdTabEmail: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function CarregaTelefones(ATipoFone: string; AIdTabFone: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
     function CarregaTelefones_Cache(ATipoFone: string; AIdTabFone: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
-    function ListaProfissionais(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
-    function ListaProfissionais_Cache(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function ListaProfissionais(ANome: string; ACPF: string; ATipoPesquisa: string; AIDTerceirizada: Integer; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function ListaProfissionais_Cache(ANome: string; ACPF: string; ATipoPesquisa: string; AIDTerceirizada: Integer; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function CarregaControle(const ARequestFilter: string = ''): TFDJSONDataSets;
     function CarregaControle_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function ValidaLogin(Usuario: string; Senha: string; const ARequestFilter: string = ''): TFDJSONDataSets;
@@ -184,20 +184,22 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
 
-  TModelMetodos_ListaProfissionais: array [0..4] of TDSRestParameterMetaData =
+  TModelMetodos_ListaProfissionais: array [0..5] of TDSRestParameterMetaData =
   (
     (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIDTerceirizada'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'AId'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
   );
 
-  TModelMetodos_ListaProfissionais_Cache: array [0..4] of TDSRestParameterMetaData =
+  TModelMetodos_ListaProfissionais_Cache: array [0..5] of TDSRestParameterMetaData =
   (
     (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIDTerceirizada'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'AId'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
@@ -635,7 +637,7 @@ begin
   Result := TDSRestCachedTFDJSONDataSets.Create(FCarregaTelefonesCommand_Cache.Parameters[2].Value.GetString);
 end;
 
-function TModelMetodosClient.ListaProfissionais(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): TFDJSONDataSets;
+function TModelMetodosClient.ListaProfissionais(ANome: string; ACPF: string; ATipoPesquisa: string; AIDTerceirizada: Integer; AId: Integer; const ARequestFilter: string): TFDJSONDataSets;
 begin
   if FListaProfissionaisCommand = nil then
   begin
@@ -647,13 +649,14 @@ begin
   FListaProfissionaisCommand.Parameters[0].Value.SetWideString(ANome);
   FListaProfissionaisCommand.Parameters[1].Value.SetWideString(ACPF);
   FListaProfissionaisCommand.Parameters[2].Value.SetWideString(ATipoPesquisa);
-  FListaProfissionaisCommand.Parameters[3].Value.SetInt32(AId);
+  FListaProfissionaisCommand.Parameters[3].Value.SetInt32(AIDTerceirizada);
+  FListaProfissionaisCommand.Parameters[4].Value.SetInt32(AId);
   FListaProfissionaisCommand.Execute(ARequestFilter);
-  if not FListaProfissionaisCommand.Parameters[4].Value.IsNull then
+  if not FListaProfissionaisCommand.Parameters[5].Value.IsNull then
   begin
-    FUnMarshal := TDSRestCommand(FListaProfissionaisCommand.Parameters[4].ConnectionHandler).GetJSONUnMarshaler;
+    FUnMarshal := TDSRestCommand(FListaProfissionaisCommand.Parameters[5].ConnectionHandler).GetJSONUnMarshaler;
     try
-      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FListaProfissionaisCommand.Parameters[4].Value.GetJSONValue(True)));
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FListaProfissionaisCommand.Parameters[5].Value.GetJSONValue(True)));
       if FInstanceOwner then
         FListaProfissionaisCommand.FreeOnExecute(Result);
     finally
@@ -664,7 +667,7 @@ begin
     Result := nil;
 end;
 
-function TModelMetodosClient.ListaProfissionais_Cache(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+function TModelMetodosClient.ListaProfissionais_Cache(ANome: string; ACPF: string; ATipoPesquisa: string; AIDTerceirizada: Integer; AId: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
 begin
   if FListaProfissionaisCommand_Cache = nil then
   begin
@@ -676,9 +679,10 @@ begin
   FListaProfissionaisCommand_Cache.Parameters[0].Value.SetWideString(ANome);
   FListaProfissionaisCommand_Cache.Parameters[1].Value.SetWideString(ACPF);
   FListaProfissionaisCommand_Cache.Parameters[2].Value.SetWideString(ATipoPesquisa);
-  FListaProfissionaisCommand_Cache.Parameters[3].Value.SetInt32(AId);
+  FListaProfissionaisCommand_Cache.Parameters[3].Value.SetInt32(AIDTerceirizada);
+  FListaProfissionaisCommand_Cache.Parameters[4].Value.SetInt32(AId);
   FListaProfissionaisCommand_Cache.ExecuteCache(ARequestFilter);
-  Result := TDSRestCachedTFDJSONDataSets.Create(FListaProfissionaisCommand_Cache.Parameters[4].Value.GetString);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FListaProfissionaisCommand_Cache.Parameters[5].Value.GetString);
 end;
 
 function TModelMetodosClient.CarregaControle(const ARequestFilter: string): TFDJSONDataSets;

@@ -54,8 +54,6 @@ type
     tabFichaProfissional: TTabItem;
     rgDados: TTMSFMXRadioGroup;
     gbTerceirizada: TGroupBox;
-    Rectangle14: TRectangle;
-    cbEmpresaTerceirizada: TComboBox;
     Rectangle1: TRectangle;
     edtNome: TEdit;
     Label2: TLabel;
@@ -114,6 +112,9 @@ type
     Label14: TLabel;
     FotoProfissional: TCircle;
     opFile: TOpenDialog;
+    Rectangle14: TRectangle;
+    cbEmpresaTerceirizada: TComboBox;
+    Label16: TLabel;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnIncluirClick(Sender: TObject);
@@ -141,6 +142,7 @@ type
     procedure edtCPFTyping(Sender: TObject);
     procedure edtCepLogTyping(Sender: TObject);
     procedure FotoProfissionalClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
   private
     FStatus : TAcaoBotao;
@@ -252,15 +254,11 @@ procedure TfrmGerenciadorProfissionais.AlimentaClasseProfissional;
 begin
     gclProfissional.ID_PROFIS          := FIdSelecionado;
     gclProfissional.IDCARGO_PROFISS    := 0;
-    gclProfissional.IDEMPTER_PROFIS    := 0;
     gclProfissional.CODIGO_PROFIS      := '';
     gclProfissional.NOME_PROFIS        := edtNome.Text;
     gclProfissional.SOBRENOME_PROFIS   := edtSobreNome.Text;
     gclProfissional.CPF_PROFIS         := ApenasNumeros(edtCPF.Text);
     gclProfissional.RG_PROFIS          := edtRG.Text;
-    if cbEmpresaTerceirizada.ItemIndex <= 0 then
-       gclProfissional.TERC_PROFIS     := False else
-       gclProfissional.TERC_PROFIS     := True;
 
     gclProfissional.SALARIO_PROFIS     := edtSalario.Value;
     gclProfissional.COMISSAO_PROFIS    := edtComissao.Value;
@@ -284,11 +282,13 @@ end;
 
 procedure TfrmGerenciadorProfissionais.btnAlterarClick(Sender: TObject);
 begin
+
      if FIdSelecionado > 0 then
          begin
              Case BloqueiaRegistro(True) of
                   False : begin
-                              ListaProfissionais('','','',FIdSelecionado);
+                              FStatus                := abAlterar;
+                              ListaProfissionais('','','',0,FIdSelecionado);
 
                               edtCPF.Text            := FormatarCNPJouCPF(ModelConexaoDados.memProfissionais.FieldByName('CPF_PROFIS').AsString);
                               edtRG.Text             := ModelConexaoDados.memProfissionais.FieldByName('RG_PROFIS').AsString;
@@ -303,6 +303,7 @@ begin
                               edtUFLog.Text          := ModelConexaoDados.memProfissionais.FieldByName('UFLOG_PROFIS').AsString;
                               edtSalario.Value       := ModelConexaoDados.memProfissionais.FieldByName('SALARIO_PROFIS').AsCurrency;
                               edtComissao.Value      := ModelConexaoDados.memProfissionais.FieldByName('COMISSAO_PROFIS').AsCurrency;
+                              cbEmpresaTerceirizada.ItemIndex := cbEmpresaTerceirizada.Items.IndexOf(ModelConexaoDados.memProfissionais.FieldByName('FANTASIA_TERCEIRIZADA').AsString);
                               if ModelConexaoDados.memProfissionais.FieldByName('NOMEFILEIMAGEM').AsString <> '' then
                                   begin
                                       FotoProfissional.Fill.Bitmap.Bitmap.LoadFromFile(ctrPATH_FOTOS + ModelConexaoDados.memProfissionais.FieldByName('NOMEFILEIMAGEM').AsString);
@@ -322,7 +323,6 @@ begin
                               FQtdeHabilidades := CarregaListaHabilidades(ModelConexaoDados.memHabilidades, ModelConexaoDados.memHbilXProfis);
 
                               ControlaBotoes(Self, False);
-                              FStatus                := abAlterar;
                               HabilitaTab(True);
                               tabGerenciadorProfissionais.TabIndex := 1;
                               tabCabecarioProfissionais.Next;
@@ -412,8 +412,8 @@ begin
      end;
 
      case rbPor.ItemIndex of
-          0 : ListaProfissionais(edtPesquisaBase.Text,'',TipoPesquisa,0);
-          1 : ListaProfissionais('',ApenasNumeros(edtPesquisaBase.Text),TipoPesquisa,0);
+          0 : ListaProfissionais(edtPesquisaBase.Text,'',TipoPesquisa,0,0);
+          1 : ListaProfissionais('',ApenasNumeros(edtPesquisaBase.Text),TipoPesquisa,0,0);
      end;
 
      CarregaGrid(ModelConexaoDados.memProfissionais,grdListaProfissionais,AFieldsProfissionais, ACaptionProfissionais, ASizeColProfissionais);
@@ -432,6 +432,7 @@ begin
                                          apTitulo, MB_YESNO + MB_ICONQUESTION) of
                              IDYES : begin
                                          AlimentaClasseProfissional;
+                                         gclProfissional.IDEMPTER_PROFIS := Integer(cbEmpresaTerceirizada.Items.Objects[cbEmpresaTerceirizada.ItemIndex]);
                                          Try
                                             FIdSelecionado := CadastraProfissional(gclProfissional, Self);
                                             apagaHabilidadesProfissional(FIdSelecionado);
@@ -479,6 +480,7 @@ begin
                              IDYES : begin
                                          try
                                              AlimentaClasseProfissional;
+                                             gclProfissional.IDEMPTER_PROFIS := Integer(cbEmpresaTerceirizada.Items.Objects[cbEmpresaTerceirizada.ItemIndex]);
                                              AtualizaProfissional(gclProfissional);
                                              apagaHabilidadesProfissional(FIdSelecionado);
                                              gravaHabilidadesSelecionadas;
@@ -616,16 +618,6 @@ begin
      tabGerenciadorProfissionais.TabIndex := 0;
      gclProfissional := TModelProfissionais.Create(Self);
 
-     CarregaCamposTerceirizada('ID_TERCEIRIZADA, FANTASIA_TERCEIRIZADA');
-
-     cbEmpresaTerceirizada.Items.Clear;
-     while not ModelConexaoDados.memTerceirizada.Eof do
-          begin
-              cbEmpresaTerceirizada.Items.AddObject(ModelConexaoDados.memTerceirizada.FieldByName('FANTASIA_TERCEIRIZADA').AsString ,
-                                                    TObject(ModelConexaoDados.memTerceirizada.FieldByName('ID_TERCEIRIZADA').AsInteger));
-              ModelConexaoDados.memTerceirizada.Next;
-          end;
-
      grdListaProfissionais.Cells[0,0] := 'CPF';
      grdListaProfissionais.Cells[1,0] := 'Nome';
      grdListaProfissionais.Cells[2,0] := 'SobreNome';
@@ -637,6 +629,20 @@ begin
      grdListaProfissionais.Cells[8,0] := 'Cidade';
      grdListaProfissionais.Cells[9,0] := 'UF';
 
+end;
+
+procedure TfrmGerenciadorProfissionais.FormShow(Sender: TObject);
+begin
+     CarregaCamposTerceirizada('ID_TERCEIRIZADA, FANTASIA_TERCEIRIZADA');
+     ModelConexaoDados.memTerceirizada.First;
+     cbEmpresaTerceirizada.Items.Clear;
+     cbEmpresaTerceirizada.Items.Add('');
+     while not ModelConexaoDados.memTerceirizada.Eof do
+          begin
+              cbEmpresaTerceirizada.Items.AddObject(ModelConexaoDados.memTerceirizada.FieldByName('FANTASIA_TERCEIRIZADA').AsString ,
+                                                    TObject(ModelConexaoDados.memTerceirizada.FieldByName('ID_TERCEIRIZADA').AsInteger));
+              ModelConexaoDados.memTerceirizada.Next;
+          end;
 end;
 
 procedure TfrmGerenciadorProfissionais.FotoProfissionalClick(Sender: TObject);

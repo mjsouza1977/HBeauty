@@ -12,6 +12,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   OnClose = FormClose
+  OnShow = FormShow
   DesignerMasterStyle = 0
   object recRodapeGerenciadorProfissionais: TRectangle
     Align = Bottom
@@ -114,7 +115,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Size.Width = 1014.000000000000000000
     Size.Height = 113.000000000000000000
     Size.PlatformDefault = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TabPosition = None
     Sizes = (
@@ -126,7 +127,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       CustomIcon = <
         item
         end>
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -261,7 +262,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       CustomIcon = <
         item
         end>
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -312,7 +313,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 28
+        TabOrder = 31
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -334,7 +335,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Size.Height = 395.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -2737,6 +2738,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             Size.PlatformDefault = False
             DefaultRowHeight = 20.000000000000000000
             DefaultColumnWidth = 50.000000000000000000
+            FixedColumns = 2
             ColumnCount = 10
             RowCount = 1
             SelectionMode = smRowRange
@@ -2751,7 +2753,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             Stroke.Kind = Solid
             StrokeThickness = 0.000000000000000000
             TopRow = 1
-            LeftCol = 1
+            LeftCol = 2
             OnCellClick = grdListaProfissionaisCellClick
             Columns = <
               item
@@ -4410,7 +4412,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 157.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -4501,12 +4503,13 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TabOrder = 5
         object Rectangle14: TRectangle
-          Align = Center
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000
           Margins.Top = 20.000000000000000000
           Margins.Right = 150.000000000000000000
-          Size.Width = 288.000000000000000000
+          Position.X = 12.000000000000000000
+          Position.Y = 28.000000000000000000
+          Size.Width = 301.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
           Stroke.Color = claGainsboro
@@ -4524,11 +4527,11 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             Margins.Top = 2.000000000000000000
             Margins.Right = 10.000000000000000000
             Margins.Bottom = 2.000000000000000000
-            Size.Width = 268.000000000000000000
+            Size.Width = 281.000000000000000000
             Size.Height = 25.000000000000000000
             Size.PlatformDefault = False
             StyleLookup = 'ComboBox1Style1'
-            TabOrder = 11
+            TabOrder = 0
           end
         end
       end
@@ -5066,7 +5069,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 194.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -5084,7 +5087,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Size.PlatformDefault = False
         Text = 'Sal'#225'rio'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 0
+        TabOrder = 1
         object Rectangle20: TRectangle
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000
@@ -5128,7 +5131,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Size.PlatformDefault = False
         Text = 'Comiss'#227'o'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 1
+        TabOrder = 2
         object Rectangle22: TRectangle
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000
@@ -5181,7 +5184,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 25.000000000000000000
-        Position.Y = 20.000000000000000000
+        Position.Y = 44.000000000000000000
         Size.Width = 248.000000000000000000
         Size.Height = 309.000000000000000000
         Size.PlatformDefault = False
@@ -5225,17 +5228,29 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           end
         end
       end
+      object Label16: TLabel
+        AutoSize = True
+        StyledSettings = [Family, Size]
+        Position.X = 32.000000000000000000
+        Position.Y = 24.000000000000000000
+        Size.Width = 85.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = 'Habilidades'
+        TabOrder = 0
+      end
     end
+  end
+  object opFile: TOpenDialog
+    Filter = 'Imagens|*.jpg;*.jpeg'
+    Left = 572
+    Top = 308
   end
   object ACBrValidador1: TACBrValidador
     TipoDocto = docEmail
     IgnorarChar = './-'
     Left = 885
     Top = 126
-  end
-  object opFile: TOpenDialog
-    Filter = 'Imagens|*.jpg;*.jpeg'
-    Left = 572
-    Top = 308
   end
 end

@@ -18,6 +18,7 @@ function atualizaHabilidade(AHabilidade : TModelHabilidades) : Boolean;
 function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
 procedure CarregaProfissionalTerceirizado(AIdTerceirizado: Integer);
 procedure CarregaCamposProfissional(ACampos : String);
+function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
 
 
 implementation
@@ -25,6 +26,11 @@ implementation
 uses
   Controller.ClientModule.HBeauty, Data.FireDACJSONReflect,
   Model.Dados.Server.HBeauty;
+
+function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
+begin
+    Result := ControllerClientModule.ModelMetodosClient.AtualizaFotoProfissional(AIDProfissional, AIdFoto);
+end;
 
 procedure CarregaCamposProfissional(ACampos : String);
 var

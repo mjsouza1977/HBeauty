@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 14/11/2020 15:21:23
+// 14/11/2020 20:29:39
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -51,6 +51,9 @@ type
     FCarregaCamposProfissionalCommand_Cache: TDSRestCommand;
     FDocumentoRepetidoCommand: TDSRestCommand;
     FManipulaEstadoRegistroCommand: TDSRestCommand;
+    FGravaImagemCommand: TDSRestCommand;
+    FAtualizaImagemCommand: TDSRestCommand;
+    FAtualizaFotoProfissionalCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -91,6 +94,9 @@ type
     function CarregaCamposProfissional_Cache(ACampos: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function DocumentoRepetido(ADocumento: string; ACampoDocumento: string; ACampoNome: string; ATabela: string; const ARequestFilter: string = ''): string;
     function ManipulaEstadoRegistro(ABloqueia: Boolean; AIdUsuario: Integer; AIdRegistro: Integer; ACampoID: string; ATabela: string; const ARequestFilter: string = ''): Boolean;
+    function GravaImagem(APrefixo: string; AExtensao: string; const ARequestFilter: string = ''): Integer;
+    function AtualizaImagem(AIDImagem: Integer; const ARequestFilter: string = ''): Boolean;
+    function AtualizaFotoProfissional(AIDProfissional: Integer; AIdFoto: Integer; const ARequestFilter: string = ''): string;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -411,6 +417,26 @@ const
     (Name: 'ACampoID'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ATabela'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
+  );
+
+  TModelMetodos_GravaImagem: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'APrefixo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AExtensao'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
+  );
+
+  TModelMetodos_AtualizaImagem: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIDImagem'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
+  );
+
+  TModelMetodos_AtualizaFotoProfissional: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIDProfissional'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIdFoto'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
   );
 
 implementation
@@ -1148,6 +1174,50 @@ begin
   Result := FManipulaEstadoRegistroCommand.Parameters[5].Value.GetBoolean;
 end;
 
+function TModelMetodosClient.GravaImagem(APrefixo: string; AExtensao: string; const ARequestFilter: string): Integer;
+begin
+  if FGravaImagemCommand = nil then
+  begin
+    FGravaImagemCommand := FConnection.CreateCommand;
+    FGravaImagemCommand.RequestType := 'GET';
+    FGravaImagemCommand.Text := 'TModelMetodos.GravaImagem';
+    FGravaImagemCommand.Prepare(TModelMetodos_GravaImagem);
+  end;
+  FGravaImagemCommand.Parameters[0].Value.SetWideString(APrefixo);
+  FGravaImagemCommand.Parameters[1].Value.SetWideString(AExtensao);
+  FGravaImagemCommand.Execute(ARequestFilter);
+  Result := FGravaImagemCommand.Parameters[2].Value.GetInt32;
+end;
+
+function TModelMetodosClient.AtualizaImagem(AIDImagem: Integer; const ARequestFilter: string): Boolean;
+begin
+  if FAtualizaImagemCommand = nil then
+  begin
+    FAtualizaImagemCommand := FConnection.CreateCommand;
+    FAtualizaImagemCommand.RequestType := 'GET';
+    FAtualizaImagemCommand.Text := 'TModelMetodos.AtualizaImagem';
+    FAtualizaImagemCommand.Prepare(TModelMetodos_AtualizaImagem);
+  end;
+  FAtualizaImagemCommand.Parameters[0].Value.SetInt32(AIDImagem);
+  FAtualizaImagemCommand.Execute(ARequestFilter);
+  Result := FAtualizaImagemCommand.Parameters[1].Value.GetBoolean;
+end;
+
+function TModelMetodosClient.AtualizaFotoProfissional(AIDProfissional: Integer; AIdFoto: Integer; const ARequestFilter: string): string;
+begin
+  if FAtualizaFotoProfissionalCommand = nil then
+  begin
+    FAtualizaFotoProfissionalCommand := FConnection.CreateCommand;
+    FAtualizaFotoProfissionalCommand.RequestType := 'GET';
+    FAtualizaFotoProfissionalCommand.Text := 'TModelMetodos.AtualizaFotoProfissional';
+    FAtualizaFotoProfissionalCommand.Prepare(TModelMetodos_AtualizaFotoProfissional);
+  end;
+  FAtualizaFotoProfissionalCommand.Parameters[0].Value.SetInt32(AIDProfissional);
+  FAtualizaFotoProfissionalCommand.Parameters[1].Value.SetInt32(AIdFoto);
+  FAtualizaFotoProfissionalCommand.Execute(ARequestFilter);
+  Result := FAtualizaFotoProfissionalCommand.Parameters[2].Value.GetWideString;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -1196,6 +1266,9 @@ begin
   FCarregaCamposProfissionalCommand_Cache.DisposeOf;
   FDocumentoRepetidoCommand.DisposeOf;
   FManipulaEstadoRegistroCommand.DisposeOf;
+  FGravaImagemCommand.DisposeOf;
+  FAtualizaImagemCommand.DisposeOf;
+  FAtualizaFotoProfissionalCommand.DisposeOf;
   inherited;
 end;
 

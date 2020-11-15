@@ -2,8 +2,12 @@ unit Model.Profissionais.HBeauty;
 
 interface
 
-uses ACBRValidador, Units.Strings.HBeauty, FMX.Forms, Model.Endereco.HBeauty,
-  Model.Chaves.HBeauty;
+uses ACBRValidador,
+     Units.Strings.HBeauty,
+     FMX.Forms,
+     Model.Endereco.HBeauty,
+     Model.Chaves.HBeauty,
+     Model.Imagens.HBeauty;
 
 type
 
@@ -26,6 +30,7 @@ type
     FForm              : TForm;
     FENDERECO_PROFIS   : TModelEndereco;
     FTOKEN_PROFIS      : TModelChaves;
+    FIMAGENS           : TModelImagens;
 
     procedure SetCODIGO_PROFIS     (const Value: String);
     procedure SetCOMISSAO_PROFIS   (const Value: Currency);
@@ -41,6 +46,7 @@ type
     procedure SetTERC_PROFIS       (const Value: Boolean);
     procedure SetENDERECO_PROFIS(const Value: TModelEndereco);
     procedure SetTOKEN_PROFIS(const Value: TModelChaves);
+    procedure SetIMAGENS(const Value: TModelImagens);
 
     public
 
@@ -57,7 +63,8 @@ type
     property COMISSAO_PROFIS    : Currency       read FCOMISSAO_PROFIS  write SetCOMISSAO_PROFIS;
     property SENHA_PROFIS       : String         read FSENHA_PROFIS     write SetSENHA_PROFIS;
     property ENDERECO_PROFIS    : TModelEndereco read FENDERECO_PROFIS  write SetENDERECO_PROFIS;
-    PROPERTY TOKEN_PROFIS       : TModelChaves   read FTOKEN_PROFIS     write SetTOKEN_PROFIS;
+    property TOKEN_PROFIS       : TModelChaves   read FTOKEN_PROFIS     write SetTOKEN_PROFIS;
+    property IMAGENS            : TModelImagens  read FIMAGENS          write SetIMAGENS;
     constructor Create(AForm : TForm);
     end;
 
@@ -72,6 +79,7 @@ constructor TModelProfissionais.Create(AForm : TForm);
 begin
      FValidador       := TACBrValidador.Create(nil);
      FENDERECO_PROFIS := TModelEndereco.Create(AForm);
+     FIMAGENS         := TModelImagens.Create;
      FTOKEN_PROFIS    := TModelChaves.Create;
      FForm            := AForm;
 end;
@@ -126,6 +134,11 @@ end;
 procedure TModelProfissionais.SetID_PROFIS(const Value: Integer);
 begin
   FID_PROFIS := Value;
+end;
+
+procedure TModelProfissionais.SetIMAGENS(const Value: TModelImagens);
+begin
+  FIMAGENS := Value;
 end;
 
 procedure TModelProfissionais.SetNOME_PROFIS(const Value: String);

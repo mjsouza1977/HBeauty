@@ -37,7 +37,9 @@ uses
   Model.Terceirizadas.Servidor.HBeauty in 'Model\DadosServidor\Model.Terceirizadas.Servidor.HBeauty.pas',
   View.Profissionais.HBeauty in 'View\View.Profissionais.HBeauty.pas' {frmGerenciadorProfissionais},
   Controller.Formata.HBeauty in 'Controller\Controller.Formata.HBeauty.pas',
-  Model.Genericos.Servidor.HBeauty in 'Model\DadosServidor\Model.Genericos.Servidor.HBeauty.pas';
+  Model.Genericos.Servidor.HBeauty in 'Model\DadosServidor\Model.Genericos.Servidor.HBeauty.pas',
+  Model.Imagens.Servidor.HBeauty in 'Model\DadosServidor\Model.Imagens.Servidor.HBeauty.pas',
+  Model.Imagens.HBeauty in 'Model\Model.Imagens.HBeauty.pas';
 
 {$R *.res}
 

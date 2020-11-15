@@ -12,7 +12,7 @@ uses
   Model.Dados.Server.HBeauty, ACBrBase, ACBrValidador,  Model.Contatos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, View.Loading.HBeauty, FMX.TMSCustomPicker, FMX.TMSCheckGroupPicker, FMX.TMSCheckGroup, FMX.TMSBitmapContainer, FMX.TMSRichEditorEmoticons,
   FireDAC.Comp.Client, Model.Endereco.HBeauty, FMX.Effects, FMX.Filter.Effects, Controller.Formata.HBeauty, Model.Terceirizada.HBeauty,
-  Model.Terceirizadas.Servidor.HBeauty;
+  Model.Terceirizadas.Servidor.HBeauty, Units.Consts.HBeauty;
 
 type
   TfrmGerenciadorProfissionais = class(TForm)
@@ -112,8 +112,8 @@ type
     Image1: TImage;
     FillRGBEffect1: TFillRGBEffect;
     Label14: TLabel;
-    Circle1: TCircle;
-    Circle2: TCircle;
+    FotoProfissional: TCircle;
+    opFile: TOpenDialog;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnIncluirClick(Sender: TObject);
@@ -140,6 +140,7 @@ type
     procedure edtCepLogExit(Sender: TObject);
     procedure edtCPFTyping(Sender: TObject);
     procedure edtCepLogTyping(Sender: TObject);
+    procedure FotoProfissionalClick(Sender: TObject);
 
   private
     FStatus : TAcaoBotao;
@@ -166,9 +167,9 @@ uses
     Units.Classes.HBeauty,
     Model.Profissionais.Servidor.HBeauty,
     Units.Strings.HBeauty, Winapi.Windows,
-    FMX.Platform.Win, Units.Utils.Dados.HBeauty, Units.Consts.HBeauty,
+    FMX.Platform.Win, Units.Utils.Dados.HBeauty,
     System.UIConsts,
-    Controller.Manipula.Design.HBeauty, Model.Genericos.Servidor.HBeauty;
+    Controller.Manipula.Design.HBeauty, Model.Genericos.Servidor.HBeauty, Model.Imagens.Servidor.HBeauty;
 
 function TfrmGerenciadorProfissionais.BloqueiaRegistro(ABloqueia : Boolean) : Boolean;
 begin
@@ -302,6 +303,17 @@ begin
                               edtUFLog.Text          := ModelConexaoDados.memProfissionais.FieldByName('UFLOG_PROFIS').AsString;
                               edtSalario.Value       := ModelConexaoDados.memProfissionais.FieldByName('SALARIO_PROFIS').AsCurrency;
                               edtComissao.Value      := ModelConexaoDados.memProfissionais.FieldByName('COMISSAO_PROFIS').AsCurrency;
+                              if ModelConexaoDados.memProfissionais.FieldByName('NOMEFILEIMAGEM').AsString <> '' then
+                                  begin
+                                      FotoProfissional.Fill.Bitmap.Bitmap.LoadFromFile(ctrPATH_FOTOS + ModelConexaoDados.memProfissionais.FieldByName('NOMEFILEIMAGEM').AsString);
+                                      gclProfissional.IMAGENS.NOMEFILEIMAGEM := ModelConexaoDados.memProfissionais.FieldByName('NOMEFILEIMAGEM').AsString;
+                                  end
+                              else
+                                  begin
+                                      FotoProfissional.Fill.Bitmap.Bitmap := nil;
+                                      gclProfissional.IMAGENS.NOMEFILEIMAGEM := '';
+                                  end;
+
 
                               AlimentaClasseProfissional;
 
@@ -625,6 +637,57 @@ begin
      grdListaProfissionais.Cells[8,0] := 'Cidade';
      grdListaProfissionais.Cells[9,0] := 'UF';
 
+end;
+
+procedure TfrmGerenciadorProfissionais.FotoProfissionalClick(Sender: TObject);
+var
+ANomeImagem, AExtensao : String;
+begin
+    if opFile.Execute then
+        begin
+            AExtensao := UpperCase(ExtractFileExt(opFile.FileName));
+            if (Pos('JPG', AExtensao) = 0) and (Pos('JPEG', AExtensao) = 0) then
+                begin
+                    MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                              'Formato do arquivo inválido, selecione um arquivo do tipo "jpg"!',
+                              apTitulo, MB_OK + MB_ICONEXCLAMATION);
+                    Exit;
+                end
+            else
+                begin
+                    if TamanhoImagem(opFile.FileName) <> ctrSIZE_FOTO_PES then
+                        begin
+                            MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                      pChar('O arquivo da foto deve ser no formato de ' + ctrSIZE_FOTO_PES + '!'),
+                                      apTitulo, MB_OK + MB_ICONEXCLAMATION);
+                            Exit;
+                        end
+                    else
+                        begin
+                             if gclProfissional.IMAGENS.NOMEFILEIMAGEM = '' then
+                                 begin
+                                     ANomeImagem := AtualizaFotoProfissional(gclProfissional.ID_PROFIS, GravaImagem(pxFotoPessoa,AExtensao));
+                                     if ANomeImagem <> '' then
+                                         begin
+                                             CopyFile(pChar(opFile.FileName), pChar(ctrPATH_FOTOS + ANomeImagem), False);
+                                             FotoProfissional.Fill.Bitmap.Bitmap.LoadFromFile(ctrPATH_FOTOS + ANomeImagem);
+                                         end
+                                     else
+                                         begin
+                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                        'Não foi possível salvar os dados da imagem, tente novamente!',
+                                                        apTitulo, MB_OK + MB_ICONEXCLAMATION);
+                                             Exit;
+                                         end;
+                                 end
+                             else
+                                 begin
+                                     CopyFile(pChar(opFile.FileName), pChar(ctrPATH_FOTOS + ANomeImagem), False);
+                                     FotoProfissional.Fill.Bitmap.Bitmap.LoadFromFile(ctrPATH_FOTOS + ANomeImagem);
+                                 end;
+                        end;
+                end;
+        end;
 end;
 
 procedure TfrmGerenciadorProfissionais.grdListaProfissionaisCellClick(Sender: TObject; ACol, ARow: Integer);

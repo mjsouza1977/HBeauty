@@ -312,7 +312,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 27
+        TabOrder = 28
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -325,17 +325,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.FontColor = xFF60FF0C
         TabOrder = 0
       end
-      object Circle2: TCircle
-        Cursor = crHandPoint
-        Fill.Bitmap.WrapMode = TileStretch
-        Fill.Kind = Bitmap
-        Position.X = 723.000000000000000000
-        Position.Y = 16.000000000000000000
-        Size.Width = 80.000000000000000000
-        Size.Height = 80.000000000000000000
-        Size.PlatformDefault = False
-        Stroke.Color = xFFD4D4D4
-      end
     end
   end
   object tabGerenciadorProfissionais: TTabControl
@@ -345,7 +334,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Size.Height = 395.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -2748,7 +2737,6 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             Size.PlatformDefault = False
             DefaultRowHeight = 20.000000000000000000
             DefaultColumnWidth = 50.000000000000000000
-            FixedColumns = 0
             ColumnCount = 10
             RowCount = 1
             SelectionMode = smRowRange
@@ -2763,7 +2751,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
             Stroke.Kind = Solid
             StrokeThickness = 0.000000000000000000
             TopRow = 1
-            LeftCol = 0
+            LeftCol = 1
             OnCellClick = grdListaProfissionaisCellClick
             Columns = <
               item
@@ -4422,7 +4410,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 157.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -4474,7 +4462,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Text = 'Foto'
         TabOrder = 1
       end
-      object Circle1: TCircle
+      object FotoProfissional: TCircle
         Cursor = crHandPoint
         Fill.Bitmap.WrapMode = TileStretch
         Fill.Kind = Bitmap
@@ -4484,6 +4472,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Size.Height = 129.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = xFFD4D4D4
+        OnClick = FotoProfissionalClick
       end
       object rgDados: TTMSFMXRadioGroup
         DisableFocusEffect = False
@@ -5077,7 +5066,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 194.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -5243,5 +5232,10 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     IgnorarChar = './-'
     Left = 885
     Top = 126
+  end
+  object opFile: TOpenDialog
+    Filter = 'Imagens|*.jpg;*.jpeg'
+    Left = 572
+    Top = 308
   end
 end

@@ -11,6 +11,7 @@ procedure CarregaVariaveisControle;
 procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String; AListaSizeColuna : Array of Single);
 procedure LimpaForm(AForm : TForm);
 function PesquisaCEP(AForm: TForm;ACep : String) : TModelEndereco;
+function TamanhoImagem(fImagem : String) : String;
 
 implementation
 
@@ -21,7 +22,7 @@ uses
   Model.Dados.Server.HBeauty,
   Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty, Units.Enumerados.HBeauty,
   View.Principal.HBeauty, FMX.Edit, FMX.ListBox, FMX.StdCtrls, FMX.NumberBox,
-  Winapi.Windows, FMX.Platform.Win, Vcl.Dialogs;
+  Winapi.Windows, FMX.Platform.Win, Vcl.Dialogs, FMX.Graphics;
 
 function PesquisaCEP(AForm : TForm; ACep : String) : TModelEndereco;
 var
@@ -93,6 +94,23 @@ begin
 
 end;
 
+function TamanhoImagem(fImagem : String) : String;
+var
+vImagem : TBitmap;
+vLargura, vAltura : Integer;
+begin
+
+vImagem  := TBitmap.Create();
+vImagem.LoadFromFile(fImagem);
+
+vAltura  := vImagem.Height;
+vLargura := vImagem.Width;
+
+Result   := vLargura.ToString+'x'+vAltura.ToString;
+
+end;
+
+
 procedure CarregaVariaveisControle;
 begin
 
@@ -109,7 +127,10 @@ begin
     ctrPATH_LOGOS           := getValueControle('PATH_LOGOS');
     ctrMINI_LOGO_EMPRESA    := getValueControle('MINI_LOGO_EMPRESA');
     ctrFULL_SCREEN          := StringToBool(getValueControle('FULL_SCREEN'), 'False','True');
-
+    ctrSIZE_FOTO_PES        := getValueControle('SIZE_FOTO_PES');
+    ctrSIZE_FOTO_PRO        := getValueControle('SIZE_FOTO_PRO');
+    ctrSIZE_FOTO_SER        := getValueControle('SIZE_FOTO_SER');
+    ctrPATH_FOTOS           := getValueControle('PATH_FOTOS');
 end;
 
 procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String; AListaSizeColuna : Array of Single);

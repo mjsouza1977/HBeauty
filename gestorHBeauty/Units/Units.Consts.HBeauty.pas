@@ -44,6 +44,11 @@ const
      tpContenha  : String = 'Contenha';
      tpIgual     : String = 'Igual';
 
+     //Prefixo das imagens
+     pxFotoPessoa  : String = 'PES'; //Prefixo para fotos das pessoas
+     pxFotoProduto : String = 'PRO'; //Prefixo para fotos dos produtos
+     pxFotoServico : String = 'SER'; //Prefixo para fotos dos serviços
+
      apTitulo    : pWideChar = 'HBeauty';
 
      sfIncluir   : Integer = 0;
@@ -62,7 +67,10 @@ var
    ctrPATH_IMAGENS         : String;
    ctrPATH_LOGOS           : String;
    ctrMINI_LOGO_EMPRESA    : String;
-
+   ctrSIZE_FOTO_PES        : String;
+   ctrSIZE_FOTO_PRO        : String;
+   ctrSIZE_FOTO_SER        : String;
+   ctrPATH_FOTOS           : String;
    ctrFULL_SCREEN          : Boolean;
 
    gIDUsuarioConectado     : Integer = 0;

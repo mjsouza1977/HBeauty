@@ -1,4 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-	<Transactions/>
+	<Transactions>
+    <Transaction>2020/11/14 19:54:11.515,=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.pas</Transaction>
+  </Transactions>
 </BorlandProject>

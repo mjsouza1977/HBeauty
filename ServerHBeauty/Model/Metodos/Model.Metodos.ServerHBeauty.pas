@@ -23,7 +23,7 @@ type
     function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
     function CarregaEmails(ATipoEmail : String; AIdTabEmail : Integer) : TFDJSONDataSets;
     function CarregaTelefones(ATipoFone : String; AIdTabFone : Integer) : TFDJSONDataSets;
-    function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
+    function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AIDTerceirizada, AId : Integer) : TFDJSONDataSets;
     function CarregaControle : TFDJSONDataSets;
     function ValidaLogin(Usuario, Senha : String) : TFDJSONDataSets;
     function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
@@ -200,9 +200,9 @@ begin
      Result := Model.Metodos.Contatos.ServerHBeauty.CarregaTelefones(ATipoFone, AIdTabFone);
 end;
 
-function TModelMetodos.ListaProfissionais(ANome, ACPF, ATipoPesquisa: String; AId: Integer): TFDJSONDataSets;
+function TModelMetodos.ListaProfissionais(ANome, ACPF, ATipoPesquisa: String; AIDTerceirizada, AId: Integer): TFDJSONDataSets;
 begin
-     Result := Model.Metodos.Profissionais.ServerHBeauty.ListaProfissionais(ANome, ACPF, ATipoPEsquisa, AId);
+     Result := Model.Metodos.Profissionais.ServerHBeauty.ListaProfissionais(ANome, ACPF, ATipoPEsquisa, AIDTerceirizada, AId);
 end;
 
 function TModelMetodos.ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa: String; AId: Integer): TFDJSONDataSets;

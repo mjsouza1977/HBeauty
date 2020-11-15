@@ -17,7 +17,7 @@ function GeraNomeImagem(APrefixo, AExtensao : String) : String;
 implementation
 
 uses
-  Data.DB, Controller.Conexao.HBeautyServer;
+  Data.DB, Controller.Conexao.HBeautyServer, Vcl.Dialogs;
 
 function GeraNomeImagem(APrefixo, AExtensao : String) : String;
 var
@@ -28,19 +28,20 @@ begin
      try
         ControllerConexao.qryQuery.Close;
         ControllerConexao.qryQuery.SQL.Clear;
-        ControllerConexao.qryQuery.SQL.Add('SELECT NOMEIMAGEM FROM HBIMAGENS');
-        ControllerConexao.qryQuery.SQL.Add('WHERE NOMEIMAGEM = :NOMEIMAGEM');
+        ControllerConexao.qryQuery.SQL.Add('SELECT NOMEFILEIMAGEM FROM HBIMAGENS');
+        ControllerConexao.qryQuery.SQL.Add('WHERE NOMEFILEIMAGEM = :NOMEFILEIMAGEM');
 
         ARepetido := True;
         While ARepetido do
             begin
                 Randomize;
-                ANomeFile := APrefixo + FormatFloat('0000000', Random(9999999)) + '.' + AExtensao;
+                ANomeFile := APrefixo + FormatFloat('0000000', Random(9999999)) + AExtensao;
 
                 ControllerConexao.qryQuery.Close;
-                ControllerConexao.qryQuery.ParamByName('NOMEIMAGEM').AsString := QuotedStr(ANomeFile);
+                ControllerConexao.qryQuery.ParamByName('NOMEFILEIMAGEM').AsString := ANomeFile;
                 ControllerConexao.qryQuery.Open;
-                if ControllerConexao.qryQuery.RecordCount > 0 then
+
+                if ControllerConexao.qryQuery.RecordCount <= 0 then
                     ARepetido := False else
                     ARepetido := True;
             end;

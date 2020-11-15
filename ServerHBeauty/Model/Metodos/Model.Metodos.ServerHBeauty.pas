@@ -48,6 +48,10 @@ type
 
     function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
     function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
+    function GravaImagem(APrefixo, AExtensao : String) : Integer;
+    function AtualizaImagem(AIDImagem : Integer) : Boolean;
+    function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
+
 
   end;
 {$METHODINFO OFF}
@@ -58,7 +62,7 @@ implementation
 {$R *.dfm}
 
 
-uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contatos.ServerHBeauty;
+uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contatos.ServerHBeauty, Model.Metodos.Imagens.ServerHBeauty;
 
 
 
@@ -67,6 +71,11 @@ uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contat
 function TModelMetodos.DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
 begin
     Result := Model.Metodos.Genericos.ServerHBeauty.DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela);
+end;
+
+function TModelMetodos.GravaImagem(APrefixo, AExtensao: String): Integer;
+begin
+    Result := Model.Metodos.Imagens.ServerHBeauty.GravaImagem(APrefixo, AExtensao);
 end;
 
 function TModelMetodos.ValidaLogin(Usuario, Senha : String) : TFDJSONDataSets;
@@ -84,9 +93,19 @@ begin
      Result := Model.Metodos.Contatos.ServerHBeauty.AtualizaEmail(AEmail, AIdEmail,  ARestrito);
 end;
 
+function TModelMetodos.AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
+begin
+     Result := Model.Metodos.Profissionais.ServerHBeauty.AtualizaFotoProfissional(AIDProfissional, AIdFoto);
+end;
+
 function TModelMetodos.atualizaHabilidade(AIdHabilidade: Integer; ANomeHabilidade, ADescricaoHabilidade: String): Boolean;
 begin
      Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.atualizaHabilidade(AIdHabilidade, ANomeHabilidade, ADescricaoHabilidade);
+end;
+
+function TModelMetodos.AtualizaImagem(AIDImagem: Integer): Boolean;
+begin
+    Result := Model.Metodos.Imagens.ServerHBeauty.AtualizaImagem(AIDImagem)
 end;
 
 function TModelMetodos.AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog: Integer; ACodigo, ANome, ASobreNome, ACPF, ARG, ALogradouro,

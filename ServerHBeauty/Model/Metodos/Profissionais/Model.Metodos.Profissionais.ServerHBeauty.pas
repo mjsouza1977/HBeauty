@@ -15,11 +15,12 @@ function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AId
 
 function CarregaProfissionalTerceirizado(AIdTerceirizado : Integer) : TFDJSONDataSets;
 function CarregaCamposProfissionais(ACampos : String) : TFDJSONDataSets;
+function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
 
 implementation
 
 uses
-  System.SysUtils, Units.Utils.ServerBeauty, Vcl.Dialogs;
+  System.SysUtils, Units.Utils.ServerBeauty, Vcl.Dialogs, Model.Metodos.Imagens.ServerHBeauty;
 
 function CarregaCamposProfissionais(ACampos : String) : TFDJSONDataSets;
 begin
@@ -28,7 +29,6 @@ begin
          ControllerConexao.qryQuery.Close;
          ControllerConexao.qryQuery.SQL.Clear;
          ControllerConexao.qryQuery.SQL.Add('SELECT ' + ACampos + ' FROM HBPROFISSIONAIS');
-
          Result := TFDJSONDataSets.Create;
          TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
          ControllerConexao.qryQuery.Active := True;
@@ -67,6 +67,9 @@ begin
          ControllerConexao.qryQuery.Close;
          ControllerConexao.qryQuery.SQL.Clear;
          ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBPROFISSIONAIS');
+         ControllerConexao.qryQuery.SQL.Add('LEFT JOIN HBIMAGENS');
+         ControllerConexao.qryQuery.SQL.Add('ON (HBPROFISSIONAIS.IDFOTO_PROFIS = HBIMAGENS.IDIMAGEM)');
+
          if ASql <> '' then
             ControllerConexao.qryQuery.SQL.Add('WHERE ' + ASql);
 
@@ -157,13 +160,50 @@ begin
     end;
 end;
 
+procedure InseriFotoProfissional(AIDProfissional : Integer);
+begin
+     try
+         ControllerConexao.qryQuery.Close;
+         ControllerConexao.qryQuery.SQL.Clear;
+         ControllerConexao.qryQuery.SQL.Add('UPDATE HBPROFISSIONAIS SET');
+         ControllerConexao.qryQuery.SQL.Add('IDFOTO_PROFIS = ' + GravaImagem('PES', '.jpg').ToString);
+         ControllerConexao.qryQuery.SQL.Add('WHERE ID_PROFIS = ' + AIDProfissional.ToString);
+         ControllerConexao.qryQuery.ExecSQL;
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
+end;
 
+function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
+begin
+     try
+         try
+             ControllerConexao.qryQuery.Close;
+             ControllerConexao.qryQuery.SQL.Clear;
+             ControllerConexao.qryQuery.SQL.Add('UPDATE HBPROFISSIONAIS SET');
+             ControllerConexao.qryQuery.SQL.Add('IDFOTO_PROFIS = ' + AIdFoto.ToString);
+             ControllerConexao.qryQuery.SQL.Add('WHERE ID_PROFIS = ' + AIDProfissional.ToString);
+             ControllerConexao.qryQuery.ExecSQL;
+
+             ControllerConexao.qryQuery.Close;
+             ControllerConexao.qryQuery.SQL.Clear;
+             ControllerConexao.qryQuery.SQL.Add('SELECT IDIMAGEM, NOMEFILEIMAGEM FROM HBIMAGENS');
+             ControllerConexao.qryQuery.SQL.Add('WHERE IDIMAGEM = ' + AIdFoto.ToString);
+             ControllerConexao.qryQuery.Open;
+             Result := ControllerConexao.qryQuery.FieldByName('NOMEFILEIMAGEM').AsString;
+         except
+             Result := '';
+         end;
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
+end;
 
 function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
-
+var
+AID : Integer;
 begin
-
      try
 
          try
@@ -200,7 +240,9 @@ begin
              ControllerConexao.qryQuery.ExecSQL;
 
              ControllerConexao.qryQuery.Open('SELECT GEN_ID(GEN_HBPROFISSIONAIS_ID, 0) AS IDPROFISSIONAL FROM RDB$DATABASE');
-             Result := ControllerConexao.qryQuery.FieldByName('IDPROFISSIONAL').AsInteger;
+             AID    := ControllerConexao.qryQuery.FieldByName('IDPROFISSIONAL').AsInteger;
+             InseriFotoProfissional(AID);
+             Result := AID;
          except
              Result := 0;
          end;

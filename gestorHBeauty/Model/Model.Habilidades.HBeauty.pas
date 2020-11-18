@@ -24,7 +24,7 @@ type
 implementation
 
 uses
-  Winapi.Windows, FMX.Platform.Win;
+  Winapi.Windows, FMX.Platform.Win, Units.Consts.HBeauty;
 
 { TModelHabilidades }
 
@@ -33,10 +33,14 @@ begin
     if Value = '' then
         begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-
+                       'A descrição da habilidade não pode ser vazio!',
+                       apTitulo, MB_OK + MB_ICONINFORMATION);
+            Exit;
+        end
+    else
+        begin
+            FDescricaoHabilidade := Value;
         end;
-
-        FDescricaoHabilidade := Value;
 end;
 
 procedure TModelHabilidades.SetIdHabilidade(const Value: Integer);
@@ -46,7 +50,17 @@ end;
 
 procedure TModelHabilidades.SetNomeHabilidade(const Value: String);
 begin
-  FNomeHabilidade := Value;
+    if Value = '' then
+        begin
+            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                       'A habilidade não pode ser vazio!',
+                       apTitulo, MB_OK + MB_ICONINFORMATION);
+            Exit;
+        end
+    else
+        begin
+            FNomeHabilidade := Value;
+        end;
 end;
 
 end.

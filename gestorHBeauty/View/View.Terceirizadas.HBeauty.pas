@@ -190,6 +190,7 @@ begin
 
              ControlaBotoes(Self, False);
              FStatus                := abAlterar;
+             BloqueiaRegistro(True, FIdSelecionado, tcTercerizadas);
              HabilitaTab(True);
              tabGerenciadorTerceirizada.TabIndex := 1;
              tabCabecarioTerceirizada.Next;
@@ -312,6 +313,7 @@ begin
              HabilitaTab(False);
              tabCabecarioTerceirizada.TabIndex := 0;
              tabGerenciadorTerceirizada.TabIndex := 0;
+             BloqueiaRegistro(False, FIdSelecionado, tcTercerizadas);
              ControlaBotoes(Self, True);
          end;
 
@@ -389,7 +391,6 @@ begin
                                          AlimentaClasseTerceirizada;
                                          Try
                                             FIdSelecionado := CadastraTerceirizada(gclTerceirizada, Self);
-
                                             case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                             'Empresa cadastrado com sucesso.'+#13#13+
                                                             'Deseja cadastrar outra empresa?', apTitulo,
@@ -431,7 +432,7 @@ begin
                                          try
                                              AlimentaClasseTerceirizada;
                                              AtualizaTerceirizada(gclTerceirizada);
-
+                                             BloqueiaRegistro(False, FIdSelecionado, tcTercerizadas);
                                              MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                         'Registro salvo com sucesso!', apTitulo,
                                                         MB_OK + MB_ICONINFORMATION);

@@ -8,6 +8,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnClose = FormClose
   DesignerMasterStyle = 0
   object recRodapeHabilidades: TRectangle
     Align = Bottom
@@ -32,6 +33,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
       Position.Y = 12.000000000000000000
       TabOrder = 0
       Text = 'Alterar'
+      OnClick = btnAlterarClick
     end
     object btnFechar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -48,6 +50,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
       Position.Y = 12.000000000000000000
       TabOrder = 1
       Text = 'Fechar'
+      OnClick = btnFecharClick
     end
     object btnIncluir: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -2000,7 +2003,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
         Width = 300.000000000000000000
       end>
   end
-  object lytCadastroTelefone: TLayout
+  object lytCadastraHabilidade: TLayout
     Align = Bottom
     Position.Y = 259.000000000000000000
     Size.Width = 715.000000000000000000
@@ -2089,8 +2092,8 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
         Size.PlatformDefault = False
         StyleLookup = 'Memo1Style1'
         TabOrder = 1
-        Viewport.Width = 654.000000000000000000
-        Viewport.Height = 102.000000000000000000
+        Viewport.Width = 658.000000000000000000
+        Viewport.Height = 106.000000000000000000
       end
     end
   end

@@ -154,7 +154,6 @@ type
 
   public
     procedure AlimentaClasseProfissional;
-    function BloqueiaRegistro(ABloqueia : Boolean) : Boolean;
 
   end;
 
@@ -173,10 +172,6 @@ uses
     System.UIConsts,
     Controller.Manipula.Design.HBeauty, Model.Genericos.Servidor.HBeauty, Model.Imagens.Servidor.HBeauty;
 
-function TfrmGerenciadorProfissionais.BloqueiaRegistro(ABloqueia : Boolean) : Boolean;
-begin
-    Result := ManipulaEstadoRegistro(ABloqueia, FIdSelecionado, 'ID_PROFIS','HBPROFISSIONAIS');
-end;
 
 procedure TfrmGerenciadorProfissionais.gravaHabilidadesSelecionadas;
 var
@@ -285,7 +280,7 @@ begin
 
      if FIdSelecionado > 0 then
          begin
-             Case BloqueiaRegistro(True) of
+             Case BloqueiaRegistro(True, FIdSelecionado,tcProfissionais) of
                   False : begin
                               FStatus                := abAlterar;
                               ListaProfissionais('','','',0,FIdSelecionado);
@@ -376,7 +371,7 @@ begin
              tabCabecarioProfissionais.TabIndex := 0;
              tabGerenciadorProfissionais.TabIndex := 0;
              ControlaBotoes(Self, True);
-             BloqueiaRegistro(False);
+             BloqueiaRegistro(False, FIdSelecionado, tcProfissionais);
          end;
 
 end;
@@ -484,7 +479,7 @@ begin
                                              AtualizaProfissional(gclProfissional);
                                              apagaHabilidadesProfissional(FIdSelecionado);
                                              gravaHabilidadesSelecionadas;
-                                             BloqueiaRegistro(False);
+                                             BloqueiaRegistro(False, FIdSelecionado, tcProfissionais);
                                              MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                         'Registro salvo com sucesso!', apTitulo,
                                                         MB_OK + MB_ICONINFORMATION);

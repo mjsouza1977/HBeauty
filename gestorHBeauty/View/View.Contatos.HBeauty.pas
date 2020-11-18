@@ -124,6 +124,7 @@ begin
                                         chkWhatsApp.IsChecked := StringToBool('T','F',FieldByName('WHATS_FONE').AsString);
                                         chkTelefoneRestrito.IsChecked := StringToBool('T','F',FieldByName('RESTRITO_FONE').AsString);
                                         chkInativarFone.IsChecked := StringToBool('T','F',FieldByName('INATIVO_FONE').AsString);
+                                        BloqueiaRegistro(True, FIdContatoSelecionado, tcTelefones);
                                     end;
                             end;
                 tfEmail    : begin
@@ -141,6 +142,7 @@ begin
                                         edtEmail.Text := FieldByName('EMAIL_EMAIL').AsString;
                                         chkEmailRestrito.IsChecked := StringToBool('T','F',FieldByName('RESTRITO_EMAIL').AsString);
                                         chkInativarEmail.IsChecked := StringToBool('T','F',FieldByName('INATIVO_EMAIL').AsString);
+                                        BloqueiaRegistro(True, FIdContatoSelecionado, tcEmails);
                                     end;
                             end;
             end;
@@ -286,7 +288,8 @@ begin
                                                            begin
                                                                //Executa a alteração e salva no servidor
                                                                AtualizaTelefone(gclTelefone);
-
+                                                               //Debloqueia o registro
+                                                               BloqueiaRegistro(False, FIdContatoSelecionado, tcTelefones);
                                                                //caso tenha sucesso na operação fecha o form
                                                                MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                           'Registro atualizado com sucesso!', apTitulo,
@@ -365,6 +368,7 @@ begin
                                                                      MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
                                                            begin
                                                                AtualizaEmail(gclEmail);
+                                                               BloqueiaRegistro(False, FIdContatoSelecionado, tcTelefones);
                                                                MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                           'Registro salvo com sucesso!', apTitulo,
                                                                           MB_OK + MB_ICONINFORMATION);

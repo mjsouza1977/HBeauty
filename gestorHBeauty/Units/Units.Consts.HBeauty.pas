@@ -38,6 +38,12 @@ const
      ACaptionTerceirizadas : Array [0..10] of String  = ('Código','CNPJ','Razão Social','Nome Fantasia','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
      ASizeColTerceirizadas : Array [0..10] of Single  = (50, 170, 300, 200, 350, 70, 100, 200, 100, 180, 50);
 
+     //grid do Form de Habilidades
+     AFieldsHabilidades  : Array [0..2] of  String = ('ID_HABILIDADE', 'NOME_HABILIDADE','DESCR_HABILIDADE');
+     ACaptionHabilidades : Array [0..2] of String  = ('Código','Habilidade','Descrição');
+     ASizeColHabilidades : Array [0..2] of Single  = (50, 170, 300);
+
+
      //Status da ação do form
      tpInicia    : String = 'Inicia';
      tpTermina   : String = 'Termina';

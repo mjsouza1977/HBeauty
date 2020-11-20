@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 15/11/2020 17:15:45
+// 19/11/2020 20:56:09
 //
 
 unit Controller.Conexao.Proxy.HBeauty;

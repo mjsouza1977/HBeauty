@@ -8,6 +8,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   OnClose = FormClose
   DesignerMasterStyle = 0
   object recRodapeHabilidades: TRectangle
@@ -1938,7 +1939,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
     Size.PlatformDefault = False
     DefaultRowHeight = 20.000000000000000000
     DefaultColumnWidth = 50.000000000000000000
-    ColumnCount = 1
+    ColumnCount = 3
     RowCount = 1
     SelectionMode = smRowRange
     Options.Editing.CalcFormat = '%g'
@@ -2092,8 +2093,8 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
         Size.PlatformDefault = False
         StyleLookup = 'Memo1Style1'
         TabOrder = 1
-        Viewport.Width = 658.000000000000000000
-        Viewport.Height = 106.000000000000000000
+        Viewport.Width = 654.000000000000000000
+        Viewport.Height = 102.000000000000000000
       end
     end
   end

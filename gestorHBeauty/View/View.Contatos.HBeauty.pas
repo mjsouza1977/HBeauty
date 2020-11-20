@@ -410,6 +410,11 @@ end;
 procedure TfrmCadastroContatos.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 
+     case FTipoForm of
+          tfEmail : BloqueiaRegistro(False, FIdContatoSelecionado, TTabelaCadastrada.tcEmails);
+       tfTelefone : BloqueiaRegistro(False, FIdContatoSelecionado, TTabelaCadastrada.tcTelefones);
+     end;
+
      Action := TCloseAction.caFree;
 
 end;

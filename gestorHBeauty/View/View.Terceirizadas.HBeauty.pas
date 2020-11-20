@@ -550,6 +550,7 @@ end;
 
 procedure TfrmGerenciadorTerceirizadas.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+     BloqueiaRegistro(False, FIdSelecionado, tcTercerizadas);
      FreeAndNil(gclTerceirizada);
      Action := TCloseAction.caFree;
 end;

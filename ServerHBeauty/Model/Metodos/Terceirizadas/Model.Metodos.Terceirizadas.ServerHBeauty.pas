@@ -87,7 +87,6 @@ end;
 function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Boolean;
 begin
-
     try
         try
             ControllerConexao.qryQuery.Close;
@@ -104,7 +103,9 @@ begin
             ControllerConexao.qryQuery.SQL.Add('COMPLLOG_TERCEIRIZADA     = :COMPLLOG_TERCEIRIZADA,');
             ControllerConexao.qryQuery.SQL.Add('BAIRROLOG_TERCEIRIZADA    = :BAIRROLOG_TERCEIRIZADA,');
             ControllerConexao.qryQuery.SQL.Add('CIDADELOG_TERCEIRIZADA    = :CIDADELOG_TERCEIRIZADA,');
-            ControllerConexao.qryQuery.SQL.Add('UFLOG_TERCEIRIZADA        = :UFLOG_TERCEIRIZADA');
+            ControllerConexao.qryQuery.SQL.Add('UFLOG_TERCEIRIZADA        = :UFLOG_TERCEIRIZADA,');
+            ControllerConexao.qryQuery.SQL.Add('IDUSULOCK                 = :IDUSULOCK,');
+            ControllerConexao.qryQuery.SQL.Add('LOCK                      = :LOCK');
             ControllerConexao.qryQuery.SQL.Add('WHERE ID_TERCEIRIZADA     = :ID_TERCEIRIZADA');
 
             ControllerConexao.qryQuery.ParamByName('CODIGO_TERCEIRIZADA'      ).AsString  := ACodigo;
@@ -120,6 +121,9 @@ begin
             ControllerConexao.qryQuery.ParamByName('CIDADELOG_TERCEIRIZADA'   ).AsString  := ACidade;
             ControllerConexao.qryQuery.ParamByName('UFLOG_TERCEIRIZADA'       ).AsString  := AUF;
             ControllerConexao.qryQuery.ParamByName('ID_TERCEIRIZADA'          ).AsInteger := AIdTerc;
+            ControllerConexao.qryQuery.ParamByName('IDUSULOCK'                ).AsInteger := 0;
+            ControllerConexao.qryQuery.ParamByName('LOCK'                     ).AsString  := 'F';
+
 
             ControllerConexao.qryQuery.ExecSQL;
             Result := True;

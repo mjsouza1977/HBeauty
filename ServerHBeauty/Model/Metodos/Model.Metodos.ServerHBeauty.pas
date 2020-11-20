@@ -8,7 +8,8 @@ uses System.SysUtils, System.Classes, System.Json,
      Controller.Conexao.HBeautyServer,
      Model.Metodos.Usuarios.ServerHBeauty,
      Model.Metodos.Profissionais.ServerHBeauty,
-     Model.Metodos.Profissionais.Hablidades.ServerHBeauty, Model.Metodos.Terceirizadas.ServerHBeauty, Model.Metodos.Genericos.ServerHBeauty;
+     Model.Metodos.Profissionais.Hablidades.ServerHBeauty, Model.Metodos.Terceirizadas.ServerHBeauty, Model.Metodos.Genericos.ServerHBeauty,
+  Model.Metodos.Habilidades.ServerHBeauty;
 
 type
 {$METHODINFO ON}
@@ -67,6 +68,21 @@ uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contat
 
 
 { TModelMetodos }
+
+function carregaHabilidades : TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Habilidades.ServerHBeauty.carregaHabilidades;
+end;
+
+function atualizaHabilidades(AIdHabilidade : Integer; AHabilidade, ADescricao : String) : Boolean;
+begin
+     Result := Model.Metodos.Habilidades.ServerHBeauty.atualizaHabilidades(AIdHabilidade, AHabilidade, ADescricao);
+end;
+
+function cadastraHabilidade(AHabilidade, ADescricao : String) : Boolean;
+begin
+     Result := Model.Metodos.Habilidades.ServerHBeauty.cadastraHabilidade(AHabilidade, ADescricao);
+end;
 
 function TModelMetodos.DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
 begin

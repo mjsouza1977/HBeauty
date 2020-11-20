@@ -115,10 +115,14 @@ begin
             ControllerConexao.qryQuery.SQL.Add('UPDATE HBPROFISSIONAIS SET');
             ControllerConexao.qryQuery.SQL.Add('NOME_HABILIDADE     = :NOMEHABILIDADE,');
             ControllerConexao.qryQuery.SQL.Add('DESCR_HABILIDADE    = :DESCRHABILIDADE');
+            ControllerConexao.qryQuery.SQL.Add('IDUSULOCK           = :IDUSULOCK,');
+            ControllerConexao.qryQuery.SQL.Add('LOCK                = :LOCK');
             ControllerConexao.qryQuery.SQL.Add('WHERE ID_HABILIDADE = :IDHABILIDADE');
             ControllerConexao.qryQuery.ParamByName('NOMEHABILIDADE').AsString  := ANomeHabilidade;
             ControllerConexao.qryQuery.ParamByName('DESCRHABILIDADE').AsString := ADescricaoHabilidade;
             ControllerConexao.qryQuery.ParamByName('IDHABILIDADE').AsInteger   := AIdHabilidade;
+            ControllerConexao.qryQuery.ParamByName('IDUSULOCK').AsInteger      := 0;
+            ControllerConexao.qryQuery.ParamByName('LOCK').AsString            := 'F';
             ControllerConexao.qryQuery.ExecSQL;
 
             Result := True;

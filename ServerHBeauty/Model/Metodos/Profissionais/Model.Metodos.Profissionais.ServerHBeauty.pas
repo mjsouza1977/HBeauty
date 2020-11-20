@@ -132,7 +132,9 @@ begin
             ControllerConexao.qryQuery.SQL.Add('BAIRROLOG_PROFIS   = :BAIRROLOG_PROFIS,');
             ControllerConexao.qryQuery.SQL.Add('CIDADELOG_PROFIS   = :CIDADELOG_PROFIS,');
             ControllerConexao.qryQuery.SQL.Add('UFLOG_PROFIS       = :UFLOG_PROFIS,');
-            ControllerConexao.qryQuery.SQL.Add('CEP_PROFIS         = :CEP_PROFIS');
+            ControllerConexao.qryQuery.SQL.Add('CEP_PROFIS         = :CEP_PROFIS,');
+            ControllerConexao.qryQuery.SQL.Add('IDUSULOCK          = :IDUSULOCK,');
+            ControllerConexao.qryQuery.SQL.Add('LOCK               = :LOCK');
             ControllerConexao.qryQuery.SQL.Add('WHERE ID_PROFIS    = :ID_PROFIS');
 
             ControllerConexao.qryQuery.ParamByName('IDCARGO_PROFIS'   ).AsInteger  := AIdCargo;
@@ -153,7 +155,8 @@ begin
             ControllerConexao.qryQuery.ParamByName('UFLOG_PROFIS'     ).AsString   := AUF;
             ControllerConexao.qryQuery.ParamByName('CEP_PROFIS'       ).AsString   := ACep;
             ControllerConexao.qryQuery.ParamByName('ID_PROFIS'        ).AsInteger  := AIdProfiss;
-
+            ControllerConexao.qryQuery.ParamByName('IDUSULOCK'        ).AsInteger  := 0;
+            ControllerConexao.qryQuery.ParamByName('LOCK'             ).AsString   := 'F';
             ControllerConexao.qryQuery.ExecSQL;
             ControllerConexao.fdTransacao.Commit;
             Result := True;

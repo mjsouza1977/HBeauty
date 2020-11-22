@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls, FMX.Objects, FMX.TMSBaseControl, FMX.TMSBitmap, ACBrBase, ACBrValidador, FMX.Effects,
   FMX.Filter.Effects, FMX.Controls.Presentation, FMX.TMSButton, FMX.ScrollBox, FMX.Memo, FMX.Edit, FMX.Layouts, FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData,
   FMX.TMSCustomGrid, FMX.TMSGrid, Units.Enumerados.HBeauty, Model.Profissionais.HBeauty, View.Profissionais.HBeauty, Model.Profissionais.Servidor.HBeauty,
-  Model.Habilidades.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty;
+  Model.Habilidades.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty, FMX.ListBox, Units.Mensagens.HBeauty;
 
 type
   TfrmCadastroHabilidades = class(TForm)
@@ -31,6 +31,9 @@ type
     Rectangle2: TRectangle;
     Label2: TLabel;
     mmDescricao: TMemo;
+    Rectangle1: TRectangle;
+    cbCargos: TComboBox;
+    Label3: TLabel;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnAlterarClick(Sender: TObject);
@@ -41,6 +44,7 @@ type
     procedure edtHabilidadeKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure cbCargosKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
   private
     FStatus : TAcaoBotao;
     FidHabilidadeSelecionada : Integer;
@@ -70,13 +74,18 @@ begin
             //Carrega e exibe as informações nos campos
             with ModelConexaoDados.memHabilidades do
                 begin
+                    grdListaHabilidade.Enabled := False;
+                    pesquisaHabilidade(FidHabilidadeSelecionada,0, '');
                     gclHabilidade.NomeHabilidade      := FieldByName('NOME_HABILIDADE').AsString;
                     gclHabilidade.DescricaoHabilidade := FieldByName('DESCR_HABILIDADE').AsString;
+                    gclHabilidade.IdCargoHabilidade   := FieldByName('IDCARGO_HABILIDADE').AsInteger;
                     edtHabilidade.Text := gclHabilidade.NomeHabilidade;
                     mmDescricao.Text   := gclHabilidade.DescricaoHabilidade;
+                    cbCargos.ItemIndex := cbCargos.Items.IndexOf(FieldByName('NOME_CARGO').AsString);
                     edtHabilidade.SetFocus;
                     lytCadastraHabilidade.Visible := True;
                     BloqueiaRegistro(True, FidHabilidadeSelecionada, tcTelefones);
+                    ControlaBotoes(Self, False);
                 end;
         end
     else
@@ -108,12 +117,14 @@ begin
     end;
 
     if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                  AMsg, apTitulo, MB_OK + MB_ICONQUESTION) = ID_YES then
+                  pChar(AMsg), apTitulo, MB_YESNO + MB_ICONQUESTION) = ID_YES then
         begin
             BloqueiaRegistro(False, FidHabilidadeSelecionada, tcHabilidades);
             LimpaForm(Self);
             lytCadastraHabilidade.Visible := False;
             FStatus := abNulo;
+            ControlaBotoes(Self, True);
+            grdListaHabilidade.Enabled := True;
         end;
 end;
 
@@ -134,58 +145,84 @@ begin
      ControlaBotoes(Self, False);
      FStatus := abIncluir;
      lytCadastraHabilidade.Visible := True;
-     edtHabilidade.SetFocus;
+     cbCargos.SetFocus;
      FidHabilidadeSelecionada := 0;
+     cbCargos.ItemIndex := -1;
 end;
 
 procedure TfrmCadastroHabilidades.btnSalvarClick(Sender: TObject);
 begin
 
-     gclHabilidade.IdHabilidade        := FidHabilidadeSelecionada;
-     gclHabilidade.NomeHabilidade      := edtHabilidade.Text;
-     gclHabilidade.DescricaoHabilidade := mmDescricao.Text;
+     rResultado := '';
+     gclHabilidade.IdHabilidade         := FidHabilidadeSelecionada;
+     gclHabilidade.NomeHabilidade       := edtHabilidade.Text;
+     gclHabilidade.DescricaoHabilidade  := mmDescricao.Text;
+     if cbCargos.ItemIndex < 0 then
+        gclHabilidade.IdCargoHabilidade := 0 else
+        gclHabilidade.IdCargoHabilidade    := Integer(cbCargos.Items.Objects[cbCargos.ItemIndex]);
 
      case FStatus of
          abIncluir: begin
                          try
-                             cadastraHabilidade(gclHabilidade);
-                             LimpaForm(Self);
-                             lytCadastraHabilidade.Visible := False;
-                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                        'Habilidade salva com sucesso.', apTitulo,
-                                        MB_OK + MB_ICONINFORMATION);
-                             FStatus := abNulo;
+                             rResultado := cadastraHabilidade(gclHabilidade);
+                             if rResultado = '' then
+                                 begin
+                                     LimpaForm(Self);
+                                     lytCadastraHabilidade.Visible := False;
+                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                'Habilidade salva com sucesso.', apTitulo,
+                                                MB_OK + MB_ICONINFORMATION);
+                                     FormShow(Self);
+                                     FStatus := abNulo;
+                                     ControlaBotoes(Self, True);
+                                 end
+                             else
+                                 begin
+                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                pChar(Format(MSG_ERRO_SERVIDOR,[rResultado])),
+                                                apTitulo, MB_OK + MB_ICONWARNING);
+                                     Exit;
+                                 end;
                          except
                              on E:Exception do
                                  begin
                                      MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                pChar('Ocorreu um erro no salvamento da habilidade, ' +
-                                                'tente novamente. Se o problema persistir entre ' +
-                                                'em contato com a MS Software e informe a mensagem abaixo.' + #13#13 +
-                                                'Mensagem: ' + E.Message), apTitulo,
-                                                MB_OK + MB_ICONWARNING);
+                                                pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                apTitulo, MB_OK + MB_ICONWARNING);
                                      Exit;
                                  end;
                          end;
                     end;
          abAlterar: begin
                          try
-                             atualizaHabilidades(gclHabilidade);
-                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                        'Habilidade alterada com sucesso.', apTitulo,
-                                        MB_OK + MB_ICONINFORMATION);
-                             LimpaForm(Self);
-                             lytCadastraHabilidade.Visible := False;
-                             FStatus := abNulo;
+                             gclHabilidade.NomeHabilidade      := edtHabilidade.Text;
+                             gclHabilidade.DescricaoHabilidade := mmDescricao.Text;
+                             rResultado := atualizaHabilidades(gclHabilidade);
+                             if rResultado = '' then
+                                 begin
+                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                'Habilidade alterada com sucesso.', apTitulo,
+                                                MB_OK + MB_ICONINFORMATION);
+                                     LimpaForm(Self);
+                                     lytCadastraHabilidade.Visible := False;
+                                     FormShow(Self);
+                                     FStatus := abNulo;
+                                     ControlaBotoes(Self, True);
+                                     grdListaHabilidade.Enabled := True;
+                                 end
+                             else
+                                 begin
+                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                pChar(Format(MSG_ERRO_SERVIDOR,[rResultado])),
+                                                apTitulo, MB_OK + MB_ICONWARNING);
+                                     Exit;
+                                 end;
                          except
                              on E:Exception do
                                  begin
                                      MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                pChar('Ocorreu um erro no salvamento da habilidade, ' +
-                                                'tente novamente. Se o problema persistir entre ' +
-                                                'em contato com a MS Software e informe a mensagem abaixo.' + #13#13 +
-                                                'Mensagem: ' + E.Message), apTitulo,
-                                                MB_OK + MB_ICONWARNING);
+                                                pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                apTitulo, MB_OK + MB_ICONWARNING);
                                      Exit;
                                  end;
 
@@ -194,6 +231,11 @@ begin
                     end;
      end;
 
+end;
+
+procedure TfrmCadastroHabilidades.cbCargosKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+     NextField(Key, edtHabilidade);
 end;
 
 procedure TfrmCadastroHabilidades.edtHabilidadeKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -213,24 +255,43 @@ begin
     CarregaPersonalizacaoCabecarioRodape(Self);
 
     //Cria a classe de habilidades e exibe o layout com os campos referidos
-    gclHabilidade := TModelHabilidades.Create;
+    gclHabilidade := TModelHabilidades.Create(Self);
 
-    grdListaHabilidade.Cells[0,0] := 'Habilidade';
-    grdListaHabilidade.Cells[1,0] := 'Descrição';
+end;
+
+procedure TfrmCadastroHabilidades.FormShow(Sender: TObject);
+begin
+
+    carregaCargos;
+    if ModelConexaoDados.memCargos.RecordCount = 0 then
+        begin
+            MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                       'Para cadastrar um habilidade é necessário cadastro um cargo primeiro!',
+                       apTitulo, MB_OK + MB_ICONWARNING);
+            frmCadastroHabilidades.Close;
+        end
+    else
+        begin
+            ModelConexaoDados.memCargos.First;
+            cbCargos.Items.Clear;
+            while not ModelConexaoDados.memCargos.Eof do
+                 begin
+                      cbCargos.Items.AddObject(ModelConexaoDados.memCargos.FieldByName('NOME_CARGO').AsString,
+                                               TObject(ModelConexaoDados.memCargos.FieldByName('ID_CARGO').AsInteger));
+                      ModelConexaoDados.memCargos.Next;
+                 end;
+        end;
 
     carregaHabilidades;
 
     CarregaGrid(ModelConexaoDados.memHabilidades,grdListaHabilidade, AFieldsHabilidades, ACaptionHabilidades, ASizeColHabilidades);
 
-    if ModelConexaoDados.memProfissionais.RecordCount > 0 then
-        FidHabilidadeSelecionada :=  ExtraiTextoGrid(grdListaHabilidade.Cells[0, 1]).ToInteger;
-
-end;
-
-procedure TfrmCadastroHabilidades.FormShow(Sender: TObject);
-var
-AIndex : Integer;
-begin
+    cbCargos.SetFocus;
+    //Carrega o ID do primeiro registro
+    ModelConexaoDados.memHabilidades.First;
+    if ModelConexaoDados.memHabilidades.RecordCount = 0 then
+        FidHabilidadeSelecionada := 0 else
+        FidHabilidadeSelecionada := ModelConexaoDados.memHabilidades.FieldByName('ID_HABILIDADE').AsInteger;
 
     //Limpa os campos do form
     LimpaForm(Self);
@@ -238,16 +299,6 @@ begin
     //Oculta os campos de edição
     lytCadastraHabilidade.Visible    := False;
 
-    //faz o download dos dados do servidor
-    carregaHabilidades;
-
-    //formata o grid para a exibição dos dados
-    CarregaGrid(ModelConexaoDados.memHabilidades,grdListaHabilidade, AFieldsHabilidades, ACaptionHabilidades, ASizeColHabilidades);
-
-    //Carrega o ID do primeiro registro
-    if ModelConexaoDados.memHabilidades.RecordCount = 0 then
-        FidHabilidadeSelecionada := 0 else
-        FidHabilidadeSelecionada := ModelConexaoDados.memHabilidades.FieldByName('ID_HAILIDADE').AsInteger;
 end;
 
 procedure TfrmCadastroHabilidades.grdListaHabilidadeCellClick(Sender: TObject; ACol, ARow: Integer);

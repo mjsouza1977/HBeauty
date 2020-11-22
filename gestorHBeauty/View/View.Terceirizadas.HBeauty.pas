@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, ACBrBase, ACBrValidador, FMX.StdCtrls, FMX.Layouts, FMX.EditBox, FMX.NumberBox, FMX.ListBox,
   FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.TMSBaseControl, FMX.TMSBaseGroup, FMX.TMSRadioGroup, FMX.Edit,
   FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton, Model.Terceirizadas.Servidor.HBeauty, Units.Strings.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty,
-  Units.Enumerados.HBeauty, Model.Profissionais.Servidor.HBeauty, FMX.Effects, FMX.Filter.Effects, Controller.Formata.HBeauty;
+  Units.Enumerados.HBeauty, Model.Profissionais.Servidor.HBeauty, FMX.Effects, FMX.Filter.Effects, Controller.Formata.HBeauty, Units.Mensagens.HBeauty;
 
 type
   TfrmGerenciadorTerceirizadas = class(TForm)
@@ -389,6 +389,7 @@ end;
 
 procedure TfrmGerenciadorTerceirizadas.btnSalvarClick(Sender: TObject);
 begin
+    rResultado := '';
     case FStatus of
          abIncluir : begin
                          case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
@@ -420,10 +421,8 @@ begin
                                              On E:Exception do
                                                  begin
                                                      MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                pChar('Ocorreu um erro ao tentar salvar o registro!'+#13+
-                                                                'Tente novamente, caso o problema persistir entre em contato ' +
-                                                                'com a MS Software e informe o erro abaixo.'+#13#13+
-                                                                'Erro: ' + E.Message), 'HBeauty', MB_OK +MB_ICONERROR);
+                                                                pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                                apTitulo, MB_OK + MB_ICONWARNING);
                                                      Exit;
                                                  end;
 
@@ -453,10 +452,8 @@ begin
                                               On E:Exception do
                                                  begin
                                                      MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                pChar('Ocorreu um erro ao tentar salvar o registro!'+#13+
-                                                                'Tente novamente, caso o problema persistir entre em contato ' +
-                                                                'com a MS Software e informe o erro abaixo.'+#13#13+
-                                                                'Erro: ' + E.Message), 'HBeauty', MB_OK +MB_ICONERROR);
+                                                               pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                               apTitulo, MB_OK + MB_ICONWARNING);
                                                      Exit;
                                                  end;
                                          end;

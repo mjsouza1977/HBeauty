@@ -3,7 +3,7 @@ unit Model.Imagens.Servidor.HBeauty;
 interface
 
 function GravaImagem(APrefixo, AExtensao : String) : Integer;
-function AtualizaImagem(AIDImagem : Integer) : Boolean;
+function AtualizaImagem(AIDImagem : Integer) : String;
 
 implementation
 
@@ -15,7 +15,7 @@ begin
     Result := ControllerClientModule.ModelMetodosClient.GravaImagem(APrefixo, AExtensao);
 end;
 
-function AtualizaImagem(AIDImagem : Integer) : Boolean;
+function AtualizaImagem(AIDImagem : Integer) : String;
 begin
     Result := ControllerClientModule.ModelMetodosClient.AtualizaImagem(AIDImagem);
 end;

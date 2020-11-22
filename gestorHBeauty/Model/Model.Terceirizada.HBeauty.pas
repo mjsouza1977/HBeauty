@@ -11,24 +11,24 @@ uses
 type
     TModelTerceirizada = class
         private
-    FID_TERCEIRIZADA: Integer;
-    FIE_TERCEIRIZADA: String;
-    FDATACADASTRO_TERCEIRIZADA: TDate;
-    FENDERECO_TERCEIRIZADA: TModelEndereco;
-    FRAZAO_TERCEIRIZADA: String;
-    FFANTASIA_TERCEIRIZADA: String;
-    FCNPJ_TERCEIRIZADA: String;
-    FValidador : TACBRValidador;
-    FForm : TForm;
-    FCODIGO_TERCEIRIZADA: String;
-    procedure SetCNPJ_TERCEIRIZADA(const Value: String);
-    procedure SetDATACADASTRO_TERCEIRIZADA(const Value: TDate);
-    procedure SetENDERECO_TERCEIRIZADA(const Value: TModelEndereco);
-    procedure SetFANTASIA_TERCEIRIZADA(const Value: String);
-    procedure SetID_TERCEIRIZADA(const Value: Integer);
-    procedure SetIE_TERCEIRIZADA(const Value: String);
-    procedure SetRAZAO_TERCEIRIZADA(const Value: String);
-    procedure SetCODIGO_TERCEIRIZADA(const Value: String);
+            FID_TERCEIRIZADA: Integer;
+            FIE_TERCEIRIZADA: String;
+            FDATACADASTRO_TERCEIRIZADA: TDate;
+            FENDERECO_TERCEIRIZADA: TModelEndereco;
+            FRAZAO_TERCEIRIZADA: String;
+            FFANTASIA_TERCEIRIZADA: String;
+            FCNPJ_TERCEIRIZADA: String;
+            FValidador : TACBRValidador;
+            FForm : TForm;
+            FCODIGO_TERCEIRIZADA: String;
+            procedure SetCNPJ_TERCEIRIZADA(const Value: String);
+            procedure SetDATACADASTRO_TERCEIRIZADA(const Value: TDate);
+            procedure SetENDERECO_TERCEIRIZADA(const Value: TModelEndereco);
+            procedure SetFANTASIA_TERCEIRIZADA(const Value: String);
+            procedure SetID_TERCEIRIZADA(const Value: Integer);
+            procedure SetIE_TERCEIRIZADA(const Value: String);
+            procedure SetRAZAO_TERCEIRIZADA(const Value: String);
+            procedure SetCODIGO_TERCEIRIZADA(const Value: String);
 
         public
             property ID_TERCEIRIZADA           : Integer        read FID_TERCEIRIZADA           write SetID_TERCEIRIZADA;

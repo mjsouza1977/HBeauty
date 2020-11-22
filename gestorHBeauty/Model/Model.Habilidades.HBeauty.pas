@@ -12,34 +12,48 @@ type
         FDescricaoHabilidade: String;
         FIdabilidade: Integer;
         FForm : TForm;
+    FIdCargoHabilidade: Integer;
         procedure SetDescricaoHabilidade(const Value: String);
         procedure SetNomeHabilidade(const Value: String);
         procedure SetIdHabilidade(const Value: Integer);
+        procedure SetIdCargoHabilidade(const Value: Integer);
     public
         property IdHabilidade        : Integer read FIdabilidade         write SetIdHabilidade;
         property NomeHabilidade      : String  read FNomeHabilidade      write SetNomeHabilidade;
         property DescricaoHabilidade : String  read FDescricaoHabilidade write SetDescricaoHabilidade;
+        property IdCargoHabilidade   : Integer read FIdCargoHabilidade   write SetIdCargoHabilidade;
+        constructor Create(AForm : TForm);
     end;
 
 implementation
 
 uses
-  Winapi.Windows, FMX.Platform.Win, Units.Consts.HBeauty;
+  Winapi.Windows, FMX.Platform.Win, Units.Consts.HBeauty, System.SysUtils;
 
 { TModelHabilidades }
 
+constructor TModelHabilidades.Create(AForm: TForm);
+begin
+    FForm := AForm;
+end;
+
 procedure TModelHabilidades.SetDescricaoHabilidade(const Value: String);
 begin
-    if Value = '' then
+    FDescricaoHabilidade := Value;
+end;
+
+procedure TModelHabilidades.SetIdCargoHabilidade(const Value: Integer);
+begin
+    if Value <= 0 then
         begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                       'A descrição da habilidade não pode ser vazio!',
+                       'É necessário selecionar um cargo!',
                        apTitulo, MB_OK + MB_ICONINFORMATION);
-            Exit;
+           Abort;
         end
     else
         begin
-            FDescricaoHabilidade := Value;
+            FIdCargoHabilidade := Value;
         end;
 end;
 
@@ -55,7 +69,7 @@ begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                        'A habilidade não pode ser vazio!',
                        apTitulo, MB_OK + MB_ICONINFORMATION);
-            Exit;
+            Abort;
         end
     else
         begin

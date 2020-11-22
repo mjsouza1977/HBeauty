@@ -313,7 +313,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 36
+        TabOrder = 40
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -335,7 +335,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
     Size.Height = 395.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -4412,7 +4412,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 157.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -5069,7 +5069,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 194.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -5080,14 +5080,14 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       ExplicitSize.cy = 29.000000000000000000
       object gbSalario: TGroupBox
         StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 308.000000000000000000
-        Position.Y = 24.000000000000000000
+        Position.X = 776.000000000000000000
+        Position.Y = 192.000000000000000000
         Size.Width = 220.000000000000000000
         Size.Height = 75.000000000000000000
         Size.PlatformDefault = False
         Text = 'Sal'#225'rio'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 1
+        TabOrder = 4
         object Rectangle20: TRectangle
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000
@@ -5124,14 +5124,14 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
       end
       object gbComissao: TGroupBox
         StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 308.000000000000000000
-        Position.Y = 108.000000000000000000
+        Position.X = 776.000000000000000000
+        Position.Y = 276.000000000000000000
         Size.Width = 220.000000000000000000
         Size.Height = 75.000000000000000000
         Size.PlatformDefault = False
         Text = 'Comiss'#227'o'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 2
+        TabOrder = 5
         object Rectangle22: TRectangle
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000
@@ -5183,10 +5183,10 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         Margins.Left = 150.000000000000000000
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
-        Position.X = 25.000000000000000000
-        Position.Y = 44.000000000000000000
-        Size.Width = 248.000000000000000000
-        Size.Height = 309.000000000000000000
+        Position.X = 30.000000000000000000
+        Position.Y = 80.000000000000000000
+        Size.Width = 255.000000000000000000
+        Size.Height = 273.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = claGainsboro
         Stroke.Thickness = 2.000000000000000000
@@ -5198,29 +5198,57 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
           Margins.Top = 5.000000000000000000
           Margins.Right = 5.000000000000000000
           Margins.Bottom = 5.000000000000000000
-          Size.Width = 238.000000000000000000
-          Size.Height = 299.000000000000000000
+          Size.Width = 245.000000000000000000
+          Size.Height = 263.000000000000000000
           Size.PlatformDefault = False
           TabOrder = 11
           Visible = False
-          Viewport.Width = 238.000000000000000000
-          Viewport.Height = 299.000000000000000000
+          Viewport.Width = 245.000000000000000000
+          Viewport.Height = 263.000000000000000000
           object lytModelo: TLayout
             Align = Top
-            Size.Width = 238.000000000000000000
+            Size.Width = 245.000000000000000000
             Size.Height = 35.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 0
             object CheckBox6: TCheckBox
+              Align = Right
+              StyledSettings = [Family]
+              Margins.Left = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Position.X = 220.000000000000000000
+              Size.Width = 20.000000000000000000
+              Size.Height = 35.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              TextSettings.Font.Size = 14.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.FontColor = xFF980000
+            end
+            object CheckBox1: TCheckBox
               Align = Client
               StyledSettings = [Family]
-              Margins.Left = 10.000000000000000000
+              Margins.Left = 5.000000000000000000
               Margins.Right = 5.000000000000000000
-              Size.Width = 223.000000000000000000
+              Size.Width = 175.000000000000000000
+              Size.Height = 35.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              Text = 'Cabelereiro'
+              TextSettings.Font.Size = 14.000000000000000000
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.FontColor = xFF980000
+            end
+            object CheckBox2: TCheckBox
+              Align = Right
+              StyledSettings = [Family]
+              Margins.Left = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Position.X = 190.000000000000000000
+              Size.Width = 20.000000000000000000
               Size.Height = 35.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 0
-              Text = 'Cabelereiro'
               TextSettings.Font.Size = 14.000000000000000000
               TextSettings.Font.StyleExt = {00070000000000000004000000}
               TextSettings.FontColor = xFF980000
@@ -5232,20 +5260,86 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         AutoSize = True
         StyledSettings = [Family, Size]
         Position.X = 32.000000000000000000
-        Position.Y = 24.000000000000000000
+        Position.Y = 60.000000000000000000
         Size.Width = 85.000000000000000000
         Size.Height = 16.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         Text = 'Habilidades'
+        TabOrder = 3
+      end
+      object Rectangle15: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 30.000000000000000000
+        Position.Y = 24.000000000000000000
+        Size.Width = 249.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object cbCargo: TComboBox
+          Align = Client
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 229.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'ComboBox1Style1'
+          TabOrder = 0
+          OnChange = cbCargoChange
+        end
+      end
+      object Label17: TLabel
+        AutoSize = True
+        StyledSettings = [Family, Size]
+        Position.X = 30.000000000000000000
+        Position.Y = 6.000000000000000000
+        Size.Width = 85.000000000000000000
+        Size.Height = 16.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = 'Cargo'
+        TabOrder = 2
+      end
+      object Label18: TLabel
+        AutoSize = True
+        StyledSettings = [Family]
+        Position.X = 229.000000000000000000
+        Position.Y = 60.000000000000000000
+        Size.Width = 14.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 14.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = 'M'
+        TabOrder = 1
+      end
+      object Label19: TLabel
+        AutoSize = True
+        StyledSettings = [Family]
+        Position.X = 257.000000000000000000
+        Position.Y = 60.000000000000000000
+        Size.Width = 14.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Size = 14.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        Text = 'F'
         TabOrder = 0
       end
     end
   end
   object opFile: TOpenDialog
     Filter = 'Imagens|*.jpg;*.jpeg'
-    Left = 572
-    Top = 308
+    Left = 888
+    Top = 196
   end
   object ACBrValidador1: TACBrValidador
     TipoDocto = docEmail

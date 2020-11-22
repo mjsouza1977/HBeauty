@@ -9,7 +9,7 @@ uses
   Data.Bind.ObjectScope, REST.Response.Adapter, System.Actions, FMX.ActnList, FMX.Menus, Controller.Manipula.XML.HBeauty, Units.Strings.HBeauty, Xml.omnixmldom,
   Xml.adomxmldom, Units.Consts.HBeauty, Units.Utils.HBeauty, Xml.Win.msxmldom, Controller.Manipula.Design.HBeauty,
   FMX.TMSBitmapContainer, FMX.TMSBaseControl, FMX.TMSPlannerBase, FMX.TMSPlannerData, FMX.TMSPlanner, ACBrBase, ACBrValidador, System.ImageList, FMX.ImgList, FMX.Edit,
-  View.Terceirizadas.HBeauty, View.Habilidades.HBeauty
+  View.Terceirizadas.HBeauty, View.Habilidades.HBeauty, View.Cargos.HBeauty
   ;
 
 type
@@ -62,11 +62,13 @@ type
     ListaIconesMenuPrincipal: TImageList;
     MenuItem1: TMenuItem;
     Habilidades: TMenuItem;
+    MenuItem4: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure tmHoraTimer(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure HabilidadesClick(Sender: TObject);
+    procedure MenuItem4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -147,6 +149,12 @@ procedure TfrmPrincipal.MenuItem1Click(Sender: TObject);
 begin
     Application.CreateForm(TfrmGerenciadorTerceirizadas, frmGerenciadorTerceirizadas);
     frmGerenciadorTerceirizadas.ShowModal;
+end;
+
+procedure TfrmPrincipal.MenuItem4Click(Sender: TObject);
+begin
+    Application.CreateForm(TfrmCadastroCargos, frmCadastroCargos);
+    frmCadastroCargos.ShowModal;
 end;
 
 procedure TfrmPrincipal.tmHoraTimer(Sender: TObject);

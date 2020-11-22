@@ -7,7 +7,7 @@ uses Model.Terceirizada.HBeauty, Model.Genericos.Servidor.HBeauty, FMX.Forms;
 procedure ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer);
 function CadastraTerceirizada(ATerceirizada : TModelTerceirizada; AForm : TForm) : Integer;
 
-function AtualizaTerceirizada(ATerceirizada : TModelTerceirizada) : Boolean;
+function AtualizaTerceirizada(ATerceirizada : TModelTerceirizada) : String;
 procedure CarregaCamposTerceirizada(ACampos : String);
 
 
@@ -54,7 +54,7 @@ begin
                                                                              ATerceirizada.ENDERECO_TERCEIRIZADA.CEP);
 end;
 
-function AtualizaTerceirizada(ATerceirizada : TModelTerceirizada) : Boolean;
+function AtualizaTerceirizada(ATerceirizada : TModelTerceirizada) : String;
 begin
      Result := ControllerClientModule.ModelMetodosClient.AtualizaTerceirizada(ATerceirizada.ID_TERCEIRIZADA, ATerceirizada.ENDERECO_TERCEIRIZADA.NRLOG,
                                                                               ATerceirizada.CODIGO_TERCEIRIZADA, ATerceirizada.RAZAO_TERCEIRIZADA,

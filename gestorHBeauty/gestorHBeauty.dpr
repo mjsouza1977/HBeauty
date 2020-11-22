@@ -1,4 +1,4 @@
-program gestorHBeauty;
+program GestorHBeauty;
 
 
 
@@ -40,7 +40,10 @@ uses
   Model.Genericos.Servidor.HBeauty in 'Model\DadosServidor\Model.Genericos.Servidor.HBeauty.pas',
   Model.Imagens.Servidor.HBeauty in 'Model\DadosServidor\Model.Imagens.Servidor.HBeauty.pas',
   Model.Imagens.HBeauty in 'Model\Model.Imagens.HBeauty.pas',
-  View.Habilidades.HBeauty in 'View\View.Habilidades.HBeauty.pas' {frmCadastroHabilidades};
+  View.Habilidades.HBeauty in 'View\View.Habilidades.HBeauty.pas' {frmCadastroHabilidades},
+  View.Cargos.HBeauty in 'View\View.Cargos.HBeauty.pas' {frmCadastroCargos},
+  Model.Cargos.HBeauty in 'Model\Model.Cargos.HBeauty.pas',
+  Units.Mensagens.HBeauty in 'Units\Units.Mensagens.HBeauty.pas';
 
 {$R *.res}
 
@@ -49,6 +52,5 @@ begin
   Application.CreateForm(TControllerClientModule, ControllerClientModule);
   Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
   Application.CreateForm(TfrmLogin, frmLogin);
-  Application.CreateForm(TfrmCadastroHabilidades, frmCadastroHabilidades);
   Application.Run;
 end.

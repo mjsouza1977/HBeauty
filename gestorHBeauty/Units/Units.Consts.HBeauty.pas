@@ -39,10 +39,14 @@ const
      ASizeColTerceirizadas : Array [0..10] of Single  = (50, 170, 300, 200, 350, 70, 100, 200, 100, 180, 50);
 
      //grid do Form de Habilidades
-     AFieldsHabilidades  : Array [0..2] of  String = ('ID_HABILIDADE', 'NOME_HABILIDADE','DESCR_HABILIDADE');
-     ACaptionHabilidades : Array [0..2] of String  = ('Código','Habilidade','Descrição');
-     ASizeColHabilidades : Array [0..2] of Single  = (50, 170, 300);
+     AFieldsHabilidades  : Array [0..3] of  String = ('ID_HABILIDADE', 'NOME_CARGO', 'NOME_HABILIDADE','DESCR_HABILIDADE');
+     ACaptionHabilidades : Array [0..3] of String  = ('Código','Cargo','Habilidade','Descrição');
+     ASizeColHabilidades : Array [0..3] of Single  = (50, 200, 200, 300);
 
+     //grid do Form de Habilidades
+     AFieldsCargos  : Array [0..2] of  String = ('ID_CARGO', 'NOME_CARGO', 'DESCR_CARGO');
+     ACaptionCargos : Array [0..2] of String  = ('Código','Cargo','Descrição');
+     ASizeColCargos : Array [0..2] of Single  = (50, 200, 400);
 
      //Status da ação do form
      tpInicia    : String = 'Inicia';
@@ -62,6 +66,8 @@ const
      sfExcluir   : Integer = 2;
 
 var
+   rResultado : String;
+
    ctrCOR_BOTOES_POSITIVO  : TAlphaColor;
    ctrCOR_BOTOES_NEGATIVO  : TAlphaColor;
    ctrCOR_RODAPE_FORMS     : TAlphaColor;
@@ -92,6 +98,7 @@ begin
         tcTelefones     : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_FONE','HBTELEFONES');
         tcEmails        : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_EMAIL','HBEMAILS');
         tcHabilidades   : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_HABILIDADE','HBHABILIDADES');
+        tcCargo         : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_CARGO','HBCARGO');
     end;
 end;
 

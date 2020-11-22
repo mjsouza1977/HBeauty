@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
   FMX.Controls.Presentation, FMX.StdCtrls, FMX.Objects, View.Principal.HBeauty, FMX.TMSButton, FMX.Layouts, FMX.TMSBaseControl, FMX.TMSGridCell, FMX.TMSGridOptions,
   FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Edit, FMX.TMSBitmap,
-  Units.Enumerados.HBeauty, View.Loading.HBeauty, Controller.Formata.HBeauty;
+  Units.Enumerados.HBeauty, View.Loading.HBeauty, Controller.Formata.HBeauty, Units.Mensagens.HBeauty;
 
 type
   TfrmCadastroContatos = class(TForm)
@@ -203,7 +203,7 @@ end;
 
 procedure TfrmCadastroContatos.btnSalvarClick(Sender: TObject);
 begin
-
+    rResultado := '';
     {$region 'carrega a classe'}
     case TipoForm of
         tfEmail    : begin
@@ -261,14 +261,8 @@ begin
                                                        begin
                                                             //Caso de erro na inclusão exibe a mensagem abaixo
                                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                       pChar('Ocorreu um erro ao tentar salvar este registro, ' +
-                                                                             'verifique sua conexão com a internet e tente ' +
-                                                                             'novamente. Caso o problema persistir entre em contato ' +
-                                                                             'com a MS Software informando a mensagem abaixo!' + #13#13 +
-                                                                             'Mensagem: ' + E.Message + #13 +
-                                                                             'Formulário: ' + Self.Name),
-                                                                       apTitulo,
-                                                                       MB_OK + MB_ICONWARNING);
+                                                                       pChar(Format(MSG_ERRO_INTERNET,[rResultado])),
+                                                                       apTitulo, MB_OK + MB_ICONWARNING);
                                                             Abort;
                                                        end;
                                                    end;
@@ -287,28 +281,32 @@ begin
                                                                      MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
                                                            begin
                                                                //Executa a alteração e salva no servidor
-                                                               AtualizaTelefone(gclTelefone);
-                                                               //Debloqueia o registro
-                                                               BloqueiaRegistro(False, FIdContatoSelecionado, tcTelefones);
-                                                               //caso tenha sucesso na operação fecha o form
-                                                               MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                          'Registro atualizado com sucesso!', apTitulo,
-                                                                          MB_OK + MB_ICONINFORMATION);
-                                                               frmCadastroContatos.Close;
+                                                               rResultado := AtualizaTelefone(gclTelefone);
+                                                               if rResultado = '' then
+                                                                   begin
+                                                                       //Debloqueia o registro
+                                                                       BloqueiaRegistro(False, FIdContatoSelecionado, tcTelefones);
+                                                                       //caso tenha sucesso na operação fecha o form
+                                                                       MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                                  'Registro atualizado com sucesso!', apTitulo,
+                                                                                  MB_OK + MB_ICONINFORMATION);
+                                                                       frmCadastroContatos.Close;
+                                                                   end
+                                                               else
+                                                                   begin
+                                                                        MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                                   pChar(Format(MSG_ERRO_SERVIDOR,[rResultado])),
+                                                                                   apTitulo, MB_OK + MB_ICONWARNING);
+                                                                         Exit;
+                                                                   end;
                                                            end;
                                                    except
                                                    on E:Exception do
                                                        begin
                                                             //caso tenha algum erro exibe a mensagem abaixo
                                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                       pChar('Ocorreu um erro ao tentar salvar este registro, ' +
-                                                                             'verifique sua conexão com a internet e tente ' +
-                                                                             'novamente. Caso o problema persistir entre em contato ' +
-                                                                             'com a MS Software informando a mensagem abaixo!' + #13#13 +
-                                                                             'Mensagem: ' + E.Message + #13 +
-                                                                             'Formulário: ' + Self.Name),
-                                                                       apTitulo,
-                                                                       MB_OK + MB_ICONWARNING);
+                                                                       pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                                       apTitulo, MB_OK + MB_ICONWARNING);
                                                             Abort;
                                                        end;
                                                    end;
@@ -342,14 +340,8 @@ begin
                                                    except on E:Exception do
                                                        begin
                                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                       pChar('Ocorreu um erro ao tentar salvar este registro, ' +
-                                                                             'verifique sua conexão com a internet e tente ' +
-                                                                             'novamente. Caso o problema persistir entre em contato ' +
-                                                                             'com a MS Software informando a mensagem abaixo!' + #13#13 +
-                                                                             'Mensagem: ' + E.Message + #13 +
-                                                                             'Formulário: ' + Self.Name),
-                                                                       apTitulo,
-                                                                       MB_OK + MB_ICONWARNING);
+                                                                       pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                                       apTitulo, MB_OK + MB_ICONWARNING);
                                                             Abort;
                                                        end;
                                                    end;
@@ -367,24 +359,28 @@ begin
                                                                      'Confirma a alteração deste e-mail?', apTitulo,
                                                                      MB_YESNO + MB_ICONEXCLAMATION) = ID_YES then
                                                            begin
-                                                               AtualizaEmail(gclEmail);
-                                                               BloqueiaRegistro(False, FIdContatoSelecionado, tcTelefones);
-                                                               MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                          'Registro salvo com sucesso!', apTitulo,
-                                                                          MB_OK + MB_ICONINFORMATION);
-                                                               frmCadastroContatos.Close;
+                                                               rResultado := AtualizaEmail(gclEmail);
+                                                               if rResultado = '' then
+                                                                   begin
+                                                                       BloqueiaRegistro(False, FIdContatoSelecionado, tcTelefones);
+                                                                       MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                                  'Registro salvo com sucesso!', apTitulo,
+                                                                                  MB_OK + MB_ICONINFORMATION);
+                                                                       frmCadastroContatos.Close;
+                                                                   end
+                                                               else
+                                                                   begin
+                                                                       MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                                  pChar(Format(MSG_ERRO_SERVIDOR,[rResultado])),
+                                                                                  apTitulo, MB_OK + MB_ICONWARNING);
+                                                                       Exit;
+                                                                   end;
                                                            end;
                                                    except on E:Exception do
                                                        begin
                                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                       pChar('Ocorreu um erro ao tentar salvar este registro, ' +
-                                                                             'verifique sua conexão com a internet e tente ' +
-                                                                             'novamente. Caso o problema persistir entre em contato ' +
-                                                                             'com a MS Software informando a mensagem abaixo!' + #13#13 +
-                                                                             'Mensagem: ' + E.Message + #13 +
-                                                                             'Formulário: ' + Self.Name),
-                                                                       apTitulo,
-                                                                       MB_OK + MB_ICONWARNING);
+                                                                       pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                                       apTitulo, MB_OK + MB_ICONWARNING);
                                                             Abort;
                                                        end;
                                                    end;

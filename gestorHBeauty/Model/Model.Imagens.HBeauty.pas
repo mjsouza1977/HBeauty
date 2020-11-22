@@ -6,12 +6,12 @@ type
     TModelImagens = class
 
         private
-    FIDIMAGEM: Integer;
-    FUPDATEIMAGEM: TDateTime;
-    FNOMEFILEIMAGEM: String;
-    procedure SetIDIMAGEM(const Value: Integer);
-    procedure SetNOMEFILEIMAGEM(const Value: String);
-    procedure SetUPDATEIMAGEM(const Value: TDateTime);
+            FIDIMAGEM: Integer;
+            FUPDATEIMAGEM: TDateTime;
+            FNOMEFILEIMAGEM: String;
+            procedure SetIDIMAGEM(const Value: Integer);
+            procedure SetNOMEFILEIMAGEM(const Value: String);
+            procedure SetUPDATEIMAGEM(const Value: TDateTime);
 
         public
             property IDIMAGEM       : Integer   read FIDIMAGEM       write SetIDIMAGEM;

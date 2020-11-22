@@ -9,23 +9,23 @@ type
     TModelTelefones = class
 
     private
-    FNomeTabela: String;
-    FRestrito: Boolean;
-    FContato: String;
-    FWhatsApp: Boolean;
-    FIdTabela: Integer;
-    FInativo: Boolean;
-    FTelefone: String;
-    FFormulario : TForm;
-    FIdTelefone: Integer;
-    procedure SetContato(const Value: String);
-    procedure SetIdTabela(const Value: Integer);
-    procedure SetInativo(const Value: Boolean);
-    procedure SetNomeTabela(const Value: String);
-    procedure SetRestrito(const Value: Boolean);
-    procedure SetTelefone(const Value: String);
-    procedure SetWhatsApp(const Value: Boolean);
-    procedure SetIdTelefone(const Value: Integer);
+        FNomeTabela: String;
+        FRestrito: Boolean;
+        FContato: String;
+        FWhatsApp: Boolean;
+        FIdTabela: Integer;
+        FInativo: Boolean;
+        FTelefone: String;
+        FFormulario : TForm;
+        FIdTelefone: Integer;
+        procedure SetContato(const Value: String);
+        procedure SetIdTabela(const Value: Integer);
+        procedure SetInativo(const Value: Boolean);
+        procedure SetNomeTabela(const Value: String);
+        procedure SetRestrito(const Value: Boolean);
+        procedure SetTelefone(const Value: String);
+        procedure SetWhatsApp(const Value: Boolean);
+        procedure SetIdTelefone(const Value: Integer);
 
     public
 

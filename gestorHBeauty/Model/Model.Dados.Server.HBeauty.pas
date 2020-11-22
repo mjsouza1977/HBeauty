@@ -25,6 +25,7 @@ type
     memCeplocalidade: TWideStringField;
     memCepuf: TWideStringField;
     memTerceirizada: TFDMemTable;
+    memCargos: TFDMemTable;
   private
     { Private declarations }
   public

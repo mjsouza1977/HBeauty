@@ -13,8 +13,8 @@ procedure CarregaTelefones(ATipoFone : String; AIdTabFone : Integer);
 function CadastraTelefone(ATelefone : TModelTelefones) : Integer;
 function CadastraEmail(AEmail : TModelEmails) : Integer;
 
-function AtualizaEmail(AEmail : TModelEmails) : Boolean;
-function AtualizaTelefone(ATelefone : TModelTelefones) : Boolean;
+function AtualizaEmail(AEmail : TModelEmails) : String;
+function AtualizaTelefone(ATelefone : TModelTelefones) : String;
 
 
 
@@ -23,12 +23,12 @@ implementation
 uses
   Data.FireDACJSONReflect;
 
-function AtualizaEmail(AEmail : TModelEmails) : Boolean;
+function AtualizaEmail(AEmail : TModelEmails) : String;
 begin
     Result := ControllerClientModule.ModelMetodosClient.AtualizaEmail(AEmail.Email, AEmail.IdEmail, AEmail.Restrito);
 end;
 
-function AtualizaTelefone(ATelefone : TModelTelefones) : Boolean;
+function AtualizaTelefone(ATelefone : TModelTelefones) : String;
 begin
     Result := ControllerClientModule.ModelMetodosClient.AtualizaTelefone(ATelefone.Telefone, ATelefone.Contato, ATelefone.IdTelefone,
                                                                          ATelefone.WhatsApp, ATelefone.Restrito);

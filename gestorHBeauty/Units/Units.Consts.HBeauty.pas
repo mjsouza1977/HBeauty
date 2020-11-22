@@ -91,7 +91,7 @@ begin
         tcTercerizadas  : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_TERCEIRIZADA','HBTERCEIRIZADA');
         tcTelefones     : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_FONE','HBTELEFONES');
         tcEmails        : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_EMAIL','HBEMAILS');
-
+        tcHabilidades   : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_HABILIDADE','HBHABILIDADES');
     end;
 end;
 

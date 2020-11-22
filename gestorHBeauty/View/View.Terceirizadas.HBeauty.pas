@@ -197,6 +197,13 @@ begin
          end
      else
          begin
+             if ModelConexaoDados.memTerceirizada.RecordCount = 0 then
+                 begin
+                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                            '',
+                            'HBeauty', MB_OK + MB_ICONINFORMATION);
+                     Exit;
+                 end;
              MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                         'Selecione um profissional na lista para alterar!',
                         'HBeauty', MB_OK + MB_ICONINFORMATION);

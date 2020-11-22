@@ -22,7 +22,8 @@ uses
   Model.Dados.Server.HBeauty,
   Model.Controles.Servidor.HBeauty, System.SysUtils, Units.Utils.HBeauty, Units.Enumerados.HBeauty,
   View.Principal.HBeauty, FMX.Edit, FMX.ListBox, FMX.StdCtrls, FMX.NumberBox,
-  Winapi.Windows, FMX.Platform.Win, Vcl.Dialogs, FMX.Graphics, Controller.Formata.HBeauty;
+  Winapi.Windows, FMX.Platform.Win, Vcl.Dialogs, FMX.Graphics, Controller.Formata.HBeauty,
+  FMX.Memo;
 
 function PesquisaCEP(AForm : TForm; ACep : String) : TModelEndereco;
 var
@@ -80,6 +81,7 @@ begin
               if AForm.Components[AIndex] is TEdit      then TEdit(AForm.Components[AIndex]).Text := '';
               if AForm.Components[AIndex] is TComboBox  then TComboBox(AForm.Components[AIndex]).ItemIndex := -1;
               if AForm.Components[AIndex] is TCheckBox  then TCheckBox(AForm.Components[AIndex]).IsChecked := False;
+              if AForm.Components[AIndex] is TMemo      then TMemo(AForm.Components[AIndex]).Text := '';
          end;
 
 end;

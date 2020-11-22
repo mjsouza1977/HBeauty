@@ -1,15 +1,19 @@
 object frmCadastroHabilidades: TfrmCadastroHabilidades
   Left = 0
   Top = 0
+  BorderIcons = []
+  BorderStyle = Single
   Caption = 'Habilidades'
   ClientHeight = 530
   ClientWidth = 715
+  Position = MainFormCenter
   StyleBook = StyleBook2
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
   OnClose = FormClose
+  OnShow = FormShow
   DesignerMasterStyle = 0
   object recRodapeHabilidades: TRectangle
     Align = Bottom
@@ -68,6 +72,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
       Position.Y = 12.000000000000000000
       TabOrder = 2
       Text = 'Incluir'
+      OnClick = btnIncluirClick
     end
     object btnSalvar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -85,6 +90,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
       TabOrder = 3
       Text = 'Salvar'
       Visible = False
+      OnClick = btnSalvarClick
     end
     object btnCancelar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -102,6 +108,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
       TabOrder = 4
       Text = 'Cancelar'
       Visible = False
+      OnClick = btnCancelarClick
     end
   end
   object StyleBook2: TStyleBook
@@ -1954,6 +1961,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
     StrokeThickness = 0.000000000000000000
     TopRow = 1
     LeftCol = 1
+    OnCellClick = grdListaHabilidadeCellClick
     Columns = <
       item
         Color = claNull
@@ -1990,18 +1998,6 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
         ID = ''
         ReadOnly = True
         Width = 300.000000000000000000
-      end
-      item
-        Color = claNull
-        Editor = etEdit
-        Fixed = False
-        FixedFont.StyleExt = {00070000000000000004000000}
-        FixedFontColor = claBlack
-        FontColor = claBlack
-        HorzAlignment = Center
-        ID = ''
-        ReadOnly = True
-        Width = 300.000000000000000000
       end>
   end
   object lytCadastraHabilidade: TLayout
@@ -2025,7 +2021,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
       Stroke.Thickness = 2.000000000000000000
       XRadius = 5.000000000000000000
       YRadius = 5.000000000000000000
-      object edtTelefone: TEdit
+      object edtHabilidade: TEdit
         Touch.InteractiveGestures = [LongTap, DoubleTap]
         Align = Client
         StyleLookup = 'transparentedit'
@@ -2041,6 +2037,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
         Size.PlatformDefault = False
         StyledSettings = [Family, Style, FontColor]
         CharCase = ecUpperCase
+        OnKeyUp = edtHabilidadeKeyUp
       end
       object Label14: TLabel
         StyledSettings = [Family, Size]
@@ -2080,7 +2077,7 @@ object frmCadastroHabilidades: TfrmCadastroHabilidades
         Text = 'Descri'#231#227'o'
         TabOrder = 0
       end
-      object Memo1: TMemo
+      object mmDescricao: TMemo
         Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
         DataDetectorTypes = []
         Align = Client

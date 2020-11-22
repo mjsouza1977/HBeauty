@@ -6,9 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.TMSBaseGroup, FMX.TMSRadioGroup, FMX.Edit, FMX.TMSButton, FMX.TMSBaseControl, FMX.TMSGridCell,
   FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.StdCtrls, FMX.Controls.Presentation, FMX.Objects, FMX.Layouts, FMX.TabControl,
-  View.Principal.HBeauty, FMX.TMSListEditor, FMX.TMSCustomEdit, FMX.TMSEdit, FMX.TMSLabelEdit, FMX.ListBox, FMX.EditBox, FMX.NumberBox,
-  Units.Utils.HBeauty, View.Contatos.HBeauty,
-  Model.Profissionais.HBeauty, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
+  FMX.TMSListEditor, FMX.TMSCustomEdit, FMX.TMSEdit, FMX.TMSLabelEdit, FMX.ListBox, FMX.EditBox, FMX.NumberBox,
+  Units.Utils.HBeauty, Model.Profissionais.HBeauty, FMX.ListView.Types, FMX.ListView.Appearances, FMX.ListView.Adapters.Base, FMX.ListView,
   Model.Dados.Server.HBeauty, ACBrBase, ACBrValidador,  Model.Contatos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, View.Loading.HBeauty, FMX.TMSCustomPicker, FMX.TMSCheckGroupPicker, FMX.TMSCheckGroup, FMX.TMSBitmapContainer, FMX.TMSRichEditorEmoticons,
   FireDAC.Comp.Client, Model.Endereco.HBeauty, FMX.Effects, FMX.Filter.Effects, Controller.Formata.HBeauty, Model.Terceirizada.HBeauty,
@@ -170,7 +169,11 @@ uses
     Units.Strings.HBeauty, Winapi.Windows,
     FMX.Platform.Win, Units.Utils.Dados.HBeauty,
     System.UIConsts,
-    Controller.Manipula.Design.HBeauty, Model.Genericos.Servidor.HBeauty, Model.Imagens.Servidor.HBeauty;
+    Controller.Manipula.Design.HBeauty,
+    Model.Genericos.Servidor.HBeauty,
+    Model.Imagens.Servidor.HBeauty,
+    View.Principal.HBeauty,
+    View.Contatos.HBeauty;
 
 
 procedure TfrmGerenciadorProfissionais.gravaHabilidadesSelecionadas;

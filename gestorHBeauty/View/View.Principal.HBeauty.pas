@@ -9,7 +9,7 @@ uses
   Data.Bind.ObjectScope, REST.Response.Adapter, System.Actions, FMX.ActnList, FMX.Menus, Controller.Manipula.XML.HBeauty, Units.Strings.HBeauty, Xml.omnixmldom,
   Xml.adomxmldom, Units.Consts.HBeauty, Units.Utils.HBeauty, Xml.Win.msxmldom, Controller.Manipula.Design.HBeauty,
   FMX.TMSBitmapContainer, FMX.TMSBaseControl, FMX.TMSPlannerBase, FMX.TMSPlannerData, FMX.TMSPlanner, ACBrBase, ACBrValidador, System.ImageList, FMX.ImgList, FMX.Edit,
-  View.Terceirizadas.HBeauty
+  View.Terceirizadas.HBeauty, View.Habilidades.HBeauty
   ;
 
 type
@@ -61,10 +61,12 @@ type
     MenuItem2: TMenuItem;
     ListaIconesMenuPrincipal: TImageList;
     MenuItem1: TMenuItem;
+    Habilidades: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure tmHoraTimer(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
+    procedure HabilidadesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -125,6 +127,12 @@ begin
     end).Start;
 
 
+end;
+
+procedure TfrmPrincipal.HabilidadesClick(Sender: TObject);
+begin
+     Application.CreateForm(TfrmCadastroHabilidades, frmCadastroHabilidades);
+     frmCadastroHabilidades.ShowModal;
 end;
 
 procedure TfrmPrincipal.MenuItem14Click(Sender: TObject);

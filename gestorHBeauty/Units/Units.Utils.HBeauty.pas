@@ -3,7 +3,7 @@ unit Units.Utils.HBeauty;
 interface
 
 uses Units.Consts.HBeauty, FMX.Objects, FMX.Forms, FMX.Layouts, Units.Enumerados.HBeauty,
-  FMX.Edit, FMX.ListBox, FMX.NumberBox;
+  FMX.Edit, FMX.ListBox, FMX.NumberBox, FMX.Memo;
 
 function BooleanToString(ATrue, AFalse : String; AValue : Boolean) : String;
 function StringToBool(ATrue, AFalse, AValue : String) : Boolean;
@@ -15,11 +15,13 @@ function ExtraiTextoGrid(AValue : String) : String;
 procedure NextField(Key : Word; ANext : TEdit); overload;
 procedure NextField(Key : Word; ANext : TComboBox); overload;
 procedure NextField(Key : Word; ANext : TNumberBox); overload;
+procedure NextField(Key : Word; ANext : TMemo); overload;
 
 implementation
 
 uses
-  Winapi.Windows, System.Classes, FMX.TMSButton, System.UITypes;
+  Winapi.Windows, System.Classes, FMX.TMSButton, System.UITypes,
+  FMX.Platform.Win;
 
 function ExtraiTextoGrid(AValue : String) : String;
 var
@@ -68,6 +70,13 @@ begin
 end;
 
 procedure NextField(Key : Word; ANext : TNumberBox);
+begin
+
+    if Key = vkReturn then ANext.SetFocus;
+
+end;
+
+procedure NextField(Key : Word; ANext : TMemo);
 begin
 
     if Key = vkReturn then ANext.SetFocus;

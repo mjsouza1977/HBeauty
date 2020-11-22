@@ -31,7 +31,9 @@ begin
          ControllerConexao.qryQuery.SQL.Clear;
          ControllerConexao.qryQuery.SQL.Add('UPDATE HBEMAILS SET');
          ControllerConexao.qryQuery.SQL.Add('EMAIL_EMAIL    = :EMAIL_EMAIL,');
-         ControllerConexao.qryQuery.SQL.Add('RESTRITO_EMAIL = :RESTRITO_EMAIL');
+         ControllerConexao.qryQuery.SQL.Add('RESTRITO_EMAIL = :RESTRITO_EMAIL,');
+         ControllerConexao.qryQuery.SQL.Add('LOCK           = ' + QuotedStr('F') + ',');
+         ControllerConexao.qryQuery.SQL.Add('IDUSULOCK      = 0');
          ControllerConexao.qryQuery.SQL.Add('WHERE ID_EMAIL = :ID_EMAIL');
 
          ControllerConexao.qryQuery.ParamByName('EMAIL_EMAIL'   ).AsString  := AEmail;
@@ -85,7 +87,9 @@ begin
          ControllerConexao.qryQuery.SQL.Add('NR_FONE       = :NR_FONE,');
          ControllerConexao.qryQuery.SQL.Add('CONTATO_FONE  = :CONTATO_FONE,');
          ControllerConexao.qryQuery.SQL.Add('WHATS_FONE    = :WHATS_FONE,');
-         ControllerConexao.qryQuery.SQL.Add('RESTRITO_FONE = :RESTRITO_FONE');
+         ControllerConexao.qryQuery.SQL.Add('RESTRITO_FONE = :RESTRITO_FONE,');
+         ControllerConexao.qryQuery.SQL.Add('LOCK           = ' + QuotedStr('F') + ',');
+         ControllerConexao.qryQuery.SQL.Add('IDUSULOCK      = 0');
          ControllerConexao.qryQuery.SQL.Add('WHERE ID_FONE = :ID_FONE');
 
          ControllerConexao.qryQuery.ParamByName('NR_FONE'      ).AsString  := AFone;

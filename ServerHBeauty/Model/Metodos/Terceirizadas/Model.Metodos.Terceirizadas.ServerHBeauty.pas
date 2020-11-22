@@ -11,7 +11,7 @@ function CadastraTerceirizada(ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNP
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Integer;
 function CarregaCamposTerceirizada(ACampos : String) : TFDJSONDataSets;
 function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
-                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Boolean;
+                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : String;
 
 implementation
 
@@ -85,7 +85,7 @@ begin
 end;
 
 function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
-                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Boolean;
+                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : String;
 begin
     try
         try
@@ -126,10 +126,10 @@ begin
 
 
             ControllerConexao.qryQuery.ExecSQL;
-            Result := True;
+            Result := '';
 
-        except
-            Result := False;
+        except on E:Exception do
+            Result := E.Message;
         end;
     finally
         ControllerConexao.qryQuery.Close;

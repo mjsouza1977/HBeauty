@@ -9,7 +9,7 @@ uses System.SysUtils, System.Classes, System.Json,
      Model.Metodos.Usuarios.ServerHBeauty,
      Model.Metodos.Profissionais.ServerHBeauty,
      Model.Metodos.Profissionais.Hablidades.ServerHBeauty, Model.Metodos.Terceirizadas.ServerHBeauty, Model.Metodos.Genericos.ServerHBeauty,
-  Model.Metodos.Habilidades.ServerHBeauty;
+  Model.Metodos.Habilidades.ServerHBeauty, Model.Metodos.Profissionais.Cargos.ServerHBeauty;
 
 type
 {$METHODINFO ON}
@@ -18,8 +18,8 @@ type
 
   public
     function CarregaProfissionalTerceirizado(AIdTerceirizado : Integer) : TFDJSONDataSets;
-    function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : Boolean;
-    function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito : Boolean) : Boolean;
+    function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : String;
+    function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito : Boolean) : String;
     function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : Integer; AWhatsFone, ARestrito : Boolean) : Integer;
     function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
     function CarregaEmails(ATipoEmail : String; AIdTabEmail : Integer) : TFDJSONDataSets;
@@ -30,28 +30,32 @@ type
     function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
                                   ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
     function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
-                                  ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Boolean;
-
-    function carregaHabilidades : TFDJSONDataSets;
-    function carregaHabilidadesProfissional(AAIdProfissional : Integer) : TFDJSONDataSets;
-    function cadastraHabilidade(ANomeHabilidade, ADescricaoHabilidade : String) : Integer;
-    function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
-    function atualizaHabilidade(AIdHabilidade : Integer; ANomeHabilidade, ADescricaoHabilidade : String) : Boolean;
-    function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : Boolean;
-
+                                  ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : String;
     function ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
     function CadastraTerceirizada(ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
                                   ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Integer;
     function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
-                                  ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Boolean;
+                                  ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : String;
     function CarregaCamposTerceirizada(ACampos : String) : TFDJSONDataSets;
     function CarregaCamposProfissional(ACampos : String) : TFDJSONDataSets;
-
     function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
     function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
     function GravaImagem(APrefixo, AExtensao : String) : Integer;
-    function AtualizaImagem(AIDImagem : Integer) : Boolean;
+    function AtualizaImagem(AIDImagem : Integer) : String;
     function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
+
+    function pesquisaHabilidade(AIDHabilidade, AIDCargo : Integer; ANomeHabilidade : String) : TFDJSONDataSets;
+    function carregaHabilidades : TFDJSONDataSets;
+    function atualizaHabilidades(AIdHabilidade, AIdCargoHabilidade : Integer; AHabilidade, ADescricao : String) : String;
+    function cadastraHabilidade(AIDCargoHabilidade : Integer; AHabilidade, ADescricao : String) : String;
+
+    function carregaHabilidadesProfissional(AAIdProfissional : Integer) : TFDJSONDataSets;
+    function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : String;
+    function apagaHabilidadesProfissional(AIdProfissional: Integer) : String;
+    function carregaCargos : TFDJSONDataSets;
+    function pesquisaCargos(AIdCargo : Integer; ANomeCargo : String) : TFDJSONDataSets;
+    function cadastraCargo(ANomeCargo, ADescricaoCargo : String) : String;
+    function atualizaCargo(AIDCargo : Integer; ANomeCargo, ADescricaoCargo : String) : String;
 
 
   end;
@@ -69,19 +73,24 @@ uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contat
 
 { TModelMetodos }
 
-function carregaHabilidades : TFDJSONDataSets;
+function TModelMetodos.carregaHabilidades : TFDJSONDataSets;
 begin
      Result := Model.Metodos.Habilidades.ServerHBeauty.carregaHabilidades;
 end;
 
-function atualizaHabilidades(AIdHabilidade : Integer; AHabilidade, ADescricao : String) : Boolean;
+function TModelMetodos.carregaHabilidadesProfissional(AAIdProfissional: Integer): TFDJSONDataSets;
 begin
-     Result := Model.Metodos.Habilidades.ServerHBeauty.atualizaHabilidades(AIdHabilidade, AHabilidade, ADescricao);
+     Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.carregaHabilidadesProfissional(AAIdProfissional);
 end;
 
-function cadastraHabilidade(AHabilidade, ADescricao : String) : Boolean;
+function TModelMetodos.atualizaHabilidades(AIdHabilidade, AIdCargoHabilidade : Integer; AHabilidade, ADescricao : String) : String;
 begin
-     Result := Model.Metodos.Habilidades.ServerHBeauty.cadastraHabilidade(AHabilidade, ADescricao);
+     Result := Model.Metodos.Habilidades.ServerHBeauty.atualizaHabilidades(AIdHabilidade, AIdCargoHabilidade, AHabilidade, ADescricao);
+end;
+
+function TModelMetodos.cadastraHabilidade(AIDCargoHabilidade : Integer; AHabilidade, ADescricao : String) : String;
+begin
+     Result := Model.Metodos.Habilidades.ServerHBeauty.cadastraHabilidade(AIDCargoHabilidade, AHabilidade, ADescricao);
 end;
 
 function TModelMetodos.DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
@@ -99,12 +108,17 @@ begin
     Result := Model.Metodos.Usuarios.ServerHBeauty.ValidaLogin(Usuario, Senha);
 end;
 
-function TModelMetodos.apagaHabilidadesProfissional(AIdProfissional: Integer): Boolean;
+function TModelMetodos.apagaHabilidadesProfissional(AIdProfissional: Integer): String;
 begin
      Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.apagaHabilidadesProfissional(AIdProfissional);
 end;
 
-function TModelMetodos.AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito: Boolean): Boolean;
+function TModelMetodos.atualizaCargo(AIDCargo: Integer; ANomeCargo, ADescricaoCargo: String): String;
+begin
+     Result := Model.Metodos.Profissionais.Cargos.ServerHBeauty.atualizaCargo(AIDCargo, ANomeCargo, ADescricaoCargo);
+end;
+
+function TModelMetodos.AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito: Boolean): String;
 begin
      Result := Model.Metodos.Contatos.ServerHBeauty.AtualizaEmail(AEmail, AIdEmail,  ARestrito);
 end;
@@ -114,32 +128,32 @@ begin
      Result := Model.Metodos.Profissionais.ServerHBeauty.AtualizaFotoProfissional(AIDProfissional, AIdFoto);
 end;
 
-function TModelMetodos.atualizaHabilidade(AIdHabilidade: Integer; ANomeHabilidade, ADescricaoHabilidade: String): Boolean;
-begin
-     Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.atualizaHabilidade(AIdHabilidade, ANomeHabilidade, ADescricaoHabilidade);
-end;
-
-function TModelMetodos.AtualizaImagem(AIDImagem: Integer): Boolean;
+function TModelMetodos.AtualizaImagem(AIDImagem: Integer): String;
 begin
     Result := Model.Metodos.Imagens.ServerHBeauty.AtualizaImagem(AIDImagem)
 end;
 
 function TModelMetodos.AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog: Integer; ACodigo, ANome, ASobreNome, ACPF, ARG, ALogradouro,
-  AComplemento, ABairro, ACidade, AUF, ACep: String; ASalario, AComissao: Currency): Boolean;
+  AComplemento, ABairro, ACidade, AUF, ACep: String; ASalario, AComissao: Currency): String;
 begin
      Result := Model.Metodos.Profissionais.ServerHBeauty.AtualizaProfissional(ATerceirizado, AIdProfiss, AIdCargo, AIdEmpTer, ANrLog, ACodigo, ANome, ASobreNome,
                                                                               ACPF, ARG, ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep, ASalario, AComissao);
 end;
 
-function TModelMetodos.AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito: Boolean): Boolean;
+function TModelMetodos.AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito: Boolean): String;
 begin
      Result := Model.Metodos.Contatos.ServerHBeauty.AtualizaTelefone(AFone, AContato, AIdTelefone, AWhatsFone, ARestrito);
 end;
 
 function TModelMetodos.AtualizaTerceirizada(AIdTerc, ANrLog: Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE, ALogradouro, AComplemento, ABairro, ACidade, AUF,
-  ACep: String): Boolean;
+  ACep: String): String;
 begin
      Result := Model.Metodos.Terceirizadas.ServerHBeauty.AtualizaTerceirizada(AIdTerc, ANrLog, ACodigo, ARazao, AFantasia, ACNPJ, AIE, ALogradouro, AComplemento, ABairro, ACidade, AUF,  ACep);
+end;
+
+function TModelMetodos.cadastraCargo(ANomeCargo, ADescricaoCargo: String): String;
+begin
+     Result := Model.Metodos.Profissionais.Cargos.ServerHBeauty.cadastraCargo(ANomeCargo, ADescricaoCargo);
 end;
 
 function TModelMetodos.CadastraEmail(AEmail, APrefixoTabela: String; AIdRegTab: Integer; ARestrito: Boolean): Integer;
@@ -147,12 +161,7 @@ begin
      Result := Model.Metodos.Contatos.ServerHBeauty.CadastraEmail(AEmail, APrefixoTabela, AIdRegTab, ARestrito);
 end;
 
-function TModelMetodos.cadastraHabilidade(ANomeHabilidade, ADescricaoHabilidade: String): Integer;
-begin
-     Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.cadastraHabilidade(ANomeHabilidade, ADescricaoHabilidade);
-end;
-
-function TModelMetodos.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): Boolean;
+function TModelMetodos.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): String;
 begin
      Result:= Model.Metodos.Profissionais.Hablidades.ServerHBeauty.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional);
 end;
@@ -185,6 +194,11 @@ begin
      Result:= Model.Metodos.Terceirizadas.ServerHBeauty.CarregaCamposTerceirizada(ACampos);
 end;
 
+function TModelMetodos.carregaCargos: TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Profissionais.Cargos.ServerHBeauty.carregaCargos;
+end;
+
 function TModelMetodos.CarregaControle: TFDJSONDataSets;
 begin
      Result := Model.Metodos.Controle.ServerHBeauty.CarregaControle;
@@ -194,16 +208,6 @@ end;
 function TModelMetodos.CarregaEmails(ATipoEmail: String; AIdTabEmail: Integer): TFDJSONDataSets;
 begin
      Result := Model.Metodos.Contatos.ServerHBeauty.CarregaEmails(ATipoEmail, AIdTabEmail);
-end;
-
-function TModelMetodos.carregaHabilidades: TFDJSONDataSets;
-begin
-     Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.carregaHabilidades;
-end;
-
-function TModelMetodos.carregaHabilidadesProfissional(AAIdProfissional: Integer): TFDJSONDataSets;
-begin
-     Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.carregaHabilidadesProfissional(AAIdProfissional);
 end;
 
 function TModelMetodos.CarregaProfissionalTerceirizado(AIdTerceirizado: Integer): TFDJSONDataSets;
@@ -229,6 +233,16 @@ end;
 function TModelMetodos.ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
 begin
      Result := Model.Metodos.Genericos.ServerHBeauty.ManipulaEstadoRegistro(ABloqueia, AIdUsuario, AIdRegistro, ACampoID, ATabela);
+end;
+
+function TModelMetodos.pesquisaCargos(AIdCargo: Integer; ANomeCargo: String): TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Profissionais.Cargos.ServerHBeauty.pesquisaCargos(AIdCargo, ANomeCargo);
+end;
+
+function TModelMetodos.pesquisaHabilidade(AIDHabilidade, AIDCargo : Integer; ANomeHabilidade: String): TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Habilidades.ServerHBeauty.pesquisaHabilidade(AIDHabilidade, AIDCargo, ANomeHabilidade);
 end;
 
 end.

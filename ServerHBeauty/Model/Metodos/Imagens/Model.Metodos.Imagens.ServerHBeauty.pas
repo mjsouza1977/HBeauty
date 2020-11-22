@@ -3,7 +3,7 @@ unit Model.Metodos.Imagens.ServerHBeauty;
 interface
 
 function GravaImagem(APrefixo, AExtensao : String) : Integer;
-function AtualizaImagem(AIDImagem : Integer) : Boolean;
+function AtualizaImagem(AIDImagem : Integer) : String;
 
 
 implementation
@@ -14,7 +14,7 @@ uses
   Units.Utils.ServerBeauty,
   VCL.Dialogs;
 
-function AtualizaImagem(AIDImagem : Integer) : Boolean;
+function AtualizaImagem(AIDImagem : Integer) : String;
 begin
     try
         try
@@ -25,9 +25,9 @@ begin
             ControllerConexao.qryQuery.ParamByName('IDIMAGEM').AsInteger      := AIDImagem;
             ControllerConexao.qryQuery.ParamByName('UPDATEIMAGEM').AsDateTime := Now;
             ControllerConexao.qryQuery.ExecSQL;
-            Result := True;
-        except
-            Result := False;
+            Result := '';
+        except on E:Exception do
+            Result := E.Message;
         end;
     finally
         ControllerConexao.qryQuery.Close;

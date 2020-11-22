@@ -18,7 +18,8 @@ uses
   Model.Metodos.Terceirizadas.ServerHBeauty in 'Model\Metodos\Terceirizadas\Model.Metodos.Terceirizadas.ServerHBeauty.pas',
   Model.Metodos.Genericos.ServerHBeauty in 'Model\Metodos\Model.Metodos.Genericos.ServerHBeauty.pas',
   Model.Metodos.Imagens.ServerHBeauty in 'Model\Metodos\Imagens\Model.Metodos.Imagens.ServerHBeauty.pas',
-  Model.Metodos.Habilidades.ServerHBeauty in 'Model\Metodos\Profissionais\Model.Metodos.Habilidades.ServerHBeauty.pas';
+  Model.Metodos.Habilidades.ServerHBeauty in 'Model\Metodos\Profissionais\Model.Metodos.Habilidades.ServerHBeauty.pas',
+  Model.Metodos.Profissionais.Cargos.ServerHBeauty in 'Model\Metodos\Profissionais\Model.Metodos.Profissionais.Cargos.ServerHBeauty.pas';
 
 {$R *.res}
 

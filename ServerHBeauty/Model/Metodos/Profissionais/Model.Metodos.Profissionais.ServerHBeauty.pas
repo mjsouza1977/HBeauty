@@ -11,7 +11,7 @@ function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrL
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
 
 function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
-                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Boolean;
+                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : String;
 
 function CarregaProfissionalTerceirizado(AIdTerceirizado : Integer) : TFDJSONDataSets;
 function CarregaCamposProfissionais(ACampos : String) : TFDJSONDataSets;
@@ -74,6 +74,8 @@ begin
          ControllerConexao.qryQuery.SQL.Add('ON (HBPROFISSIONAIS.IDFOTO_PROFIS = HBIMAGENS.IDIMAGEM)');
          ControllerConexao.qryQuery.SQL.Add('LEFT JOIN HBTERCEIRIZADA');
          ControllerConexao.qryQuery.SQL.Add('ON (HBPROFISSIONAIS.IDEMPTER_PROFIS = HBTERCEIRIZADA.ID_TERCEIRIZADA)');
+         ControllerConexao.qryQuery.SQL.Add('LEFT JOIN HBCARGO');
+         ControllerConexao.qryQuery.SQL.Add('ON (HBPROFISSIONAIS.IDCARGO_PROFIS = HBCARGO.ID_CARGO)');
 
 
          if ASql <> '' then
@@ -108,7 +110,7 @@ begin
 end;
 
 function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
-                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Boolean;
+                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : String;
 begin
 
     try
@@ -159,10 +161,10 @@ begin
             ControllerConexao.qryQuery.ParamByName('LOCK'             ).AsString   := 'F';
             ControllerConexao.qryQuery.ExecSQL;
             ControllerConexao.fdTransacao.Commit;
-            Result := True;
+            Result := '';
 
-        except
-            Result := False;
+        except on E:Exception do
+            Result := E.Message;
         end;
     finally
         ControllerConexao.qryQuery.Close;

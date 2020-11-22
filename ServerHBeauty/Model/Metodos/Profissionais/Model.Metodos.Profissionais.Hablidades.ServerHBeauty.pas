@@ -3,18 +3,11 @@ unit Model.Metodos.Profissionais.Hablidades.ServerHBeauty;
 interface
 
 uses
-  Data.FireDACJSONReflect,
-  FireDAC.Stan.Param;
+  Data.FireDACJSONReflect;
 
-function carregaHabilidades : TFDJSONDataSets;
 function carregaHabilidadesProfissional(AAIdProfissional : Integer) : TFDJSONDataSets;
-
-function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : Boolean;
-function cadastraHabilidade(ANomeHabilidade, ADescricaoHabilidade : String) : Integer;
-
-function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
-
-function atualizaHabilidade(AIdHabilidade : Integer; ANomeHabilidade, ADescricaoHabilidade : String) : Boolean;
+function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : String;
+function apagaHabilidadesProfissional(AIdProfissional: Integer) : String;
 
 
 implementation
@@ -39,50 +32,7 @@ begin
     end;
 end;
 
-function carregaHabilidades : TFDJSONDataSets;
-begin
-    try
-        ControllerConexao.qryQuery.Close;
-        ControllerConexao.qryQuery.SQL.Clear;
-        ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBHABILIDADES');
-
-        Result := TFDJSONDataSets.Create;
-        TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
-        ControllerConexao.qryQuery.Active := True;
-    finally
-        ControllerConexao.qryQuery.Close;
-    end;
-end;
-
-
-function cadastraHabilidade(ANomeHabilidade, ADescricaoHabilidade : String) : Integer;
-begin
-
-    try
-        try
-            ControllerConexao.qryQuery.Close;
-            ControllerConexao.qryQuery.SQL.Clear;
-            ControllerConexao.qryQuery.SQL.Add('INSERT INTO HBHABILIDADES');
-            ControllerConexao.qryQuery.SQL.Add('(NOME_HABILIDADE, DESCR_HABILIDADE) VALUES');
-            ControllerConexao.qryQuery.SQL.Add('(:NOME_HABILIDADE, :DESCR_HABILIDADE)');
-            ControllerConexao.qryQuery.ParamByName('NOME_HABILIDADE').AsString  := ANomeHabilidade;
-            ControllerConexao.qryQuery.ParamByName('DESCR_HABILIDADE').AsString := ADescricaoHabilidade;
-            ControllerConexao.qryQuery.ExecSQL;
-
-            ControllerConexao.qryQuery.Open('SELECT GEN_ID(GEN_HBHABILIDADES_ID, 0) AS IDHABILIDADE FROM RDB$DATABASE');
-
-            Result := ControllerConexao.qryQuery.FieldByName('IDHABILIDADE').AsInteger;
-
-        finally
-            ControllerConexao.qryQuery.Close;
-        end;
-    except
-        Result := 0;
-    end;
-
-end;
-
-function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : Boolean;
+function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional : Integer) : String;
 begin
 
     try
@@ -96,47 +46,17 @@ begin
             ControllerConexao.qryQuery.ParamByName('IDHABIL_PROFXHABIL').AsInteger  := AIdHabilidade;
             ControllerConexao.qryQuery.ExecSQL;
 
-            Result := True;
+            Result := '';
         finally
             ControllerConexao.qryQuery.Close;
         end;
-    except
-        Result := False;
+    except on E:Exception do
+        Result := E.Message;
     end;
 
 end;
 
-function atualizaHabilidade(AIdHabilidade : Integer; ANomeHabilidade, ADescricaoHabilidade : String) : Boolean;
-begin
-    try
-        try
-            ControllerConexao.qryQuery.Close;
-            ControllerConexao.qryQuery.SQL.Clear;
-            ControllerConexao.qryQuery.SQL.Add('UPDATE HBPROFISSIONAIS SET');
-            ControllerConexao.qryQuery.SQL.Add('NOME_HABILIDADE     = :NOMEHABILIDADE,');
-            ControllerConexao.qryQuery.SQL.Add('DESCR_HABILIDADE    = :DESCRHABILIDADE');
-            ControllerConexao.qryQuery.SQL.Add('IDUSULOCK           = :IDUSULOCK,');
-            ControllerConexao.qryQuery.SQL.Add('LOCK                = :LOCK');
-            ControllerConexao.qryQuery.SQL.Add('WHERE ID_HABILIDADE = :IDHABILIDADE');
-            ControllerConexao.qryQuery.ParamByName('NOMEHABILIDADE').AsString  := ANomeHabilidade;
-            ControllerConexao.qryQuery.ParamByName('DESCRHABILIDADE').AsString := ADescricaoHabilidade;
-            ControllerConexao.qryQuery.ParamByName('IDHABILIDADE').AsInteger   := AIdHabilidade;
-            ControllerConexao.qryQuery.ParamByName('IDUSULOCK').AsInteger      := 0;
-            ControllerConexao.qryQuery.ParamByName('LOCK').AsString            := 'F';
-            ControllerConexao.qryQuery.ExecSQL;
-
-            Result := True;
-
-        finally
-            ControllerConexao.qryQuery.Close;
-        end;
-    except
-        Result := False;
-    end;
-
-end;
-
-function apagaHabilidadesProfissional(AIdProfissional: Integer) : Boolean;
+function apagaHabilidadesProfissional(AIdProfissional: Integer) : String;
 begin
     try
         try
@@ -147,13 +67,13 @@ begin
             ControllerConexao.qryQuery.ParamByName('IDPROFIS_PROFXHABIL').AsInteger := AIdProfissional;
             ControllerConexao.qryQuery.ExecSQL;
 
-            Result := True;
+            Result := '';
 
         finally
             ControllerConexao.qryQuery.Close;
         end;
-    except
-        Result := False;
+    except on E:Exception do
+        Result := E.Message;
     end;
 end;
 

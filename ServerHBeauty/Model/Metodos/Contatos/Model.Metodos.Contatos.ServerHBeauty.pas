@@ -16,14 +16,14 @@ function CarregaTelefones(ATipoFone : String; AIdTabFone : Integer) : TFDJSONDat
 function CadastraEmail(AEmail, APrefixoTabela : String; AIdRegTab : Integer; ARestrito : Boolean) : Integer;
 function CadastraTelefone(AFone, AContato, APrefixoTabela : String; AIdRegTab : Integer; AWhatsFone, ARestrito : Boolean) : Integer;
 
-function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : Boolean;
-function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito : Boolean) : Boolean;
+function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : String;
+function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito : Boolean) : String;
 
 implementation
 
 uses Units.Utils.ServerBeauty, Vcl.Dialogs;
 
-function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : Boolean;
+function AtualizaEmail(AEmail : String; AIdEmail : Integer; ARestrito : Boolean) : String;
 begin
   try
      try
@@ -41,12 +41,12 @@ begin
          ControllerConexao.qryQuery.ParamByName('ID_EMAIL'      ).AsInteger := AIdEmail;
          ControllerConexao.qryQuery.ExecSQL;
 
-         Result := True;
+         Result := '';
      finally
          ControllerConexao.qryQuery.Close;
      end;
-  except
-        Result := False;
+  except on E:Exception do
+        Result := E.Message;
   end;
 
 end;
@@ -77,7 +77,7 @@ begin
   end;
 end;
 
-function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito : Boolean) : Boolean;
+function AtualizaTelefone(AFone, AContato : String; AIdTelefone : Integer; AWhatsFone, ARestrito : Boolean) : String;
 begin
   try
      try
@@ -99,12 +99,12 @@ begin
          ControllerConexao.qryQuery.ParamByName('ID_FONE'      ).AsInteger := AIdTelefone;
          ControllerConexao.qryQuery.ExecSql;
 
-         Result := True;
+         Result := '';
      finally
          ControllerConexao.qryQuery.Close;
      end;
-  except
-        Result := False;
+  except on E:Exception do
+        Result := E.Message;
   end;
 
 end;

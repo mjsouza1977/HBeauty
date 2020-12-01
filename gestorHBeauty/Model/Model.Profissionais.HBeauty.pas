@@ -44,9 +44,9 @@ type
     procedure SetSENHA_PROFIS      (const Value: String);
     procedure SetSOBRENOME_PROFIS  (const Value: String);
     procedure SetTERC_PROFIS       (const Value: Boolean);
-    procedure SetENDERECO_PROFIS(const Value: TModelEndereco);
-    procedure SetTOKEN_PROFIS(const Value: TModelChaves);
-    procedure SetIMAGENS(const Value: TModelImagens);
+    procedure SetENDERECO_PROFIS   (const Value: TModelEndereco);
+    procedure SetTOKEN_PROFIS      (const Value: TModelChaves);
+    procedure SetIMAGENS           (const Value: TModelImagens);
 
     public
 

@@ -38,6 +38,12 @@ const
      ACaptionTerceirizadas : Array [0..10] of String  = ('Código','CNPJ','Razão Social','Nome Fantasia','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
      ASizeColTerceirizadas : Array [0..10] of Single  = (50, 170, 300, 200, 350, 70, 100, 200, 100, 180, 50);
 
+     //grid do Form dos Fornecedores
+     AFieldsFornecedores  : Array [0..10] of  String = ('ID_FORN', 'CNPJCPF_FORN', 'NOME_FORN', 'PSEUDO_FORN', 'LOGRADOURO_FORN', 'NRLOG_FORN',
+                                                         'COMPLLOG_FORN', 'BAILOG_FORN', 'CEPLOG_FORN', 'CIDLOG_FORN', 'UFLOG_FORN');
+     ACaptionFornecedores : Array [0..10] of String  = ('Código','CNPJ','Razão Social','Nome Fantasia','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
+     ASizeColFornecedores : Array [0..10] of Single  = (50, 170, 300, 200, 350, 70, 100, 200, 100, 180, 50);
+
      //grid do Form de Habilidades
      AFieldsHabilidades  : Array [0..3] of  String = ('ID_HABILIDADE', 'NOME_CARGO', 'NOME_HABILIDADE','DESCR_HABILIDADE');
      ACaptionHabilidades : Array [0..3] of String  = ('Código','Cargo','Habilidade','Descrição');

@@ -43,7 +43,9 @@ uses
   View.Habilidades.HBeauty in 'View\View.Habilidades.HBeauty.pas' {frmCadastroHabilidades},
   View.Cargos.HBeauty in 'View\View.Cargos.HBeauty.pas' {frmCadastroCargos},
   Model.Cargos.HBeauty in 'Model\Model.Cargos.HBeauty.pas',
-  Units.Mensagens.HBeauty in 'Units\Units.Mensagens.HBeauty.pas';
+  Units.Mensagens.HBeauty in 'Units\Units.Mensagens.HBeauty.pas',
+  Model.Fornecedor.HBeauty in 'Model\Model.Fornecedor.HBeauty.pas',
+  View.Fornecedores.HBeauty in 'View\View.Fornecedores.HBeauty.pas' {Form1};
 
 {$R *.res}
 
@@ -52,5 +54,6 @@ begin
   Application.CreateForm(TControllerClientModule, ControllerClientModule);
   Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
   Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

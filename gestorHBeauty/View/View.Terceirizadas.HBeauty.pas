@@ -380,7 +380,6 @@ begin
      end;
 
      CarregaGrid(ModelConexaoDados.memTerceirizada,grdListaTerceirizada,AFieldsTerceirizadas, ACaptionTerceirizadas, ASizeColTerceirizadas);
-     //CarregaGrid(ModelConexaoDados.memProfissionais,grdListaProfissionais,AFieldsProfissionais, ACaptionProfissionais, ASizeColProfissionais);
 
      if ModelConexaoDados.memTerceirizada.RecordCount > 0 then
         FIdSelecionado :=  ExtraiTextoGrid(grdListaTerceirizada.Cells[0, 1]).ToInteger;

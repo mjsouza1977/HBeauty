@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2020/11/15 18:30:36.000.988,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Habilidades.HBeauty.fmx</Transaction>
-    <Transaction>2020/11/22 14:55:41.188,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Cargos.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
-    <Transaction>2020/11/22 16:51:29.058,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\estorHBeauty.dproj=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\gestorHBeauty.dproj</Transaction>
-    <Transaction>2020/11/22 17:02:09.043,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\GestorHBeauty.dproj=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\estorHBeauty.dproj</Transaction>
+    <Transaction>2020/11/15 18:30:36.000.988,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Habilidades.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/11/22 14:55:41.000.188,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Cargos.HBeauty.fmx</Transaction>
+    <Transaction>2020/11/22 16:51:29.000.058,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\gestorHBeauty.dproj=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\estorHBeauty.dproj</Transaction>
+    <Transaction>2020/11/22 17:02:09.000.043,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\estorHBeauty.dproj=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\GestorHBeauty.dproj</Transaction>
+    <Transaction>2020/11/30 21:45:20.959,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Fornecedores.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
   </Transactions>
 </BorlandProject>

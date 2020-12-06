@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 22/11/2020 19:35:44
+// 06/12/2020 18:03:00
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -62,6 +62,24 @@ type
     FpesquisaCargosCommand_Cache: TDSRestCommand;
     FcadastraCargoCommand: TDSRestCommand;
     FatualizaCargoCommand: TDSRestCommand;
+    FcarregaFornecedoresCommand: TDSRestCommand;
+    FcarregaFornecedoresCommand_Cache: TDSRestCommand;
+    FPesquisaFornecedoresCommand: TDSRestCommand;
+    FPesquisaFornecedoresCommand_Cache: TDSRestCommand;
+    FcadastraFornecedorCommand: TDSRestCommand;
+    FatualizaFornecedoresCommand: TDSRestCommand;
+    FcarregaVendedoresCommand: TDSRestCommand;
+    FcarregaVendedoresCommand_Cache: TDSRestCommand;
+    FPesquisaVendedorCommand: TDSRestCommand;
+    FPesquisaVendedorCommand_Cache: TDSRestCommand;
+    FcadastraVendedorCommand: TDSRestCommand;
+    FatualizaVendedorCommand: TDSRestCommand;
+    FcarregaMarcasCommand: TDSRestCommand;
+    FcarregaMarcasCommand_Cache: TDSRestCommand;
+    FpesquisaMarcasCommand: TDSRestCommand;
+    FpesquisaMarcasCommand_Cache: TDSRestCommand;
+    FcadastraMarcaCommand: TDSRestCommand;
+    FatualizaMarcaCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -113,6 +131,24 @@ type
     function pesquisaCargos_Cache(AIdCargo: Integer; ANomeCargo: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function cadastraCargo(ANomeCargo: string; ADescricaoCargo: string; const ARequestFilter: string = ''): string;
     function atualizaCargo(AIDCargo: Integer; ANomeCargo: string; ADescricaoCargo: string; const ARequestFilter: string = ''): string;
+    function carregaFornecedores(const ARequestFilter: string = ''): TFDJSONDataSets;
+    function carregaFornecedores_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function PesquisaFornecedores(ANome: string; APseudo: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function PesquisaFornecedores_Cache(ANome: string; APseudo: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function cadastraFornecedor(AIdVendFor: Integer; ANrLog: Integer; ACodigo: string; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string = ''): string;
+    function atualizaFornecedores(AIdForn: Integer; AIdVendFor: Integer; ANrLog: Integer; ACodigo: string; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string = ''): string;
+    function carregaVendedores(const ARequestFilter: string = ''): TFDJSONDataSets;
+    function carregaVendedores_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function PesquisaVendedor(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function PesquisaVendedor_Cache(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function cadastraVendedor(ANrLog: Integer; ACPF: string; ARG: string; ANome: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string = ''): string;
+    function atualizaVendedor(AIdVend: Integer; ANrLog: Integer; ACPF: string; ARG: string; ANome: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string = ''): string;
+    function carregaMarcas(const ARequestFilter: string = ''): TFDJSONDataSets;
+    function carregaMarcas_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function pesquisaMarcas(AIdMarca: Integer; AMarca: string; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function pesquisaMarcas_Cache(AIdMarca: Integer; AMarca: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function cadastraMarca(AMarca: string; const ARequestFilter: string = ''): string;
+    function atualizaMarca(AIDMarca: Integer; AMarca: string; const ARequestFilter: string = ''): string;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -511,6 +547,169 @@ const
     (Name: 'AIDCargo'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'ANomeCargo'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ADescricaoCargo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_carregaFornecedores: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_carregaFornecedores_Cache: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_PesquisaFornecedores: array [0..5] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'APseudo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACNPJ'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AId'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_PesquisaFornecedores_Cache: array [0..5] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'APseudo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACNPJ'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AId'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_cadastraFornecedor: array [0..13] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdVendFor'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACNPJCPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIERG'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'APseudo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ALog'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACompl'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ABairro'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACep'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AUF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_atualizaFornecedores: array [0..14] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdForn'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIdVendFor'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACNPJCPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIERG'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'APseudo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ALog'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACompl'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ABairro'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACep'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AUF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_carregaVendedores: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_carregaVendedores_Cache: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_PesquisaVendedor: array [0..4] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AId'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_PesquisaVendedor_Cache: array [0..4] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AId'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_cadastraVendedor: array [0..10] of TDSRestParameterMetaData =
+  (
+    (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ARG'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ALog'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACompl'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ABairro'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACep'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AUF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_atualizaVendedor: array [0..11] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdVend'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ARG'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ALog'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACompl'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ABairro'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACep'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AUF'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_carregaMarcas: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_carregaMarcas_Cache: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_pesquisaMarcas: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdMarca'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AMarca'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_pesquisaMarcas_Cache: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdMarca'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AMarca'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_cadastraMarca: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'AMarca'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_atualizaMarca: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIDMarca'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AMarca'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
   );
 
@@ -1452,6 +1651,385 @@ begin
   Result := FatualizaCargoCommand.Parameters[3].Value.GetWideString;
 end;
 
+function TModelMetodosClient.carregaFornecedores(const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FcarregaFornecedoresCommand = nil then
+  begin
+    FcarregaFornecedoresCommand := FConnection.CreateCommand;
+    FcarregaFornecedoresCommand.RequestType := 'GET';
+    FcarregaFornecedoresCommand.Text := 'TModelMetodos.carregaFornecedores';
+    FcarregaFornecedoresCommand.Prepare(TModelMetodos_carregaFornecedores);
+  end;
+  FcarregaFornecedoresCommand.Execute(ARequestFilter);
+  if not FcarregaFornecedoresCommand.Parameters[0].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FcarregaFornecedoresCommand.Parameters[0].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FcarregaFornecedoresCommand.Parameters[0].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FcarregaFornecedoresCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.carregaFornecedores_Cache(const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FcarregaFornecedoresCommand_Cache = nil then
+  begin
+    FcarregaFornecedoresCommand_Cache := FConnection.CreateCommand;
+    FcarregaFornecedoresCommand_Cache.RequestType := 'GET';
+    FcarregaFornecedoresCommand_Cache.Text := 'TModelMetodos.carregaFornecedores';
+    FcarregaFornecedoresCommand_Cache.Prepare(TModelMetodos_carregaFornecedores_Cache);
+  end;
+  FcarregaFornecedoresCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FcarregaFornecedoresCommand_Cache.Parameters[0].Value.GetString);
+end;
+
+function TModelMetodosClient.PesquisaFornecedores(ANome: string; APseudo: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FPesquisaFornecedoresCommand = nil then
+  begin
+    FPesquisaFornecedoresCommand := FConnection.CreateCommand;
+    FPesquisaFornecedoresCommand.RequestType := 'GET';
+    FPesquisaFornecedoresCommand.Text := 'TModelMetodos.PesquisaFornecedores';
+    FPesquisaFornecedoresCommand.Prepare(TModelMetodos_PesquisaFornecedores);
+  end;
+  FPesquisaFornecedoresCommand.Parameters[0].Value.SetWideString(ANome);
+  FPesquisaFornecedoresCommand.Parameters[1].Value.SetWideString(APseudo);
+  FPesquisaFornecedoresCommand.Parameters[2].Value.SetWideString(ACNPJ);
+  FPesquisaFornecedoresCommand.Parameters[3].Value.SetWideString(ATipoPesquisa);
+  FPesquisaFornecedoresCommand.Parameters[4].Value.SetInt32(AId);
+  FPesquisaFornecedoresCommand.Execute(ARequestFilter);
+  if not FPesquisaFornecedoresCommand.Parameters[5].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FPesquisaFornecedoresCommand.Parameters[5].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FPesquisaFornecedoresCommand.Parameters[5].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FPesquisaFornecedoresCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.PesquisaFornecedores_Cache(ANome: string; APseudo: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FPesquisaFornecedoresCommand_Cache = nil then
+  begin
+    FPesquisaFornecedoresCommand_Cache := FConnection.CreateCommand;
+    FPesquisaFornecedoresCommand_Cache.RequestType := 'GET';
+    FPesquisaFornecedoresCommand_Cache.Text := 'TModelMetodos.PesquisaFornecedores';
+    FPesquisaFornecedoresCommand_Cache.Prepare(TModelMetodos_PesquisaFornecedores_Cache);
+  end;
+  FPesquisaFornecedoresCommand_Cache.Parameters[0].Value.SetWideString(ANome);
+  FPesquisaFornecedoresCommand_Cache.Parameters[1].Value.SetWideString(APseudo);
+  FPesquisaFornecedoresCommand_Cache.Parameters[2].Value.SetWideString(ACNPJ);
+  FPesquisaFornecedoresCommand_Cache.Parameters[3].Value.SetWideString(ATipoPesquisa);
+  FPesquisaFornecedoresCommand_Cache.Parameters[4].Value.SetInt32(AId);
+  FPesquisaFornecedoresCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FPesquisaFornecedoresCommand_Cache.Parameters[5].Value.GetString);
+end;
+
+function TModelMetodosClient.cadastraFornecedor(AIdVendFor: Integer; ANrLog: Integer; ACodigo: string; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string): string;
+begin
+  if FcadastraFornecedorCommand = nil then
+  begin
+    FcadastraFornecedorCommand := FConnection.CreateCommand;
+    FcadastraFornecedorCommand.RequestType := 'GET';
+    FcadastraFornecedorCommand.Text := 'TModelMetodos.cadastraFornecedor';
+    FcadastraFornecedorCommand.Prepare(TModelMetodos_cadastraFornecedor);
+  end;
+  FcadastraFornecedorCommand.Parameters[0].Value.SetInt32(AIdVendFor);
+  FcadastraFornecedorCommand.Parameters[1].Value.SetInt32(ANrLog);
+  FcadastraFornecedorCommand.Parameters[2].Value.SetWideString(ACodigo);
+  FcadastraFornecedorCommand.Parameters[3].Value.SetWideString(ACNPJCPF);
+  FcadastraFornecedorCommand.Parameters[4].Value.SetWideString(AIERG);
+  FcadastraFornecedorCommand.Parameters[5].Value.SetWideString(ANome);
+  FcadastraFornecedorCommand.Parameters[6].Value.SetWideString(APseudo);
+  FcadastraFornecedorCommand.Parameters[7].Value.SetWideString(ALog);
+  FcadastraFornecedorCommand.Parameters[8].Value.SetWideString(ACompl);
+  FcadastraFornecedorCommand.Parameters[9].Value.SetWideString(ABairro);
+  FcadastraFornecedorCommand.Parameters[10].Value.SetWideString(ACep);
+  FcadastraFornecedorCommand.Parameters[11].Value.SetWideString(ACidade);
+  FcadastraFornecedorCommand.Parameters[12].Value.SetWideString(AUF);
+  FcadastraFornecedorCommand.Execute(ARequestFilter);
+  Result := FcadastraFornecedorCommand.Parameters[13].Value.GetWideString;
+end;
+
+function TModelMetodosClient.atualizaFornecedores(AIdForn: Integer; AIdVendFor: Integer; ANrLog: Integer; ACodigo: string; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string): string;
+begin
+  if FatualizaFornecedoresCommand = nil then
+  begin
+    FatualizaFornecedoresCommand := FConnection.CreateCommand;
+    FatualizaFornecedoresCommand.RequestType := 'GET';
+    FatualizaFornecedoresCommand.Text := 'TModelMetodos.atualizaFornecedores';
+    FatualizaFornecedoresCommand.Prepare(TModelMetodos_atualizaFornecedores);
+  end;
+  FatualizaFornecedoresCommand.Parameters[0].Value.SetInt32(AIdForn);
+  FatualizaFornecedoresCommand.Parameters[1].Value.SetInt32(AIdVendFor);
+  FatualizaFornecedoresCommand.Parameters[2].Value.SetInt32(ANrLog);
+  FatualizaFornecedoresCommand.Parameters[3].Value.SetWideString(ACodigo);
+  FatualizaFornecedoresCommand.Parameters[4].Value.SetWideString(ACNPJCPF);
+  FatualizaFornecedoresCommand.Parameters[5].Value.SetWideString(AIERG);
+  FatualizaFornecedoresCommand.Parameters[6].Value.SetWideString(ANome);
+  FatualizaFornecedoresCommand.Parameters[7].Value.SetWideString(APseudo);
+  FatualizaFornecedoresCommand.Parameters[8].Value.SetWideString(ALog);
+  FatualizaFornecedoresCommand.Parameters[9].Value.SetWideString(ACompl);
+  FatualizaFornecedoresCommand.Parameters[10].Value.SetWideString(ABairro);
+  FatualizaFornecedoresCommand.Parameters[11].Value.SetWideString(ACep);
+  FatualizaFornecedoresCommand.Parameters[12].Value.SetWideString(ACidade);
+  FatualizaFornecedoresCommand.Parameters[13].Value.SetWideString(AUF);
+  FatualizaFornecedoresCommand.Execute(ARequestFilter);
+  Result := FatualizaFornecedoresCommand.Parameters[14].Value.GetWideString;
+end;
+
+function TModelMetodosClient.carregaVendedores(const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FcarregaVendedoresCommand = nil then
+  begin
+    FcarregaVendedoresCommand := FConnection.CreateCommand;
+    FcarregaVendedoresCommand.RequestType := 'GET';
+    FcarregaVendedoresCommand.Text := 'TModelMetodos.carregaVendedores';
+    FcarregaVendedoresCommand.Prepare(TModelMetodos_carregaVendedores);
+  end;
+  FcarregaVendedoresCommand.Execute(ARequestFilter);
+  if not FcarregaVendedoresCommand.Parameters[0].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FcarregaVendedoresCommand.Parameters[0].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FcarregaVendedoresCommand.Parameters[0].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FcarregaVendedoresCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.carregaVendedores_Cache(const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FcarregaVendedoresCommand_Cache = nil then
+  begin
+    FcarregaVendedoresCommand_Cache := FConnection.CreateCommand;
+    FcarregaVendedoresCommand_Cache.RequestType := 'GET';
+    FcarregaVendedoresCommand_Cache.Text := 'TModelMetodos.carregaVendedores';
+    FcarregaVendedoresCommand_Cache.Prepare(TModelMetodos_carregaVendedores_Cache);
+  end;
+  FcarregaVendedoresCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FcarregaVendedoresCommand_Cache.Parameters[0].Value.GetString);
+end;
+
+function TModelMetodosClient.PesquisaVendedor(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FPesquisaVendedorCommand = nil then
+  begin
+    FPesquisaVendedorCommand := FConnection.CreateCommand;
+    FPesquisaVendedorCommand.RequestType := 'GET';
+    FPesquisaVendedorCommand.Text := 'TModelMetodos.PesquisaVendedor';
+    FPesquisaVendedorCommand.Prepare(TModelMetodos_PesquisaVendedor);
+  end;
+  FPesquisaVendedorCommand.Parameters[0].Value.SetWideString(ANome);
+  FPesquisaVendedorCommand.Parameters[1].Value.SetWideString(ACPF);
+  FPesquisaVendedorCommand.Parameters[2].Value.SetWideString(ATipoPesquisa);
+  FPesquisaVendedorCommand.Parameters[3].Value.SetInt32(AId);
+  FPesquisaVendedorCommand.Execute(ARequestFilter);
+  if not FPesquisaVendedorCommand.Parameters[4].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FPesquisaVendedorCommand.Parameters[4].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FPesquisaVendedorCommand.Parameters[4].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FPesquisaVendedorCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.PesquisaVendedor_Cache(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FPesquisaVendedorCommand_Cache = nil then
+  begin
+    FPesquisaVendedorCommand_Cache := FConnection.CreateCommand;
+    FPesquisaVendedorCommand_Cache.RequestType := 'GET';
+    FPesquisaVendedorCommand_Cache.Text := 'TModelMetodos.PesquisaVendedor';
+    FPesquisaVendedorCommand_Cache.Prepare(TModelMetodos_PesquisaVendedor_Cache);
+  end;
+  FPesquisaVendedorCommand_Cache.Parameters[0].Value.SetWideString(ANome);
+  FPesquisaVendedorCommand_Cache.Parameters[1].Value.SetWideString(ACPF);
+  FPesquisaVendedorCommand_Cache.Parameters[2].Value.SetWideString(ATipoPesquisa);
+  FPesquisaVendedorCommand_Cache.Parameters[3].Value.SetInt32(AId);
+  FPesquisaVendedorCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FPesquisaVendedorCommand_Cache.Parameters[4].Value.GetString);
+end;
+
+function TModelMetodosClient.cadastraVendedor(ANrLog: Integer; ACPF: string; ARG: string; ANome: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string): string;
+begin
+  if FcadastraVendedorCommand = nil then
+  begin
+    FcadastraVendedorCommand := FConnection.CreateCommand;
+    FcadastraVendedorCommand.RequestType := 'GET';
+    FcadastraVendedorCommand.Text := 'TModelMetodos.cadastraVendedor';
+    FcadastraVendedorCommand.Prepare(TModelMetodos_cadastraVendedor);
+  end;
+  FcadastraVendedorCommand.Parameters[0].Value.SetInt32(ANrLog);
+  FcadastraVendedorCommand.Parameters[1].Value.SetWideString(ACPF);
+  FcadastraVendedorCommand.Parameters[2].Value.SetWideString(ARG);
+  FcadastraVendedorCommand.Parameters[3].Value.SetWideString(ANome);
+  FcadastraVendedorCommand.Parameters[4].Value.SetWideString(ALog);
+  FcadastraVendedorCommand.Parameters[5].Value.SetWideString(ACompl);
+  FcadastraVendedorCommand.Parameters[6].Value.SetWideString(ABairro);
+  FcadastraVendedorCommand.Parameters[7].Value.SetWideString(ACep);
+  FcadastraVendedorCommand.Parameters[8].Value.SetWideString(ACidade);
+  FcadastraVendedorCommand.Parameters[9].Value.SetWideString(AUF);
+  FcadastraVendedorCommand.Execute(ARequestFilter);
+  Result := FcadastraVendedorCommand.Parameters[10].Value.GetWideString;
+end;
+
+function TModelMetodosClient.atualizaVendedor(AIdVend: Integer; ANrLog: Integer; ACPF: string; ARG: string; ANome: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string): string;
+begin
+  if FatualizaVendedorCommand = nil then
+  begin
+    FatualizaVendedorCommand := FConnection.CreateCommand;
+    FatualizaVendedorCommand.RequestType := 'GET';
+    FatualizaVendedorCommand.Text := 'TModelMetodos.atualizaVendedor';
+    FatualizaVendedorCommand.Prepare(TModelMetodos_atualizaVendedor);
+  end;
+  FatualizaVendedorCommand.Parameters[0].Value.SetInt32(AIdVend);
+  FatualizaVendedorCommand.Parameters[1].Value.SetInt32(ANrLog);
+  FatualizaVendedorCommand.Parameters[2].Value.SetWideString(ACPF);
+  FatualizaVendedorCommand.Parameters[3].Value.SetWideString(ARG);
+  FatualizaVendedorCommand.Parameters[4].Value.SetWideString(ANome);
+  FatualizaVendedorCommand.Parameters[5].Value.SetWideString(ALog);
+  FatualizaVendedorCommand.Parameters[6].Value.SetWideString(ACompl);
+  FatualizaVendedorCommand.Parameters[7].Value.SetWideString(ABairro);
+  FatualizaVendedorCommand.Parameters[8].Value.SetWideString(ACep);
+  FatualizaVendedorCommand.Parameters[9].Value.SetWideString(ACidade);
+  FatualizaVendedorCommand.Parameters[10].Value.SetWideString(AUF);
+  FatualizaVendedorCommand.Execute(ARequestFilter);
+  Result := FatualizaVendedorCommand.Parameters[11].Value.GetWideString;
+end;
+
+function TModelMetodosClient.carregaMarcas(const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FcarregaMarcasCommand = nil then
+  begin
+    FcarregaMarcasCommand := FConnection.CreateCommand;
+    FcarregaMarcasCommand.RequestType := 'GET';
+    FcarregaMarcasCommand.Text := 'TModelMetodos.carregaMarcas';
+    FcarregaMarcasCommand.Prepare(TModelMetodos_carregaMarcas);
+  end;
+  FcarregaMarcasCommand.Execute(ARequestFilter);
+  if not FcarregaMarcasCommand.Parameters[0].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FcarregaMarcasCommand.Parameters[0].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FcarregaMarcasCommand.Parameters[0].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FcarregaMarcasCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.carregaMarcas_Cache(const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FcarregaMarcasCommand_Cache = nil then
+  begin
+    FcarregaMarcasCommand_Cache := FConnection.CreateCommand;
+    FcarregaMarcasCommand_Cache.RequestType := 'GET';
+    FcarregaMarcasCommand_Cache.Text := 'TModelMetodos.carregaMarcas';
+    FcarregaMarcasCommand_Cache.Prepare(TModelMetodos_carregaMarcas_Cache);
+  end;
+  FcarregaMarcasCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FcarregaMarcasCommand_Cache.Parameters[0].Value.GetString);
+end;
+
+function TModelMetodosClient.pesquisaMarcas(AIdMarca: Integer; AMarca: string; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FpesquisaMarcasCommand = nil then
+  begin
+    FpesquisaMarcasCommand := FConnection.CreateCommand;
+    FpesquisaMarcasCommand.RequestType := 'GET';
+    FpesquisaMarcasCommand.Text := 'TModelMetodos.pesquisaMarcas';
+    FpesquisaMarcasCommand.Prepare(TModelMetodos_pesquisaMarcas);
+  end;
+  FpesquisaMarcasCommand.Parameters[0].Value.SetInt32(AIdMarca);
+  FpesquisaMarcasCommand.Parameters[1].Value.SetWideString(AMarca);
+  FpesquisaMarcasCommand.Execute(ARequestFilter);
+  if not FpesquisaMarcasCommand.Parameters[2].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FpesquisaMarcasCommand.Parameters[2].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FpesquisaMarcasCommand.Parameters[2].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FpesquisaMarcasCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.pesquisaMarcas_Cache(AIdMarca: Integer; AMarca: string; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FpesquisaMarcasCommand_Cache = nil then
+  begin
+    FpesquisaMarcasCommand_Cache := FConnection.CreateCommand;
+    FpesquisaMarcasCommand_Cache.RequestType := 'GET';
+    FpesquisaMarcasCommand_Cache.Text := 'TModelMetodos.pesquisaMarcas';
+    FpesquisaMarcasCommand_Cache.Prepare(TModelMetodos_pesquisaMarcas_Cache);
+  end;
+  FpesquisaMarcasCommand_Cache.Parameters[0].Value.SetInt32(AIdMarca);
+  FpesquisaMarcasCommand_Cache.Parameters[1].Value.SetWideString(AMarca);
+  FpesquisaMarcasCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FpesquisaMarcasCommand_Cache.Parameters[2].Value.GetString);
+end;
+
+function TModelMetodosClient.cadastraMarca(AMarca: string; const ARequestFilter: string): string;
+begin
+  if FcadastraMarcaCommand = nil then
+  begin
+    FcadastraMarcaCommand := FConnection.CreateCommand;
+    FcadastraMarcaCommand.RequestType := 'GET';
+    FcadastraMarcaCommand.Text := 'TModelMetodos.cadastraMarca';
+    FcadastraMarcaCommand.Prepare(TModelMetodos_cadastraMarca);
+  end;
+  FcadastraMarcaCommand.Parameters[0].Value.SetWideString(AMarca);
+  FcadastraMarcaCommand.Execute(ARequestFilter);
+  Result := FcadastraMarcaCommand.Parameters[1].Value.GetWideString;
+end;
+
+function TModelMetodosClient.atualizaMarca(AIDMarca: Integer; AMarca: string; const ARequestFilter: string): string;
+begin
+  if FatualizaMarcaCommand = nil then
+  begin
+    FatualizaMarcaCommand := FConnection.CreateCommand;
+    FatualizaMarcaCommand.RequestType := 'GET';
+    FatualizaMarcaCommand.Text := 'TModelMetodos.atualizaMarca';
+    FatualizaMarcaCommand.Prepare(TModelMetodos_atualizaMarca);
+  end;
+  FatualizaMarcaCommand.Parameters[0].Value.SetInt32(AIDMarca);
+  FatualizaMarcaCommand.Parameters[1].Value.SetWideString(AMarca);
+  FatualizaMarcaCommand.Execute(ARequestFilter);
+  Result := FatualizaMarcaCommand.Parameters[2].Value.GetWideString;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -1511,6 +2089,24 @@ begin
   FpesquisaCargosCommand_Cache.DisposeOf;
   FcadastraCargoCommand.DisposeOf;
   FatualizaCargoCommand.DisposeOf;
+  FcarregaFornecedoresCommand.DisposeOf;
+  FcarregaFornecedoresCommand_Cache.DisposeOf;
+  FPesquisaFornecedoresCommand.DisposeOf;
+  FPesquisaFornecedoresCommand_Cache.DisposeOf;
+  FcadastraFornecedorCommand.DisposeOf;
+  FatualizaFornecedoresCommand.DisposeOf;
+  FcarregaVendedoresCommand.DisposeOf;
+  FcarregaVendedoresCommand_Cache.DisposeOf;
+  FPesquisaVendedorCommand.DisposeOf;
+  FPesquisaVendedorCommand_Cache.DisposeOf;
+  FcadastraVendedorCommand.DisposeOf;
+  FatualizaVendedorCommand.DisposeOf;
+  FcarregaMarcasCommand.DisposeOf;
+  FcarregaMarcasCommand_Cache.DisposeOf;
+  FpesquisaMarcasCommand.DisposeOf;
+  FpesquisaMarcasCommand_Cache.DisposeOf;
+  FcadastraMarcaCommand.DisposeOf;
+  FatualizaMarcaCommand.DisposeOf;
   inherited;
 end;
 

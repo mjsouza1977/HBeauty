@@ -21,6 +21,7 @@ type
     FENDERECO     : TModelEndereco;
     FValidador    : TACBRValidador;
     FForm         : TForm;
+    FIDVEND_FORN: Integer;
 
     procedure SetCNPJCPF_FORN(const Value: String);
     procedure SetCODIGO_FORN(const Value: String);
@@ -30,6 +31,7 @@ type
     procedure SetIERG_FORN(const Value: String);
     procedure SetNOME_FORN(const Value: String);
     procedure SetPSEUDO_FORN(const Value: String);
+    procedure SetIDVEND_FORN(const Value: Integer);
 
     public
 
@@ -41,6 +43,7 @@ type
     property IERG_FORN        : String         read FIERG_FORN    write SetIERG_FORN;
     property ENDERECO         : TModelEndereco read FENDERECO     write SetENDERECO;
     property DATACAD_FORN     : TDate          read FDATACAD_FORN write SetDATACAD_FORN;
+    property IDVEND_FORN      : Integer        read FIDVEND_FORN  write SetIDVEND_FORN;
     constructor Create(AForm : TForm);
     end;
 
@@ -93,6 +96,11 @@ begin
   FENDERECO := Value;
 end;
 
+procedure TModelFornecedor.SetIDVEND_FORN(const Value: Integer);
+begin
+  FIDVEND_FORN := Value;
+end;
+
 procedure TModelFornecedor.SetID_FORN(const Value: Integer);
 begin
   FID_FORN := Value;
@@ -116,7 +124,6 @@ begin
         begin
              FNOME_FORN := Value;
         end;
-
 end;
 
 procedure TModelFornecedor.SetPSEUDO_FORN(const Value: String);

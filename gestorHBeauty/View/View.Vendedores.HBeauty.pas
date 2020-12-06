@@ -1,4 +1,4 @@
-unit View.Fornecedores.HBeauty;
+unit View.Vendedores.HBeauty;
 
 interface
 
@@ -6,19 +6,22 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, ACBrBase, ACBrValidador, FMX.Effects, FMX.Filter.Effects, FMX.StdCtrls, FMX.EditBox, FMX.NumberBox,
   FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.Layouts, FMX.TMSBaseControl, FMX.TMSBaseGroup, FMX.TMSRadioGroup,
-  FMX.Edit, FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton, FMX.ListBox;
+  FMX.Edit, FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton,
+
+  Units.Consts.HBeauty,
+  Units.Enumerados.HBeauty;
 
 type
-  TfrmFornecedores = class(TForm)
+  TfrmVendedores = class(TForm)
     recRodapeTerceirizada: TRectangle;
     btnAlterar: TTMSFMXButton;
     btnFechar: TTMSFMXButton;
     btnIncluir: TTMSFMXButton;
     btnSalvar: TTMSFMXButton;
     btnCancelar: TTMSFMXButton;
-    tabCabecarioTerceirizada: TTabControl;
+    tabCabecarioVendedor: TTabControl;
     tabPesquisa: TTabItem;
-    recCabecarioTerceirizada: TRectangle;
+    recCabecarioVendedor: TRectangle;
     btnPesquisar: TTMSFMXButton;
     Label1: TLabel;
     Rectangle6: TRectangle;
@@ -31,8 +34,8 @@ type
     lblNome: TLabel;
     Label13: TLabel;
     lblStatus: TLabel;
-    tabGerenciadorFornecedor: TTabControl;
-    tabListaFornecedor: TTabItem;
+    tabGerenciadorVendedores: TTabControl;
+    tabListaVendedor: TTabItem;
     Layout4: TLayout;
     recModal: TRectangle;
     recMsg: TRectangle;
@@ -47,13 +50,10 @@ type
     sbtnSim: TSpeedButton;
     sbtnNao: TSpeedButton;
     Rectangle11: TRectangle;
-    grdListaTerceirizada: TTMSFMXGrid;
+    grdListaVendedor: TTMSFMXGrid;
     StyleBook1: TStyleBook;
-    tabFichaFornecedor: TTabItem;
+    tabFichaVendedor: TTabItem;
     rgDados: TTMSFMXRadioGroup;
-    Rectangle1: TRectangle;
-    edtRazaoSocial: TEdit;
-    Label2: TLabel;
     Rectangle10: TRectangle;
     edtCNPJ: TEdit;
     Label10: TLabel;
@@ -88,27 +88,62 @@ type
     btnCadastraTelefone: TTMSFMXButton;
     btnCadastraEmail: TTMSFMXButton;
     StyleBook2: TStyleBook;
+    StyleBook3: TStyleBook;
     FillRGBEffect2: TFillRGBEffect;
     ACBrValidador1: TACBrValidador;
-    grpMarca: TGroupBox;
-    recMarcas: TRectangle;
-    vsbHabilidades: TVertScrollBox;
-    lytModelo: TLayout;
-    CheckBox1: TCheckBox;
-    gbVendedor: TGroupBox;
-    Rectangle14: TRectangle;
-    cbEmpresaTerceirizada: TComboBox;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
   private
+    FIDSelecionado : Integer;
+    procedure HabilitaTab(AHabilita: Boolean);
     { Private declarations }
   public
     { Public declarations }
   end;
 
 var
-  frmFornecedores: TfrmFornecedores;
+  frmVendedores: TfrmVendedores;
 
 implementation
 
+uses
+  Units.Classes.HBeauty, Model.Vendedores.HBeauty;
+
 {$R *.fmx}
+
+procedure TfrmVendedores.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+     BloqueiaRegistro(False, FIdSelecionado, tcVendedor);
+     FreeAndNil(gclVendedor);
+     Action := TCloseAction.caFree;
+
+end;
+
+procedure TfrmVendedores.HabilitaTab(AHabilita : Boolean);
+begin
+     tabFichaVendedor.Visible := AHabilita;
+     tabListaVendedor.Visible := not AHabilita;
+end;
+
+
+procedure TfrmVendedores.FormCreate(Sender: TObject);
+begin
+     CarregaPersonalizacaoCabecarioRodape(Self);
+     HabilitaTab(False);
+     tabCabecarioVendedor.TabIndex   := 0;
+     tabGerenciadorVendedores.TabIndex := 0;
+     gclVendedor := TModelVendedor.Create(Self);
+
+     grdListaVendedor.Cells[0,0] := 'Código';
+     grdListaVendedor.Cells[1,0] := 'CPF';
+     grdListaVendedor.Cells[2,0] := 'Nome';
+     grdListaVendedor.Cells[3,0] := 'Logradouro';
+     grdListaVendedor.Cells[4,0] := 'Nr.';
+     grdListaVendedor.Cells[5,0] := 'Complemento';
+     grdListaVendedor.Cells[6,0] := 'Bairro';
+     grdListaVendedor.Cells[7,0] := 'CEP';
+     grdListaVendedor.Cells[8,0] := 'Cidade';
+     grdListaVendedor.Cells[9,0] := 'UF';
+end;
 
 end.

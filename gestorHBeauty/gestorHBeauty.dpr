@@ -45,7 +45,14 @@ uses
   Model.Cargos.HBeauty in 'Model\Model.Cargos.HBeauty.pas',
   Units.Mensagens.HBeauty in 'Units\Units.Mensagens.HBeauty.pas',
   Model.Fornecedor.HBeauty in 'Model\Model.Fornecedor.HBeauty.pas',
-  View.Fornecedores.HBeauty in 'View\View.Fornecedores.HBeauty.pas' {Form1};
+  View.Fornecedores.HBeauty in 'View\View.Fornecedores.HBeauty.pas' {frmFornecedores},
+  View.Vendedores.HBeauty in 'View\View.Vendedores.HBeauty.pas' {frmVendedores},
+  View.Marcas.HBeauty in 'View\View.Marcas.HBeauty.pas' {Form3},
+  Model.Vendedores.HBeauty in 'Model\Model.Vendedores.HBeauty.pas',
+  Model.Vendedor.Servidor.HBeauty in 'Model\DadosServidor\Model.Vendedor.Servidor.HBeauty.pas',
+  Model.Fornecedor.Servidor.HBeauty in 'Model\DadosServidor\Model.Fornecedor.Servidor.HBeauty.pas',
+  Model.Marca.Servidor.HBeauty in 'Model\DadosServidor\Model.Marca.Servidor.HBeauty.pas',
+  Model.Marcas.HBeauty in 'Model\Model.Marcas.HBeauty.pas';
 
 {$R *.res}
 
@@ -54,6 +61,8 @@ begin
   Application.CreateForm(TControllerClientModule, ControllerClientModule);
   Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
   Application.CreateForm(TfrmLogin, frmLogin);
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfrmFornecedores, frmFornecedores);
+  Application.CreateForm(TfrmVendedores, frmVendedores);
+  Application.CreateForm(TForm3, Form3);
   Application.Run;
 end.

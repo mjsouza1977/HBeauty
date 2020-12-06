@@ -148,7 +148,7 @@ begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                        'Nome do profissional inválido, verifique!',
                        apTitulo,
-                       MB_ICONINFORMATION);
+                       MB_OK + MB_ICONINFORMATION);
             Abort;
         end
     else
@@ -179,7 +179,7 @@ begin
             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                        'Sobrenome do profissional inválido, verifique!',
                        apTitulo,
-                       MB_ICONINFORMATION);
+                       MB_OK + MB_ICONINFORMATION);
             Abort;
         end
     else

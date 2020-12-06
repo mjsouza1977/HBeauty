@@ -26,6 +26,9 @@ type
     memCepuf: TWideStringField;
     memTerceirizada: TFDMemTable;
     memCargos: TFDMemTable;
+    memFornecedores: TFDMemTable;
+    memVendedores: TFDMemTable;
+    memMarcas: TFDMemTable;
   private
     { Private declarations }
   public

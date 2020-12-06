@@ -4,7 +4,8 @@ interface
 
 uses
     Model.Profissionais.HBeauty, Model.Telefones.HBeauty, Model.Emails.HBeauty,
-    Model.Habilidades.HBeauty,  Model.Terceirizada.HBeauty, Model.Cargos.HBeauty;
+    Model.Habilidades.HBeauty,  Model.Terceirizada.HBeauty, Model.Cargos.HBeauty,
+  Model.Vendedores.HBeauty;
 
 var
    gclProfissional : TModelProfissionais;
@@ -13,6 +14,7 @@ var
    gclHabilidade   : TModelHabilidades;
    gclTerceirizada : TModelTerceirizada;
    gclCargos       : TModelCargos;
+   gclVendedor      : TModelVendedor;
 
 implementation
 

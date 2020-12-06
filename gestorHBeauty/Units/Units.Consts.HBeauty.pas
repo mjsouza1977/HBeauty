@@ -54,6 +54,12 @@ const
      ACaptionCargos : Array [0..2] of String  = ('Código','Cargo','Descrição');
      ASizeColCargos : Array [0..2] of Single  = (50, 200, 400);
 
+     //grid do Form de Vendedores
+     AFieldsVendedores  : Array [0..9] of  String = ('ID_VEND','CPF_VEND','NOME_VEND','LOG_VEND','NRLOG_VEND','COMPLOG_VEND', 'BAILOG_VEND','CEPLOG_VEND','CIDLOG_VEND','UFLOG_VEND');
+     ACaptionVendedores : Array [0..9] of String  = ('Código','CPF', 'Nome', 'Logradouro', 'Nr.', 'Complemento','Bairro','CEP','Cidade','UF');
+     ASizeColVendedores : Array [0..9] of Single  = (50, 170, 300, 350, 70, 100, 200, 100, 180, 50);
+
+
      //Status da ação do form
      tpInicia    : String = 'Inicia';
      tpTermina   : String = 'Termina';
@@ -105,6 +111,7 @@ begin
         tcEmails        : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_EMAIL','HBEMAILS');
         tcHabilidades   : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_HABILIDADE','HBHABILIDADES');
         tcCargo         : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_CARGO','HBCARGO');
+        tcVendedor      : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_VEN','HBVENDEDOR');
     end;
 end;
 

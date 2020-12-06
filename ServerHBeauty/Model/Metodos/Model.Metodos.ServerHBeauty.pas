@@ -9,7 +9,8 @@ uses System.SysUtils, System.Classes, System.Json,
      Model.Metodos.Usuarios.ServerHBeauty,
      Model.Metodos.Profissionais.ServerHBeauty,
      Model.Metodos.Profissionais.Hablidades.ServerHBeauty, Model.Metodos.Terceirizadas.ServerHBeauty, Model.Metodos.Genericos.ServerHBeauty,
-  Model.Metodos.Habilidades.ServerHBeauty, Model.Metodos.Profissionais.Cargos.ServerHBeauty;
+  Model.Metodos.Habilidades.ServerHBeauty, Model.Metodos.Profissionais.Cargos.ServerHBeauty, Model.Metodos.Fornecedores.ServerHBeauty,
+  Model.Metodos.Vendedores.ServerHBeauty, Model.Metodos.Marcas.Produto.ServerHBeauty;
 
 type
 {$METHODINFO ON}
@@ -57,6 +58,21 @@ type
     function cadastraCargo(ANomeCargo, ADescricaoCargo : String) : String;
     function atualizaCargo(AIDCargo : Integer; ANomeCargo, ADescricaoCargo : String) : String;
 
+    function carregaFornecedores : TFDJSONDataSets;
+    function PesquisaFornecedores(ANome, APseudo, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
+    function cadastraFornecedor(AIdVendFor, ANrLog : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+    function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+
+    function carregaVendedores : TFDJSONDataSets;
+    function PesquisaVendedor(ANome, ACPF, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
+    function cadastraVendedor(ANrLog : Integer; ACPF, ARG, ANome, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+    function atualizaVendedor(AIdVend, ANrLog : Integer; ACPF, ARG, ANome, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+
+    function carregaMarcas : TFDJSONDataSets;
+    function pesquisaMarcas(AIdMarca : Integer; AMarca : String) : TFDJSONDataSets;
+    function cadastraMarca(AMarca  : String) : String;
+    function atualizaMarca(AIDMarca : Integer; AMarca : String) : String;
+
 
   end;
 {$METHODINFO OFF}
@@ -73,6 +89,11 @@ uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contat
 
 { TModelMetodos }
 
+function TModelMetodos.carregaFornecedores: TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Fornecedores.ServerHBeauty.carregaFornecedores;
+end;
+
 function TModelMetodos.carregaHabilidades : TFDJSONDataSets;
 begin
      Result := Model.Metodos.Habilidades.ServerHBeauty.carregaHabilidades;
@@ -83,9 +104,20 @@ begin
      Result := Model.Metodos.Profissionais.Hablidades.ServerHBeauty.carregaHabilidadesProfissional(AAIdProfissional);
 end;
 
+function TModelMetodos.carregaMarcas: TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Marcas.Produto.ServerHBeauty.carregaMarcas;
+end;
+
 function TModelMetodos.atualizaHabilidades(AIdHabilidade, AIdCargoHabilidade : Integer; AHabilidade, ADescricao : String) : String;
 begin
      Result := Model.Metodos.Habilidades.ServerHBeauty.atualizaHabilidades(AIdHabilidade, AIdCargoHabilidade, AHabilidade, ADescricao);
+end;
+
+function TModelMetodos.cadastraFornecedor(AIdVendFor, ANrLog: Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade,
+  AUF: String): String;
+begin
+     Result := Model.Metodos.Fornecedores.ServerHBeauty.cadastraFornecedor(AIdVendFor, ANrLog, ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF);
 end;
 
 function TModelMetodos.cadastraHabilidade(AIDCargoHabilidade : Integer; AHabilidade, ADescricao : String) : String;
@@ -123,6 +155,12 @@ begin
      Result := Model.Metodos.Contatos.ServerHBeauty.AtualizaEmail(AEmail, AIdEmail,  ARestrito);
 end;
 
+function TModelMetodos.atualizaFornecedores(AIdForn, AIdVendFor, ANrLog: Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade,
+  AUF: String): String;
+begin
+     Result := Model.Metodos.Fornecedores.ServerHBeauty.atualizaFornecedores(AIdForn, AIdVendFor, ANrLog, ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF);
+end;
+
 function TModelMetodos.AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
 begin
      Result := Model.Metodos.Profissionais.ServerHBeauty.AtualizaFotoProfissional(AIDProfissional, AIdFoto);
@@ -131,6 +169,11 @@ end;
 function TModelMetodos.AtualizaImagem(AIDImagem: Integer): String;
 begin
     Result := Model.Metodos.Imagens.ServerHBeauty.AtualizaImagem(AIDImagem)
+end;
+
+function TModelMetodos.atualizaMarca(AIDMarca: Integer; AMarca: String): String;
+begin
+     Result := Model.Metodos.Marcas.Produto.ServerHBeauty.atualizaMarca(AIDMarca, AMarca);
 end;
 
 function TModelMetodos.AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog: Integer; ACodigo, ANome, ASobreNome, ACPF, ARG, ALogradouro,
@@ -151,6 +194,11 @@ begin
      Result := Model.Metodos.Terceirizadas.ServerHBeauty.AtualizaTerceirizada(AIdTerc, ANrLog, ACodigo, ARazao, AFantasia, ACNPJ, AIE, ALogradouro, AComplemento, ABairro, ACidade, AUF,  ACep);
 end;
 
+function TModelMetodos.atualizaVendedor(AIdVend, ANrLog: Integer; ACPF, ARG, ANome, ALog, ACompl, ABairro, ACep, ACidade, AUF: String): String;
+begin
+     Result := Model.Metodos.Vendedores.ServerHBeauty.atualizaVendedor(AIdVend, ANrLog, ACPF, ARG, ANome, ALog, ACompl, ABairro, ACep, ACidade, AUF);
+end;
+
 function TModelMetodos.cadastraCargo(ANomeCargo, ADescricaoCargo: String): String;
 begin
      Result := Model.Metodos.Profissionais.Cargos.ServerHBeauty.cadastraCargo(ANomeCargo, ADescricaoCargo);
@@ -164,6 +212,11 @@ end;
 function TModelMetodos.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): String;
 begin
      Result:= Model.Metodos.Profissionais.Hablidades.ServerHBeauty.cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional);
+end;
+
+function TModelMetodos.cadastraMarca(AMarca: String): String;
+begin
+     Result := Model.Metodos.Marcas.Produto.ServerHBeauty.cadastraMarca(AMarca);
 end;
 
 function TModelMetodos.CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ACodigo, ANome, ASobreNome, ACPF, ARG,
@@ -182,6 +235,11 @@ function TModelMetodos.CadastraTerceirizada(ANrLog: Integer; ACodigo, ARazao, AF
 begin
      Result := MOdel.Metodos.Terceirizadas.ServerHBeauty.CadastraTerceirizada(ANrLog, ACodigo, ARazao, AFantasia, ACNPJ, AIE, ALogradouro,
                                                                               AComplemento, ABairro, ACidade, AUF, ACep);
+end;
+
+function TModelMetodos.cadastraVendedor(ANrLog: Integer; ACPF, ARG, ANome, ALog, ACompl, ABairro, ACep, ACidade, AUF: String): String;
+begin
+     Result := Model.Metodos.Vendedores.ServerHBeauty.cadastraVendedor(ANrLog, ACPF, ARG, ANome, ALog, ACompl, ABairro, ACep, ACidade, AUF);
 end;
 
 function TModelMetodos.CarregaCamposProfissional(ACampos: String): TFDJSONDataSets;
@@ -220,6 +278,11 @@ begin
      Result := Model.Metodos.Contatos.ServerHBeauty.CarregaTelefones(ATipoFone, AIdTabFone);
 end;
 
+function TModelMetodos.carregaVendedores: TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Vendedores.ServerHBeauty.carregaVendedores;
+end;
+
 function TModelMetodos.ListaProfissionais(ANome, ACPF, ATipoPesquisa: String; AIDTerceirizada, AId: Integer): TFDJSONDataSets;
 begin
      Result := Model.Metodos.Profissionais.ServerHBeauty.ListaProfissionais(ANome, ACPF, ATipoPEsquisa, AIDTerceirizada, AId);
@@ -240,9 +303,24 @@ begin
      Result := Model.Metodos.Profissionais.Cargos.ServerHBeauty.pesquisaCargos(AIdCargo, ANomeCargo);
 end;
 
+function TModelMetodos.PesquisaFornecedores(ANome, APseudo, ACNPJ, ATipoPesquisa: String; AId: Integer): TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Fornecedores.ServerHBeauty.PesquisaFornecedores(ANome, APseudo, ACNPJ, ATipoPesquisa, AId);
+end;
+
 function TModelMetodos.pesquisaHabilidade(AIDHabilidade, AIDCargo : Integer; ANomeHabilidade: String): TFDJSONDataSets;
 begin
      Result := Model.Metodos.Habilidades.ServerHBeauty.pesquisaHabilidade(AIDHabilidade, AIDCargo, ANomeHabilidade);
+end;
+
+function TModelMetodos.pesquisaMarcas(AIdMarca: Integer; AMarca: String): TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Marcas.Produto.ServerHBeauty.pesquisaMarcas(AIdMarca, AMarca);
+end;
+
+function TModelMetodos.PesquisaVendedor(ANome, ACPF, ATipoPesquisa: String; AId: Integer): TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Vendedores.ServerHBeauty.PesquisaVendedor(ANome, ACPF, ATipoPesquisa, AId);
 end;
 
 end.

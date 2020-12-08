@@ -85,7 +85,12 @@ begin
             ControllerConexao.qryQuery.ParamByName('LOCK'        ).AsString  := 'F';
             ControllerConexao.qryQuery.ParamByName('IDUSULOCK'   ).AsInteger := 0;
             ControllerConexao.qryQuery.ExecSQL;
-            Result := '';
+
+            ControllerConexao.qryQuery.Close;
+            ControllerConexao.qryQuery.SQL.Clear;
+            ControllerConexao.qryQuery.SQL.Add('SELECT ID_VEND FROM HBVENDEDOR FROM CPF_VEND = ' + QuotedStr(ACPF));
+            ControllerConexao.qryQuery.Open;
+            Result := ControllerConexao.qryQuery.FieldByName('ID_VEND').AsString;
         except on E:Exception do
             begin
                  Result := E.Message;

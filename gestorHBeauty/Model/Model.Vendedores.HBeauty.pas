@@ -16,20 +16,23 @@ type
         FForm : TForm;
         FValidador : TACBRValidador;
         FCPF_VEND: String;
+    FSOBRENOME_VEND: String;
         procedure SetDTCAD_VEND(const Value: TDate);
         procedure SetENDERECO_VEND(const Value: TModelEndereco);
         procedure SetID_VEND(const Value: Integer);
         procedure SetNOME_VEND(const Value: String);
         procedure SetRG_VEND(const Value: String);
     procedure SetCPF_VEND(const Value: String);
+    procedure SetSOBRENOME_VEND(const Value: String);
 
         public
-        property ID_VEND        : Integer        read FID_VEND       write SetID_VEND;
-        property NOME_VEND      : String         read FNOME_VEND     write SetNOME_VEND;
-        property RG_VEND        : String         read FRG_VEND       write SetRG_VEND;
-        property CPF_VEND       : String         read FCPF_VEND      write SetCPF_VEND;
-        property ENDERECO_VEND  : TModelEndereco read FENDERECO_VEND write SetENDERECO_VEND;
-        property DTCAD_VEND     : TDate          read FDTCAD_VEND    write SetDTCAD_VEND;
+        property ID_VEND        : Integer        read FID_VEND        write SetID_VEND;
+        property NOME_VEND      : String         read FNOME_VEND      write SetNOME_VEND;
+        property SOBRENOME_VEND : String         read FSOBRENOME_VEND write SetSOBRENOME_VEND;
+        property RG_VEND        : String         read FRG_VEND        write SetRG_VEND;
+        property CPF_VEND       : String         read FCPF_VEND       write SetCPF_VEND;
+        property ENDERECO_VEND  : TModelEndereco read FENDERECO_VEND  write SetENDERECO_VEND;
+        property DTCAD_VEND     : TDate          read FDTCAD_VEND     write SetDTCAD_VEND;
         constructor Create(AForm : TForm);
 
     end;
@@ -108,6 +111,11 @@ end;
 procedure TModelVendedor.SetRG_VEND(const Value: String);
 begin
   FRG_VEND := Value;
+end;
+
+procedure TModelVendedor.SetSOBRENOME_VEND(const Value: String);
+begin
+  FSOBRENOME_VEND := Value;
 end;
 
 end.

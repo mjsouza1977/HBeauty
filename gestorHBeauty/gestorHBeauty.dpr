@@ -46,7 +46,7 @@ uses
   Units.Mensagens.HBeauty in 'Units\Units.Mensagens.HBeauty.pas',
   Model.Fornecedor.HBeauty in 'Model\Model.Fornecedor.HBeauty.pas',
   View.Fornecedores.HBeauty in 'View\View.Fornecedores.HBeauty.pas' {frmFornecedores},
-  View.Vendedores.HBeauty in 'View\View.Vendedores.HBeauty.pas' {frmVendedores},
+  View.Vendedores.HBeauty in 'View\View.Vendedores.HBeauty.pas' {frmGerenciadorVendedores},
   View.Marcas.HBeauty in 'View\View.Marcas.HBeauty.pas' {Form3},
   Model.Vendedores.HBeauty in 'Model\Model.Vendedores.HBeauty.pas',
   Model.Vendedor.Servidor.HBeauty in 'Model\DadosServidor\Model.Vendedor.Servidor.HBeauty.pas',
@@ -62,7 +62,7 @@ begin
   Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
   Application.CreateForm(TfrmLogin, frmLogin);
   Application.CreateForm(TfrmFornecedores, frmFornecedores);
-  Application.CreateForm(TfrmVendedores, frmVendedores);
+  Application.CreateForm(TfrmGerenciadorVendedores, frmGerenciadorVendedores);
   Application.CreateForm(TForm3, Form3);
   Application.Run;
 end.

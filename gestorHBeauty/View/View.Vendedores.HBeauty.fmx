@@ -1,4 +1,4 @@
-object frmVendedores: TfrmVendedores
+object frmGerenciadorVendedores: TfrmGerenciadorVendedores
   Left = 0
   Top = 0
   BorderIcons = []
@@ -36,6 +36,7 @@ object frmVendedores: TfrmVendedores
       Position.Y = 12.000000000000000000
       TabOrder = 0
       Text = 'Alterar'
+      OnClick = btnAlterarClick
     end
     object btnFechar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -52,6 +53,7 @@ object frmVendedores: TfrmVendedores
       Position.Y = 12.000000000000000000
       TabOrder = 1
       Text = 'Fechar'
+      OnClick = btnFecharClick
     end
     object btnIncluir: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -68,6 +70,7 @@ object frmVendedores: TfrmVendedores
       Position.Y = 12.000000000000000000
       TabOrder = 2
       Text = 'Incluir'
+      OnClick = btnIncluirClick
     end
     object btnSalvar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -85,6 +88,7 @@ object frmVendedores: TfrmVendedores
       TabOrder = 3
       Text = 'Salvar'
       Visible = False
+      OnClick = btnSalvarClick
     end
     object btnCancelar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -102,6 +106,7 @@ object frmVendedores: TfrmVendedores
       TabOrder = 4
       Text = 'Cancelar'
       Visible = False
+      OnClick = btnCancelarClick
     end
   end
   object tabCabecarioVendedor: TTabControl
@@ -152,6 +157,7 @@ object frmVendedores: TfrmVendedores
           Position.Y = 12.000000000000000000
           TabOrder = 0
           Text = 'Pesquisar'
+          OnClick = btnPesquisarClick
         end
         object Label1: TLabel
           StyledSettings = [Family, Size]
@@ -306,7 +312,7 @@ object frmVendedores: TfrmVendedores
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 36
+        TabOrder = 37
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -2745,6 +2751,7 @@ object frmVendedores: TfrmVendedores
             StrokeThickness = 0.000000000000000000
             TopRow = 1
             LeftCol = 2
+            OnCellClick = grdListaVendedorCellClick
             Columns = <
               item
                 BorderColor = claNull
@@ -4416,6 +4423,7 @@ object frmVendedores: TfrmVendedores
         Position.X = 26.000000000000000000
         Position.Y = 4.000000000000000000
         TabOrder = 3
+        OnKeyUp = rgDadosKeyUp
         Size.Width = 639.000000000000000000
         Size.Height = 325.000000000000000000
         Size.PlatformDefault = False
@@ -4426,6 +4434,48 @@ object frmVendedores: TfrmVendedores
         ItemFontColor = claWhite
         ItemIndex = 0
         Version = '1.0.2.6'
+        object Rectangle1: TRectangle
+          Fill.Color = claWhite
+          Margins.Left = 150.000000000000000000
+          Margins.Top = 20.000000000000000000
+          Margins.Right = 150.000000000000000000
+          Position.X = 287.000000000000000000
+          Position.Y = 109.000000000000000000
+          Size.Width = 329.000000000000000000
+          Size.Height = 29.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = claGainsboro
+          Stroke.Thickness = 2.000000000000000000
+          XRadius = 5.000000000000000000
+          YRadius = 5.000000000000000000
+          object edtSobreNome: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            Align = Client
+            StyleLookup = 'transparentedit'
+            TabOrder = 3
+            TextSettings.Font.Size = 14.000000000000000000
+            Margins.Left = 10.000000000000000000
+            Margins.Top = 2.000000000000000000
+            Margins.Right = 10.000000000000000000
+            Margins.Bottom = 2.000000000000000000
+            Size.Width = 309.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            StyledSettings = [Family, Style, FontColor]
+            CharCase = ecUpperCase
+          end
+          object Label2: TLabel
+            StyledSettings = [Family, Size]
+            Position.X = 4.000000000000000000
+            Position.Y = -20.000000000000000000
+            Size.Width = 185.000000000000000000
+            Size.Height = 17.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            Text = 'Sobrenome'
+            TabOrder = 0
+          end
+        end
       end
       object Rectangle10: TRectangle
         Fill.Color = claWhite
@@ -4441,7 +4491,7 @@ object frmVendedores: TfrmVendedores
         Stroke.Thickness = 2.000000000000000000
         XRadius = 5.000000000000000000
         YRadius = 5.000000000000000000
-        object edtCNPJ: TEdit
+        object edtCPF: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Client
           StyleLookup = 'transparentedit'
@@ -4457,6 +4507,9 @@ object frmVendedores: TfrmVendedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnTyping = edtCPFTyping
+          OnKeyUp = edtCPFKeyUp
+          OnExit = edtCPFExit
         end
         object Label10: TLabel
           StyledSettings = [Family, Size]
@@ -4483,7 +4536,7 @@ object frmVendedores: TfrmVendedores
         Stroke.Thickness = 2.000000000000000000
         XRadius = 5.000000000000000000
         YRadius = 5.000000000000000000
-        object edtIE: TEdit
+        object edtRG: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Client
           StyleLookup = 'transparentedit'
@@ -4498,6 +4551,7 @@ object frmVendedores: TfrmVendedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtRGKeyUp
         end
         object Label11: TLabel
           StyledSettings = [Family, Size]
@@ -4518,14 +4572,14 @@ object frmVendedores: TfrmVendedores
         Margins.Right = 150.000000000000000000
         Position.X = 48.000000000000000000
         Position.Y = 114.000000000000000000
-        Size.Width = 597.000000000000000000
+        Size.Width = 245.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = claGainsboro
         Stroke.Thickness = 2.000000000000000000
         XRadius = 5.000000000000000000
         YRadius = 5.000000000000000000
-        object edtNomeFantasia: TEdit
+        object edtNome: TEdit
           Touch.InteractiveGestures = [LongTap, DoubleTap]
           Align = Client
           StyleLookup = 'transparentedit'
@@ -4535,11 +4589,12 @@ object frmVendedores: TfrmVendedores
           Margins.Top = 2.000000000000000000
           Margins.Right = 10.000000000000000000
           Margins.Bottom = 2.000000000000000000
-          Size.Width = 577.000000000000000000
+          Size.Width = 225.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtNomeKeyUp
         end
         object Label12: TLabel
           StyledSettings = [Family, Size]
@@ -4595,6 +4650,7 @@ object frmVendedores: TfrmVendedores
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnKeyUp = edtNumeroLogKeyUp
         end
       end
       object Rectangle2: TRectangle
@@ -4626,6 +4682,7 @@ object frmVendedores: TfrmVendedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtLogradouroKeyUp
         end
         object Label3: TLabel
           StyledSettings = [Family, Size]
@@ -4668,6 +4725,7 @@ object frmVendedores: TfrmVendedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtComplementoLogKeyUp
         end
         object Label5: TLabel
           AutoSize = True
@@ -4710,6 +4768,7 @@ object frmVendedores: TfrmVendedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtBairroLogKeyUp
         end
         object Label6: TLabel
           StyledSettings = [Family, Size]
@@ -4752,6 +4811,7 @@ object frmVendedores: TfrmVendedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtCepLogKeyUp
         end
         object Label7: TLabel
           AutoSize = True
@@ -4794,6 +4854,7 @@ object frmVendedores: TfrmVendedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtCidadeLogKeyUp
         end
         object Label8: TLabel
           StyledSettings = [Family, Size]
@@ -4836,6 +4897,7 @@ object frmVendedores: TfrmVendedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtUFLogKeyUp
         end
         object Label9: TLabel
           AutoSize = True

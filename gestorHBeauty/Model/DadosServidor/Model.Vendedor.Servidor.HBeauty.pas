@@ -15,7 +15,7 @@ function atualizaVendedor(AVendedor : TModelVendedor) : String;
 implementation
 
 uses
-  Controller.ClientModule.HBeauty, Model.Dados.Server.HBeauty;
+  Controller.ClientModule.HBeauty, Model.Dados.Server.HBeauty, System.SysUtils;
 
 function carregaVendedores : TFDJSONDataSets;
 var
@@ -40,12 +40,20 @@ begin
 end;
 
 function cadastraVendedor(AVendedor : TModelVendedor) : String;
+var
+ARes : String;
 begin
-    Result := ControllerClientModule.ModelMetodosClient.cadastraVendedor(AVendedor.ENDERECO_VEND.NRLOG, AVendedor.CPF_VEND, AVendedor.RG_VEND,
-                                                                         AVendedor.NOME_VEND, AVendedor.ENDERECO_VEND.LOGRADOURO,
-                                                                         AVendedor.ENDERECO_VEND.COMPLLOG, AVendedor.ENDERECO_VEND.BAIRROLOG,
-                                                                         AVendedor.ENDERECO_VEND.CEP, AVendedor.ENDERECO_VEND.CIDADELOG,
-                                                                         AVendedor.ENDERECO_VEND.UFLOG);
+    ARes := ControllerClientModule.ModelMetodosClient.cadastraVendedor(AVendedor.ENDERECO_VEND.NRLOG, AVendedor.CPF_VEND, AVendedor.RG_VEND,
+                                                                       AVendedor.NOME_VEND, AVendedor.ENDERECO_VEND.LOGRADOURO,
+                                                                       AVendedor.ENDERECO_VEND.COMPLLOG, AVendedor.ENDERECO_VEND.BAIRROLOG,
+                                                                       AVendedor.ENDERECO_VEND.CEP, AVendedor.ENDERECO_VEND.CIDADELOG,
+                                                                       AVendedor.ENDERECO_VEND.UFLOG);
+    try
+        StrToInt(ARes);
+        Result := ARes;
+    except
+        Result := '';
+    end;
 end;
 
 function atualizaVendedor(AVendedor : TModelVendedor) : String;

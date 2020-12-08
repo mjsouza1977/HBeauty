@@ -403,7 +403,7 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="View\View.Vendedores.HBeauty.pas">
-            <Form>frmVendedores</Form>
+            <Form>frmGerenciadorVendedores</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="View\View.Marcas.HBeauty.pas">

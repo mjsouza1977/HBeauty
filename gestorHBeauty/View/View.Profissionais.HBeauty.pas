@@ -11,7 +11,7 @@ uses
   Model.Dados.Server.HBeauty, ACBrBase, ACBrValidador,  Model.Contatos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, View.Loading.HBeauty, FMX.TMSCustomPicker, FMX.TMSCheckGroupPicker, FMX.TMSCheckGroup, FMX.TMSBitmapContainer, FMX.TMSRichEditorEmoticons,
   FireDAC.Comp.Client, Model.Endereco.HBeauty, FMX.Effects, FMX.Filter.Effects, Controller.Formata.HBeauty, Model.Terceirizada.HBeauty,
-  Model.Terceirizadas.Servidor.HBeauty, Units.Consts.HBeauty, Units.Mensagens.HBeauty;
+  Model.Terceirizadas.Servidor.HBeauty, Units.Consts.HBeauty, Units.Mensagens.HBeauty, Model.Vendedor.Servidor.HBeauty;
 
 type
   TfrmGerenciadorProfissionais = class(TForm)
@@ -397,7 +397,6 @@ begin
                         apTitulo, MB_OK + MB_ICONINFORMATION);
              Exit;
          end;
-
 end;
 
 procedure TfrmGerenciadorProfissionais.btnCancelarClick(Sender: TObject);

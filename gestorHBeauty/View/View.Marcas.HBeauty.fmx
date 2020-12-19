@@ -1,4 +1,4 @@
-object Form3: TForm3
+object frmCadastroMarcas: TfrmCadastroMarcas
   Left = 0
   Top = 0
   BorderIcons = []
@@ -10,6 +10,9 @@ object Form3: TForm3
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
+  OnShow = FormShow
   DesignerMasterStyle = 0
   object recRodapeHabilidades: TRectangle
     Align = Bottom
@@ -34,6 +37,7 @@ object Form3: TForm3
       Position.Y = 12.000000000000000000
       TabOrder = 0
       Text = 'Alterar'
+      OnClick = btnAlterarClick
     end
     object btnFechar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -50,6 +54,7 @@ object Form3: TForm3
       Position.Y = 12.000000000000000000
       TabOrder = 1
       Text = 'Fechar'
+      OnClick = btnFecharClick
     end
     object btnIncluir: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -66,6 +71,7 @@ object Form3: TForm3
       Position.Y = 12.000000000000000000
       TabOrder = 2
       Text = 'Incluir'
+      OnClick = btnIncluirClick
     end
     object btnSalvar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -83,6 +89,7 @@ object Form3: TForm3
       TabOrder = 3
       Text = 'Salvar'
       Visible = False
+      OnClick = btnSalvarClick
     end
     object btnCancelar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -100,6 +107,7 @@ object Form3: TForm3
       TabOrder = 4
       Text = 'Cancelar'
       Visible = False
+      OnClick = btnCancelarClick
     end
   end
   object StyleBook2: TStyleBook
@@ -1888,7 +1896,7 @@ object Form3: TForm3
       Size.PlatformDefault = False
       StrokeThickness = 1.000000000000000000
       Version = '1.5.1.1'
-      BitmapName = 'Cargos'
+      BitmapName = 'Marcas'
       BitmapContainer = frmPrincipal.ContainerButtons
     end
     object Line1: TLine
@@ -1922,7 +1930,7 @@ object Form3: TForm3
     Size.PlatformDefault = False
     TextSettings.Font.Size = 14.000000000000000000
     TextSettings.FontColor = xFFCFCFCF
-    Text = 'S'#227'o as marcas dos produtos ccomercializados da empresa'
+    Text = 'S'#227'o as marcas dos produtos comercializados da empresa'
     TabOrder = 4
   end
   object grdListaMarca: TTMSFMXGrid
@@ -1935,7 +1943,7 @@ object Form3: TForm3
     Size.PlatformDefault = False
     DefaultRowHeight = 20.000000000000000000
     DefaultColumnWidth = 50.000000000000000000
-    ColumnCount = 3
+    ColumnCount = 2
     RowCount = 1
     SelectionMode = smRowRange
     Options.Editing.CalcFormat = '%g'
@@ -1950,6 +1958,7 @@ object Form3: TForm3
     StrokeThickness = 0.000000000000000000
     TopRow = 1
     LeftCol = 1
+    OnCellClick = grdListaMarcaCellClick
     Columns = <
       item
         Color = claNull
@@ -1986,7 +1995,7 @@ object Form3: TForm3
         Width = 400.000000000000000000
       end>
   end
-  object lytCadastraCargo: TLayout
+  object lytCadastraMarcas: TLayout
     Align = Bottom
     Position.Y = 296.000000000000000000
     Size.Width = 716.000000000000000000
@@ -2023,7 +2032,7 @@ object Form3: TForm3
         Align = Client
         StyleLookup = 'transparentedit'
         TabOrder = 0
-        MaxLength = 20
+        MaxLength = 25
         TextSettings.Font.Size = 14.000000000000000000
         Margins.Left = 10.000000000000000000
         Margins.Top = 2.000000000000000000

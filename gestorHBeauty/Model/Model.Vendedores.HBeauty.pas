@@ -6,7 +6,7 @@ uses
   Model.Endereco.HBeauty, FMX.Forms, ACBrValidador;
 
 type
-    TModelVendedor = class
+        TModelVendedor = class
         private
         FNOME_VEND: String;
         FENDERECO_VEND: TModelEndereco;
@@ -16,14 +16,14 @@ type
         FForm : TForm;
         FValidador : TACBRValidador;
         FCPF_VEND: String;
-    FSOBRENOME_VEND: String;
+        FSOBRENOME_VEND: String;
         procedure SetDTCAD_VEND(const Value: TDate);
         procedure SetENDERECO_VEND(const Value: TModelEndereco);
         procedure SetID_VEND(const Value: Integer);
         procedure SetNOME_VEND(const Value: String);
         procedure SetRG_VEND(const Value: String);
-    procedure SetCPF_VEND(const Value: String);
-    procedure SetSOBRENOME_VEND(const Value: String);
+        procedure SetCPF_VEND(const Value: String);
+        procedure SetSOBRENOME_VEND(const Value: String);
 
         public
         property ID_VEND        : Integer        read FID_VEND        write SetID_VEND;

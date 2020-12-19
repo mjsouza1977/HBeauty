@@ -29,6 +29,8 @@ type
     memFornecedores: TFDMemTable;
     memVendedores: TFDMemTable;
     memMarcas: TFDMemTable;
+    memGenerica: TFDMemTable;
+    memAuxiliar: TFDMemTable;
   private
     { Private declarations }
   public

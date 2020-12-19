@@ -399,7 +399,7 @@
         <DCCReference Include="Units\Units.Mensagens.HBeauty.pas"/>
         <DCCReference Include="Model\Model.Fornecedor.HBeauty.pas"/>
         <DCCReference Include="View\View.Fornecedores.HBeauty.pas">
-            <Form>frmFornecedores</Form>
+            <Form>frmCadastroFornecedores</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="View\View.Vendedores.HBeauty.pas">
@@ -407,7 +407,7 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="View\View.Marcas.HBeauty.pas">
-            <Form>Form3</Form>
+            <Form>frmCadastroMarcas</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="Model\Model.Vendedores.HBeauty.pas"/>

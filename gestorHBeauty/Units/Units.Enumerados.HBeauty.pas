@@ -4,7 +4,8 @@ interface
 
 type
     TTabelaCadastrada = (tcProfissionais, tcFornecedores, tcClientes, tcTercerizadas,
-                         tcTelefones, tcEmails, tcHabilidades, tcCargo, tcVendedor);
+                         tcTelefones, tcEmails, tcHabilidades, tcCargo, tcVendedor,
+                         tcMarcas);
     TAcaoBotao = (abIncluir, abAlterar, abExcluir, abNulo);
     TTipoForm = (tfEmail, tfTelefone);
 

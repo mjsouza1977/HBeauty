@@ -117,6 +117,10 @@ type
     procedure btnIncluirClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
+    procedure edtSobreNomeKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtCepLogTyping(Sender: TObject);
+    procedure btnCadastraTelefoneClick(Sender: TObject);
+    procedure btnCadastraEmailClick(Sender: TObject);
   private
     FIDSelecionado : Integer;
     FStatus : TAcaoBotao;
@@ -134,7 +138,8 @@ implementation
 
 uses
   Units.Classes.HBeauty, Model.Vendedores.HBeauty, Model.Dados.Server.HBeauty,
-  Winapi.Windows, FMX.Platform.Win, Units.Mensagens.HBeauty;
+  Winapi.Windows, FMX.Platform.Win, Units.Mensagens.HBeauty,
+  Model.Endereco.HBeauty, View.Contatos.HBeauty;
 
 {$R *.fmx}
 
@@ -180,6 +185,7 @@ begin
                               ControlaBotoes(Self, False);
                               HabilitaTab(True);
                               tabGerenciadorVendedores.TabIndex := 1;
+                              lblNome.Text := edtNome.Text + ' ' + edtSobreNome.Text;
                               tabCabecarioVendedor.Next;
                           end;
                    True : begin
@@ -197,6 +203,85 @@ begin
                         apTitulo, MB_OK + MB_ICONINFORMATION);
              Exit;
          end;
+end;
+
+procedure TfrmGerenciadorVendedores.btnCadastraEmailClick(Sender: TObject);
+begin
+     if FStatus = abIncluir then
+        begin
+            if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                         'Para cadastrar os e-mails é necessário primeiro salvar o vendedor.'+#13#13+
+                         'Deseja salvar agora?', apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
+                begin
+                    FIdSelecionado := CadastraVendedor(gclVendedor);
+                    ControlaBotoes(Self, True);
+
+                    if FIdSelecionado <> 0 then
+                       begin
+                           Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+                           frmCadastroContatos.TipoForm   := tfEmail;
+                           frmCadastroContatos.IdRegTab   := FIdSelecionado;
+                           frmCadastroContatos.NomeTabela := PrefixoTabela(tcVendedor);
+                           frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
+                           frmCadastroContatos.Titulo     := 'Vendedor';
+                           frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
+                           frmCadastroContatos.imgIconeForm.BitmapName := 'Email';
+                           frmCadastroContatos.ShowModal;
+                       end;
+                end;
+        end
+    else
+        begin
+            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+            frmCadastroContatos.TipoForm   := tfEmail;
+            frmCadastroContatos.IdRegTab   := FIdSelecionado;
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcVendedor);
+            frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
+            frmCadastroContatos.Titulo     := 'Vendedor';
+            frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
+            frmCadastroContatos.imgIconeForm.BitmapName := 'Email';
+            frmCadastroContatos.ShowModal;
+        end;
+end;
+
+procedure TfrmGerenciadorVendedores.btnCadastraTelefoneClick(Sender: TObject);
+begin
+    if FStatus = abIncluir then
+        begin
+            if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                         'Para cadastrar os telefones é necessário primeiro salvar o vendedor.'+#13#13+
+                         'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
+                begin
+                    AlimentaClasseVendedores;
+                    FIdSelecionado := CadastraVendedor(gclVendedor);
+
+                    if FIdSelecionado <> 0 then
+                        begin
+                            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+                            frmCadastroContatos.TipoForm     := tfTelefone;
+                            frmCadastroContatos.IdRegTab     := FIdSelecionado;
+                            frmCadastroContatos.NomeTabela   := PrefixoTabela(tcVendedor);
+                            frmCadastroContatos.Titulo       := 'Vendedor';
+                            frmCadastroContatos.TituloForm   := 'Cadastro de Telefone';
+                            frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
+                            frmCadastroContatos.ShowModal;
+                            FStatus := abNulo;
+                        end;
+                end;
+        end
+    else
+        begin
+            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+            frmCadastroContatos.TipoForm   := tfTelefone;
+            frmCadastroContatos.IdRegTab   := FIdSelecionado;
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcVendedor);
+            frmCadastroContatos.Nome       := edtNome.Text + ' ' + edtSobreNome.Text;
+            frmCadastroContatos.Titulo     := 'Vendedor';
+            frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
+            frmCadastroContatos.TituloForm := 'Cadastro de Telefone';
+
+            frmCadastroContatos.ShowModal;
+        end;
 end;
 
 procedure TfrmGerenciadorVendedores.btnCancelarClick(Sender: TObject);
@@ -224,12 +309,12 @@ begin
      if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                    pChar(AMensagem), apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
          begin
+             BloqueiaRegistro(False, FIdSelecionado, tcVendedor);
              LimpaForm(Self);
              HabilitaTab(False);
              tabCabecarioVendedor.TabIndex := 0;
              tabGerenciadorVendedores.TabIndex := 0;
              ControlaBotoes(Self, True);
-             BloqueiaRegistro(False, FIdSelecionado, tcVendedor);
          end;
 end;
 
@@ -283,7 +368,7 @@ begin
                              IDYES : begin
                                          AlimentaClasseVendedores;
                                          Try
-                                            FIDSelecionado := cadastraVendedor(gclVendedor).ToInteger;
+                                            FIDSelecionado := cadastraVendedor(gclVendedor);
 
                                             case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                             'Vendedor cadastrado com sucesso.'+#13#13+
@@ -361,12 +446,34 @@ end;
 
 procedure TfrmGerenciadorVendedores.edtBairroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
-NextField(Key, edtCepLog);
+NextField(Key, edtCidadeLog);
 end;
 
 procedure TfrmGerenciadorVendedores.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+var
+AEndereco : TModelEndereco;
 begin
-NextField(Key, edtCidadeLog);
+    if Key = VK_RETURN then
+        begin
+            try
+                AEndereco := TModelEndereco.Create(Self);
+                AEndereco := PesquisaCEP(Self, edtCepLog.Text);
+
+                edtCepLog.Text     := FormatarCEP(AEndereco.CEP);
+                edtLogradouro.Text := AEndereco.LOGRADOURO;
+                edtBairroLog.Text  := AEndereco.BAIRROLOG;
+                edtCidadeLog.Text  := AEndereco.CIDADELOG;
+                edtUFLog.Text      := AEndereco.UFLOG;
+                NextField(Key, edtLogradouro);
+            finally
+                AEndereco.DisposeOf;
+            end;
+        end;
+end;
+
+procedure TfrmGerenciadorVendedores.edtCepLogTyping(Sender: TObject);
+begin
+Formatar(edtCepLog,erCEP);
 end;
 
 procedure TfrmGerenciadorVendedores.edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -415,6 +522,11 @@ begin
 NextField(Key, edtNome);
 end;
 
+procedure TfrmGerenciadorVendedores.edtSobreNomeKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtCepLog);
+end;
+
 procedure TfrmGerenciadorVendedores.edtUFLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
 NextField(Key, edtCPF);
@@ -425,7 +537,6 @@ begin
      BloqueiaRegistro(False, FIdSelecionado, tcVendedor);
      FreeAndNil(gclVendedor);
      Action := TCloseAction.caFree;
-
 end;
 
 procedure TfrmGerenciadorVendedores.HabilitaTab(AHabilita : Boolean);
@@ -448,16 +559,17 @@ begin
      tabGerenciadorVendedores.TabIndex := 0;
      gclVendedor := TModelVendedor.Create(Self);
 
-     grdListaVendedor.Cells[0,0] := 'Código';
-     grdListaVendedor.Cells[1,0] := 'CPF';
-     grdListaVendedor.Cells[2,0] := 'Nome';
-     grdListaVendedor.Cells[3,0] := 'Logradouro';
-     grdListaVendedor.Cells[4,0] := 'Nr.';
-     grdListaVendedor.Cells[5,0] := 'Complemento';
-     grdListaVendedor.Cells[6,0] := 'Bairro';
-     grdListaVendedor.Cells[7,0] := 'CEP';
-     grdListaVendedor.Cells[8,0] := 'Cidade';
-     grdListaVendedor.Cells[9,0] := 'UF';
+     grdListaVendedor.Cells[0,0]  := 'Código';
+     grdListaVendedor.Cells[1,0]  := 'CPF';
+     grdListaVendedor.Cells[2,0]  := 'Nome';
+     grdListaVendedor.Cells[3,0]  := 'SobreNome';
+     grdListaVendedor.Cells[4,0]  := 'Logradouro';
+     grdListaVendedor.Cells[5,0]  := 'Nr.';
+     grdListaVendedor.Cells[6,0]  := 'Complemento';
+     grdListaVendedor.Cells[7,0]  := 'Bairro';
+     grdListaVendedor.Cells[8,0]  := 'CEP';
+     grdListaVendedor.Cells[9,0]  := 'Cidade';
+     grdListaVendedor.Cells[10,0] := 'UF';
 end;
 
 procedure TfrmGerenciadorVendedores.grdListaVendedorCellClick(Sender: TObject; ACol, ARow: Integer);

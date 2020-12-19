@@ -20,7 +20,7 @@ const
      AFieldsProfissionais  : Array [0..10] of  String = ('ID_PROFIS', 'CPF_PROFIS','NOME_PROFIS','SOBRENOME_PROFIS','LOGRADOURO_PROFIS', 'NRLOG_PROFIS',
                                                          'COMPLLOG_PROFIS','BAIRROLOG_PROFIS','CEP_PROFIS','CIDADELOG_PROFIS','UFLOG_PROFIS');
      ACaptionProfissionais : Array [0..10] of String  = ('Código','CPF','Nome','SobreNome','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
-     ASizeColProfissionais : Array [0..10] of Single  = (50, 170, 150, 250, 350, 70, 100, 200, 100, 180, 50);
+     ASizeColProfissionais : Array [0..10] of Single  = (60, 170, 150, 250, 350, 70, 100, 200, 100, 180, 50);
 
      //grid do Form de cadastro de telefones
      AFieldsTelefones  : Array [0..4] of  String = ('ID_FONE','NR_FONE','CONTATO_FONE','WHATS_FONE','RESTRITO_FONE');
@@ -36,28 +36,33 @@ const
      AFieldsTerceirizadas  : Array [0..10] of  String = ('ID_TERCEIRIZADA', 'CNPJ_TERCEIRIZADA','RAZAO_TERCEIRIZADA','FANTASIA_TERCEIRIZADA','LOGLOG_TERCEIRIZADA', 'NRLOG_TERCEIRIZADA',
                                                          'COMPLLOG_TERCEIRIZADA','BAIRROLOG_TERCEIRIZADA','CEPlog_TERCEIRIZADA','CIDADELOG_TERCEIRIZADA','UFLOG_TERCEIRIZADA');
      ACaptionTerceirizadas : Array [0..10] of String  = ('Código','CNPJ','Razão Social','Nome Fantasia','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
-     ASizeColTerceirizadas : Array [0..10] of Single  = (50, 170, 300, 200, 350, 70, 100, 200, 100, 180, 50);
+     ASizeColTerceirizadas : Array [0..10] of Single  = (60, 170, 300, 200, 350, 70, 100, 200, 100, 180, 50);
 
      //grid do Form dos Fornecedores
      AFieldsFornecedores  : Array [0..10] of  String = ('ID_FORN', 'CNPJCPF_FORN', 'NOME_FORN', 'PSEUDO_FORN', 'LOGRADOURO_FORN', 'NRLOG_FORN',
                                                          'COMPLLOG_FORN', 'BAILOG_FORN', 'CEPLOG_FORN', 'CIDLOG_FORN', 'UFLOG_FORN');
      ACaptionFornecedores : Array [0..10] of String  = ('Código','CNPJ','Razão Social','Nome Fantasia','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
-     ASizeColFornecedores : Array [0..10] of Single  = (50, 170, 300, 200, 350, 70, 100, 200, 100, 180, 50);
+     ASizeColFornecedores : Array [0..10] of Single  = (60, 170, 300, 200, 350, 70, 100, 200, 100, 180, 50);
 
      //grid do Form de Habilidades
-     AFieldsHabilidades  : Array [0..3] of  String = ('ID_HABILIDADE', 'NOME_CARGO', 'NOME_HABILIDADE','DESCR_HABILIDADE');
+     AFieldsHabilidades  : Array [0..3] of String = ('ID_HABILIDADE', 'NOME_CARGO', 'NOME_HABILIDADE','DESCR_HABILIDADE');
      ACaptionHabilidades : Array [0..3] of String  = ('Código','Cargo','Habilidade','Descrição');
-     ASizeColHabilidades : Array [0..3] of Single  = (50, 200, 200, 300);
+     ASizeColHabilidades : Array [0..3] of Single  = (60, 200, 200, 300);
 
      //grid do Form de Habilidades
-     AFieldsCargos  : Array [0..2] of  String = ('ID_CARGO', 'NOME_CARGO', 'DESCR_CARGO');
+     AFieldsCargos  : Array [0..2] of String = ('ID_CARGO', 'NOME_CARGO', 'DESCR_CARGO');
      ACaptionCargos : Array [0..2] of String  = ('Código','Cargo','Descrição');
-     ASizeColCargos : Array [0..2] of Single  = (50, 200, 400);
+     ASizeColCargos : Array [0..2] of Single  = (60, 200, 400);
 
      //grid do Form de Vendedores
-     AFieldsVendedores  : Array [0..9] of  String = ('ID_VEND','CPF_VEND','NOME_VEND','LOG_VEND','NRLOG_VEND','COMPLOG_VEND', 'BAILOG_VEND','CEPLOG_VEND','CIDLOG_VEND','UFLOG_VEND');
-     ACaptionVendedores : Array [0..9] of String  = ('Código','CPF', 'Nome', 'Logradouro', 'Nr.', 'Complemento','Bairro','CEP','Cidade','UF');
-     ASizeColVendedores : Array [0..9] of Single  = (50, 170, 300, 350, 70, 100, 200, 100, 180, 50);
+     AFieldsVendedores  : Array [0..10] of String = ('ID_VEND','CPF_VEND','NOME_VEND','SOBRENOME_VEND','LOG_VEND','NRLOG_VEND','COMPLOG_VEND', 'BAILOG_VEND','CEPLOG_VEND','CIDLOG_VEND','UFLOG_VEND');
+     ACaptionVendedores : Array [0..10] of String  = ('Código','CPF', 'Nome', 'SobreNome','Logradouro', 'Nr.', 'Complemento','Bairro','CEP','Cidade','UF');
+     ASizeColVendedores : Array [0..10] of Single  = (60, 170, 300, 350, 350, 70, 100, 200, 100, 180, 50);
+
+     //grid do Form de Marcas
+     AFieldsMarcas  : Array [0..1] of String = ('ID_MARCA','MARCA_MARCA');
+     ACaptionMarcas : Array [0..1] of String  = ('Código','Marca');
+     ASizeColMarcas : Array [0..1] of Single  = (60, 400);
 
 
      //Status da ação do form
@@ -111,7 +116,7 @@ begin
         tcEmails        : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_EMAIL','HBEMAILS');
         tcHabilidades   : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_HABILIDADE','HBHABILIDADES');
         tcCargo         : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_CARGO','HBCARGO');
-        tcVendedor      : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_VEN','HBVENDEDOR');
+        tcVendedor      : Result := ManipulaEstadoRegistro(ABloqueia, AIdSelecionado, 'ID_VEND','HBVENDEDOR');
     end;
 end;
 

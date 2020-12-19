@@ -1,4 +1,4 @@
-object frmFornecedores: TfrmFornecedores
+object frmCadastroFornecedores: TfrmCadastroFornecedores
   Left = 0
   Top = 0
   BorderIcons = []
@@ -10,6 +10,8 @@ object frmFornecedores: TfrmFornecedores
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnClose = FormClose
   DesignerMasterStyle = 0
   object recRodapeTerceirizada: TRectangle
     Align = Bottom
@@ -34,6 +36,7 @@ object frmFornecedores: TfrmFornecedores
       Position.Y = 12.000000000000000000
       TabOrder = 0
       Text = 'Alterar'
+      OnClick = btnAlterarClick
     end
     object btnFechar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -50,6 +53,7 @@ object frmFornecedores: TfrmFornecedores
       Position.Y = 12.000000000000000000
       TabOrder = 1
       Text = 'Fechar'
+      OnClick = btnFecharClick
     end
     object btnIncluir: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -102,12 +106,12 @@ object frmFornecedores: TfrmFornecedores
       Visible = False
     end
   end
-  object tabCabecarioTerceirizada: TTabControl
+  object tabCabecarioFornecedor: TTabControl
     Align = Top
     Size.Width = 1015.000000000000000000
     Size.Height = 113.000000000000000000
     Size.PlatformDefault = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TabPosition = None
     Sizes = (
@@ -119,7 +123,7 @@ object frmFornecedores: TfrmFornecedores
       CustomIcon = <
         item
         end>
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -256,7 +260,7 @@ object frmFornecedores: TfrmFornecedores
       CustomIcon = <
         item
         end>
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -281,7 +285,7 @@ object frmFornecedores: TfrmFornecedores
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           TextSettings.FontColor = claWhite
-          Text = 'Empresa:'
+          Text = 'Fornecedor'
           TabOrder = 0
         end
         object lblNome: TLabel
@@ -293,7 +297,6 @@ object frmFornecedores: TfrmFornecedores
           Size.PlatformDefault = False
           TextSettings.Font.Size = 22.000000000000000000
           TextSettings.FontColor = claWhite
-          Text = 'MARCIO JOSE DE SOUZA'
           TabOrder = 1
         end
       end
@@ -307,7 +310,7 @@ object frmFornecedores: TfrmFornecedores
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 33
+        TabOrder = 35
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -2720,7 +2723,7 @@ object frmFornecedores: TfrmFornecedores
           Size.Height = 409.000000000000000000
           Size.PlatformDefault = False
           Stroke.Kind = None
-          object grdListaTerceirizada: TTMSFMXGrid
+          object grdListaFornecedor: TTMSFMXGrid
             Align = Client
             DisableFocusEffect = False
             Margins.Left = 5.000000000000000000
@@ -4895,10 +4898,10 @@ object frmFornecedores: TfrmFornecedores
       end
       object grpContatos: TGroupBox
         StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 676.000000000000000000
-        Position.Y = 320.000000000000000000
-        Size.Width = 325.000000000000000000
-        Size.Height = 77.000000000000000000
+        Position.X = 672.000000000000000000
+        Position.Y = 330.000000000000000000
+        Size.Width = 333.000000000000000000
+        Size.Height = 67.000000000000000000
         Size.PlatformDefault = False
         Text = 'Contatos'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -4914,8 +4917,8 @@ object frmFornecedores: TfrmFornecedores
           Size.Width = 155.000000000000000000
           Size.Height = 35.000000000000000000
           Size.PlatformDefault = False
-          Position.X = 8.000000000000000000
-          Position.Y = 28.000000000000000000
+          Position.X = 12.000000000000000000
+          Position.Y = 24.000000000000000000
           TabOrder = 0
           Text = 'Cadastrar Telefones'
         end
@@ -4931,52 +4934,52 @@ object frmFornecedores: TfrmFornecedores
           Size.Height = 35.000000000000000000
           Size.PlatformDefault = False
           Anchors = [akTop, akRight]
-          Position.X = 167.000000000000000000
-          Position.Y = 28.000000000000000000
+          Position.X = 171.000000000000000000
+          Position.Y = 24.000000000000000000
           TabOrder = 1
           Text = 'Cadastrar E-Mails'
         end
       end
       object grpMarca: TGroupBox
         StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 676.000000000000000000
+        Position.X = 672.000000000000000000
         Position.Y = 4.000000000000000000
-        Size.Width = 325.000000000000000000
-        Size.Height = 229.000000000000000000
+        Size.Width = 333.000000000000000000
+        Size.Height = 259.000000000000000000
         Size.PlatformDefault = False
         Text = 'Marcas'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 17
+        TabOrder = 19
         object recMarcas: TRectangle
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000
           Margins.Top = 20.000000000000000000
           Margins.Right = 150.000000000000000000
           Position.X = 17.000000000000000000
-          Position.Y = 22.000000000000000000
-          Size.Width = 291.000000000000000000
-          Size.Height = 195.000000000000000000
+          Position.Y = 20.000000000000000000
+          Size.Width = 300.000000000000000000
+          Size.Height = 190.000000000000000000
           Size.PlatformDefault = False
           Stroke.Color = claGainsboro
           Stroke.Thickness = 2.000000000000000000
           XRadius = 5.000000000000000000
           YRadius = 5.000000000000000000
-          object vsbHabilidades: TVertScrollBox
+          object vsbMarcas: TVertScrollBox
             Align = Client
             Margins.Left = 5.000000000000000000
             Margins.Top = 5.000000000000000000
             Margins.Right = 5.000000000000000000
             Margins.Bottom = 5.000000000000000000
-            Size.Width = 281.000000000000000000
-            Size.Height = 185.000000000000000000
+            Size.Width = 290.000000000000000000
+            Size.Height = 180.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 11
-            Viewport.Width = 281.000000000000000000
-            Viewport.Height = 185.000000000000000000
+            Viewport.Width = 290.000000000000000000
+            Viewport.Height = 180.000000000000000000
             object lytModelo: TLayout
               Align = Top
-              Size.Width = 281.000000000000000000
-              Size.Height = 35.000000000000000000
+              Size.Width = 290.000000000000000000
+              Size.Height = 30.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 0
               object CheckBox1: TCheckBox
@@ -4984,8 +4987,8 @@ object frmFornecedores: TfrmFornecedores
                 StyledSettings = [Family]
                 Margins.Left = 5.000000000000000000
                 Margins.Right = 5.000000000000000000
-                Size.Width = 271.000000000000000000
-                Size.Height = 35.000000000000000000
+                Size.Width = 280.000000000000000000
+                Size.Height = 30.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 0
                 Text = 'Cabelereiro'
@@ -4996,13 +4999,29 @@ object frmFornecedores: TfrmFornecedores
             end
           end
         end
+        object TMSFMXButton1: TTMSFMXButton
+          BitmapContainer = frmPrincipal.ContainerButtons
+          BitmapName = 'Marcas'
+          BitmapSize = 20
+          ShowImage = True
+          Version = '1.0.1.1'
+          Font.Size = 14.000000000000000000
+          Font.StyleExt = {00070000000000000004000000}
+          Size.Width = 147.000000000000000000
+          Size.Height = 35.000000000000000000
+          Size.PlatformDefault = False
+          Position.X = 168.000000000000000000
+          Position.Y = 216.000000000000000000
+          TabOrder = 0
+          Text = 'Cadastrar Marcas'
+        end
       end
       object gbVendedor: TGroupBox
         StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 676.000000000000000000
-        Position.Y = 241.000000000000000000
-        Size.Width = 325.000000000000000000
-        Size.Height = 75.000000000000000000
+        Position.X = 672.000000000000000000
+        Position.Y = 268.000000000000000000
+        Size.Width = 333.000000000000000000
+        Size.Height = 60.000000000000000000
         Size.PlatformDefault = False
         Text = 'Vendedor'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
@@ -5012,8 +5031,8 @@ object frmFornecedores: TfrmFornecedores
           Margins.Left = 150.000000000000000000
           Margins.Top = 20.000000000000000000
           Margins.Right = 150.000000000000000000
-          Position.X = 12.000000000000000000
-          Position.Y = 28.000000000000000000
+          Position.X = 16.000000000000000000
+          Position.Y = 20.000000000000000000
           Size.Width = 301.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
@@ -5021,7 +5040,7 @@ object frmFornecedores: TfrmFornecedores
           Stroke.Thickness = 2.000000000000000000
           XRadius = 5.000000000000000000
           YRadius = 5.000000000000000000
-          object cbEmpresaTerceirizada: TComboBox
+          object cbVendedores: TComboBox
             Align = Client
             Items.Strings = (
               'ASDasd'

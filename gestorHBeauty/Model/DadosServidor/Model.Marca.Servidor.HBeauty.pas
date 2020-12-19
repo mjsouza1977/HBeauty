@@ -11,7 +11,7 @@ uses
 function carregaMarcas : TFDJSONDataSets;
 function pesquisaMarcas(AIdMarca : Integer; AMarca : String) : TFDJSONDataSets;
 function cadastraMarca(AMarca  : String) : String;
-function atualizaMarca(AMarca : TModelMarca) : String;
+function atualizaMarca(AMarca : TModelMarcas) : String;
 
 
 implementation
@@ -48,7 +48,7 @@ begin
      Result := ControllerClientModule.ModelMetodosClient.cadastraMarca(AMarca);
 end;
 
-function atualizaMarca(AMarca : TModelMarca) : String;
+function atualizaMarca(AMarca : TModelMarcas) : String;
 begin
      Result := ControllerClientModule.ModelMetodosClient.atualizaMarca(AMarca.ID_MARCA, AMarca.MARCA_MARCA);
 end;

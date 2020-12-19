@@ -6,7 +6,7 @@ uses
     FMX.Forms;
 
 type
-    TModelMarca = class
+    TModelMarcas = class
     private
     FMARCA_MARCA: String;
     FLOCK: String;
@@ -36,27 +36,27 @@ uses
 uses
   Winapi.Windows;rca }
 
-constructor TModelMarca.Create(AForm: TForm);
+constructor TModelMarcas.Create(AForm: TForm);
 begin
      FForm := AForm;
 end;
 
-procedure TModelMarca.SetIDUSULOCK(const Value: Integer);
+procedure TModelMarcas.SetIDUSULOCK(const Value: Integer);
 begin
   FIDUSULOCK := Value;
 end;
 
-procedure TModelMarca.SetID_MARCA(const Value: Integer);
+procedure TModelMarcas.SetID_MARCA(const Value: Integer);
 begin
   FID_MARCA := Value;
 end;
 
-procedure TModelMarca.SetLOCK(const Value: String);
+procedure TModelMarcas.SetLOCK(const Value: String);
 begin
   FLOCK := Value;
 end;
 
-procedure TModelMarca.SetMARCA_MARCA(const Value: String);
+procedure TModelMarcas.SetMARCA_MARCA(const Value: String);
 begin
     if Length(Value) < 3 then
         begin

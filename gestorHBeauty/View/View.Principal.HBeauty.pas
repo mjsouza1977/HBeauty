@@ -71,6 +71,7 @@ type
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem8Click(Sender: TObject);
     procedure MenuItem5Click(Sender: TObject);
+    procedure MenuItem7Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -84,7 +85,7 @@ implementation
 
 {$R *.fmx}
 
-uses View.Profissionais.HBeauty;
+uses View.Profissionais.HBeauty, View.Fornecedores.HBeauty;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 var
@@ -163,6 +164,12 @@ procedure TfrmPrincipal.MenuItem5Click(Sender: TObject);
 begin
      Application.CreateForm(TfrmCadastroMarcas, frmCadastroMarcas);
      frmCadastroMarcas.ShowModal;
+end;
+
+procedure TfrmPrincipal.MenuItem7Click(Sender: TObject);
+begin
+Application.CreateForm(TfrmCadastroFornecedores, frmCadastroFornecedores);
+frmCadastroFornecedores.ShowModal;
 end;
 
 procedure TfrmPrincipal.MenuItem8Click(Sender: TObject);

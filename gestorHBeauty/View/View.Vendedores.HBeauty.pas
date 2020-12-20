@@ -153,6 +153,7 @@ begin
 
     gclVendedor.ENDERECO_VEND.LOGRADOURO  := edtLogradouro.Text;
     gclVendedor.ENDERECO_VEND.NRLOG       := edtNumeroLog.Text.ToInteger;
+    gclVendedor.ENDERECO_VEND.COMPLLOG    := edtComplementoLog.Text;
     gclVendedor.ENDERECO_VEND.BAIRROLOG   := edtBairroLog.Text;
     gclVendedor.ENDERECO_VEND.CIDADELOG   := edtCidadeLog.Text;
     gclVendedor.ENDERECO_VEND.UFLOG       := edtUFLog.Text;
@@ -168,25 +169,36 @@ begin
                               FStatus                := abAlterar;
                               PesquisaVendedor('','','',FIdSelecionado);
 
-                              edtCPF.Text            := FormatarCPF(ModelConexaoDados.memVendedores.FieldByName('CPF_VEND').AsString);
-                              edtRG.Text             := ModelConexaoDados.memVendedores.FieldByName('RG_VEND').AsString;
-                              edtNome.Text           := ModelConexaoDados.memVendedores.FieldByName('NOME_VEND').AsString;
-                              edtSobreNome.Text      := ModelConexaoDados.memVendedores.FieldByName('SOBRENOME_VEND').AsString;
-                              edtLogradouro.Text     := ModelConexaoDados.memVendedores.FieldByName('LOG_VEND').AsString;
-                              edtNumeroLog.Text      := ModelConexaoDados.memVendedores.FieldByName('NRLOG_VEND').AsString;
-                              edtComplementoLog.Text := ModelConexaoDados.memVendedores.FieldByName('COMPLOG_VEND').AsString;
-                              edtBairroLog.Text      := ModelConexaoDados.memVendedores.FieldByName('BAILOG_VEND').AsString;
-                              edtCepLog.Text         := FormatarCEP(ModelConexaoDados.memVendedores.FieldByName('CEPLOG_VEND').AsString);
-                              edtCidadeLog.Text      := ModelConexaoDados.memVendedores.FieldByName('CIDLOG_VEND').AsString;
-                              edtUFLog.Text          := ModelConexaoDados.memVendedores.FieldByName('UFLOG_VEND').AsString;
+                              if ModelConexaoDados.memVendedores.FieldByName('FSYSTEMA').AsString = 'T' then
+                                  begin
+                                      BloqueiaRegistro(False, FIdSelecionado, tcVendedor);
+                                      MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                 'Este registro não pode ser modificado!', apTitulo,
+                                                 MB_OK + MB_ICONINFORMATION);
+                                      Exit;
+                                  end
+                              else
+                                  begin
+                                      edtCPF.Text            := FormatarCPF(ModelConexaoDados.memVendedores.FieldByName('CPF_VEND').AsString);
+                                      edtRG.Text             := ModelConexaoDados.memVendedores.FieldByName('RG_VEND').AsString;
+                                      edtNome.Text           := ModelConexaoDados.memVendedores.FieldByName('NOME_VEND').AsString;
+                                      edtSobreNome.Text      := ModelConexaoDados.memVendedores.FieldByName('SOBRENOME_VEND').AsString;
+                                      edtLogradouro.Text     := ModelConexaoDados.memVendedores.FieldByName('LOG_VEND').AsString;
+                                      edtNumeroLog.Text      := ModelConexaoDados.memVendedores.FieldByName('NRLOG_VEND').AsString;
+                                      edtComplementoLog.Text := ModelConexaoDados.memVendedores.FieldByName('COMPLOG_VEND').AsString;
+                                      edtBairroLog.Text      := ModelConexaoDados.memVendedores.FieldByName('BAILOG_VEND').AsString;
+                                      edtCepLog.Text         := FormatarCEP(ModelConexaoDados.memVendedores.FieldByName('CEPLOG_VEND').AsString);
+                                      edtCidadeLog.Text      := ModelConexaoDados.memVendedores.FieldByName('CIDLOG_VEND').AsString;
+                                      edtUFLog.Text          := ModelConexaoDados.memVendedores.FieldByName('UFLOG_VEND').AsString;
 
-                              AlimentaClasseVendedores;
+                                      AlimentaClasseVendedores;
 
-                              ControlaBotoes(Self, False);
-                              HabilitaTab(True);
-                              tabGerenciadorVendedores.TabIndex := 1;
-                              lblNome.Text := edtNome.Text + ' ' + edtSobreNome.Text;
-                              tabCabecarioVendedor.Next;
+                                      ControlaBotoes(Self, False);
+                                      HabilitaTab(True);
+                                      tabGerenciadorVendedores.TabIndex := 1;
+                                      lblNome.Text := edtNome.Text + ' ' + edtSobreNome.Text;
+                                      tabCabecarioVendedor.Next;
+                                  end;
                           end;
                    True : begin
                                MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
@@ -213,7 +225,7 @@ begin
                          'Para cadastrar os e-mails é necessário primeiro salvar o vendedor.'+#13#13+
                          'Deseja salvar agora?', apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
-                    FIdSelecionado := CadastraVendedor(gclVendedor);
+                    FIdSelecionado := CadastraVendedor(gclVendedor, Self);
                     ControlaBotoes(Self, True);
 
                     if FIdSelecionado <> 0 then
@@ -253,7 +265,7 @@ begin
                          'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
                     AlimentaClasseVendedores;
-                    FIdSelecionado := CadastraVendedor(gclVendedor);
+                    FIdSelecionado := CadastraVendedor(gclVendedor, Self);
 
                     if FIdSelecionado <> 0 then
                         begin
@@ -368,7 +380,7 @@ begin
                              IDYES : begin
                                          AlimentaClasseVendedores;
                                          Try
-                                            FIDSelecionado := cadastraVendedor(gclVendedor);
+                                            FIDSelecionado := cadastraVendedor(gclVendedor, Self);
 
                                             case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                             'Vendedor cadastrado com sucesso.'+#13#13+
@@ -391,10 +403,13 @@ begin
                                          Except
                                              On E:Exception do
                                                  begin
-                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
-                                                                apTitulo, MB_OK +MB_ICONWARNING);
-                                                     Exit;
+                                                     if Pos('aborted', E.Message) = 0 then
+                                                        begin
+                                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                        pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                                        apTitulo, MB_OK +MB_ICONWARNING);
+                                                             Exit;
+                                                        end;
                                                  end;
 
                                          end;

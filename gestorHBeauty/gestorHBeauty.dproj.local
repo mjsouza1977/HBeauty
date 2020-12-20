@@ -109,4 +109,7 @@
     <File Path="View\View.Vendedores.HBeauty.pas"/>
     <File Path="View\View.Vendedores.HBeauty.fmx"/>
   </ProjectSortOrder>
+	<ActiveMobileDevice>
+		<NoProfile Android64="0048627021"/>
+	</ActiveMobileDevice>
 </BorlandProject>

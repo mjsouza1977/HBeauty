@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 13/12/2020 18:20:16
+// 19/12/2020 17:51:54
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -82,6 +82,8 @@ type
     FatualizaMarcaCommand: TDSRestCommand;
     FcarregaCamposSelecionadosCommand: TDSRestCommand;
     FcarregaCamposSelecionadosCommand_Cache: TDSRestCommand;
+    FcadastraMarcaFornecedorCommand: TDSRestCommand;
+    FlimpaMarcaFornecedorCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -153,6 +155,8 @@ type
     function atualizaMarca(AIDMarca: Integer; AMarca: string; const ARequestFilter: string = ''): string;
     function carregaCamposSelecionados(ACampos: string; ATabela: string; ACondicao: string; const ARequestFilter: string = ''): TFDJSONDataSets;
     function carregaCamposSelecionados_Cache(ACampos: string; ATabela: string; ACondicao: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    procedure cadastraMarcaFornecedor(AIdForn: Integer; AIdMarca: Integer);
+    procedure limpaMarcaFornecedor(AIdForn: Integer);
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -733,6 +737,17 @@ const
     (Name: 'ATabela'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACondicao'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_cadastraMarcaFornecedor: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdForn'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIdMarca'; Direction: 1; DBXType: 6; TypeName: 'Integer')
+  );
+
+  TModelMetodos_limpaMarcaFornecedor: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIdForn'; Direction: 1; DBXType: 6; TypeName: 'Integer')
   );
 
 implementation
@@ -2098,6 +2113,33 @@ begin
   Result := TDSRestCachedTFDJSONDataSets.Create(FcarregaCamposSelecionadosCommand_Cache.Parameters[3].Value.GetString);
 end;
 
+procedure TModelMetodosClient.cadastraMarcaFornecedor(AIdForn: Integer; AIdMarca: Integer);
+begin
+  if FcadastraMarcaFornecedorCommand = nil then
+  begin
+    FcadastraMarcaFornecedorCommand := FConnection.CreateCommand;
+    FcadastraMarcaFornecedorCommand.RequestType := 'GET';
+    FcadastraMarcaFornecedorCommand.Text := 'TModelMetodos.cadastraMarcaFornecedor';
+    FcadastraMarcaFornecedorCommand.Prepare(TModelMetodos_cadastraMarcaFornecedor);
+  end;
+  FcadastraMarcaFornecedorCommand.Parameters[0].Value.SetInt32(AIdForn);
+  FcadastraMarcaFornecedorCommand.Parameters[1].Value.SetInt32(AIdMarca);
+  FcadastraMarcaFornecedorCommand.Execute;
+end;
+
+procedure TModelMetodosClient.limpaMarcaFornecedor(AIdForn: Integer);
+begin
+  if FlimpaMarcaFornecedorCommand = nil then
+  begin
+    FlimpaMarcaFornecedorCommand := FConnection.CreateCommand;
+    FlimpaMarcaFornecedorCommand.RequestType := 'GET';
+    FlimpaMarcaFornecedorCommand.Text := 'TModelMetodos.limpaMarcaFornecedor';
+    FlimpaMarcaFornecedorCommand.Prepare(TModelMetodos_limpaMarcaFornecedor);
+  end;
+  FlimpaMarcaFornecedorCommand.Parameters[0].Value.SetInt32(AIdForn);
+  FlimpaMarcaFornecedorCommand.Execute;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -2177,6 +2219,8 @@ begin
   FatualizaMarcaCommand.DisposeOf;
   FcarregaCamposSelecionadosCommand.DisposeOf;
   FcarregaCamposSelecionadosCommand_Cache.DisposeOf;
+  FcadastraMarcaFornecedorCommand.DisposeOf;
+  FlimpaMarcaFornecedorCommand.DisposeOf;
   inherited;
 end;
 

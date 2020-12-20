@@ -419,10 +419,13 @@ begin
                                          Except
                                              On E:Exception do
                                                  begin
-                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
-                                                                apTitulo, MB_OK + MB_ICONWARNING);
-                                                     Exit;
+                                                     if Pos('aborted', E.Message) = 0 then
+                                                         begin
+                                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                        pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                                        apTitulo, MB_OK + MB_ICONWARNING);
+                                                             Exit;
+                                                         end;
                                                  end;
 
                                          end;

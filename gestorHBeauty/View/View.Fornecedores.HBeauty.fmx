@@ -70,6 +70,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
       Position.Y = 12.000000000000000000
       TabOrder = 2
       Text = 'Incluir'
+      OnClick = btnIncluirClick
     end
     object btnSalvar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -87,6 +88,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
       TabOrder = 3
       Text = 'Salvar'
       Visible = False
+      OnClick = btnSalvarClick
     end
     object btnCancelar: TTMSFMXButton
       BitmapContainer = frmPrincipal.ContainerButtons
@@ -104,6 +106,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
       TabOrder = 4
       Text = 'Cancelar'
       Visible = False
+      OnClick = btnCancelarClick
     end
   end
   object tabCabecarioFornecedor: TTabControl
@@ -111,7 +114,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
     Size.Width = 1015.000000000000000000
     Size.Height = 113.000000000000000000
     Size.PlatformDefault = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TabPosition = None
     Sizes = (
@@ -123,7 +126,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
       CustomIcon = <
         item
         end>
-      IsSelected = False
+      IsSelected = True
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -154,6 +157,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Position.Y = 12.000000000000000000
           TabOrder = 0
           Text = 'Pesquisar'
+          OnClick = btnPesquisarClick
         end
         object Label1: TLabel
           StyledSettings = [Family, Size]
@@ -260,7 +264,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
       CustomIcon = <
         item
         end>
-      IsSelected = True
+      IsSelected = False
       Size.Width = 8.000000000000000000
       Size.Height = 8.000000000000000000
       Size.PlatformDefault = False
@@ -310,7 +314,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 35
+        TabOrder = 38
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -2749,6 +2753,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
             StrokeThickness = 0.000000000000000000
             TopRow = 1
             LeftCol = 2
+            OnCellClick = grdListaFornecedorCellClick
             Columns = <
               item
                 BorderColor = claNull
@@ -4417,8 +4422,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
       ExplicitSize.cy = 29.000000000000000000
       object rgDados: TTMSFMXRadioGroup
         DisableFocusEffect = False
-        Position.X = 26.000000000000000000
-        Position.Y = 4.000000000000000000
+        Position.X = 28.000000000000000000
         TabOrder = 3
         Size.Width = 639.000000000000000000
         Size.Height = 393.000000000000000000
@@ -4460,6 +4464,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtRazaoSocialKeyUp
         end
         object Label2: TLabel
           StyledSettings = [Family, Size]
@@ -4503,6 +4508,9 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnTyping = edtCNPJTyping
+          OnKeyUp = edtCNPJKeyUp
+          OnExit = edtCNPJExit
         end
         object Label10: TLabel
           StyledSettings = [Family, Size]
@@ -4544,6 +4552,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtIEKeyUp
         end
         object Label11: TLabel
           StyledSettings = [Family, Size]
@@ -4586,6 +4595,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtNomeFantasiaKeyUp
         end
         object Label12: TLabel
           StyledSettings = [Family, Size]
@@ -4641,6 +4651,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
+          OnKeyUp = edtNumeroLogKeyUp
         end
       end
       object Rectangle2: TRectangle
@@ -4672,6 +4683,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtLogradouroKeyUp
         end
         object Label3: TLabel
           StyledSettings = [Family, Size]
@@ -4714,6 +4726,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtComplementoLogKeyUp
         end
         object Label5: TLabel
           AutoSize = True
@@ -4756,6 +4769,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtBairroLogKeyUp
         end
         object Label6: TLabel
           StyledSettings = [Family, Size]
@@ -4798,6 +4812,8 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnTyping = edtCepLogTyping
+          OnKeyUp = edtCepLogKeyUp
         end
         object Label7: TLabel
           AutoSize = True
@@ -4840,6 +4856,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
           CharCase = ecUpperCase
+          OnKeyUp = edtCidadeLogKeyUp
         end
         object Label8: TLabel
           StyledSettings = [Family, Size]
@@ -4949,7 +4966,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
         Size.PlatformDefault = False
         Text = 'Marcas'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 19
+        TabOrder = 22
         object recMarcas: TRectangle
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000
@@ -4964,40 +4981,6 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Stroke.Thickness = 2.000000000000000000
           XRadius = 5.000000000000000000
           YRadius = 5.000000000000000000
-          object vsbMarcas: TVertScrollBox
-            Align = Client
-            Margins.Left = 5.000000000000000000
-            Margins.Top = 5.000000000000000000
-            Margins.Right = 5.000000000000000000
-            Margins.Bottom = 5.000000000000000000
-            Size.Width = 290.000000000000000000
-            Size.Height = 180.000000000000000000
-            Size.PlatformDefault = False
-            TabOrder = 11
-            Viewport.Width = 290.000000000000000000
-            Viewport.Height = 180.000000000000000000
-            object lytModelo: TLayout
-              Align = Top
-              Size.Width = 290.000000000000000000
-              Size.Height = 30.000000000000000000
-              Size.PlatformDefault = False
-              TabOrder = 0
-              object CheckBox1: TCheckBox
-                Align = Client
-                StyledSettings = [Family]
-                Margins.Left = 5.000000000000000000
-                Margins.Right = 5.000000000000000000
-                Size.Width = 280.000000000000000000
-                Size.Height = 30.000000000000000000
-                Size.PlatformDefault = False
-                TabOrder = 0
-                Text = 'Cabelereiro'
-                TextSettings.Font.Size = 14.000000000000000000
-                TextSettings.Font.StyleExt = {00070000000000000004000000}
-                TextSettings.FontColor = xFF980000
-              end
-            end
-          end
         end
         object TMSFMXButton1: TTMSFMXButton
           BitmapContainer = frmPrincipal.ContainerButtons
@@ -5014,6 +4997,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
           Position.Y = 216.000000000000000000
           TabOrder = 0
           Text = 'Cadastrar Marcas'
+          OnClick = TMSFMXButton1Click
         end
       end
       object gbVendedor: TGroupBox

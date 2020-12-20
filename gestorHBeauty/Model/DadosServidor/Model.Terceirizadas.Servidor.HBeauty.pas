@@ -43,7 +43,7 @@ end;
 function CadastraTerceirizada(ATerceirizada : TModelTerceirizada; AForm : TForm) : Integer;
 begin
 
-    DocumentoRepetido(ATerceirizada.CNPJ_TERCEIRIZADA, 'CNPJ_TERCEIRIZADA', 'FANTASIA_TERCEIRIZADA', 'HBTERCEIRIZADA', AForm);
+    DocumentoRepetido(ATerceirizada.CNPJ_TERCEIRIZADA, 'CNPJ_TERCEIRIZADA', 'FANTASIA_TERCEIRIZADA', 'HBTERCEIRIZADA', AForm, 'CNPJ', 'A empresa ');
 
     Result := ControllerClientModule.ModelMetodosClient.CadastraTerceirizada(ATerceirizada.ENDERECO_TERCEIRIZADA.NRLOG,
                                                                              ATerceirizada.CODIGO_TERCEIRIZADA, ATerceirizada.RAZAO_TERCEIRIZADA,

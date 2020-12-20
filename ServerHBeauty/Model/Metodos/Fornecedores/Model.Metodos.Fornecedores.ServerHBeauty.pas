@@ -11,10 +11,48 @@ function PesquisaFornecedores(ANome, APseudo, ACNPJ, ATipoPesquisa : String; AId
 function cadastraFornecedor(AIdVendFor, ANrLog : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
 function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
 
+procedure cadastraMarcaFornecedor(AIdForn, AIdMarca : Integer);
+procedure limpaMarcaFornecedor(AIdForn : Integer);
+
+
 implementation
 
 uses
   Controller.Conexao.HBeautyServer, System.SysUtils;
+
+procedure limpaMarcaFornecedor(AIdForn : Integer);
+begin
+
+    try
+        ControllerConexao.qryQuery.Close;
+        ControllerConexao.qryQuery.SQL.Clear;
+        ControllerConexao.qryQuery.SQL.Add('DELETE FROM HBFORNXMARCA');
+        ControllerConexao.qryQuery.SQL.Add('WHERE IDFORN_FORNXMARCA = :IDFORN_FORNXMARCA');
+        ControllerConexao.qryQuery.ParamByName('IDFORN_FORNXMARCA' ).AsInteger := AIdForn;
+        ControllerConexao.qryQuery.ExecSQL;
+    finally
+       ControllerConexao.qryQuery.Close;
+    end;
+
+end;
+
+procedure cadastraMarcaFornecedor(AIdForn, AIdMarca : Integer);
+begin
+
+    try
+        ControllerConexao.qryQuery.Close;
+        ControllerConexao.qryQuery.SQL.Clear;
+        ControllerConexao.qryQuery.SQL.Add('INSERT INTO HBFORNXMARCA');
+        ControllerConexao.qryQuery.SQL.Add('(IDFORN_FORNXMARCA, IDMARCA_FORNXMARCA) VALUES');
+        ControllerConexao.qryQuery.SQL.Add('(:IDFORN_FORNXMARCA, :IDMARCA_FORNXMARCA)');
+        ControllerConexao.qryQuery.ParamByName('IDFORN_FORNXMARCA' ).AsInteger := AIdForn;
+        ControllerConexao.qryQuery.ParamByName('IDMARCA_FORNXMARCA').AsInteger := AIdMarca;
+        ControllerConexao.qryQuery.ExecSQL;
+    finally
+       ControllerConexao.qryQuery.Close;
+    end;
+
+end;
 
 function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
 begin
@@ -56,7 +94,6 @@ begin
             ControllerConexao.qryQuery.ParamByName('IDUSULOCK'      ).AsInteger := 0;
             ControllerConexao.qryQuery.ParamByName('IDVEND_FORN'    ).AsInteger := AIdVendFor;
             ControllerConexao.qryQuery.ParamByName('ID_FORN'        ).AsInteger := AIdForn;
-
 
             ControllerConexao.qryQuery.ExecSQL;
 
@@ -121,8 +158,10 @@ begin
      try
          ControllerConexao.qryQuery.Close;
          ControllerConexao.qryQuery.SQL.Clear;
-         ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBFORNECEDOR');
-         ControllerConexao.qryQuery.SQL.Add('ORDER BY NOME_FORN');
+         ControllerConexao.qryQuery.SQL.Add('SELECT f.*, v.NOME_VEND, v.SOBRENOME_VEND FROM HBFORNECEDOR f');
+         ControllerConexao.qryQuery.SQL.Add('INNER JOIN HBVENDEDOR v');
+         ControllerConexao.qryQuery.SQL.Add('ON (f.IDVEND_FORN = v.ID_FORN');
+         ControllerConexao.qryQuery.SQL.Add('ORDER BY f.NOME_FORN');
 
          Result := TFDJSONDataSets.Create;
          TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);

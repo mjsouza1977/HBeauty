@@ -50,7 +50,7 @@ begin
             ControllerConexao.qryQuery.SQL.Clear;
             ControllerConexao.qryQuery.SQL.Add('INSERT INTO HBMARCA');
             ControllerConexao.qryQuery.SQL.Add('(MARCA_MARCA) VALUES');
-            ControllerConexao.qryQuery.SQL.Add('(MARCA_MARCA)');
+            ControllerConexao.qryQuery.SQL.Add('(:MARCA_MARCA)');
             ControllerConexao.qryQuery.ParamByName('MARCA_MARCA').AsString  := AMarca;
             ControllerConexao.qryQuery.ExecSQL;
 

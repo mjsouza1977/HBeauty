@@ -1560,7 +1560,7 @@ object frmServerPrincipal: TfrmServerPrincipal
     Proportional = True
   end
   object btnIniciar: TButton
-    Left = 200
+    Left = 192
     Top = 20
     Width = 157
     Height = 34

@@ -10,7 +10,7 @@ uses
 
 function carregaMarcas : TFDJSONDataSets;
 function pesquisaMarcas(AIdMarca : Integer; AMarca : String) : TFDJSONDataSets;
-function cadastraMarca(AMarca  : String) : String;
+function cadastraMarca(AMarca : TModelMarcas) : String;
 function atualizaMarca(AMarca : TModelMarcas) : String;
 
 
@@ -43,14 +43,14 @@ begin
    ModelConexaoDados.memMarcas.Active := True;
 end;
 
-function cadastraMarca(AMarca  : String) : String;
+function cadastraMarca(AMarca : TModelMarcas) : String;
 begin
-     Result := ControllerClientModule.ModelMetodosClient.cadastraMarca(AMarca);
+     Result := ControllerClientModule.ModelMetodosClient.cadastraMarca(AMarca.MARCA_MARCA, AMarca.IMAGENS.IDIMAGEM);
 end;
 
 function atualizaMarca(AMarca : TModelMarcas) : String;
 begin
-     Result := ControllerClientModule.ModelMetodosClient.atualizaMarca(AMarca.ID_MARCA, AMarca.MARCA_MARCA);
+     Result := ControllerClientModule.ModelMetodosClient.atualizaMarca(AMarca.ID_MARCA, AMarca.IMAGENS.IDIMAGEM, AMarca.MARCA_MARCA);
 end;
 
 end.

@@ -89,23 +89,11 @@ type
     grpContatos: TGroupBox;
     btnCadastraTelefone: TTMSFMXButton;
     btnCadastraEmail: TTMSFMXButton;
-    tabCargoSalario: TTabItem;
-    gbSalario: TGroupBox;
-    Rectangle20: TRectangle;
-    edtSalario: TNumberBox;
-    gbComissao: TGroupBox;
-    Rectangle22: TRectangle;
-    Label15: TLabel;
-    edtComissao: TNumberBox;
-    recHabilidades: TRectangle;
     Rectangle3: TRectangle;
     Label4: TLabel;
     lblNome: TLabel;
     Label13: TLabel;
     lblStatus: TLabel;
-    vsbHabilidades: TVertScrollBox;
-    lytModelo: TLayout;
-    CheckBox6: TCheckBox;
     Image1: TImage;
     FillRGBEffect1: TFillRGBEffect;
     Label14: TLabel;
@@ -113,14 +101,13 @@ type
     opFile: TOpenDialog;
     Rectangle14: TRectangle;
     cbEmpresaTerceirizada: TComboBox;
-    Label16: TLabel;
-    Rectangle15: TRectangle;
-    cbCargo: TComboBox;
-    Label17: TLabel;
+    tabCargoSalario: TTabItem;
+    recHabilidades: TRectangle;
+    vsbHabilidades: TVertScrollBox;
+    lytModelo: TLayout;
+    CheckBox6: TCheckBox;
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
-    Label18: TLabel;
-    Label19: TLabel;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnIncluirClick(Sender: TObject);
@@ -149,7 +136,6 @@ type
     procedure edtCepLogTyping(Sender: TObject);
     procedure FotoProfissionalClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure cbCargoChange(Sender: TObject);
 
   private
     FStatus : TAcaoBotao;
@@ -290,20 +276,6 @@ begin
      Result := AIndex;
 end;
 
-procedure TfrmGerenciadorProfissionais.cbCargoChange(Sender: TObject);
-var
-AIDCargo : Integer;
-begin
-    if cbCargo.ItemIndex > -1 then
-        begin
-             AIDCargo := Integer(cbCargo.Items.Objects[cbCargo.ItemIndex]);
-             pesquisaHabilidade(0, AIDCargo,'');
-             lcScrollListaHabilidade.DisposeOf;
-             CarregaListaHabilidades(ModelConexaoDados.memHabilidades, ModelConexaoDados.memHbilXProfis);
-        end;
-
-end;
-
 procedure TfrmGerenciadorProfissionais.AlimentaClasseProfissional;
 begin
     gclProfissional.ID_PROFIS          := FIdSelecionado;
@@ -313,9 +285,6 @@ begin
     gclProfissional.SOBRENOME_PROFIS   := edtSobreNome.Text;
     gclProfissional.CPF_PROFIS         := ApenasNumeros(edtCPF.Text);
     gclProfissional.RG_PROFIS          := edtRG.Text;
-
-    gclProfissional.SALARIO_PROFIS     := edtSalario.Value;
-    gclProfissional.COMISSAO_PROFIS    := edtComissao.Value;
 
     gclProfissional.ENDERECO_PROFIS.LOGRADOURO  := edtLogradouro.Text;
     gclProfissional.ENDERECO_PROFIS.NRLOG       := edtNumeroLog.Text.ToInteger;
@@ -344,9 +313,6 @@ begin
                               ListaProfissionais('','','',0,FIdSelecionado);
                               carregaHabilidadesProfissional(FIdSelecionado);
 
-                              if ModelConexaoDados.memProfissionais.FieldByName('NOME_CARGO').AsString <> '' then
-                                  cbCargo.ItemIndex := cbCargo.Items.IndexOf(ModelConexaoDados.memProfissionais.FieldByName('NOME_CARGO').AsString);
-
                               edtCPF.Text            := FormatarCNPJouCPF(ModelConexaoDados.memProfissionais.FieldByName('CPF_PROFIS').AsString);
                               edtRG.Text             := ModelConexaoDados.memProfissionais.FieldByName('RG_PROFIS').AsString;
                               edtNome.Text           := ModelConexaoDados.memProfissionais.FieldByName('NOME_PROFIS').AsString;
@@ -358,8 +324,6 @@ begin
                               edtCepLog.Text         := FormatarCEP(ModelConexaoDados.memProfissionais.FieldByName('CEP_PROFIS').AsString);
                               edtCidadeLog.Text      := ModelConexaoDados.memProfissionais.FieldByName('CIDADELOG_PROFIS').AsString;
                               edtUFLog.Text          := ModelConexaoDados.memProfissionais.FieldByName('UFLOG_PROFIS').AsString;
-                              edtSalario.Value       := ModelConexaoDados.memProfissionais.FieldByName('SALARIO_PROFIS').AsCurrency;
-                              edtComissao.Value      := ModelConexaoDados.memProfissionais.FieldByName('COMISSAO_PROFIS').AsCurrency;
                               cbEmpresaTerceirizada.ItemIndex := cbEmpresaTerceirizada.Items.IndexOf(ModelConexaoDados.memProfissionais.FieldByName('FANTASIA_TERCEIRIZADA').AsString);
                               if ModelConexaoDados.memProfissionais.FieldByName('NOMEFILEIMAGEM').AsString <> '' then
                                   begin
@@ -706,12 +670,6 @@ begin
               cbEmpresaTerceirizada.Items.AddObject(ModelConexaoDados.memTerceirizada.FieldByName('FANTASIA_TERCEIRIZADA').AsString ,
                                                     TObject(ModelConexaoDados.memTerceirizada.FieldByName('ID_TERCEIRIZADA').AsInteger));
               ModelConexaoDados.memTerceirizada.Next;
-          end;
-     while not ModelConexaoDados.memCargos.Eof do
-          begin
-              cbCargo.Items.AddObject(ModelConexaoDados.memCargos.FieldByName('NOME_CARGO').AsString ,
-                                                    TObject(ModelConexaoDados.memCargos.FieldByName('ID_CARGO').AsInteger));
-              ModelConexaoDados.memCargos.Next;
           end;
 end;
 

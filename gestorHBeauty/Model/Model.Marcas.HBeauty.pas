@@ -3,7 +3,7 @@ unit Model.Marcas.HBeauty;
 interface
 
 uses
-    FMX.Forms;
+    FMX.Forms, Model.Imagens.HBeauty;
 
 type
     TModelMarcas = class
@@ -13,16 +13,19 @@ type
     FIDUSULOCK: Integer;
     FID_MARCA: Integer;
     FForm : TForm;
+    FIMAGENS: TModelImagens;
     procedure SetID_MARCA(const Value: Integer);
     procedure SetIDUSULOCK(const Value: Integer);
     procedure SetLOCK(const Value: String);
     procedure SetMARCA_MARCA(const Value: String);
+    procedure SetIMAGENS(const Value: TModelImagens);
 
     public
-    property ID_MARCA     : Integer read FID_MARCA write SetID_MARCA;
-    property MARCA_MARCA  : String read FMARCA_MARCA write SetMARCA_MARCA;
-    property IDUSULOCK    : Integer read FIDUSULOCK write SetIDUSULOCK;
-    property LOCK         : String read FLOCK write SetLOCK;
+    property ID_MARCA     : Integer       read FID_MARCA    write SetID_MARCA;
+    property MARCA_MARCA  : String        read FMARCA_MARCA write SetMARCA_MARCA;
+    property IDUSULOCK    : Integer       read FIDUSULOCK   write SetIDUSULOCK;
+    property LOCK         : String        read FLOCK        write SetLOCK;
+    property IMAGENS      : TModelImagens read FIMAGENS     write SetIMAGENS;
     constructor Create(AForm : TForm);
     end;
 
@@ -31,14 +34,10 @@ implementation
 uses
   FMX.Platform.Win, Units.Consts.HBeauty, Winapi.Windows, System.SysUtils;
 
-{ TModelMn
-
-uses
-  Winapi.Windows;rca }
-
 constructor TModelMarcas.Create(AForm: TForm);
 begin
      FForm := AForm;
+     FIMAGENS := TModelImagens.Create;
 end;
 
 procedure TModelMarcas.SetIDUSULOCK(const Value: Integer);
@@ -49,6 +48,11 @@ end;
 procedure TModelMarcas.SetID_MARCA(const Value: Integer);
 begin
   FID_MARCA := Value;
+end;
+
+procedure TModelMarcas.SetIMAGENS(const Value: TModelImagens);
+begin
+  FIMAGENS := Value;
 end;
 
 procedure TModelMarcas.SetLOCK(const Value: String);

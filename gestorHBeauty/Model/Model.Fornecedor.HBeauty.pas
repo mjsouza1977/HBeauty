@@ -4,7 +4,7 @@ interface
 
 uses
   Model.Endereco.HBeauty,
-  FMX.Forms, ACBrValidador;
+  FMX.Forms, ACBrValidador, Model.Imagens.HBeauty;
 
 type
 
@@ -22,6 +22,7 @@ type
     FValidador    : TACBRValidador;
     FForm         : TForm;
     FIDVEND_FORN: Integer;
+    FIMAGENS: TModelImagens;
 
     procedure SetCNPJCPF_FORN(const Value: String);
     procedure SetCODIGO_FORN(const Value: String);
@@ -32,6 +33,7 @@ type
     procedure SetNOME_FORN(const Value: String);
     procedure SetPSEUDO_FORN(const Value: String);
     procedure SetIDVEND_FORN(const Value: Integer);
+    procedure SetIMAGENS(const Value: TModelImagens);
 
     public
 
@@ -44,6 +46,7 @@ type
     property ENDERECO         : TModelEndereco read FENDERECO     write SetENDERECO;
     property DATACAD_FORN     : TDate          read FDATACAD_FORN write SetDATACAD_FORN;
     property IDVEND_FORN      : Integer        read FIDVEND_FORN  write SetIDVEND_FORN;
+    property IMAGENS          : TModelImagens  read FIMAGENS      write SetIMAGENS;
     constructor Create(AForm : TForm);
     end;
 
@@ -60,6 +63,7 @@ begin
      FForm := AForm;
      FValidador := TACBRValidador.Create(nil);
      FENDERECO  := TModelEndereco.Create(AForm);
+     FIMAGENS   := TModelImagens.Create;
 end;
 
 procedure TModelFornecedor.SetCNPJCPF_FORN(const Value: String);
@@ -109,6 +113,11 @@ end;
 procedure TModelFornecedor.SetIERG_FORN(const Value: String);
 begin
   FIERG_FORN := Value;
+end;
+
+procedure TModelFornecedor.SetIMAGENS(const Value: TModelImagens);
+begin
+  FIMAGENS := Value;
 end;
 
 procedure TModelFornecedor.SetNOME_FORN(const Value: String);

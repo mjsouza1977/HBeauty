@@ -8,15 +8,15 @@ uses
 
 function carregaMarcas : TFDJSONDataSets;
 function pesquisaMarcas(AIdMarca : Integer; AMarca : String) : TFDJSONDataSets;
-function cadastraMarca(AMarca  : String) : String;
-function atualizaMarca(AIDMarca : Integer; AMarca : String) : String;
+function cadastraMarca(AMarca  : String; AIDLogoMarca : Integer) : String;
+function atualizaMarca(AIDMarca, AIDLogoMarca : Integer; AMarca : String) : String;
 
 implementation
 
 uses
   Controller.Conexao.HBeautyServer, System.SysUtils;
 
-function atualizaMarca(AIDMarca : Integer; AMarca : String) : String;
+function atualizaMarca(AIDMarca, AIDLogoMarca : Integer; AMarca : String) : String;
 begin
     try
         try
@@ -24,14 +24,16 @@ begin
             ControllerConexao.qryQuery.SQL.Clear;
             ControllerConexao.qryQuery.SQL.Add('UPDATE HBMARCA SET');
             ControllerConexao.qryQuery.SQL.Add('MARCA_MARCA    = :MARCA_MARCA,');
+            ControllerConexao.qryQuery.SQL.Add('IDLOGO_MARCA   = :IDLOGO_MARCA,');
             ControllerConexao.qryQuery.SQL.Add('LOCK           = :LOCK,');
             ControllerConexao.qryQuery.SQL.Add('IDUSULOCK      = :IDUSULOCK');
             ControllerConexao.qryQuery.SQL.Add('WHERE ID_MARCA = :ID_MARCA');
 
-            ControllerConexao.qryQuery.ParamByName('MARCA_MARCA').AsString  := AMarca;
-            ControllerConexao.qryQuery.ParamByName('LOCK'       ).AsString  := 'F';
-            ControllerConexao.qryQuery.ParamByName('IDUSULOCK'  ).AsInteger := 0;
-            ControllerConexao.qryQuery.ParamByName('ID_MARCA'   ).AsInteger := AIDMarca;
+            ControllerConexao.qryQuery.ParamByName('MARCA_MARCA' ).AsString  := AMarca;
+            ControllerConexao.qryQuery.ParamByName('IDLOGO_MARCA').AsInteger := AIDLogoMarca;
+            ControllerConexao.qryQuery.ParamByName('LOCK'        ).AsString  := 'F';
+            ControllerConexao.qryQuery.ParamByName('IDUSULOCK'   ).AsInteger := 0;
+            ControllerConexao.qryQuery.ParamByName('ID_MARCA'    ).AsInteger := AIDMarca;
             ControllerConexao.qryQuery.ExecSQL;
             Result := '';
         except on E:Exception do
@@ -42,19 +44,26 @@ begin
     end;
 end;
 
-function cadastraMarca(AMarca  : String) : String;
+function cadastraMarca(AMarca : String; AIDLogoMarca : Integer) : String;
 begin
     try
         try
             ControllerConexao.qryQuery.Close;
             ControllerConexao.qryQuery.SQL.Clear;
             ControllerConexao.qryQuery.SQL.Add('INSERT INTO HBMARCA');
-            ControllerConexao.qryQuery.SQL.Add('(MARCA_MARCA) VALUES');
-            ControllerConexao.qryQuery.SQL.Add('(:MARCA_MARCA)');
+            ControllerConexao.qryQuery.SQL.Add('(MARCA_MARCA, IDLOGO_MARCA) VALUES');
+            ControllerConexao.qryQuery.SQL.Add('(:MARCA_MARCA, :IDLOGO_MARCA)');
             ControllerConexao.qryQuery.ParamByName('MARCA_MARCA').AsString  := AMarca;
+            ControllerConexao.qryQuery.ParamByName('IDLOGO_MARCA').AsInteger := AIDLogoMarca;
             ControllerConexao.qryQuery.ExecSQL;
 
-            Result := '';
+            ControllerConexao.qryQuery.Close;
+            ControllerConexao.qryQuery.SQL.Clear;
+            ControllerConexao.qryQuery.SQL.Add('SELECT ID_MARCA, MARCA_MARCA FROM HBMARCA WHERE MARCA_MARCA = ' + QuotedStr(AMarca));
+            ControllerConexao.qryQuery.Open;
+
+            if ControllerConexao.qryQuery.RecordCount > 0 then
+                Result := ControllerConexao.qryQuery.FieldByName('ID_MARCA').AsString;
         except on E:Exception do
             begin
                  Result := E.Message;
@@ -72,6 +81,8 @@ begin
          ControllerConexao.qryQuery.Close;
          ControllerConexao.qryQuery.SQL.Clear;
          ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBMARCA');
+         ControllerConexao.qryQuery.SQL.Add('LEFT JOIN HBIMAGENS');
+         ControllerConexao.qryQuery.SQL.Add('ON (HBMARCA.IDLOGO_MARCA = HBIMAGENS.IDIMAGEM)');
          ControllerConexao.qryQuery.SQL.Add('ORDER BY MARCA_MARCA');
          Result := TFDJSONDataSets.Create;
          TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
@@ -89,7 +100,9 @@ begin
     try
         ControllerConexao.qryQuery.Close;
         ControllerConexao.qryQuery.SQL.Clear;
-        ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBMARCA');
+         ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBMARCA');
+         ControllerConexao.qryQuery.SQL.Add('LEFT JOIN HBIMAGENS');
+         ControllerConexao.qryQuery.SQL.Add('ON (HBMARCA.IDLOGO_MARCA = HBIMAGENS.IDIMAGEM)');
 
         if AIdMarca > 0 then ASql := ' AND ID_MARCA = ' + AIdMarca.ToString;
         if AMarca <> '' then ASql := ASql + ' AND MARCA_MARCA LIKE ' + QuotedStr(AMarca + '%');

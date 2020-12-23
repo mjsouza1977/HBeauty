@@ -1939,7 +1939,7 @@ object frmCadastroMarcas: TfrmCadastroMarcas
     Margins.Left = 5.000000000000000000
     TabOrder = 0
     Size.Width = 711.000000000000000000
-    Size.Height = 211.000000000000000000
+    Size.Height = 195.000000000000000000
     Size.PlatformDefault = False
     DefaultRowHeight = 20.000000000000000000
     DefaultColumnWidth = 50.000000000000000000
@@ -1997,9 +1997,9 @@ object frmCadastroMarcas: TfrmCadastroMarcas
   end
   object lytCadastraMarcas: TLayout
     Align = Bottom
-    Position.Y = 296.000000000000000000
+    Position.Y = 280.000000000000000000
     Size.Width = 716.000000000000000000
-    Size.Height = 83.000000000000000000
+    Size.Height = 99.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 3
     object Label3: TLabel
@@ -2044,6 +2044,35 @@ object frmCadastroMarcas: TfrmCadastroMarcas
         StyledSettings = [Family, Style, FontColor]
         CharCase = ecUpperCase
       end
+    end
+    object Label2: TLabel
+      Position.X = 464.000000000000000000
+      Position.Y = 32.000000000000000000
+      Size.Width = 65.000000000000000000
+      Size.Height = 37.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.HorzAlign = Center
+      Text = 'Adicionar'#13#10'Logo'
+      TabOrder = 3
+    end
+    object recLogoMarca: TRectangle
+      Cursor = crHandPoint
+      Fill.Bitmap.WrapMode = TileOriginal
+      Fill.Kind = Bitmap
+      Position.X = 448.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 100.000000000000000000
+      Size.Height = 80.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = xFF8A8A8A
+      XRadius = 10.000000000000000000
+      YRadius = 10.000000000000000000
+      OnClick = recLogoMarcaClick
+    end
+    object opFile: TOpenDialog
+      Filter = 'Imagens|*.jpg;*.jpeg'
+      Left = 552
+      Top = 200
     end
   end
 end

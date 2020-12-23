@@ -99,6 +99,7 @@ var
    ctrSIZE_FOTO_PES        : String;
    ctrSIZE_FOTO_PRO        : String;
    ctrSIZE_FOTO_SER        : String;
+   ctrSIZE_LOGO            : String;
    ctrPATH_FOTOS           : String;
    ctrFULL_SCREEN          : Boolean;
 

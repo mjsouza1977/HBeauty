@@ -133,6 +133,7 @@ begin
     ctrSIZE_FOTO_PRO        := getValueControle('SIZE_FOTO_PRO');
     ctrSIZE_FOTO_SER        := getValueControle('SIZE_FOTO_SER');
     ctrPATH_FOTOS           := getValueControle('PATH_FOTOS');
+    ctrSIZE_LOGO            := getValueControle('SIZE_LOGO');
 end;
 
 procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String; AListaSizeColuna : Array of Single);

@@ -8,8 +8,8 @@ uses
 
 function carregaFornecedores : TFDJSONDataSets;
 function PesquisaFornecedores(ANome, APseudo, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
-function cadastraFornecedor(AIdVendFor, ANrLog : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
-function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+function cadastraFornecedor(AIdVendFor, ANrLog, AIDLogoForn : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog, AIDLogoForn : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
 
 procedure cadastraMarcaFornecedor(AIdForn, AIdMarca : Integer);
 procedure limpaMarcaFornecedor(AIdForn : Integer);
@@ -54,7 +54,7 @@ begin
 
 end;
 
-function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog, AIDLogoForn : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
 begin
     try
         try
@@ -76,7 +76,8 @@ begin
             ControllerConexao.qryQuery.SQL.Add('DATACAD_FORN       := DATACAD_FORN,'   );
             ControllerConexao.qryQuery.SQL.Add('LOCK               := LOCK,'           );
             ControllerConexao.qryQuery.SQL.Add('IDUSULOCK          := IDUSULOCK,'      );
-            ControllerConexao.qryQuery.SQL.Add('IDVEND_FORN        := IDVEND_FORN'     );
+            ControllerConexao.qryQuery.SQL.Add('IDVEND_FORN        := IDVEND_FORN,'    );
+            ControllerConexao.qryQuery.SQL.Add('IDLOGO_FORN        := IDLOGO_FORN'     );
             ControllerConexao.qryQuery.SQL.Add('WHERE ID_FORN      := ID_FORN'         );
             ControllerConexao.qryQuery.ParamByName('CODIGO_FORN'    ).AsString  := ACodigo;
             ControllerConexao.qryQuery.ParamByName('NOME_FORN'      ).AsString  := ANome;
@@ -94,6 +95,7 @@ begin
             ControllerConexao.qryQuery.ParamByName('IDUSULOCK'      ).AsInteger := 0;
             ControllerConexao.qryQuery.ParamByName('IDVEND_FORN'    ).AsInteger := AIdVendFor;
             ControllerConexao.qryQuery.ParamByName('ID_FORN'        ).AsInteger := AIdForn;
+            ControllerConexao.qryQuery.ParamByName('IDLOGO_FORN'    ).AsInteger := AIDLogoForn;
 
             ControllerConexao.qryQuery.ExecSQL;
 
@@ -106,7 +108,7 @@ begin
     end;
 end;
 
-function cadastraFornecedor(AIdVendFor, ANrLog : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+function cadastraFornecedor(AIdVendFor, ANrLog, AIDLogoForn : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
 begin
     try
         try
@@ -115,10 +117,10 @@ begin
             ControllerConexao.qryQuery.SQL.Add('INSERT INTO HBFORNECEDOR');
             ControllerConexao.qryQuery.SQL.Add('(CODIGO_FORN, NOME_FORN, PSEUDO_FORN, CNPJCPF_FORN, IERG_FORN,');
             ControllerConexao.qryQuery.SQL.Add('LOGRADOURO_FORN, NRLOG_FORN, COMPLLOG_FORN, BAILOG_FORN,');
-            ControllerConexao.qryQuery.SQL.Add('CIDLOG_FORN, UFLOG_FORN, CEPLOG_FORN, LOCK, IDUSULOCK, IDVEND_FORN) VALUES');
+            ControllerConexao.qryQuery.SQL.Add('CIDLOG_FORN, UFLOG_FORN, CEPLOG_FORN, LOCK, IDUSULOCK, IDVEND_FORN, IDLOGO_FORN) VALUES');
             ControllerConexao.qryQuery.SQL.Add('(:CODIGO_FORN, :NOME_FORN, :PSEUDO_FORN, :CNPJCPF_FORN, :IERG_FORN,');
             ControllerConexao.qryQuery.SQL.Add(':LOGRADOURO_FORN, :NRLOG_FORN, :COMPLLOG_FORN, :BAILOG_FORN,');
-            ControllerConexao.qryQuery.SQL.Add(':CIDLOG_FORN, :UFLOG_FORN, :CEPLOG_FORN, :LOCK, :IDUSULOCK, :IDVEND_FORN)');
+            ControllerConexao.qryQuery.SQL.Add(':CIDLOG_FORN, :UFLOG_FORN, :CEPLOG_FORN, :LOCK, :IDUSULOCK, :IDVEND_FORN, :IDLOGO_FORN)');
             ControllerConexao.qryQuery.ParamByName('CODIGO_FORN'    ).AsString  := ACodigo;
             ControllerConexao.qryQuery.ParamByName('NOME_FORN'      ).AsString  := ANome;
             ControllerConexao.qryQuery.ParamByName('PSEUDO_FORN'    ).AsString  := APseudo;
@@ -134,6 +136,7 @@ begin
             ControllerConexao.qryQuery.ParamByName('LOCK'           ).AsString  := 'F';
             ControllerConexao.qryQuery.ParamByName('IDUSULOCK'      ).AsInteger := 0;
             ControllerConexao.qryQuery.ParamByName('IDVEND_FORN'    ).AsInteger := AIdVendFor;
+            ControllerConexao.qryQuery.ParamByName('IDLOGO_FORN'    ).AsInteger := AIDLogoForn;
             ControllerConexao.qryQuery.ExecSQL;
 
             ControllerConexao.qryQuery.Close;
@@ -158,7 +161,9 @@ begin
      try
          ControllerConexao.qryQuery.Close;
          ControllerConexao.qryQuery.SQL.Clear;
-         ControllerConexao.qryQuery.SQL.Add('SELECT f.*, v.NOME_VEND, v.SOBRENOME_VEND FROM HBFORNECEDOR f');
+         ControllerConexao.qryQuery.SQL.Add('SELECT i.*, f.*, v.NOME_VEND, v.SOBRENOME_VEND FROM HBFORNECEDOR f');
+         ControllerConexao.qryQuery.SQL.Add('LEFT JOIN HBIMAGENS i');
+         ControllerConexao.qryQuery.SQL.Add('ON (f.IDLOGO_FORN = i.IDIMAGEM)');
          ControllerConexao.qryQuery.SQL.Add('INNER JOIN HBVENDEDOR v');
          ControllerConexao.qryQuery.SQL.Add('ON (f.IDVEND_FORN = v.ID_FORN');
          ControllerConexao.qryQuery.SQL.Add('ORDER BY f.NOME_FORN');
@@ -208,6 +213,9 @@ begin
          ControllerConexao.qryQuery.Close;
          ControllerConexao.qryQuery.SQL.Clear;
          ControllerConexao.qryQuery.SQL.Add('SELECT * FROM HBFORNECEDOR');
+         ControllerConexao.qryQuery.SQL.Add('LEFT JOIN HBIMAGENS');
+         ControllerConexao.qryQuery.SQL.Add('ON (HBFORNECEDOR.IDLOGO_FORN = HBIMAGENS.IDIMAGEM)');
+
          if ASql <> '' then
             ControllerConexao.qryQuery.SQL.Add('WHERE ' + ASql);
 

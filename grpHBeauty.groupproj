@@ -3,7 +3,7 @@
         <ProjectGuid>{50EA1A32-6B56-4798-A867-EA20430731FF}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="gestorHBeauty\gestorHBeauty.dproj">
+        <Projects Include="gestorHBeauty\GestorHBeauty.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="ServerHBeauty\ServerHBeauty.dproj">
@@ -17,14 +17,14 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="gestorHBeauty">
-        <MSBuild Projects="gestorHBeauty\gestorHBeauty.dproj"/>
+    <Target Name="GestorHBeauty">
+        <MSBuild Projects="gestorHBeauty\GestorHBeauty.dproj"/>
     </Target>
-    <Target Name="gestorHBeauty:Clean">
-        <MSBuild Projects="gestorHBeauty\gestorHBeauty.dproj" Targets="Clean"/>
+    <Target Name="GestorHBeauty:Clean">
+        <MSBuild Projects="gestorHBeauty\GestorHBeauty.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="gestorHBeauty:Make">
-        <MSBuild Projects="gestorHBeauty\gestorHBeauty.dproj" Targets="Make"/>
+    <Target Name="GestorHBeauty:Make">
+        <MSBuild Projects="gestorHBeauty\GestorHBeauty.dproj" Targets="Make"/>
     </Target>
     <Target Name="ServerHBeauty">
         <MSBuild Projects="ServerHBeauty\ServerHBeauty.dproj"/>
@@ -36,13 +36,13 @@
         <MSBuild Projects="ServerHBeauty\ServerHBeauty.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="gestorHBeauty;ServerHBeauty"/>
+        <CallTarget Targets="GestorHBeauty;ServerHBeauty"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="gestorHBeauty:Clean;ServerHBeauty:Clean"/>
+        <CallTarget Targets="GestorHBeauty:Clean;ServerHBeauty:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="gestorHBeauty:Make;ServerHBeauty:Make"/>
+        <CallTarget Targets="GestorHBeauty:Make;ServerHBeauty:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

@@ -7,7 +7,8 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, ACBrBase, ACBrValidador, FMX.Effects, FMX.Filter.Effects, FMX.StdCtrls, FMX.EditBox, FMX.NumberBox,
   FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.Layouts, FMX.TMSBaseControl, FMX.TMSBaseGroup, FMX.TMSRadioGroup,
   FMX.Edit, FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton, FMX.ListBox, Model.Fornecedor.Servidor.HBeauty, FireDAC.Comp.Client,
-  Units.Enumerados.HBeauty, Units.Utils.Dados.HBeauty, Model.Marca.Servidor.HBeauty, View.Marcas.HBeauty, Model.Vendedor.Servidor.HBeauty;
+  Units.Enumerados.HBeauty, Units.Utils.Dados.HBeauty, Model.Marca.Servidor.HBeauty, View.Marcas.HBeauty, Model.Vendedor.Servidor.HBeauty,
+  View.Contatos.HBeauty, Model.Imagens.Servidor.HBeauty;
 
 type
   TfrmCadastroFornecedores = class(TForm)
@@ -97,6 +98,9 @@ type
     Rectangle14: TRectangle;
     cbVendedores: TComboBox;
     TMSFMXButton1: TTMSFMXButton;
+    Label14: TLabel;
+    recLogoFornecedor: TRectangle;
+    opFile: TOpenDialog;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -120,10 +124,15 @@ type
     procedure edtBairroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure edtCidadeLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
     procedure TMSFMXButton1Click(Sender: TObject);
+    procedure btnCadastraTelefoneClick(Sender: TObject);
+    procedure btnCadastraEmailClick(Sender: TObject);
+    procedure edtCepLogExit(Sender: TObject);
+    procedure recLogoFornecedorClick(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FScroll : TVertScrollBox;
     FStatus : TAcaoBotao;
+    FPathImage : String;
     procedure listaMarcas(ATable : TFDMemTable; AIDForn : Integer);
     procedure AlimentaClasseFornecedores;
     procedure SalvaMarcaFornecedor(AIdForn: Integer);
@@ -148,7 +157,7 @@ uses Units.Classes.HBeauty,
      System.UIConsts,
      Units.Strings.HBeauty,
      Units.Utils.HBeauty, Winapi.Windows, FMX.Platform.Win,
-  Units.Mensagens.HBeauty, Controller.Formata.HBeauty;
+  Units.Mensagens.HBeauty, Controller.Formata.HBeauty, Model.Endereco.HBeauty;
 
 procedure TfrmCadastroFornecedores.AlimentaClasseFornecedores;
 begin
@@ -231,6 +240,88 @@ begin
                        apTitulo, MB_OK + MB_ICONINFORMATION);
             Exit;
         end;
+end;
+
+procedure TfrmCadastroFornecedores.btnCadastraEmailClick(Sender: TObject);
+begin
+
+     if FStatus = abIncluir then
+        begin
+            if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                         'Para cadastrar os e-mails é necessário primeiro salvar o fornecedor'+#13#13+
+                         'Deseja salvar agora?', apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
+                begin
+                    FIdSelecionado := CadastraFornecedor(gclFornecedor, Self).ToInteger;
+                    ControlaBotoes(Self, True);
+
+                    if FIdSelecionado <> 0 then
+                       begin
+                           Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+                           frmCadastroContatos.TipoForm   := tfEmail;
+                           frmCadastroContatos.IdRegTab   := FIdSelecionado;
+                           frmCadastroContatos.NomeTabela := PrefixoTabela(tcFornecedores);
+                           frmCadastroContatos.Nome       := edtRazaoSocial.Text;
+                           frmCadastroContatos.Titulo     := 'Fornecedor';
+                           frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
+                           frmCadastroContatos.imgIconeForm.BitmapName := 'Email';
+                           frmCadastroContatos.ShowModal;
+                       end;
+                end;
+        end
+    else
+        begin
+            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+            frmCadastroContatos.TipoForm   := tfEmail;
+            frmCadastroContatos.IdRegTab   := FIdSelecionado;
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcFornecedores);
+            frmCadastroContatos.Nome       := edtRazaoSocial.Text;
+            frmCadastroContatos.Titulo     := 'Fornecedor';
+            frmCadastroContatos.TituloForm := 'Cadastro de E-mails';
+            frmCadastroContatos.imgIconeForm.BitmapName := 'Email';
+            frmCadastroContatos.ShowModal;
+        end;
+
+end;
+
+procedure TfrmCadastroFornecedores.btnCadastraTelefoneClick(Sender: TObject);
+begin
+    if FStatus = abIncluir then
+        begin
+            if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                         'Para cadastrar os telefones é necessário primeiro salvar o fornecedor'+#13#13+
+                         'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
+                begin
+                    AlimentaClasseFornecedores;
+                    FIdSelecionado := CadastraFornecedor(gclFornecedor, Self).ToInteger;
+
+                    if FIdSelecionado <> 0 then
+                        begin
+                            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+                            frmCadastroContatos.TipoForm     := tfTelefone;
+                            frmCadastroContatos.IdRegTab     := FIdSelecionado;
+                            frmCadastroContatos.NomeTabela   := PrefixoTabela(tcFornecedores);
+                            frmCadastroContatos.Titulo       := 'Fornecedor';
+                            frmCadastroContatos.TituloForm   := 'Cadastro de Telefone';
+                            frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
+                            frmCadastroContatos.ShowModal;
+                            FStatus := abNulo;
+                        end;
+                end;
+        end
+    else
+        begin
+            Application.CreateForm(TfrmCadastroContatos, frmCadastroContatos);
+            frmCadastroContatos.TipoForm   := tfTelefone;
+            frmCadastroContatos.IdRegTab   := FIdSelecionado;
+            frmCadastroContatos.NomeTabela := PrefixoTabela(tcFornecedores);
+            frmCadastroContatos.Nome       := edtRazaoSocial.Text;
+            frmCadastroContatos.Titulo     := 'Fornecedor';
+            frmCadastroContatos.imgIconeForm.BitmapName := 'Telefone';
+            frmCadastroContatos.TituloForm := 'Cadastro de Telefone';
+
+            frmCadastroContatos.ShowModal;
+        end;
+
 end;
 
 procedure TfrmCadastroFornecedores.btnCancelarClick(Sender: TObject);
@@ -354,6 +445,12 @@ begin
                                              begin
                                                  AlimentaClasseFornecedores;
                                                  Try
+                                                    if FPathImage <> '' then
+                                                       begin
+                                                           gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem('FOR',UpperCase(ExtractFileExt(FPathImage)));
+                                                           CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
+                                                       end;
+
                                                     FIdSelecionado := CadastraFornecedor(gclFornecedor, Self).ToInteger;
                                                     SalvaMarcaFornecedor(FIdSelecionado);
 
@@ -363,11 +460,15 @@ begin
                                                                      MB_YESNO + MB_ICONQUESTION) of
                                                         IDYES : begin
                                                                      FStatus := abIncluir;
+                                                                     FPathImage := '';
+                                                                     recLogoFornecedor.Fill.Bitmap.Bitmap := nil;
                                                                      LimpaForm(Self);
                                                                      edtCNPJ.SetFocus;
                                                                 end;
                                                          IDNO : begin
                                                                      FStatus := abNulo;
+                                                                     FPathImage := '';
+                                                                     recLogoFornecedor.Fill.Bitmap.Bitmap := nil;
                                                                      tabGerenciadorFornecedor.TabIndex := 0;
                                                                      tabCabecarioFornecedor.Previous;
                                                                      tabFichaFornecedor.Visible := False;
@@ -400,6 +501,23 @@ begin
                                          try
                                              AlimentaClasseFornecedores;
 
+                                              if ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_MARCA').AsString <> '' then
+                                                    gclFornecedor.IMAGENS.IDIMAGEM := ModelConexaoDados.memMarcas.FieldByName('IDLOGO_MARCA').AsInteger else
+                                                    gclFornecedor.IMAGENS.IDIMAGEM := 0;
+
+                                                 gclFornecedor.IMAGENS.NOMEFILEIMAGEM := ModelConexaoDados.memMarcas.FieldByName('NOMEFILEIMAGEM').AsString;
+
+                                                 if (FPathImagem <> '') and (gclFornecedor.IMAGENS.IDIMAGEM = 0) then
+                                                     begin
+                                                         gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem('MRC',UpperCase(ExtractFileExt(FPathImagem)));
+                                                         CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
+                                                     end;
+                                                 if (FPathImagem <> '') and (gclFornecedor.IMAGENS.IDIMAGEM > 0) then
+                                                    begin
+                                                         AtualizaImagem(gclFornecedor.IMAGENS.IDIMAGEM);
+                                                         CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
+                                                    end;
+                                             end;
                                              atualizaFornecedores(gclFornecedor);
                                              limpaMarcaFornecedor(FIdSelecionado);
                                              SalvaMarcaFornecedor(FIdSelecionado);
@@ -432,6 +550,24 @@ end;
 procedure TfrmCadastroFornecedores.edtBairroLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
 begin
 NextField(Key, edtCidadeLog);
+end;
+
+procedure TfrmCadastroFornecedores.edtCepLogExit(Sender: TObject);
+var
+AEndereco : TModelEndereco;
+begin
+   try
+       AEndereco := TModelEndereco.Create(Self);
+       AEndereco := PesquisaCEP(Self, edtCepLog.Text);
+
+       edtCepLog.Text     := AEndereco.CEP;
+       edtLogradouro.Text := AEndereco.LOGRADOURO;
+       edtBairroLog.Text  := AEndereco.BAIRROLOG;
+       edtCidadeLog.Text  := AEndereco.CIDADELOG;
+       edtUFLog.Text      := AEndereco.UFLOG;
+   finally
+       AEndereco.DisposeOf;
+   end;
 end;
 
 procedure TfrmCadastroFornecedores.edtCepLogKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
@@ -601,6 +737,39 @@ begin
         FreeAndNil(FTable);
     end;
 
+end;
+
+
+procedure TfrmCadastroFornecedores.recLogoFornecedorClick(Sender: TObject);
+var
+ANomeImagem, AExtensao : String;
+begin
+    if opFile.Execute then
+        begin
+            AExtensao := UpperCase(ExtractFileExt(opFile.FileName));
+            if (Pos('JPG', AExtensao) = 0) and (Pos('JPEG', AExtensao) = 0) then
+                begin
+                    MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                              'Formato do arquivo inválido, selecione um arquivo do tipo "jpg"!',
+                              apTitulo, MB_OK + MB_ICONEXCLAMATION);
+                    Exit;
+                end
+            else
+                begin
+                    if TamanhoImagem(opFile.FileName) <> ctrSIZE_LOGO then
+                        begin
+                            MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                      pChar('O arquivo da foto deve ser no formato de ' + ctrSIZE_LOGO + '!'),
+                                      apTitulo, MB_OK + MB_ICONEXCLAMATION);
+                            Exit;
+                        end
+                    else
+                        begin
+                             FPathImage := opFile.FileName;
+                             recLogoFornecedor.Fill.Bitmap.Bitmap.LoadFromFile(FPathImage);
+                        end;
+                end;
+        end;
 end;
 
 end.

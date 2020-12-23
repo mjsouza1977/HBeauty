@@ -9,7 +9,7 @@ function RemoveAcento(aText : string) : string;
 function CriptografaMD5(const ASenha : String) : String;
 function ApenasNumeros(const Str:String):String;
 function ApenasLetras(const Str:String):String;
-
+function isNumeric(Value : String) : Boolean;
 
 const
     IntegerSet = [#33..#47,#58..#255] ;
@@ -19,6 +19,17 @@ implementation
 
 uses
   System.SysUtils, System.Classes;
+
+function isNumeric(Value : String) : Boolean;
+begin
+    try
+        StrToint(Value);
+        Result := True;
+    except
+        Result := False;
+    end;
+end;
+
 
 function ApenasLetras(const Str:String):String;
 var

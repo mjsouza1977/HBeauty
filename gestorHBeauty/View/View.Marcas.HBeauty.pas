@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Edit, FMX.Layouts, FMX.TMSBaseControl, FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData,
   FMX.TMSCustomGrid, FMX.TMSGrid, FMX.StdCtrls, FMX.Objects, FMX.TMSBitmap, FMX.Controls.Presentation, FMX.TMSButton,
-  Units.Enumerados.HBeauty;
+  Units.Enumerados.HBeauty, Units.Strings.HBeauty;
 
 type
   TfrmCadastroMarcas = class(TForm)
@@ -27,6 +27,9 @@ type
     Label3: TLabel;
     Rectangle15: TRectangle;
     edtMarca: TEdit;
+    recLogoMarca: TRectangle;
+    Label2: TLabel;
+    opFile: TOpenDialog;
     procedure btnFecharClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -36,9 +39,11 @@ type
     procedure btnIncluirClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure recLogoMarcaClick(Sender: TObject);
   private
     FIDSelecionado : Integer;
-    FStatus : TAcaoBotao;
+    FStatus        : TAcaoBotao;
+    FPathImagem    : String;
     { Private declarations }
   public
     { Public declarations }
@@ -59,7 +64,9 @@ uses Controller.Manipula.Design.HBeauty,
      Model.Marca.Servidor.HBeauty,
      Units.Consts.HBeauty,
      Units.Utils.HBeauty, Winapi.Windows, FMX.Platform.Win,
-     Units.Mensagens.HBeauty;
+     Units.Mensagens.HBeauty,
+     Model.Imagens.Servidor.HBeauty;
+
 
 procedure TfrmCadastroMarcas.btnAlterarClick(Sender: TObject);
 begin
@@ -73,6 +80,17 @@ begin
                     grdListaMarca.Enabled := False;
                     pesquisaMarcas(FIDSelecionado,'');
                     gclMarcas.MARCA_MARCA := FieldByName('MARCA_MARCA').AsString;
+                    if FieldByName('IDLOGO_MARCA').AsString <> '' then
+                        begin
+                            gclMarcas.IMAGENS.IDIMAGEM := FieldByName('IDLOGO_MARCA').AsInteger;
+                            recLogoMarca.Fill.Bitmap.Bitmap.LoadFromFile(ctrPATH_FOTOS + ObterNomeImagem(gclMarcas.IMAGENS.IDIMAGEM));
+                        end
+                    else
+                        begin
+                            gclMarcas.ID_MARCA    := 0;
+                            recLogoMarca.Fill.Bitmap.Bitmap := nil;
+                        end;
+
                     edtMarca.Text         := gclMarcas.MARCA_MARCA;
                     edtMarca.SetFocus;
                     lytCadastraMarcas.Visible := True;
@@ -140,14 +158,42 @@ end;
 procedure TfrmCadastroMarcas.btnSalvarClick(Sender: TObject);
 begin
      rResultado := '';
-     gclMarcas.ID_MARCA    := FIDSelecionado;
-     gclMarcas.MARCA_MARCA := edtMarca.Text;
+     gclMarcas.ID_MARCA         := FIDSelecionado;
+     gclMarcas.MARCA_MARCA      := edtMarca.Text;
+     case FStatus of
+         abIncluir : begin
+                          if FPathImagem <> '' then
+                              begin
+                                   gclMarcas.IMAGENS.IDIMAGEM := GravaImagem('MRC',UpperCase(ExtractFileExt(FPathImagem)));
+                                   CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclMarcas.IMAGENS.IDIMAGEM)), False);
+                              end;
+                     end;
+         abAlterar : begin
+                         if ModelConexaoDados.memMarcas.FieldByName('IDLOGO_MARCA').AsString <> '' then
+                            gclMarcas.IMAGENS.IDIMAGEM := ModelConexaoDados.memMarcas.FieldByName('IDLOGO_MARCA').AsInteger else
+                            gclMarcas.IMAGENS.IDIMAGEM := 0;
+
+                         gclMarcas.IMAGENS.NOMEFILEIMAGEM := ModelConexaoDados.memMarcas.FieldByName('NOMEFILEIMAGEM').AsString;
+
+                         if (FPathImagem <> '') and (gclMarcas.IMAGENS.IDIMAGEM = 0) then
+                             begin
+                                 gclMarcas.IMAGENS.IDIMAGEM := GravaImagem('MRC',UpperCase(ExtractFileExt(FPathImagem)));
+                                 CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclMarcas.IMAGENS.IDIMAGEM)), False);
+                             end;
+                         if (FPathImagem <> '') and (gclMarcas.IMAGENS.IDIMAGEM > 0) then
+                            begin
+                                 AtualizaImagem(gclMarcas.IMAGENS.IDIMAGEM);
+                                 CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclMarcas.IMAGENS.IDIMAGEM)), False);
+                            end;
+                     end;
+     end;
 
      case FStatus of
          abIncluir: begin
                          try
-                             rResultado := cadastraMarca(gclMarcas.MARCA_MARCA);
-                             if rResultado = '' then
+                             rResultado := cadastraMarca(gclMarcas);
+
+                             if isNumeric(rResultado) = True then
                                  begin
                                      LimpaForm(Self);
                                      lytCadastraMarcas.Visible := False;
@@ -249,6 +295,39 @@ end;
 procedure TfrmCadastroMarcas.grdListaMarcaCellClick(Sender: TObject; ACol, ARow: Integer);
 begin
 FIDSelecionado := ExtraiTextoGrid(grdListaMarca.Cells[0, ARow]).ToInteger;
+end;
+
+procedure TfrmCadastroMarcas.recLogoMarcaClick(Sender: TObject);
+var
+ANomeImagem, AExtensao : String;
+begin
+    if opFile.Execute then
+        begin
+            AExtensao := UpperCase(ExtractFileExt(opFile.FileName));
+            if (Pos('JPG', AExtensao) = 0) and (Pos('JPEG', AExtensao) = 0) then
+                begin
+                    MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                              'Formato do arquivo inválido, selecione um arquivo do tipo "jpg"!',
+                              apTitulo, MB_OK + MB_ICONEXCLAMATION);
+                    Exit;
+                end
+            else
+                begin
+                    if TamanhoImagem(opFile.FileName) <> ctrSIZE_LOGO then
+                        begin
+                            MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                      pChar('O arquivo da foto deve ser no formato de ' + ctrSIZE_LOGO + '!'),
+                                      apTitulo, MB_OK + MB_ICONEXCLAMATION);
+                            Exit;
+                        end
+                    else
+                        begin
+                             FPathImagem := opFile.FileName;
+                             recLogoMarca.Fill.Bitmap.Bitmap.LoadFromFile(FPathImagem);
+                        end;
+                end;
+        end;
+
 end;
 
 end.

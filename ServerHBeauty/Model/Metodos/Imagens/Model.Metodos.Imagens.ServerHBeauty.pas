@@ -4,6 +4,7 @@ interface
 
 function GravaImagem(APrefixo, AExtensao : String) : Integer;
 function AtualizaImagem(AIDImagem : Integer) : String;
+function ObterNomeImagem(AIDImagem : Integer) : String;
 
 
 implementation
@@ -13,6 +14,23 @@ uses
   Controller.Conexao.HBeautyServer,
   Units.Utils.ServerBeauty,
   VCL.Dialogs;
+
+function ObterNomeImagem(AIDImagem : Integer) : String;
+begin
+    try
+        ControllerConexao.qryQuery.Close;
+        ControllerConexao.qryQuery.SQL.Clear;
+        ControllerConexao.qryQuery.SQL.Add('SELECT NOMEFILEIMAGEM FROM HBIMAGENS');
+        ControllerConexao.qryQuery.SQL.Add('WHERE IDIMAGEM = :IDIMAGEM');
+        ControllerConexao.qryQuery.ParamByName('IDIMAGEM').AsInteger := AIDImagem;
+        ControllerConexao.qryQuery.Open;
+
+        Result := ControllerConexao.qryQuery.FieldByName('NOMEFILEIMAGEM').AsString;
+    finally
+        ControllerConexao.qryQuery.Close;
+    end;
+end;
+
 
 function AtualizaImagem(AIDImagem : Integer) : String;
 begin

@@ -66,6 +66,18 @@ type
     Rectangle2: TRectangle;
     Edit1: TEdit;
     Label5: TLabel;
+    Rectangle4: TRectangle;
+    Edit2: TEdit;
+    Label6: TLabel;
+    Rectangle5: TRectangle;
+    ComboBox2: TComboBox;
+    Label7: TLabel;
+    Rectangle7: TRectangle;
+    Edit3: TEdit;
+    Label8: TLabel;
+    Rectangle8: TRectangle;
+    Edit4: TEdit;
+    Label9: TLabel;
   private
     { Private declarations }
   public

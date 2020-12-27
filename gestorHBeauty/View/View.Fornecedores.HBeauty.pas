@@ -89,7 +89,6 @@ type
     grpContatos: TGroupBox;
     btnCadastraTelefone: TTMSFMXButton;
     btnCadastraEmail: TTMSFMXButton;
-    StyleBook2: TStyleBook;
     FillRGBEffect2: TFillRGBEffect;
     ACBrValidador1: TACBrValidador;
     grpMarca: TGroupBox;
@@ -220,8 +219,19 @@ begin
 
                             AlimentaClasseFornecedores;
 
+                            if ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsString <> '' then
+                                begin
+                                    gclFornecedor.IMAGENS.IDIMAGEM := ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsInteger;
+                                    recLogoFornecedor.Fill.Bitmap.Bitmap.LoadFromFile(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM));
+                                end
+                            else
+                                begin
+                                    gclFornecedor.IMAGENS.IDIMAGEM       := 0;
+                                    recLogoFornecedor.Fill.Bitmap.Bitmap := nil;
+                                end;
 
                             ControlaBotoes(Self, False);
+                            tabFichaFornecedor.Visible := True;
                             tabGerenciadorFornecedor.TabIndex := 1;
                             tabCabecarioFornecedor.Next;
                         end;
@@ -409,7 +419,8 @@ begin
             if frmCadastroFornecedores.Components[i] is TCheckBox then
                 begin
                     if Pos('chkMarca', TCheckBox(frmCadastroFornecedores.Components[i]).Name) > 0 then
-                        cadastraMarcaFornecedor(AIdForn, TCheckBox(frmCadastroFornecedores.Components[i]).TagString.ToInteger);
+                        if TCheckBox(frmCadastroFornecedores.Components[i]).IsChecked = True then
+                            cadastraMarcaFornecedor(AIdForn, TCheckBox(frmCadastroFornecedores.Components[i]).TagString.ToInteger);
                 end;
         end;
 end;
@@ -501,23 +512,21 @@ begin
                                          try
                                              AlimentaClasseFornecedores;
 
-                                              if ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_MARCA').AsString <> '' then
-                                                    gclFornecedor.IMAGENS.IDIMAGEM := ModelConexaoDados.memMarcas.FieldByName('IDLOGO_MARCA').AsInteger else
+                                              if ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsString <> '' then
+                                                    gclFornecedor.IMAGENS.IDIMAGEM := ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsInteger else
                                                     gclFornecedor.IMAGENS.IDIMAGEM := 0;
 
-                                                 gclFornecedor.IMAGENS.NOMEFILEIMAGEM := ModelConexaoDados.memMarcas.FieldByName('NOMEFILEIMAGEM').AsString;
-
-                                                 if (FPathImagem <> '') and (gclFornecedor.IMAGENS.IDIMAGEM = 0) then
+                                                 if (FPathImage <> '') and (gclFornecedor.IMAGENS.IDIMAGEM = 0) then
                                                      begin
-                                                         gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem('MRC',UpperCase(ExtractFileExt(FPathImagem)));
-                                                         CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
+                                                         gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem('FOR',UpperCase(ExtractFileExt(FPathImage)));
+                                                         CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
                                                      end;
-                                                 if (FPathImagem <> '') and (gclFornecedor.IMAGENS.IDIMAGEM > 0) then
+                                                 if (FPathImage <> '') and (gclFornecedor.IMAGENS.IDIMAGEM > 0) then
                                                     begin
                                                          AtualizaImagem(gclFornecedor.IMAGENS.IDIMAGEM);
-                                                         CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
+                                                         CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
                                                     end;
-                                             end;
+
                                              atualizaFornecedores(gclFornecedor);
                                              limpaMarcaFornecedor(FIdSelecionado);
                                              SalvaMarcaFornecedor(FIdSelecionado);
@@ -660,16 +669,17 @@ begin
               ModelConexaoDados.memVendedores.Next;
          end;
 
-     grdListaFornecedor.Cells[0,0] := 'CNPJ/CPF';
-     grdListaFornecedor.Cells[1,0] := 'Razão Social';
-     grdListaFornecedor.Cells[2,0] := 'Nome Fantasia';
-     grdListaFornecedor.Cells[3,0] := 'Logradouro';
-     grdListaFornecedor.Cells[4,0] := 'Nr.';
-     grdListaFornecedor.Cells[5,0] := 'Complemento';
-     grdListaFornecedor.Cells[6,0] := 'Bairro';
-     grdListaFornecedor.Cells[7,0] := 'CEP';
-     grdListaFornecedor.Cells[8,0] := 'Cidade';
-     grdListaFornecedor.Cells[9,0] := 'UF';
+     grdListaFornecedor.Cells[0,0]  := 'Código';
+     grdListaFornecedor.Cells[1,0]  := 'CNPJ/CPF';
+     grdListaFornecedor.Cells[2,0]  := 'Razão Social';
+     grdListaFornecedor.Cells[3,0]  := 'Nome Fantasia';
+     grdListaFornecedor.Cells[4,0]  := 'Logradouro';
+     grdListaFornecedor.Cells[5,0]  := 'Nr.';
+     grdListaFornecedor.Cells[6,0]  := 'Complemento';
+     grdListaFornecedor.Cells[7,0]  := 'Bairro';
+     grdListaFornecedor.Cells[8,0]  := 'CEP';
+     grdListaFornecedor.Cells[9,0]  := 'Cidade';
+     grdListaFornecedor.Cells[10,0] := 'UF';
 end;
 
 procedure TfrmCadastroFornecedores.grdListaFornecedorCellClick(Sender: TObject; ACol, ARow: Integer);

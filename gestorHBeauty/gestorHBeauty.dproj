@@ -415,6 +415,10 @@
         <DCCReference Include="Model\DadosServidor\Model.Fornecedor.Servidor.HBeauty.pas"/>
         <DCCReference Include="Model\DadosServidor\Model.Marca.Servidor.HBeauty.pas"/>
         <DCCReference Include="Model\Model.Marcas.HBeauty.pas"/>
+        <DCCReference Include="View\View.Produtos.HBeauty.pas">
+            <Form>Form1</Form>
+            <FormType>fmx</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

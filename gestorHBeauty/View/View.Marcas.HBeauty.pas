@@ -87,7 +87,7 @@ begin
                         end
                     else
                         begin
-                            gclMarcas.ID_MARCA    := 0;
+                            gclMarcas.IMAGENS.IDIMAGEM      := 0;
                             recLogoMarca.Fill.Bitmap.Bitmap := nil;
                         end;
 
@@ -173,9 +173,7 @@ begin
                             gclMarcas.IMAGENS.IDIMAGEM := ModelConexaoDados.memMarcas.FieldByName('IDLOGO_MARCA').AsInteger else
                             gclMarcas.IMAGENS.IDIMAGEM := 0;
 
-                         gclMarcas.IMAGENS.NOMEFILEIMAGEM := ModelConexaoDados.memMarcas.FieldByName('NOMEFILEIMAGEM').AsString;
-
-                         if (FPathImagem <> '') and (gclMarcas.IMAGENS.IDIMAGEM = 0) then
+                          if (FPathImagem <> '') and (gclMarcas.IMAGENS.IDIMAGEM = 0) then
                              begin
                                  gclMarcas.IMAGENS.IDIMAGEM := GravaImagem('MRC',UpperCase(ExtractFileExt(FPathImagem)));
                                  CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclMarcas.IMAGENS.IDIMAGEM)), False);

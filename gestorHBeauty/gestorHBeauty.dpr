@@ -52,7 +52,8 @@ uses
   Model.Vendedor.Servidor.HBeauty in 'Model\DadosServidor\Model.Vendedor.Servidor.HBeauty.pas',
   Model.Fornecedor.Servidor.HBeauty in 'Model\DadosServidor\Model.Fornecedor.Servidor.HBeauty.pas',
   Model.Marca.Servidor.HBeauty in 'Model\DadosServidor\Model.Marca.Servidor.HBeauty.pas',
-  Model.Marcas.HBeauty in 'Model\Model.Marcas.HBeauty.pas';
+  Model.Marcas.HBeauty in 'Model\Model.Marcas.HBeauty.pas',
+  View.Produtos.HBeauty in 'View\View.Produtos.HBeauty.pas' {Form1};
 
 {$R *.res}
 
@@ -64,5 +65,6 @@ begin
   Application.CreateForm(TfrmCadastroFornecedores, frmCadastroFornecedores);
   Application.CreateForm(TfrmGerenciadorVendedores, frmGerenciadorVendedores);
   Application.CreateForm(TfrmCadastroMarcas, frmCadastroMarcas);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

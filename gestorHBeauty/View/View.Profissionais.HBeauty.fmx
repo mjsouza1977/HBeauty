@@ -313,7 +313,7 @@ object frmGerenciadorProfissionais: TfrmGerenciadorProfissionais
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 47
+        TabOrder = 48
       end
       object lblStatus: TLabel
         StyledSettings = [Family]

@@ -314,7 +314,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 42
+        TabOrder = 43
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -336,7 +336,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
     Size.Height = 438.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -351,7 +351,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 164.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -4411,14 +4411,13 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 155.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
       Text = 'Ficha do Fornecedor'
-      Visible = False
       ExplicitSize.cx = 157.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
       object rgDados: TTMSFMXRadioGroup
@@ -4971,7 +4970,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
         Size.PlatformDefault = False
         Text = 'Marcas'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 27
+        TabOrder = 28
         object recMarcas: TRectangle
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000

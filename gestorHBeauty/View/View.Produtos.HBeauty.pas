@@ -4,9 +4,9 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListBox, FMX.Effects, FMX.Filter.Effects, FMX.StdCtrls, FMX.EditBox, FMX.NumberBox, FMX.TMSBaseGroup,
-  FMX.TMSRadioGroup, FMX.TMSBaseControl, FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.Layouts, FMX.Edit,
-  FMX.TabControl, FMX.Controls.Presentation, FMX.TMSButton;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.EditBox, FMX.NumberBox, FMX.Effects, FMX.Filter.Effects, FMX.ListBox, FMX.StdCtrls,
+  FMX.TMSBaseControl, FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.Layouts, FMX.Edit, FMX.TabControl,
+  FMX.Controls.Presentation, FMX.TMSButton;
 
 type
   TForm1 = class(TForm)
@@ -45,39 +45,46 @@ type
     sbtnSim: TSpeedButton;
     sbtnNao: TSpeedButton;
     Rectangle11: TRectangle;
-    grdListaFornecedor: TTMSFMXGrid;
+    grdListaProdutos: TTMSFMXGrid;
     tabFichaFornecedor: TTabItem;
-    rgDados: TTMSFMXRadioGroup;
-    Rectangle10: TRectangle;
-    edtCNPJ: TEdit;
-    Label10: TLabel;
+    StyleBook2: TStyleBook;
+    FillRGBEffect2: TFillRGBEffect;
     Rectangle16: TRectangle;
     lblNumero: TLabel;
     edtNumeroLog: TNumberBox;
-    gbVendedor: TGroupBox;
-    StyleBook2: TStyleBook;
-    FillRGBEffect2: TFillRGBEffect;
+    Rectangle10: TRectangle;
+    edtCNPJ: TEdit;
+    Label10: TLabel;
     Rectangle14: TRectangle;
-    cbVendedores: TComboBox;
-    Rectangle1: TRectangle;
-    ComboBox1: TComboBox;
+    cbFornecedores: TComboBox;
     Label2: TLabel;
+    Rectangle1: TRectangle;
+    cbMarcas: TComboBox;
     Label3: TLabel;
     Rectangle2: TRectangle;
-    Edit1: TEdit;
+    edtRazaoSocial: TEdit;
     Label5: TLabel;
     Rectangle4: TRectangle;
-    Edit2: TEdit;
+    Edit1: TEdit;
     Label6: TLabel;
     Rectangle5: TRectangle;
     ComboBox2: TComboBox;
     Label7: TLabel;
     Rectangle7: TRectangle;
-    Edit3: TEdit;
     Label8: TLabel;
+    NumberBox1: TNumberBox;
     Rectangle8: TRectangle;
-    Edit4: TEdit;
+    Edit2: TEdit;
     Label9: TLabel;
+    Rectangle9: TRectangle;
+    Edit3: TEdit;
+    Label11: TLabel;
+    Rectangle12: TRectangle;
+    Label12: TLabel;
+    NumberBox2: TNumberBox;
+    Rectangle13: TRectangle;
+    Label14: TLabel;
+    NumberBox3: TNumberBox;
   private
     { Private declarations }
   public

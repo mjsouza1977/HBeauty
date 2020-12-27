@@ -248,7 +248,7 @@ object Form1: TForm1
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 44
+        TabOrder = 46
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -286,12 +286,12 @@ object Form1: TForm1
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
       IsSelected = False
-      Size.Width = 164.000000000000000000
+      Size.Width = 135.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'Lista de Fornecedores'
+      Text = 'Lista de Produtos'
       ExplicitSize.cx = 165.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
       object Layout4: TLayout
@@ -2661,7 +2661,7 @@ object Form1: TForm1
           Size.Height = 409.000000000000000000
           Size.PlatformDefault = False
           Stroke.Kind = None
-          object grdListaFornecedor: TTMSFMXGrid
+          object grdListaProdutos: TTMSFMXGrid
             Align = Client
             DisableFocusEffect = False
             Margins.Left = 5.000000000000000000
@@ -2827,368 +2827,56 @@ object Form1: TForm1
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
       IsSelected = True
-      Size.Width = 155.000000000000000000
+      Size.Width = 134.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'Ficha do Fornecedor'
+      Text = 'Ficha do Produto'
       ExplicitSize.cx = 157.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
-      object rgDados: TTMSFMXRadioGroup
-        DisableFocusEffect = False
-        Position.X = 22.000000000000000000
-        Position.Y = 4.000000000000000000
-        TabOrder = 3
-        Size.Width = 639.000000000000000000
-        Size.Height = 393.000000000000000000
+      object Rectangle16: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 210.000000000000000000
+        Size.Width = 141.000000000000000000
+        Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
-        Items = <>
-        Text = 'Fornecedor'
-        Font.StyleExt = {00070000000000000004000000}
-        ItemFont.StyleExt = {00070000000000000004000000}
-        ItemFontColor = claWhite
-        ItemIndex = 0
-        Version = '1.0.2.6'
-        object Rectangle14: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 14.000000000000000000
-          Position.Y = 52.000000000000000000
-          Size.Width = 357.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object cbVendedores: TComboBox
-            Align = Client
-            Items.Strings = (
-              'ASDasd'
-              'asdfasdf'
-              'asdfasdf'
-              'asdf')
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 337.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyleLookup = 'ComboBox1Style1'
-            TabOrder = 0
-          end
-        end
-        object Rectangle1: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 381.000000000000000000
-          Position.Y = 52.000000000000000000
-          Size.Width = 241.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object ComboBox1: TComboBox
-            Align = Client
-            Items.Strings = (
-              'ASDasd'
-              'asdfasdf'
-              'asdfasdf'
-              'asdf')
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 221.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyleLookup = 'ComboBox1Style1'
-            TabOrder = 0
-          end
-        end
-        object Label2: TLabel
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object lblNumero: TLabel
+          AutoSize = True
           StyledSettings = [Family, Size]
-          Position.X = 16.000000000000000000
-          Position.Y = 32.000000000000000000
-          Size.Width = 125.000000000000000000
-          Size.Height = 17.000000000000000000
+          Position.Y = -20.000000000000000000
+          Size.Width = 101.000000000000000000
+          Size.Height = 16.000000000000000000
           Size.PlatformDefault = False
           TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'Fornecedor'
-          TabOrder = 3
+          Text = 'Pre'#231'o de custo'
+          TabOrder = 0
         end
-        object Label3: TLabel
-          StyledSettings = [Family, Size]
-          Position.X = 388.000000000000000000
-          Position.Y = 32.000000000000000000
-          Size.Width = 125.000000000000000000
-          Size.Height = 17.000000000000000000
+        object edtNumeroLog: TNumberBox
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Client
+          StyleLookup = 'NumberBox1Style1'
+          TabOrder = 6
+          Cursor = crIBeam
+          Max = 9999999.000000000000000000
+          TextSettings.Font.Size = 14.000000000000000000
+          TextSettings.HorzAlign = Center
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 121.000000000000000000
+          Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'Marca'
-          TabOrder = 2
-        end
-        object Rectangle2: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 179.000000000000000000
-          Position.Y = 103.000000000000000000
-          Size.Width = 443.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object Edit1: TEdit
-            Touch.InteractiveGestures = [LongTap, DoubleTap]
-            Align = Client
-            StyleLookup = 'transparentedit'
-            TabOrder = 0
-            MaxLength = 20
-            TextSettings.Font.Size = 14.000000000000000000
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 423.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyledSettings = [Family, Style, FontColor]
-            CharCase = ecUpperCase
-          end
-          object Label5: TLabel
-            StyledSettings = [Family, Size]
-            Position.Y = -20.000000000000000000
-            Size.Width = 125.000000000000000000
-            Size.Height = 17.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.StyleExt = {00070000000000000004000000}
-            Text = 'Descri'#231#227'o'
-            TabOrder = 1
-          end
-        end
-        object Rectangle4: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 18.000000000000000000
-          Position.Y = 161.000000000000000000
-          Size.Width = 159.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object Edit2: TEdit
-            Touch.InteractiveGestures = [LongTap, DoubleTap]
-            Align = Client
-            StyleLookup = 'transparentedit'
-            TabOrder = 0
-            MaxLength = 20
-            TextSettings.Font.Size = 14.000000000000000000
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 139.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyledSettings = [Family, Style, FontColor]
-            CharCase = ecUpperCase
-          end
-          object Label6: TLabel
-            StyledSettings = [Family, Size]
-            Position.Y = -20.000000000000000000
-            Size.Width = 125.000000000000000000
-            Size.Height = 17.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.StyleExt = {00070000000000000004000000}
-            Text = 'C'#243'digo de Barras'
-            TabOrder = 1
-          end
-        end
-        object Rectangle5: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 277.000000000000000000
-          Position.Y = 161.000000000000000000
-          Size.Width = 77.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object ComboBox2: TComboBox
-            Align = Client
-            Items.Strings = (
-              'PC')
-            ItemIndex = 0
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 57.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyleLookup = 'ComboBox1Style1'
-            TabOrder = 0
-          end
-        end
-        object Label7: TLabel
-          StyledSettings = [Family, Size]
-          Position.X = 280.000000000000000000
-          Position.Y = 141.000000000000000000
-          Size.Width = 53.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          Text = 'Unid.'
-          TabOrder = 1
-        end
-        object Rectangle16: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 184.000000000000000000
-          Position.Y = 161.000000000000000000
-          Size.Width = 86.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object lblNumero: TLabel
-            AutoSize = True
-            StyledSettings = [Family, Size]
-            Position.Y = -20.000000000000000000
-            Size.Width = 69.000000000000000000
-            Size.Height = 16.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.StyleExt = {00070000000000000004000000}
-            Text = 'Emb. com'
-            TabOrder = 0
-          end
-          object edtNumeroLog: TNumberBox
-            Touch.InteractiveGestures = [LongTap, DoubleTap]
-            Align = Client
-            StyleLookup = 'NumberBox1Style1'
-            TabOrder = 6
-            Cursor = crIBeam
-            Max = 9999999.000000000000000000
-            ValueType = Float
-            TextSettings.Font.Size = 14.000000000000000000
-            TextSettings.HorzAlign = Center
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 66.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyledSettings = [Family, Style, FontColor]
-          end
-        end
-        object Rectangle7: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 386.000000000000000000
-          Position.Y = 161.000000000000000000
-          Size.Width = 115.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object Edit3: TEdit
-            Touch.InteractiveGestures = [LongTap, DoubleTap]
-            Align = Client
-            StyleLookup = 'transparentedit'
-            TabOrder = 0
-            MaxLength = 20
-            TextSettings.Font.Size = 14.000000000000000000
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 95.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyledSettings = [Family, Style, FontColor]
-            CharCase = ecUpperCase
-          end
-          object Label8: TLabel
-            StyledSettings = [Family, Size]
-            Position.Y = -20.000000000000000000
-            Size.Width = 93.000000000000000000
-            Size.Height = 17.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.StyleExt = {00070000000000000004000000}
-            Text = 'Class. Fiscal'
-            TabOrder = 1
-          end
-        end
-        object Rectangle8: TRectangle
-          Fill.Color = claWhite
-          Margins.Left = 150.000000000000000000
-          Margins.Top = 20.000000000000000000
-          Margins.Right = 150.000000000000000000
-          Position.X = 506.000000000000000000
-          Position.Y = 161.000000000000000000
-          Size.Width = 115.000000000000000000
-          Size.Height = 29.000000000000000000
-          Size.PlatformDefault = False
-          Stroke.Color = claGainsboro
-          Stroke.Thickness = 2.000000000000000000
-          XRadius = 5.000000000000000000
-          YRadius = 5.000000000000000000
-          object Edit4: TEdit
-            Touch.InteractiveGestures = [LongTap, DoubleTap]
-            Align = Client
-            StyleLookup = 'transparentedit'
-            TabOrder = 0
-            MaxLength = 20
-            TextSettings.Font.Size = 14.000000000000000000
-            Margins.Left = 10.000000000000000000
-            Margins.Top = 2.000000000000000000
-            Margins.Right = 10.000000000000000000
-            Margins.Bottom = 2.000000000000000000
-            Size.Width = 95.000000000000000000
-            Size.Height = 25.000000000000000000
-            Size.PlatformDefault = False
-            StyledSettings = [Family, Style, FontColor]
-            CharCase = ecUpperCase
-          end
-          object Label9: TLabel
-            StyledSettings = [Family, Size]
-            Position.Y = -20.000000000000000000
-            Size.Width = 93.000000000000000000
-            Size.Height = 17.000000000000000000
-            Size.PlatformDefault = False
-            TextSettings.Font.StyleExt = {00070000000000000004000000}
-            Text = 'C'#243'd. CEST'
-            TabOrder = 1
-          end
+          StyledSettings = [Family, Style, FontColor]
         end
       end
       object Rectangle10: TRectangle
@@ -3196,9 +2884,9 @@ object Form1: TForm1
         Margins.Left = 150.000000000000000000
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
-        Position.X = 38.000000000000000000
-        Position.Y = 107.000000000000000000
-        Size.Width = 159.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 97.000000000000000000
+        Size.Width = 147.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = claGainsboro
@@ -3216,7 +2904,7 @@ object Form1: TForm1
           Margins.Top = 2.000000000000000000
           Margins.Right = 10.000000000000000000
           Margins.Bottom = 2.000000000000000000
-          Size.Width = 139.000000000000000000
+          Size.Width = 127.000000000000000000
           Size.Height = 25.000000000000000000
           Size.PlatformDefault = False
           StyledSettings = [Family, Style, FontColor]
@@ -3233,16 +2921,432 @@ object Form1: TForm1
           TabOrder = 1
         end
       end
-      object gbVendedor: TGroupBox
-        StyledSettings = [Family, Size, FontColor, Other]
-        Position.X = 672.000000000000000000
-        Position.Y = 268.000000000000000000
-        Size.Width = 333.000000000000000000
-        Size.Height = 60.000000000000000000
+      object Rectangle14: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 41.000000000000000000
+        Size.Width = 366.000000000000000000
+        Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
-        Text = 'Vendedor'
-        TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 4
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object cbFornecedores: TComboBox
+          Align = Client
+          Items.Strings = (
+            'ASDasd'
+            'asdfasdf'
+            'asdfasdf'
+            'asdf')
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 346.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'ComboBox1Style1'
+          TabOrder = 0
+        end
+        object Label2: TLabel
+          StyledSettings = [Family, Size]
+          Position.Y = -20.000000000000000000
+          Size.Width = 81.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'Fornecedor'
+          TabOrder = 1
+        end
+      end
+      object Rectangle1: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 410.000000000000000000
+        Position.Y = 41.000000000000000000
+        Size.Width = 253.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object cbMarcas: TComboBox
+          Align = Client
+          Items.Strings = (
+            'ASDasd'
+            'asdfasdf'
+            'asdfasdf'
+            'asdf')
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 233.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'ComboBox1Style1'
+          TabOrder = 0
+        end
+        object Label3: TLabel
+          StyledSettings = [Family, Size]
+          Position.X = 3.000000000000000000
+          Position.Y = -20.000000000000000000
+          Size.Width = 81.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'Marca'
+          TabOrder = 1
+        end
+      end
+      object Rectangle2: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 192.000000000000000000
+        Position.Y = 97.000000000000000000
+        Size.Width = 471.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object edtRazaoSocial: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Client
+          StyleLookup = 'transparentedit'
+          TabOrder = 2
+          TextSettings.Font.Size = 14.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 451.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          CharCase = ecUpperCase
+        end
+        object Label5: TLabel
+          StyledSettings = [Family, Size]
+          Position.X = 4.000000000000000000
+          Position.Y = -20.000000000000000000
+          Size.Width = 185.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'Descri'#231#227'o'
+          TabOrder = 0
+        end
+      end
+      object Rectangle4: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 40.000000000000000000
+        Position.Y = 153.000000000000000000
+        Size.Width = 147.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object Edit1: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Client
+          StyleLookup = 'transparentedit'
+          TabOrder = 0
+          MaxLength = 20
+          TextSettings.Font.Size = 14.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 127.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          CharCase = ecUpperCase
+        end
+        object Label6: TLabel
+          StyledSettings = [Family, Size]
+          Position.Y = -20.000000000000000000
+          Size.Width = 125.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'C'#243'digo de barras'
+          TabOrder = 1
+        end
+      end
+      object Rectangle5: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 296.000000000000000000
+        Position.Y = 153.000000000000000000
+        Size.Width = 85.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object ComboBox2: TComboBox
+          Align = Client
+          Items.Strings = (
+            'P'#199)
+          ItemIndex = 0
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 65.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'ComboBox1Style1'
+          TabOrder = 0
+        end
+        object Label7: TLabel
+          StyledSettings = [Family, Size]
+          Position.X = 3.000000000000000000
+          Position.Y = -20.000000000000000000
+          Size.Width = 81.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'Unid.'
+          TabOrder = 1
+        end
+      end
+      object Rectangle7: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 196.000000000000000000
+        Position.Y = 153.000000000000000000
+        Size.Width = 89.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object Label8: TLabel
+          AutoSize = True
+          StyledSettings = [Family, Size]
+          Position.Y = -20.000000000000000000
+          Size.Width = 101.000000000000000000
+          Size.Height = 16.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'Emb. com'
+          TabOrder = 0
+        end
+        object NumberBox1: TNumberBox
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Client
+          StyleLookup = 'NumberBox1Style1'
+          TabOrder = 6
+          Cursor = crIBeam
+          Max = 9999999.000000000000000000
+          ValueType = Float
+          TextSettings.Font.Size = 14.000000000000000000
+          TextSettings.HorzAlign = Center
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 69.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+        end
+      end
+      object Rectangle8: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 422.000000000000000000
+        Position.Y = 153.000000000000000000
+        Size.Width = 115.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object Edit2: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Client
+          StyleLookup = 'transparentedit'
+          TabOrder = 0
+          MaxLength = 20
+          TextSettings.Font.Size = 14.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 95.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          CharCase = ecUpperCase
+        end
+        object Label9: TLabel
+          StyledSettings = [Family, Size]
+          Position.Y = -20.000000000000000000
+          Size.Width = 85.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'Class. Fiscal'
+          TabOrder = 1
+        end
+      end
+      object Rectangle9: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 548.000000000000000000
+        Position.Y = 153.000000000000000000
+        Size.Width = 115.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object Edit3: TEdit
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Client
+          StyleLookup = 'transparentedit'
+          TabOrder = 0
+          MaxLength = 20
+          TextSettings.Font.Size = 14.000000000000000000
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 95.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+          CharCase = ecUpperCase
+        end
+        object Label11: TLabel
+          StyledSettings = [Family, Size]
+          Position.Y = -20.000000000000000000
+          Size.Width = 85.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'C'#243'd. CEST'
+          TabOrder = 1
+        end
+      end
+      object Rectangle12: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 192.000000000000000000
+        Position.Y = 210.000000000000000000
+        Size.Width = 141.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object Label12: TLabel
+          AutoSize = True
+          StyledSettings = [Family, Size]
+          Position.Y = -20.000000000000000000
+          Size.Width = 101.000000000000000000
+          Size.Height = 16.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'Pre'#231'o de venda'
+          TabOrder = 0
+        end
+        object NumberBox2: TNumberBox
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Client
+          StyleLookup = 'NumberBox1Style1'
+          TabOrder = 6
+          Cursor = crIBeam
+          Max = 9999999.000000000000000000
+          TextSettings.Font.Size = 14.000000000000000000
+          TextSettings.HorzAlign = Center
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 121.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+        end
+      end
+      object Rectangle13: TRectangle
+        Fill.Color = claWhite
+        Margins.Left = 150.000000000000000000
+        Margins.Top = 20.000000000000000000
+        Margins.Right = 150.000000000000000000
+        Position.X = 344.000000000000000000
+        Position.Y = 210.000000000000000000
+        Size.Width = 141.000000000000000000
+        Size.Height = 29.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = claGainsboro
+        Stroke.Thickness = 2.000000000000000000
+        XRadius = 5.000000000000000000
+        YRadius = 5.000000000000000000
+        object Label14: TLabel
+          AutoSize = True
+          StyledSettings = [Family, Size]
+          Position.Y = -20.000000000000000000
+          Size.Width = 111.000000000000000000
+          Size.Height = 16.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          Text = 'Pre'#231'o de promo'#231#227'o'
+          TabOrder = 0
+        end
+        object NumberBox3: TNumberBox
+          Touch.InteractiveGestures = [LongTap, DoubleTap]
+          Align = Client
+          StyleLookup = 'NumberBox1Style1'
+          TabOrder = 6
+          Cursor = crIBeam
+          Max = 9999999.000000000000000000
+          TextSettings.Font.Size = 14.000000000000000000
+          TextSettings.HorzAlign = Center
+          Margins.Left = 10.000000000000000000
+          Margins.Top = 2.000000000000000000
+          Margins.Right = 10.000000000000000000
+          Margins.Bottom = 2.000000000000000000
+          Size.Width = 121.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          StyledSettings = [Family, Style, FontColor]
+        end
       end
     end
   end
@@ -4761,8 +4865,8 @@ object Form1: TForm1
           2E506C6174666F726D44656661756C74080B5374796C654C6F6F6B7570060B76
           7468756D627374796C65000000}
       end>
-    Left = 829
-    Top = 248
+    Left = 117
+    Top = 48
   end
   object FillRGBEffect2: TFillRGBEffect
     Color = xFF203040

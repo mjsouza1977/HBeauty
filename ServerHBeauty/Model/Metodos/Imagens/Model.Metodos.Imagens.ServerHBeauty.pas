@@ -37,6 +37,7 @@ begin
     try
         try
             ControllerConexao.qryQuery.Close;
+            ControllerConexao.qryQuery.SQL.Clear;
             ControllerConexao.qryQuery.SQL.Add('UPDATE HBIMAGENS SET');
             ControllerConexao.qryQuery.SQL.Add('UPDATEIMAGEM = :UPDATEIMAGEM');
             ControllerConexao.qryQuery.SQL.Add('WHERE IDIMAGEM = :IDIMAGEM');

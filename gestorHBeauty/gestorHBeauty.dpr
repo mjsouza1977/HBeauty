@@ -59,12 +59,12 @@ uses
 
 begin
   Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TControllerClientModule, ControllerClientModule);
   Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
   Application.CreateForm(TfrmLogin, frmLogin);
   Application.CreateForm(TfrmCadastroFornecedores, frmCadastroFornecedores);
   Application.CreateForm(TfrmGerenciadorVendedores, frmGerenciadorVendedores);
   Application.CreateForm(TfrmCadastroMarcas, frmCadastroMarcas);
-  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

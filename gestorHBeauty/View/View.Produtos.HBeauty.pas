@@ -124,6 +124,7 @@ type
     tabSimilares: TTabItem;
     Layout3: TLayout;
     Button1: TButton;
+    tabOrientacoes: TTabItem;
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
@@ -159,11 +160,11 @@ begin
              FPanel := TPanel.Create(nil);
              FPanel.Parent  := FScroll;
 
-             FPanel.Height := (FScroll.Height / 2) - 10;
-             FPanel.Width  := (FScroll.Width / 5) - 10;
+             FPanel.Height := (FScroll.Height / 2) - 13;
+             FPanel.Width  := (FScroll.Width / 5) - 13;
              FPanel.Position.X := XPos;
              FPanel.Position.Y := YPos;
-             XPos := XPos + (FPanel.Width + 10);
+             XPos := XPos + (FPanel.Width + 9);
 
              if FCount = 5 then
                 begin
@@ -171,8 +172,6 @@ begin
                      XPos   := 5;
                      FCount := 0;
                 end;
-
-
          end;
 end;
 

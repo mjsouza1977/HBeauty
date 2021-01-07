@@ -249,7 +249,7 @@
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 48
+        TabOrder = 50
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -3632,7 +3632,7 @@
         TextSettings.Font.Size = 20.000000000000000000
         TextSettings.HorzAlign = Center
         Text = 'X'
-        TabOrder = 9
+        TabOrder = 13
       end
       object Rectangle22: TRectangle
         Fill.Color = claWhite
@@ -3800,7 +3800,7 @@
         Size.Width = 884.000000000000000000
         Size.Height = 449.000000000000000000
         Size.PlatformDefault = False
-        TabIndex = 1
+        TabIndex = 4
         TabOrder = 0
         TabPosition = PlatformDefault
         Sizes = (
@@ -3840,7 +3840,7 @@
           TextSettings.Font.Size = 14.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           StyledSettings = [Family, FontColor]
-          IsSelected = True
+          IsSelected = False
           Size.Width = 78.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
@@ -3864,6 +3864,8 @@
           StyleLookup = ''
           TabOrder = 0
           Text = 'Orienta'#231#245'es de Uso'
+          ExplicitSize.cx = 148.000000000000000000
+          ExplicitSize.cy = 29.000000000000000000
         end
         object tabFotos: TTabItem
           CustomIcon = <
@@ -3907,7 +3909,7 @@
           TextSettings.Font.Size = 14.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           StyledSettings = [Family, FontColor]
-          IsSelected = False
+          IsSelected = True
           Size.Width = 171.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False

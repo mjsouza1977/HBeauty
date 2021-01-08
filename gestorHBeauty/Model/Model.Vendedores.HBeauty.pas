@@ -17,7 +17,7 @@ type
         FValidador : TACBRValidador;
         FCPF_VEND: String;
         FSOBRENOME_VEND: String;
-    FFSYSTEMA: String;
+        FFSYSTEMA: String;
         procedure SetDTCAD_VEND(const Value: TDate);
         procedure SetENDERECO_VEND(const Value: TModelEndereco);
         procedure SetID_VEND(const Value: Integer);
@@ -25,7 +25,7 @@ type
         procedure SetRG_VEND(const Value: String);
         procedure SetCPF_VEND(const Value: String);
         procedure SetSOBRENOME_VEND(const Value: String);
-    procedure SetFSYSTEMA(const Value: String);
+        procedure SetFSYSTEMA(const Value: String);
 
         public
         property ID_VEND        : Integer        read FID_VEND        write SetID_VEND;
@@ -35,7 +35,7 @@ type
         property CPF_VEND       : String         read FCPF_VEND       write SetCPF_VEND;
         property ENDERECO_VEND  : TModelEndereco read FENDERECO_VEND  write SetENDERECO_VEND;
         property DTCAD_VEND     : TDate          read FDTCAD_VEND     write SetDTCAD_VEND;
-        property FSYSTEMA       : String read FFSYSTEMA write SetFSYSTEMA;
+        property FSYSTEMA       : String         read FFSYSTEMA       write SetFSYSTEMA;
         constructor Create(AForm : TForm);
 
     end;
@@ -43,7 +43,7 @@ implementation
 
 uses
   Winapi.Windows, FMX.Platform.Win, Units.Consts.HBeauty, Units.Strings.HBeauty,
-  System.SysUtils;
+  System.SysUtils, Units.Utils.HBeauty;
 
 { TModelVendedor }
 
@@ -55,29 +55,23 @@ begin
 end;
 
 procedure TModelVendedor.SetCPF_VEND(const Value: String);
+var
+ARes : String;
 begin
-     if Value <> '' then
-         begin
-             FValidador.TipoDocto := docCPF;
-             FValidador.Documento := ApenasNumeros(Value);
 
-             case FValidador.Validar of
+      ARes := validaCNPJCPF(Value, 'C.P.F.');
 
-                  True  : FCPF_VEND := Value;
-                  False : begin
-                               MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                                          'C.P.F. Inválido, verifique!',
-                                          apTitulo,
-                                          MB_OK + MB_ICONINFORMATION);
-                               Abort;
-                          end;
+      if ARes = '200' then
+          begin
+              FCPF_VEND := Value;
+          end
+      else
+          begin
+              MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                         pChar(ARes), apTitulo, MB_OK + MB_ICONWARNING);
+              Abort;
+          end;
 
-             end;
-         end
-     else
-         begin
-             FCPF_VEND := Value;
-         end;
 end;
 
 procedure TModelVendedor.SetDTCAD_VEND(const Value: TDate);

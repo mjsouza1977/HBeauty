@@ -3,25 +3,65 @@ unit Units.Utils.HBeauty;
 interface
 
 uses Units.Consts.HBeauty, FMX.Objects, FMX.Forms, FMX.Layouts, Units.Enumerados.HBeauty,
-  FMX.Edit, FMX.ListBox, FMX.NumberBox, FMX.Memo;
+  FMX.Edit, FMX.ListBox, FMX.NumberBox, FMX.Memo, ACBrValidador;
 
 function BooleanToString(ATrue, AFalse : String; AValue : Boolean) : String;
 function StringToBool(ATrue, AFalse, AValue : String) : Boolean;
-procedure CarregaImagemRessource(Image : TImage; NomeImagem : String);
-procedure ControlaBotoes(AForm : TForm; AOpcao: Boolean);
 function PrefixoTabela(ATabela : TTabelaCadastrada) : String;
 function ExtraiTextoGrid(AValue : String) : String;
+function validaCNPJCPF(AValue, ACampo : String) : String;
+
+procedure CarregaImagemRessource(Image : TImage; NomeImagem : String);
+procedure ControlaBotoes(AForm : TForm; AOpcao: Boolean);
 
 procedure NextField(Key : Word; ANext : TEdit); overload;
 procedure NextField(Key : Word; ANext : TComboBox); overload;
 procedure NextField(Key : Word; ANext : TNumberBox); overload;
 procedure NextField(Key : Word; ANext : TMemo); overload;
 
+var
+FValidador : TACBRValidador;
+
 implementation
 
 uses
   Winapi.Windows, System.Classes, FMX.TMSButton, System.UITypes,
-  FMX.Platform.Win;
+  FMX.Platform.Win, Units.Strings.HBeauty, System.SysUtils;
+
+function validaCampoVazio(AValue, ACampo : String; ATamanho : Integer) : String;
+begin
+    //
+end;
+
+function validaCNPJCPF(AValue, ACampo : String) : String;
+var
+AValor, ADoc : String;
+begin
+     AValor := ApenasNumeros(AValue);
+
+     case Length(AValor) of
+          11 : begin
+                   ADoc := 'C.P.F.';
+                   FValidador.TipoDocto := docCPF;
+               end;
+          14 : begin
+                   ADoc := 'C.N.P.J.';
+                   FValidador.TipoDocto := docCNPJ;
+               end;
+           0 :begin
+                   Result := 'O campo ' + ACampo + ' não poser ser nulo, verifique';
+                   Abort;
+              end;
+     end;
+
+     FValidador.Documento := AValor;
+
+     case FValidador.Validar of
+          True : Result := '200';
+         False : Result := ADoc + ' inválido, verifique!';
+     end;
+
+end;
 
 function ExtraiTextoGrid(AValue : String) : String;
 var

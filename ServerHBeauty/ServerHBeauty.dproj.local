@@ -7,4 +7,44 @@
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5" Android64="0048627021" Android="0048627021"/>
 	</ActiveMobileDevice>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="Controller"/>
+    <File Path="Controller\Conexao"/>
+    <File Path="Controller\Conexao\Controller.Conexao.HBeautyServer.pas"/>
+    <File Path="Controller\Conexao\Controller.Conexao.HBeautyServer.dfm"/>
+    <File Path="Model"/>
+    <File Path="Model\Metodos"/>
+    <File Path="Model\Metodos\Contatos"/>
+    <File Path="Model\Metodos\Contatos\Model.Metodos.Contatos.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Controle"/>
+    <File Path="Model\Metodos\Controle\Model.Metodos.Controle.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Fornecedores"/>
+    <File Path="Model\Metodos\Fornecedores\Model.Metodos.Fornecedores.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Imagens"/>
+    <File Path="Model\Metodos\Imagens\Model.Metodos.Imagens.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Produtos"/>
+    <File Path="Model\Metodos\Produtos\Model.Metodos.Marcas.Produto.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Profissionais"/>
+    <File Path="Model\Metodos\Profissionais\Model.Metodos.Habilidades.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Profissionais\Model.Metodos.Profissionais.Cargos.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Profissionais\Model.Metodos.Profissionais.Hablidades.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Profissionais\Model.Metodos.Profissionais.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Terceirizadas"/>
+    <File Path="Model\Metodos\Terceirizadas\Model.Metodos.Terceirizadas.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Usuarios"/>
+    <File Path="Model\Metodos\Usuarios\Model.Metodos.Usuarios.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Vendedores"/>
+    <File Path="Model\Metodos\Vendedores\Model.Metodos.Vendedores.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Model.Metodos.Genericos.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Model.Metodos.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Model.Metodos.ServerHBeauty.dfm"/>
+    <File Path="Model\Model.Chaves.ServerHBeauty.pas"/>
+    <File Path="Model\Model.WebModule.ServerHBeauty.pas"/>
+    <File Path="Model\Model.WebModule.ServerHBeauty.dfm"/>
+    <File Path="Units"/>
+    <File Path="Units\Units.Utils.ServerBeauty.pas"/>
+    <File Path="View"/>
+    <File Path="View\View.Principal.ServerHBeauty.pas"/>
+    <File Path="View\View.Principal.ServerHBeauty.dfm"/>
+  </ProjectSortOrder>
 </BorlandProject>

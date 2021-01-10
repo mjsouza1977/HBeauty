@@ -9,6 +9,8 @@ uses
 function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
 function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
 function carregaCamposSelecionados(ACampos, ATabela, ACondicao : String) : TFDJSONDataSets;
+function carregaCamposSQL(ASQL : String) : TFDJSONDataSets;
+
 
 
 implementation
@@ -16,6 +18,23 @@ implementation
 
 uses
   Controller.Conexao.HBeautyServer, System.SysUtils, Units.Utils.ServerBeauty;
+
+function carregaCamposSQL(ASQL : String) : TFDJSONDataSets;
+begin
+     try
+        ControllerConexao.qryQuery.Close;
+        ControllerConexao.qryQuery.SQL.Clear;
+        ControllerConexao.qryQuery.SQL.Add(ASQL);
+        ControllerConexao.qryQuery.Open;
+
+        Result := TFDJSONDataSets.Create;
+        TFDJSONDataSetsWriter.ListAdd(Result, ControllerConexao.qryQuery);
+        ControllerConexao.qryQuery.Active := True;
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
+
+end;
 
 function carregaCamposSelecionados(ACampos, ATabela, ACondicao : String) : TFDJSONDataSets;
 begin

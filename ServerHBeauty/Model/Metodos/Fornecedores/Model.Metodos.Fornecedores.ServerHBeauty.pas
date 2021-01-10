@@ -8,8 +8,8 @@ uses
 
 function carregaFornecedores : TFDJSONDataSets;
 function PesquisaFornecedores(ANome, APseudo, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
-function cadastraFornecedor(AIdVendFor, ANrLog, AIDLogoForn : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
-function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog, AIDLogoForn : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+function cadastraFornecedor(AIdVendFor, ANrLog, AIDLogoForn : Integer; ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog, AIDLogoForn : Integer; ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
 
 procedure cadastraMarcaFornecedor(AIdForn, AIdMarca : Integer);
 procedure limpaMarcaFornecedor(AIdForn : Integer);
@@ -54,14 +54,13 @@ begin
 
 end;
 
-function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog, AIDLogoForn : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog, AIDLogoForn : Integer; ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
 begin
     try
         try
             ControllerConexao.qryQuery.Close;
             ControllerConexao.qryQuery.SQL.Clear;
             ControllerConexao.qryQuery.SQL.Add('UPDATE HBFORNECEDOR SET'               );
-            ControllerConexao.qryQuery.SQL.Add('CODIGO_FORN        = :CODIGO_FORN,'    );
             ControllerConexao.qryQuery.SQL.Add('NOME_FORN          = :NOME_FORN,'      );
             ControllerConexao.qryQuery.SQL.Add('PSEUDO_FORN        = :PSEUDO_FORN,'    );
             ControllerConexao.qryQuery.SQL.Add('CNPJCPF_FORN       = :CNPJCPF_FORN,'   );
@@ -78,7 +77,6 @@ begin
             ControllerConexao.qryQuery.SQL.Add('IDVEND_FORN        = :IDVEND_FORN,'    );
             ControllerConexao.qryQuery.SQL.Add('IDLOGO_FORN        = :IDLOGO_FORN'     );
             ControllerConexao.qryQuery.SQL.Add('WHERE ID_FORN      = :ID_FORN'         );
-            ControllerConexao.qryQuery.ParamByName('CODIGO_FORN'    ).AsString  := ACodigo;
             ControllerConexao.qryQuery.ParamByName('NOME_FORN'      ).AsString  := ANome;
             ControllerConexao.qryQuery.ParamByName('PSEUDO_FORN'    ).AsString  := APseudo;
             ControllerConexao.qryQuery.ParamByName('CNPJCPF_FORN'   ).AsString  := ACNPJCPF;
@@ -107,21 +105,19 @@ begin
     end;
 end;
 
-function cadastraFornecedor(AIdVendFor, ANrLog, AIDLogoForn : Integer; ACodigo, ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
+function cadastraFornecedor(AIdVendFor, ANrLog, AIDLogoForn : Integer; ACNPJCPF, AIERG, ANome, APseudo, ALog, ACompl, ABairro, ACep, ACidade, AUF : String) : String;
 begin
     try
         try
             ControllerConexao.qryQuery.Close;
             ControllerConexao.qryQuery.SQL.Clear;
             ControllerConexao.qryQuery.SQL.Add('INSERT INTO HBFORNECEDOR');
-            ControllerConexao.qryQuery.SQL.Add('(CODIGO_FORN, NOME_FORN, PSEUDO_FORN, CNPJCPF_FORN, IERG_FORN,');
+            ControllerConexao.qryQuery.SQL.Add('(NOME_FORN, PSEUDO_FORN, CNPJCPF_FORN, IERG_FORN,');
             ControllerConexao.qryQuery.SQL.Add('LOGRADOURO_FORN, NRLOG_FORN, COMPLLOG_FORN, BAILOG_FORN,');
             ControllerConexao.qryQuery.SQL.Add('CIDLOG_FORN, UFLOG_FORN, CEPLOG_FORN, LOCK, IDUSULOCK, IDVEND_FORN, IDLOGO_FORN) VALUES');
             ControllerConexao.qryQuery.SQL.Add('(:CODIGO_FORN, :NOME_FORN, :PSEUDO_FORN, :CNPJCPF_FORN, :IERG_FORN,');
             ControllerConexao.qryQuery.SQL.Add(':LOGRADOURO_FORN, :NRLOG_FORN, :COMPLLOG_FORN, :BAILOG_FORN,');
             ControllerConexao.qryQuery.SQL.Add(':CIDLOG_FORN, :UFLOG_FORN, :CEPLOG_FORN, :LOCK, :IDUSULOCK, :IDVEND_FORN, :IDLOGO_FORN)');
-            ControllerConexao.qryQuery.ParamByName('CODIGO_FORN'    ).AsString  := ACodigo;
-            ControllerConexao.qryQuery.ParamByName('NOME_FORN'      ).AsString  := ANome;
             ControllerConexao.qryQuery.ParamByName('PSEUDO_FORN'    ).AsString  := APseudo;
             ControllerConexao.qryQuery.ParamByName('CNPJCPF_FORN'   ).AsString  := ACNPJCPF;
             ControllerConexao.qryQuery.ParamByName('IERG_FORN'      ).AsString  := AIERG;

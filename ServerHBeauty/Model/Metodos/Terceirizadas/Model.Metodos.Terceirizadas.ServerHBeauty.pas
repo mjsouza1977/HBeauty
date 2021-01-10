@@ -7,10 +7,10 @@ uses Controller.Conexao.HBeautyServer,
      FireDAC.Stan.Param;
 
 function ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
-function CadastraTerceirizada(ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
+function CadastraTerceirizada(ANrLog : Integer; ARazao, AFantasia, ACNPJ, AIE,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Integer;
 function CarregaCamposTerceirizada(ACampos : String) : TFDJSONDataSets;
-function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
+function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ARazao, AFantasia, ACNPJ, AIE,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : String;
 
 implementation
@@ -84,7 +84,7 @@ begin
 
 end;
 
-function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
+function AtualizaTerceirizada(AIdTerc, ANrLog : Integer; ARazao, AFantasia, ACNPJ, AIE,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : String;
 begin
     try
@@ -92,7 +92,6 @@ begin
             ControllerConexao.qryQuery.Close;
             ControllerConexao.qryQuery.SQL.Clear;
             ControllerConexao.qryQuery.SQL.Add('UPDATE HBTERCEIRIZADA SET');
-            ControllerConexao.qryQuery.SQL.Add('CODIGO_TERCEIRIZADA       = :CODIGO_TERCEIRIZADA,');
             ControllerConexao.qryQuery.SQL.Add('CNPJ_TERCEIRIZADA         = :CNPJ_TERCEIRIZADA,');
             ControllerConexao.qryQuery.SQL.Add('IE_TERCEIRIZADA           = :IE_TERCEIRIZADA,');
             ControllerConexao.qryQuery.SQL.Add('RAZAO_TERCEIRIZADA        = :RAZAO_TERCEIRIZADA,');
@@ -108,7 +107,6 @@ begin
             ControllerConexao.qryQuery.SQL.Add('LOCK                      = :LOCK');
             ControllerConexao.qryQuery.SQL.Add('WHERE ID_TERCEIRIZADA     = :ID_TERCEIRIZADA');
 
-            ControllerConexao.qryQuery.ParamByName('CODIGO_TERCEIRIZADA'      ).AsString  := ACodigo;
             ControllerConexao.qryQuery.ParamByName('CNPJ_TERCEIRIZADA'        ).AsString  := ACNPJ;
             ControllerConexao.qryQuery.ParamByName('IE_TERCEIRIZADA'          ).AsString  := AIE;
             ControllerConexao.qryQuery.ParamByName('RAZAO_TERCEIRIZADA'       ).AsString  := ARazao;
@@ -138,7 +136,7 @@ end;
 
 
 
-function CadastraTerceirizada(ANrLog : Integer; ACodigo, ARazao, AFantasia, ACNPJ, AIE,
+function CadastraTerceirizada(ANrLog : Integer; ARazao, AFantasia, ACNPJ, AIE,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String) : Integer;
 begin
 
@@ -148,7 +146,7 @@ begin
              ControllerConexao.qryQuery.Close;
              ControllerConexao.qryQuery.SQL.Clear;
              ControllerConexao.qryQuery.SQL.Add('INSERT INTO HBTERCEIRIZADA');
-             ControllerConexao.qryQuery.SQL.Add('(CODIGO_TERCEIRIZADA, CNPJ_TERCEIRIZADA, IE_TERCEIRIZADA,');
+             ControllerConexao.qryQuery.SQL.Add('(CNPJ_TERCEIRIZADA, IE_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add('RAZAO_TERCEIRIZADA, FANTASIA_TERCEIRIZADA, CEPLOG_TERCEIRIZADA, LOGLOG_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add('NRLOG_TERCEIRIZADA, COMPLLOG_TERCEIRIZADA, BAIRROLOG_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add('CIDADELOG_TERCEIRIZADA, UFLOG_TERCEIRIZADA) VALUES');
@@ -157,7 +155,6 @@ begin
              ControllerConexao.qryQuery.SQL.Add(':NRLOG_TERCEIRIZADA, :COMPLLOG_TERCEIRIZADA, :BAIRROLOG_TERCEIRIZADA,');
              ControllerConexao.qryQuery.SQL.Add(':CIDADELOG_TERCEIRIZADA, :UFLOG_TERCEIRIZADA)');
 
-             ControllerConexao.qryQuery.ParamByName('CODIGO_TERCEIRIZADA'      ).AsString  := ACodigo;
              ControllerConexao.qryQuery.ParamByName('CNPJ_TERCEIRIZADA'        ).AsString  := ACNPJ;
              ControllerConexao.qryQuery.ParamByName('IE_TERCEIRIZADA'          ).AsString  := AIE;
              ControllerConexao.qryQuery.ParamByName('RAZAO_TERCEIRIZADA'       ).AsString  := ARazao;

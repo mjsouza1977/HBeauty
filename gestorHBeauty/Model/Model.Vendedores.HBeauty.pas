@@ -18,6 +18,7 @@ type
         FCPF_VEND: String;
         FSOBRENOME_VEND: String;
         FFSYSTEMA: String;
+        FCODIGO_VEND: Integer;
         procedure SetDTCAD_VEND(const Value: TDate);
         procedure SetENDERECO_VEND(const Value: TModelEndereco);
         procedure SetID_VEND(const Value: Integer);
@@ -26,9 +27,11 @@ type
         procedure SetCPF_VEND(const Value: String);
         procedure SetSOBRENOME_VEND(const Value: String);
         procedure SetFSYSTEMA(const Value: String);
+        procedure SetCODIGO_VEND(const Value: Integer);
 
         public
         property ID_VEND        : Integer        read FID_VEND        write SetID_VEND;
+        property CODIGO_VEND    : Integer        read FCODIGO_VEND    write SetCODIGO_VEND;
         property NOME_VEND      : String         read FNOME_VEND      write SetNOME_VEND;
         property SOBRENOME_VEND : String         read FSOBRENOME_VEND write SetSOBRENOME_VEND;
         property RG_VEND        : String         read FRG_VEND        write SetRG_VEND;
@@ -54,23 +57,16 @@ begin
      FValidador     := TACBRValidador.Create(nil);
 end;
 
+procedure TModelVendedor.SetCODIGO_VEND(const Value: Integer);
+begin
+  FCODIGO_VEND := Value;
+end;
+
 procedure TModelVendedor.SetCPF_VEND(const Value: String);
-var
-ARes : String;
 begin
 
-      ARes := validaCNPJCPF(Value, 'C.P.F.');
-
-      if ARes = '200' then
-          begin
-              FCPF_VEND := Value;
-          end
-      else
-          begin
-              MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                         pChar(ARes), apTitulo, MB_OK + MB_ICONWARNING);
-              Abort;
-          end;
+      if validaCNPJCPF(FForm, Value, 'C.P.F.') then
+          FCPF_VEND := Value;
 
 end;
 
@@ -96,18 +92,10 @@ end;
 
 procedure TModelVendedor.SetNOME_VEND(const Value: String);
 begin
-    if Length(Trim(Value)) < 4 then
-        begin
-            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                       'Nome do profissional inválido, verifique!',
-                       apTitulo,
-                       MB_OK + MB_ICONINFORMATION);
-            Abort;
-        end
-    else
-        begin
-            FNOME_VEND := Value;
-        end;
+
+    if validaCampoVazio(FForm, Value, 'nome do profissional', 4) then
+        FNOME_VEND := Value;
+
 end;
 
 procedure TModelVendedor.SetRG_VEND(const Value: String);

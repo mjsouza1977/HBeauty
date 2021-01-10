@@ -315,7 +315,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 36
+        TabOrder = 37
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -337,7 +337,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
     Size.Height = 438.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -4414,7 +4414,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 157.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -4972,7 +4972,7 @@ object frmGerenciadorTerceirizadas: TfrmGerenciadorTerceirizadas
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 104.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False

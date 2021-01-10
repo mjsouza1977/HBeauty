@@ -30,7 +30,6 @@ uses
   Model.Telefones.HBeauty in 'Model\Model.Telefones.HBeauty.pas',
   Model.Emails.HBeauty in 'Model\Model.Emails.HBeauty.pas',
   View.Loading.HBeauty in 'View\View.Loading.HBeauty.pas' {frmLoading},
-  Model.Habilidades.HBeauty in 'Model\Model.Habilidades.HBeauty.pas',
   View.Terceirizadas.HBeauty in 'View\View.Terceirizadas.HBeauty.pas' {frmGerenciadorTerceirizadas},
   Model.Terceirizada.HBeauty in 'Model\Model.Terceirizada.HBeauty.pas',
   Controller.Conexao.Proxy.HBeauty in 'Controller\Conexao\Controller.Conexao.Proxy.HBeauty.pas',
@@ -40,7 +39,6 @@ uses
   Model.Genericos.Servidor.HBeauty in 'Model\DadosServidor\Model.Genericos.Servidor.HBeauty.pas',
   Model.Imagens.Servidor.HBeauty in 'Model\DadosServidor\Model.Imagens.Servidor.HBeauty.pas',
   Model.Imagens.HBeauty in 'Model\Model.Imagens.HBeauty.pas',
-  View.Habilidades.HBeauty in 'View\View.Habilidades.HBeauty.pas' {frmCadastroHabilidades},
   View.Cargos.HBeauty in 'View\View.Cargos.HBeauty.pas' {frmCadastroCargos},
   Model.Cargos.HBeauty in 'Model\Model.Cargos.HBeauty.pas',
   Units.Mensagens.HBeauty in 'Units\Units.Mensagens.HBeauty.pas',
@@ -53,19 +51,15 @@ uses
   Model.Fornecedor.Servidor.HBeauty in 'Model\DadosServidor\Model.Fornecedor.Servidor.HBeauty.pas',
   Model.Marca.Servidor.HBeauty in 'Model\DadosServidor\Model.Marca.Servidor.HBeauty.pas',
   Model.Marcas.HBeauty in 'Model\Model.Marcas.HBeauty.pas',
-  View.Produtos.HBeauty in 'View\View.Produtos.HBeauty.pas' {Form1},
+  View.Produtos.HBeauty in 'View\View.Produtos.HBeauty.pas' {frmGerenciadorProdutos},
   Model.Produtos.HBeauty in 'Model\Model.Produtos.HBeauty.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TControllerClientModule, ControllerClientModule);
   Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
   Application.CreateForm(TfrmLogin, frmLogin);
-  Application.CreateForm(TfrmCadastroFornecedores, frmCadastroFornecedores);
-  Application.CreateForm(TfrmGerenciadorVendedores, frmGerenciadorVendedores);
-  Application.CreateForm(TfrmCadastroMarcas, frmCadastroMarcas);
   Application.Run;
 end.

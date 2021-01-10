@@ -311,7 +311,7 @@ object frmGerenciadorVendedores: TfrmGerenciadorVendedores
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 44
+        TabOrder = 48
       end
       object lblStatus: TLabel
         StyledSettings = [Family]

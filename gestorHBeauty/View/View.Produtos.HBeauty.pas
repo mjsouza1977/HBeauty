@@ -6,16 +6,11 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.EditBox, FMX.NumberBox, FMX.Effects, FMX.Filter.Effects, FMX.ListBox, FMX.StdCtrls,
   FMX.TMSBaseControl, FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.Layouts, FMX.Edit, FMX.TabControl,
-  FMX.Controls.Presentation, FMX.TMSButton, FMX.ScrollBox, FMX.Memo;
+  FMX.Controls.Presentation, FMX.TMSButton, FMX.ScrollBox, FMX.Memo, Units.Utils.HBeauty, Controller.Manipula.Design.HBeauty, Units.Utils.Dados.HBeauty,
+  Model.Fornecedor.Servidor.HBeauty, Model.Genericos.Servidor.HBeauty;
 
 type
-  TForm1 = class(TForm)
-    recRodapeTerceirizada: TRectangle;
-    btnAlterar: TTMSFMXButton;
-    btnFechar: TTMSFMXButton;
-    btnIncluir: TTMSFMXButton;
-    btnSalvar: TTMSFMXButton;
-    btnCancelar: TTMSFMXButton;
+  TfrmGerenciadorProdutos = class(TForm)
     tabCabecarioFornecedor: TTabControl;
     tabPesquisa: TTabItem;
     recCabecarioTerceirizada: TRectangle;
@@ -29,8 +24,8 @@ type
     lblNome: TLabel;
     Label13: TLabel;
     lblStatus: TLabel;
-    tabGerenciadorFornecedor: TTabControl;
-    tabListaFornecedor: TTabItem;
+    tabGerenciadorProdutos: TTabControl;
+    tabListaProdutos: TTabItem;
     Layout4: TLayout;
     recModal: TRectangle;
     recMsg: TRectangle;
@@ -46,7 +41,7 @@ type
     sbtnNao: TSpeedButton;
     Rectangle11: TRectangle;
     grdListaProdutos: TTMSFMXGrid;
-    tabFichaFornecedor: TTabItem;
+    tabFichaProdutos: TTabItem;
     StyleBook2: TStyleBook;
     FillRGBEffect2: TFillRGBEffect;
     Rectangle14: TRectangle;
@@ -123,23 +118,49 @@ type
     tabRelacionados: TTabItem;
     tabSimilares: TTabItem;
     Layout3: TLayout;
-    Button1: TButton;
     tabOrientacoes: TTabItem;
+    recRodapeBotoesPrincipal: TRectangle;
+    btnAlterar: TTMSFMXButton;
+    btnFechar: TTMSFMXButton;
+    btnIncluir: TTMSFMXButton;
+    btnSalvar: TTMSFMXButton;
+    btnCancelar: TTMSFMXButton;
+    recRodapeBotoesApp: TRectangle;
+    TMSFMXButton1: TTMSFMXButton;
+    TMSFMXButton2: TTMSFMXButton;
+    TMSFMXButton3: TTMSFMXButton;
+    TMSFMXButton4: TTMSFMXButton;
+    TMSFMXButton5: TTMSFMXButton;
     procedure Button1Click(Sender: TObject);
+    procedure btnIncluirClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure tabGerenciadorProdutosChange(Sender: TObject);
+    procedure grdListaProdutosCellClick(Sender: TObject; ACol, ARow: Integer);
+    procedure cbMarcasClick(Sender: TObject);
   private
+    FIdSelecionado : Integer;
+    procedure ControlaTab(AOpcao: Boolean);
     { Private declarations }
   public
     { Public declarations }
   end;
 
 var
-  Form1: TForm1;
+  frmGerenciadorProdutos: TfrmGerenciadorProdutos;
 
 implementation
 
+uses
+  Units.Consts.HBeauty, Model.Dados.Server.HBeauty, FireDAC.Comp.Client;
+
 {$R *.fmx}
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TfrmGerenciadorProdutos.btnIncluirClick(Sender: TObject);
+begin
+     ControlaBotoes(Self, False);
+end;
+
+procedure TfrmGerenciadorProdutos.Button1Click(Sender: TObject);
 var
 FScroll : TVertScrollBox;
 FPanel : TPanel;
@@ -173,6 +194,72 @@ begin
                      FCount := 0;
                 end;
          end;
+end;
+
+procedure TfrmGerenciadorProdutos.cbMarcasClick(Sender: TObject);
+var
+AMemTable : TFDMemTable;
+ASQL : String;
+begin
+
+    try
+        AMemTable := TFDMemTable.Create(nil);
+        ASQL := 'SELECT m.ID_MARCA, m.MARCA_MARCA FROM HBMARCA ' +
+                'WHERE ID_MARCA IN (SELECT r.IDMARCA_FORNXMARCA FROM HBFORNXMARCA r, HBFORNECEDOR f ' +
+                                   'WHERE r.IDFORN_FORNXMARCA = f.ID_FORN)';
+        carregaCamposSQL(AMemTable, ASQL);
+        AMemTable.First;
+        cbMarcas.Clear;
+
+        while not AMemTable.Eof do
+            begin
+                cbMarcas.Items.AddObject(AMemTable.FieldByName('MARCA_MARCA').AsString,
+                                         TObject(AMemTable.FieldByName('ID_MARCA').AsInteger));
+                AMemTable.Next;
+            end;
+    finally
+        FreeAndNil(AMemTable);
+    end;
+
+end;
+
+procedure TfrmGerenciadorProdutos.ControlaTab(AOpcao : Boolean);
+begin
+
+     tabListaProdutos.Visible := not AOpcao;
+     tabFichaProdutos.Visible := Aopcao;
+     tabFichaProdutos.Visible := AOpcao;
+
+end;
+
+procedure TfrmGerenciadorProdutos.FormCreate(Sender: TObject);
+begin
+     CarregaPersonalizacaoCabecarioRodape(Self);
+     CarregaGrid(nil, grdListaProdutos, AFieldsProdutos, ACaptionProdutos, ASizeColProdutos, True);
+     carregaCamposSelecionados(ModelConexaoDados.memFornecedores, 'ID_FORN, NOME_FORN', 'HBFORNECEDOR');
+
+     ModelConexaoDados.memFornecedores.First;
+     cbFornecedores.Clear;
+
+     while not ModelConexaoDados.memFornecedores.Eof do
+         begin
+             cbFornecedores.Items.AddObject(ModelConexaoDados.memFornecedores.FieldByName('NOME_FORN').AsString,
+                                            TObject(ModelConexaoDados.memFornecedores.FieldByName('ID_FORN').AsInteger));
+             ModelConexaoDados.memFornecedores.Next;
+         end;
+end;
+
+procedure TfrmGerenciadorProdutos.grdListaProdutosCellClick(Sender: TObject; ACol, ARow: Integer);
+begin
+    FIdSelecionado := ExtraiTextoGrid(grdListaProdutos.Cells[0, ARow]).ToInteger;
+    ControlaTab(False);
+end;
+
+procedure TfrmGerenciadorProdutos.tabGerenciadorProdutosChange(Sender: TObject);
+begin
+     if tabGerenciadorProdutos.ActiveTab = tabAPP then
+         recRodapeBotoesPrincipal.Visible := False else
+         recRodapeBotoesPrincipal.Visible := True;
 end;
 
 end.

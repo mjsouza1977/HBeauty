@@ -143,7 +143,7 @@ type
     FQtdeHabilidades : Integer;
     procedure HabilitaTab(AHabilita : Boolean);
     function CarregaListaHabilidades(ADataSet : TFDMemTable; ADataSetEdit : TFDMemTable = nil) : Integer;
-    procedure gravaHabilidadesSelecionadas;
+//    procedure gravaHabilidadesSelecionadas;
 
   public
     procedure AlimentaClasseProfissional;
@@ -170,16 +170,16 @@ uses
     View.Contatos.HBeauty;
 
 
-procedure TfrmGerenciadorProfissionais.gravaHabilidadesSelecionadas;
-var
-    AIndex : Integer;
-begin
-    for AIndex := 0 to FQtdeHabilidades - 1 do
-        begin
-            if TCheckBox(Self.FindComponent('chkHabilidade' + AIndex.ToString)).IsChecked then
-                cadastraHabilidadeProfissional(TCheckBox(Self.FindComponent('chkHabilidade' + AIndex.ToString)).TagString.ToInteger, FIdSelecionado);
-        end;
-end;
+//procedure TfrmGerenciadorProfissionais.gravaHabilidadesSelecionadas;
+//var
+//    AIndex : Integer;
+//begin
+//    for AIndex := 0 to FQtdeHabilidades - 1 do
+//        begin
+//            if TCheckBox(Self.FindComponent('chkHabilidade' + AIndex.ToString)).IsChecked then
+//                cadastraHabilidadeProfissional(TCheckBox(Self.FindComponent('chkHabilidade' + AIndex.ToString)).TagString.ToInteger, FIdSelecionado);
+//        end;
+//end;
 
 function TfrmGerenciadorProfissionais.CarregaListaHabilidades(ADataSet : TFDMemTable; ADataSetEdit : TFDMemTable = nil) : Integer;
 var
@@ -280,7 +280,6 @@ procedure TfrmGerenciadorProfissionais.AlimentaClasseProfissional;
 begin
     gclProfissional.ID_PROFIS          := FIdSelecionado;
     gclProfissional.IDCARGO_PROFISS    := 0;
-    gclProfissional.CODIGO_PROFIS      := '';
     gclProfissional.NOME_PROFIS        := edtNome.Text;
     gclProfissional.SOBRENOME_PROFIS   := edtSobreNome.Text;
     gclProfissional.CPF_PROFIS         := ApenasNumeros(edtCPF.Text);
@@ -311,7 +310,7 @@ begin
                   False : begin
                               FStatus                := abAlterar;
                               ListaProfissionais('','','',0,FIdSelecionado);
-                              carregaHabilidadesProfissional(FIdSelecionado);
+                              //carregaHabilidadesProfissional(FIdSelecionado);
 
                               edtCPF.Text            := FormatarCNPJouCPF(ModelConexaoDados.memProfissionais.FieldByName('CPF_PROFIS').AsString);
                               edtRG.Text             := ModelConexaoDados.memProfissionais.FieldByName('RG_PROFIS').AsString;
@@ -451,8 +450,8 @@ begin
                                          gclProfissional.IDEMPTER_PROFIS := Integer(cbEmpresaTerceirizada.Items.Objects[cbEmpresaTerceirizada.ItemIndex]);
                                          Try
                                             FIdSelecionado := CadastraProfissional(gclProfissional, Self);
-                                            apagaHabilidadesProfissional(FIdSelecionado);
-                                            gravaHabilidadesSelecionadas;
+                                            //apagaHabilidadesProfissional(FIdSelecionado);
+                                            //gravaHabilidadesSelecionadas;
 
                                             case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                             'Profissional cadastrado com sucesso.'+#13#13+
@@ -501,8 +500,8 @@ begin
                                              rResultado := AtualizaProfissional(gclProfissional);
                                              if rResultado = '' then
                                                  begin
-                                                     apagaHabilidadesProfissional(FIdSelecionado);
-                                                     gravaHabilidadesSelecionadas;
+                                                     //apagaHabilidadesProfissional(FIdSelecionado);
+                                                     //gravaHabilidadesSelecionadas;
                                                      BloqueiaRegistro(False, FIdSelecionado, tcProfissionais);
                                                      MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                 'Registro salvo com sucesso!', apTitulo,
@@ -645,16 +644,7 @@ begin
      tabGerenciadorProfissionais.TabIndex := 0;
      gclProfissional := TModelProfissionais.Create(Self);
 
-     grdListaProfissionais.Cells[0,0] := 'CPF';
-     grdListaProfissionais.Cells[1,0] := 'Nome';
-     grdListaProfissionais.Cells[2,0] := 'SobreNome';
-     grdListaProfissionais.Cells[3,0] := 'Logradouro';
-     grdListaProfissionais.Cells[4,0] := 'Nr.';
-     grdListaProfissionais.Cells[5,0] := 'Complemento';
-     grdListaProfissionais.Cells[6,0] := 'Bairro';
-     grdListaProfissionais.Cells[7,0] := 'CEP';
-     grdListaProfissionais.Cells[8,0] := 'Cidade';
-     grdListaProfissionais.Cells[9,0] := 'UF';
+     CarregaGrid(nil,grdListaProfissionais,AFieldsProfissionais, ACaptionProfissionais, ASizeColProfissionais, True);
 
 end;
 

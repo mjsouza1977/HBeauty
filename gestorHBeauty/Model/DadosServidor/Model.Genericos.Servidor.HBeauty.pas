@@ -8,12 +8,24 @@ uses Controller.Conexao.Proxy.HBeauty, Controller.ClientModule.HBeauty,
 function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String; AForm : TForm; ANomeCampo, ATipoTabela : String) : Boolean;
 function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdRegistro: Integer; ACampoID, ATabela : String) : Boolean;
 function carregaCamposSelecionados(AMemTable : TFDMemTable; ACampos, ATabela : String; ACondicao : String = '') : TFDJSONDataSets;
+function carregaCamposSQL(AMemTable : TFDMemTable; ASQL: String): TFDJSONDataSets;
 
 implementation
 
 uses
   Winapi.Windows, FMX.Platform.Win, Units.Consts.HBeauty, System.SysUtils,
   Model.Dados.Server.HBeauty;
+
+function carregaCamposSQL(AMemTable : TFDMemTable; ASQL: String): TFDJSONDataSets;
+var
+    dsGenerico : TFDJSONDataSets;
+begin
+    dsGenerico := ControllerClientModule.ModelMetodosClient.carregaCamposSQL(ASQL);
+    Assert(TFDJSONDataSetsReader.GetListCount(dsGenerico) = 1);
+    AMemTable.Active := False;
+    AMemTable.AppendData(TFDJSONDataSetsReader.GetListValue(dsGenerico, 0));
+    AMemTable.Active := True;
+end;
 
 function carregaCamposSelecionados(AMemTable : TFDMemTable; ACampos, ATabela : String; ACondicao : String = '') : TFDJSONDataSets;
 var

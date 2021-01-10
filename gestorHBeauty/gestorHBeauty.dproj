@@ -372,7 +372,6 @@
         <DCCReference Include="View\View.Loading.HBeauty.pas">
             <Form>frmLoading</Form>
         </DCCReference>
-        <DCCReference Include="Model\Model.Habilidades.HBeauty.pas"/>
         <DCCReference Include="View\View.Terceirizadas.HBeauty.pas">
             <Form>frmGerenciadorTerceirizadas</Form>
         </DCCReference>
@@ -387,10 +386,6 @@
         <DCCReference Include="Model\DadosServidor\Model.Genericos.Servidor.HBeauty.pas"/>
         <DCCReference Include="Model\DadosServidor\Model.Imagens.Servidor.HBeauty.pas"/>
         <DCCReference Include="Model\Model.Imagens.HBeauty.pas"/>
-        <DCCReference Include="View\View.Habilidades.HBeauty.pas">
-            <Form>frmCadastroHabilidades</Form>
-            <FormType>fmx</FormType>
-        </DCCReference>
         <DCCReference Include="View\View.Cargos.HBeauty.pas">
             <Form>frmCadastroCargos</Form>
             <FormType>fmx</FormType>
@@ -416,7 +411,7 @@
         <DCCReference Include="Model\DadosServidor\Model.Marca.Servidor.HBeauty.pas"/>
         <DCCReference Include="Model\Model.Marcas.HBeauty.pas"/>
         <DCCReference Include="View\View.Produtos.HBeauty.pas">
-            <Form>Form1</Form>
+            <Form>frmGerenciadorProdutos</Form>
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="Model\Model.Produtos.HBeauty.pas"/>

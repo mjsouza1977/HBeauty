@@ -3,25 +3,18 @@ unit Model.Profissionais.Servidor.HBeauty;
 interface
 
 uses
-  Model.Profissionais.HBeauty, Model.Habilidades.HBeauty, Model.Genericos.Servidor.HBeauty,
+  Model.Profissionais.HBeauty, Model.Genericos.Servidor.HBeauty,
   FMX.Forms, Data.FireDACJSONReflect, Model.Cargos.HBeauty;
 
 procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AIDTerceirizada, AId : Integer);
 function CadastraProfissional(AProfissional : TModelProfissionais; AForm : TForm) : Integer;
 function AtualizaProfissional(AProfissional : TModelProfissionais): String;
 
-procedure carregaHabilidadesProfissional(AAIdProfissional : Integer);
-function apagaHabilidadesProfissional(AIdProfissional: Integer) : String;
-function atualizaHabilidade(AHabilidade : TModelHabilidades) : String;
-function cadastraHabilidadeProfissional(AIdHabilidade, AIdProfissional: Integer): String;
 procedure CarregaProfissionalTerceirizado(AIdTerceirizado: Integer);
 procedure CarregaCamposProfissional(ACampos : String);
 function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
 
 procedure carregaHabilidades;
-function atualizaHabilidades(AHabilidade : TModelHabilidades) : String;
-function cadastraHabilidade(AHabilidade : TModelHabilidades) : String;
-function pesquisaHabilidade(AIDHabilidade, AIDCargo : Integer; ANomeHabilidade : String) : TFDJSONDataSets;
 function carregaCargos : TFDJSONDataSets;
 function pesquisaCargos(AIdCargo : Integer; ANomeCargo : String) : TFDJSONDataSets;
 function cadastraCargo(ACargo : TModelCargos) : String;
@@ -63,22 +56,6 @@ begin
     ModelConexaoDados.memCargos.Active := False;
     ModelConexaoDados.memCargos.AppendData(TFDJSONDataSetsReader.GetListValue(dsCargos, 0));
     ModelConexaoDados.memCargos.Active := True;
-end;
-
-function pesquisaHabilidade(AIDHabilidade, AIDCargo : Integer; ANomeHabilidade : String) : TFDJSONDataSets;
-var
-    dsPesquisaHabilidades : TFDJSONDataSets;
-begin
-    dsPesquisaHabilidades := ControllerClientModule.ModelMetodosClient.pesquisaHabilidade(AIDHabilidade, AIDCargo, ANomeHabilidade);
-    Assert(TFDJSONDataSetsReader.GetListCount(dsPesquisaHabilidades) = 1);
-    ModelConexaoDados.memHabilidades.Active := False;
-    ModelConexaoDados.memHabilidades.AppendData(TFDJSONDataSetsReader.GetListValue(dsPesquisaHabilidades, 0));
-    ModelConexaoDados.memHabilidades.Active := True;
-end;
-
-function atualizaHabilidades(AHabilidade : TModelHabilidades) : String;
-begin
-    Result := ControllerClientModule.ModelMetodosClient.atualizaHabilidades(AHabilidade.IdHabilidade, AHabilidade.IdCargoHabilidade, AHabilidade.NomeHabilidade, AHabilidade.DescricaoHabilidade);
 end;
 
 function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
@@ -135,27 +112,11 @@ begin
    ModelConexaoDados.memHbilXProfis.Active := True;
 end;
 
-function cadastraHabilidade(AHabilidade : TModelHabilidades) : String;
-begin
-   Result := ControllerClientModule.ModelMetodosClient.cadastraHabilidade(AHabilidade.IdCargoHabilidade, AHabilidade.NomeHabilidade, AHabilidade.DescricaoHabilidade);
-end;
-
-function apagaHabilidadesProfissional(AIdProfissional: Integer) : String;
-begin
-     Result := ControllerClientModule.ModelMetodosClient.apagaHabilidadesProfissional(AIdProfissional);
-end;
-
-function atualizaHabilidade(AHabilidade : TModelHabilidades) : String;
-begin
-     Result := ControllerClientModule.ModelMetodosClient.atualizaHabilidades(AHabilidade.IdHabilidade, AHabilidade.IdCargoHabilidade, AHabilidade.NomeHabilidade, AHabilidade.DescricaoHabilidade);
-end;
-
-
 function AtualizaProfissional(AProfissional : TModelProfissionais): String;
 begin
     Result := ControllerClientModule.ModelMetodosClient.AtualizaProfissional(AProfissional.TERC_PROFIS, AProfissional.ID_PROFIS, AProfissional.IDCARGO_PROFISS,
                                                                              AProfissional.IDEMPTER_PROFIS, AProfissional.ENDERECO_PROFIS.NRLOG,
-                                                                             AProfissional.CODIGO_PROFIS, AProfissional.NOME_PROFIS, AProfissional.SOBRENOME_PROFIS,
+                                                                             AProfissional.NOME_PROFIS, AProfissional.SOBRENOME_PROFIS,
                                                                              AProfissional.CPF_PROFIS, AProfissional.RG_PROFIS, AProfissional.ENDERECO_PROFIS.LOGRADOURO,
                                                                              AProfissional.ENDERECO_PROFIS.COMPLLOG, AProfissional.ENDERECO_PROFIS.BAIRROLOG,
                                                                              AProfissional.ENDERECO_PROFIS.CIDADELOG, AProfissional.ENDERECO_PROFIS.UFLOG,
@@ -182,7 +143,7 @@ begin
 
     DocumentoRepetido(AProfissional.CPF_PROFIS, 'CPF_PROFIS', 'NOME_PROFIS', 'HBPROFISSIONAIS', AForm, 'CNPJ', 'O profissional ');
     Result := ControllerClientModule.ModelMetodosClient.CadastraProfissional(AProfissional.TERC_PROFIS, AProfissional.IDCARGO_PROFISS, AProfissional.IDEMPTER_PROFIS,
-                                                                             AProfissional.ENDERECO_PROFIS.NRLOG, AProfissional.CODIGO_PROFIS, AProfissional.NOME_PROFIS,
+                                                                             AProfissional.ENDERECO_PROFIS.NRLOG, AProfissional.NOME_PROFIS,
                                                                              AProfissional.SOBRENOME_PROFIS, AProfissional.CPF_PROFIS, AProfissional.RG_PROFIS,
                                                                              AProfissional.ENDERECO_PROFIS.LOGRADOURO, AProfissional.ENDERECO_PROFIS.COMPLLOG,
                                                                              AProfissional.ENDERECO_PROFIS.BAIRROLOG, AProfissional.ENDERECO_PROFIS.CIDADELOG,

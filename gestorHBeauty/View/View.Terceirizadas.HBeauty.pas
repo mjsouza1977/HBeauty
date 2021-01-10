@@ -568,28 +568,8 @@ begin
      tabGerenciadorTerceirizada.TabIndex := 0;
      gclTerceirizada := TModelTerceirizada.Create(Self);
 
-     grdListaTerceirizada.Cells[0,0]  := 'Código';
-     grdListaTerceirizada.Cells[1,0]  := 'CNPJ';
-     grdListaTerceirizada.Cells[2,0]  := 'Razão Social';
-     grdListaTerceirizada.Cells[3,0]  := 'Nome Fantasia';
-     grdListaTerceirizada.Cells[4,0]  := 'Logradouro';
-     grdListaTerceirizada.Cells[5,0]  := 'Nr.';
-     grdListaTerceirizada.Cells[6,0]  := 'Complemento';
-     grdListaTerceirizada.Cells[7,0]  := 'Bairro';
-     grdListaTerceirizada.Cells[8,0]  := 'CEP';
-     grdListaTerceirizada.Cells[9,0]  := 'Cidade';
-     grdListaTerceirizada.Cells[10,0] := 'UF';
+     CarregaGrid(nil, grdListaTerceirizada,AFieldsTerceirizadas, ACaptionTerceirizadas, ASizeColTerceirizadas, True);
 
-     grdListaProfissionalTerceirizado.Cells[0,0] := 'CPF';
-     grdListaProfissionalTerceirizado.Cells[1,0] := 'Nome';
-     grdListaProfissionalTerceirizado.Cells[2,0] := 'SobreNome';
-     grdListaProfissionalTerceirizado.Cells[3,0] := 'Logradouro';
-     grdListaProfissionalTerceirizado.Cells[4,0] := 'Nr.';
-     grdListaProfissionalTerceirizado.Cells[5,0] := 'Complemento';
-     grdListaProfissionalTerceirizado.Cells[6,0] := 'Bairro';
-     grdListaProfissionalTerceirizado.Cells[7,0] := 'CEP';
-     grdListaProfissionalTerceirizado.Cells[8,0] := 'Cidade';
-     grdListaProfissionalTerceirizado.Cells[9,0] := 'UF';
 end;
 
 procedure TfrmGerenciadorTerceirizadas.grdListaTerceirizadaCellClick(Sender: TObject; ACol, ARow: Integer);

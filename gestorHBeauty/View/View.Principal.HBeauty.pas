@@ -9,7 +9,7 @@ uses
   Data.Bind.ObjectScope, REST.Response.Adapter, System.Actions, FMX.ActnList, FMX.Menus, Controller.Manipula.XML.HBeauty, Units.Strings.HBeauty, Xml.omnixmldom,
   Xml.adomxmldom, Units.Consts.HBeauty, Units.Utils.HBeauty, Xml.Win.msxmldom, Controller.Manipula.Design.HBeauty,
   FMX.TMSBitmapContainer, FMX.TMSBaseControl, FMX.TMSPlannerBase, FMX.TMSPlannerData, FMX.TMSPlanner, ACBrBase, ACBrValidador, System.ImageList, FMX.ImgList, FMX.Edit,
-  View.Terceirizadas.HBeauty, View.Habilidades.HBeauty, View.Cargos.HBeauty, View.Vendedores.HBeauty, View.Marcas.HBeauty;
+  View.Terceirizadas.HBeauty, View.Cargos.HBeauty, View.Vendedores.HBeauty, View.Marcas.HBeauty;
 
 type
   TfrmPrincipal = class(TForm)
@@ -67,11 +67,11 @@ type
     procedure MenuItem14Click(Sender: TObject);
     procedure tmHoraTimer(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
-    procedure HabilidadesClick(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem8Click(Sender: TObject);
     procedure MenuItem5Click(Sender: TObject);
     procedure MenuItem7Click(Sender: TObject);
+    procedure MenuItem11Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -85,7 +85,8 @@ implementation
 
 {$R *.fmx}
 
-uses View.Profissionais.HBeauty, View.Fornecedores.HBeauty;
+uses View.Profissionais.HBeauty, View.Fornecedores.HBeauty,
+  View.Produtos.HBeauty;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 var
@@ -134,10 +135,12 @@ begin
 
 end;
 
-procedure TfrmPrincipal.HabilidadesClick(Sender: TObject);
+procedure TfrmPrincipal.MenuItem11Click(Sender: TObject);
 begin
-     Application.CreateForm(TfrmCadastroHabilidades, frmCadastroHabilidades);
-     frmCadastroHabilidades.ShowModal;
+
+     Application.CreateForm(TfrmGerenciadorProdutos, frmGerenciadorProdutos);
+     frmGerenciadorProdutos.ShowModal;
+
 end;
 
 procedure TfrmPrincipal.MenuItem14Click(Sender: TObject);

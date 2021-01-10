@@ -8,7 +8,8 @@ uses
 
 
 procedure CarregaVariaveisControle;
-procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String; AListaSizeColuna : Array of Single);
+procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String;
+                      AListaSizeColuna : Array of Single; AApenasTitulo : Boolean = False);
 procedure LimpaForm(AForm : TForm);
 function PesquisaCEP(AForm: TForm;ACep : String) : TModelEndereco;
 function TamanhoImagem(fImagem : String) : String;
@@ -136,7 +137,8 @@ begin
     ctrSIZE_LOGO            := getValueControle('SIZE_LOGO');
 end;
 
-procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String; AListaSizeColuna : Array of Single);
+procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String;
+                      AListaSizeColuna : Array of Single; AApenasTitulo : Boolean = False);
 var
 ALinha, i : Integer;
 begin
@@ -149,26 +151,28 @@ begin
               AGrid.Columns[i].Width :=  AListaSizeColuna[i];
          end;
 
-     ATable.First;
-     while not ATable.Eof do
+     if not AApenasTitulo then
          begin
-              Inc(ALinha);
-              AGrid.RowCount := ALinha + 1;
-              for i := 0 to Length(AListaFields) - 1 do
-                  begin
-                      if (AListaCaptionFields[i] = 'CPF') or (AListaCaptionFields[i] = 'CNPJ') or (AListaCaptionFields[i] = 'CNPJ/CPF') then
-                          AGrid.Cells[i,ALinha] := '<font size="16">' +  ACBrValidador.FormatarCNPJouCPF(ATable.FieldByName(AListaFields[i]).AsString) + '</font>' else
-                      if AListaCaptionFields[i]  = 'CEP' then
-                          AGrid.Cells[i,ALinha] := '<font size="16">' +  ACBrValidador.FormatarCEP(ATable.FieldByName(AListaFields[i]).AsString) + '</font>' else
-                      if AListaCaptionFields[i]  = 'Código' then
-                         AGrid.Cells[i,ALinha]  := '<font size="16">' +  FormatFloat('0000', ATable.FieldByName(AListaFields[i]).AsInteger) + '</font>' else
-                          AGrid.Cells[i,ALinha] := '<font size="16">' +  ATable.FieldByName(AListaFields[i]).AsString + '</font>';
-                      if AListaCaptionFields[i]  = 'Telefone' then
-                         AGrid.Cells[i,ALinha]  := '<font size="16">' +  ACBrValidador.FormatarFone(ATable.FieldByName(AListaFields[i]).AsString) + '</font>';
+             ATable.First;
+             while not ATable.Eof do
+                 begin
+                      Inc(ALinha);
+                      AGrid.RowCount := ALinha + 1;
+                      for i := 0 to Length(AListaFields) - 1 do
+                          begin
+                              if (AListaCaptionFields[i] = 'CPF') or (AListaCaptionFields[i] = 'CNPJ') or (AListaCaptionFields[i] = 'CNPJ/CPF') then
+                                  AGrid.Cells[i,ALinha] := '<font size="16">' +  ACBrValidador.FormatarCNPJouCPF(ATable.FieldByName(AListaFields[i]).AsString) + '</font>' else
+                              if AListaCaptionFields[i]  = 'CEP' then
+                                  AGrid.Cells[i,ALinha] := '<font size="16">' +  ACBrValidador.FormatarCEP(ATable.FieldByName(AListaFields[i]).AsString) + '</font>' else
+                              if AListaCaptionFields[i]  = 'Código' then
+                                  AGrid.Cells[i,ALinha]  := '<font size="16">' +  FormatFloat('0000', ATable.FieldByName(AListaFields[i]).AsInteger) + '</font>' else
+                                  AGrid.Cells[i,ALinha] := '<font size="16">' +  ATable.FieldByName(AListaFields[i]).AsString + '</font>';
+                              if AListaCaptionFields[i]  = 'Telefone' then
+                                  AGrid.Cells[i,ALinha]  := '<font size="16">' +  ACBrValidador.FormatarFone(ATable.FieldByName(AListaFields[i]).AsString) + '</font>';
+                          end;
 
-                  end;
-
-              ATable.Next;
+                      ATable.Next;
+                 end;
          end;
 end;
 

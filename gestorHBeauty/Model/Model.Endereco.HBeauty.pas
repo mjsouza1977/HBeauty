@@ -7,7 +7,7 @@ uses
     Units.Strings.HBeauty,
     ACBRValidador,
     FMX.Forms,
-    FMX.Platform.Win;
+    FMX.Platform.Win, Units.Utils.HBeauty;
 
 type
     TModelEndereco = class
@@ -58,50 +58,25 @@ end;
 
 procedure TModelEndereco.SetBAIRROLOG(const Value: String);
 begin
-    if Value = '' then
-       begin
-           MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                     'Bairro inválido, verifique!', apTitulo,
-                      MB_OK + MB_ICONINFORMATION);
-           Abort;
-       end
-   else
-       begin
-           FBAIRROLOG := Value;
-       end;
-end;
+
+    if validaCampoVazio(FForm, Value, 'bairro') then
+        FBAIRROLOG := Value;
+
+        end;
 
 procedure TModelEndereco.SetCEP(const Value: String);
 begin
 
-    FMsg := ACBRValidador.ValidarCEP(Value, FUFLOG);
-
-    if FMsg <> '' then
-        begin
-           MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                     pChar(FMsg), apTitulo,
-                      MB_OK + MB_ICONINFORMATION);
-           Abort;
-        end
-    else
-        begin
-             FCEP := ApenasNumeros(Value);
-        end;
+    if validaCampoVazio(FForm, Value, 'CEP') then
+        FCEP := ApenasNumeros(Value);
 end;
 
 procedure TModelEndereco.SetCIDADELOG(const Value: String);
 begin
-    if Value = '' then
-        begin
-           MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                     'Cidade inválida, verifique!', apTitulo,
-                      MB_OK + MB_ICONINFORMATION);
-           Abort;
-        end
-    else
-        begin
-            FCIDADELOG := Value;
-        end;
+
+    if validaCampoVazio(ffORM, vALUE, 'cidade') then
+        FCIDADELOG := Value;
+
 end;
 
 procedure TModelEndereco.SetCOMPLLOG(const Value: String);
@@ -111,17 +86,10 @@ end;
 
 procedure TModelEndereco.SetLOGRADOURO(const Value: String);
 begin
-    if Value = '' then
-        begin
-            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                      'Logradouro inválido, verifique!', apTitulo,
-                       MB_OK + MB_ICONINFORMATION);
-            Abort;
-        end
-    else
-        begin
-            FLOGRADOURO := Value;
-        end;
+
+    if validaCampoVazio(FForm, Value, 'logradouro') then
+        FLOGRADOURO := Value;
+
 end;
 
 procedure TModelEndereco.SetNRLOG(const Value: Integer);

@@ -1,105 +1,15 @@
-﻿object Form1: TForm1
+﻿object frmGerenciadorProdutos: TfrmGerenciadorProdutos
   Left = 0
   Top = 0
-  Caption = 'Form1'
+  Caption = 'Gerenciador de Produtos'
   ClientHeight = 653
   ClientWidth = 884
   StyleBook = StyleBook2
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
-  object recRodapeTerceirizada: TRectangle
-    Align = Bottom
-    Fill.Color = xFF424242
-    Position.Y = 591.000000000000000000
-    Size.Width = 884.000000000000000000
-    Size.Height = 62.000000000000000000
-    Size.PlatformDefault = False
-    Stroke.Kind = None
-    object btnAlterar: TTMSFMXButton
-      BitmapContainer = frmPrincipal.ContainerButtons
-      BitmapName = 'Editar'
-      ShowImage = True
-      Version = '1.0.1.1'
-      Font.Size = 14.000000000000000000
-      Font.StyleExt = {00070000000000000004000000}
-      Size.Width = 130.000000000000000000
-      Size.Height = 40.000000000000000000
-      Size.PlatformDefault = False
-      Anchors = [akTop, akRight]
-      Position.X = 606.000000000000000000
-      Position.Y = 12.000000000000000000
-      TabOrder = 0
-      Text = 'Alterar'
-    end
-    object btnFechar: TTMSFMXButton
-      BitmapContainer = frmPrincipal.ContainerButtons
-      BitmapName = 'Sair'
-      ShowImage = True
-      Version = '1.0.1.1'
-      Font.Size = 14.000000000000000000
-      Font.StyleExt = {00070000000000000004000000}
-      Size.Width = 130.000000000000000000
-      Size.Height = 40.000000000000000000
-      Size.PlatformDefault = False
-      Anchors = [akTop, akRight]
-      Position.X = 746.000000000000000000
-      Position.Y = 12.000000000000000000
-      TabOrder = 1
-      Text = 'Fechar'
-    end
-    object btnIncluir: TTMSFMXButton
-      BitmapContainer = frmPrincipal.ContainerButtons
-      BitmapName = 'Incluir'
-      ShowImage = True
-      Version = '1.0.1.1'
-      Font.Size = 14.000000000000000000
-      Font.StyleExt = {00070000000000000004000000}
-      Size.Width = 130.000000000000000000
-      Size.Height = 40.000000000000000000
-      Size.PlatformDefault = False
-      Anchors = [akTop, akRight]
-      Position.X = 466.000000000000000000
-      Position.Y = 12.000000000000000000
-      TabOrder = 2
-      Text = 'Incluir'
-    end
-    object btnSalvar: TTMSFMXButton
-      BitmapContainer = frmPrincipal.ContainerButtons
-      BitmapName = 'Salvar'
-      ShowImage = True
-      Version = '1.0.1.1'
-      Font.Size = 14.000000000000000000
-      Font.StyleExt = {00070000000000000004000000}
-      Size.Width = 130.000000000000000000
-      Size.Height = 40.000000000000000000
-      Size.PlatformDefault = False
-      Anchors = [akTop, akRight]
-      Position.X = 186.000000000000000000
-      Position.Y = 12.000000000000000000
-      TabOrder = 3
-      Text = 'Salvar'
-      Visible = False
-    end
-    object btnCancelar: TTMSFMXButton
-      BitmapContainer = frmPrincipal.ContainerButtons
-      BitmapName = 'Cancelar'
-      ShowImage = True
-      Version = '1.0.1.1'
-      Font.Size = 14.000000000000000000
-      Font.StyleExt = {00070000000000000004000000}
-      Size.Width = 130.000000000000000000
-      Size.Height = 40.000000000000000000
-      Size.PlatformDefault = False
-      Anchors = [akTop, akRight]
-      Position.X = 46.000000000000000000
-      Position.Y = 12.000000000000000000
-      TabOrder = 4
-      Text = 'Cancelar'
-      Visible = False
-    end
-  end
   object tabCabecarioFornecedor: TTabControl
     Align = Top
     Size.Width = 884.000000000000000000
@@ -249,7 +159,7 @@
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 50
+        TabOrder = 58
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -264,16 +174,17 @@
       end
     end
   end
-  object tabGerenciadorFornecedor: TTabControl
+  object tabGerenciadorProdutos: TTabControl
     Align = Client
     Locked = True
     Size.Width = 884.000000000000000000
     Size.Height = 478.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 0
     TabPosition = PlatformDefault
+    OnChange = tabGerenciadorProdutosChange
     Sizes = (
       884s
       449s
@@ -281,7 +192,7 @@
       449s
       884s
       449s)
-    object tabListaFornecedor: TTabItem
+    object tabListaProdutos: TTabItem
       CustomIcon = <
         item
         end>
@@ -2690,6 +2601,7 @@
             StrokeThickness = 0.000000000000000000
             TopRow = 1
             LeftCol = 2
+            OnCellClick = grdListaProdutosCellClick
             Columns = <
               item
                 BorderColor = claNull
@@ -2822,14 +2734,14 @@
         end
       end
     end
-    object tabFichaFornecedor: TTabItem
+    object tabFichaProdutos: TTabItem
       CustomIcon = <
         item
         end>
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 134.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -2910,6 +2822,7 @@
           Size.PlatformDefault = False
           StyleLookup = 'ComboBox1Style1'
           TabOrder = 0
+          OnClick = cbMarcasClick
         end
         object Label3: TLabel
           StyledSettings = [Family, Size]
@@ -3632,7 +3545,7 @@
         TextSettings.Font.Size = 20.000000000000000000
         TextSettings.HorzAlign = Center
         Text = 'X'
-        TabOrder = 13
+        TabOrder = 29
       end
       object Rectangle22: TRectangle
         Fill.Color = claWhite
@@ -3786,36 +3699,36 @@
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
-      Size.Width = 48.000000000000000000
+      IsSelected = False
+      Size.Width = 58.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
       StyleLookup = ''
       TabOrder = 0
-      Text = 'App'
+      Text = 'App+'
       ExplicitSize.cx = 48.000000000000000000
       ExplicitSize.cy = 29.000000000000000000
       object tabGerenciadorApp: TTabControl
         Align = Client
         Size.Width = 884.000000000000000000
-        Size.Height = 449.000000000000000000
+        Size.Height = 387.000000000000000000
         Size.PlatformDefault = False
-        TabIndex = 4
+        TabIndex = 0
         TabOrder = 0
         TabPosition = PlatformDefault
         Sizes = (
           884s
-          420s
+          358s
           884s
-          420s
+          358s
           884s
-          420s
+          358s
           884s
-          420s
+          358s
           884s
-          420s
+          358s
           884s
-          420s)
+          358s)
         object tabInformações: TTabItem
           CustomIcon = <
             item
@@ -3823,7 +3736,7 @@
           TextSettings.Font.Size = 14.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           StyledSettings = [Family, FontColor]
-          IsSelected = False
+          IsSelected = True
           Size.Width = 103.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
@@ -3885,21 +3798,11 @@
           ExplicitSize.cy = 29.000000000000000000
           object Layout3: TLayout
             Align = Bottom
-            Position.Y = 356.000000000000000000
+            Position.Y = 294.000000000000000000
             Size.Width = 884.000000000000000000
             Size.Height = 64.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 0
-            object Button1: TButton
-              Position.X = 248.000000000000000000
-              Position.Y = 16.000000000000000000
-              Size.Width = 97.000000000000000000
-              Size.Height = 25.000000000000000000
-              Size.PlatformDefault = False
-              TabOrder = 0
-              Text = 'Button1'
-              OnClick = Button1Click
-            end
           end
         end
         object tabRelacionados: TTabItem
@@ -3909,7 +3812,7 @@
           TextSettings.Font.Size = 14.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           StyledSettings = [Family, FontColor]
-          IsSelected = True
+          IsSelected = False
           Size.Width = 171.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
@@ -3935,6 +3838,96 @@
           Text = 'Produtos Similares'
           ExplicitSize.cx = 144.000000000000000000
           ExplicitSize.cy = 29.000000000000000000
+        end
+      end
+      object recRodapeBotoesApp: TRectangle
+        Align = Bottom
+        Fill.Color = xFF424242
+        Position.Y = 387.000000000000000000
+        Size.Width = 884.000000000000000000
+        Size.Height = 62.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        object TMSFMXButton1: TTMSFMXButton
+          BitmapContainer = frmPrincipal.ContainerButtons
+          BitmapName = 'Editar'
+          ShowImage = True
+          Version = '1.0.1.1'
+          Font.Size = 14.000000000000000000
+          Font.StyleExt = {00070000000000000004000000}
+          Size.Width = 130.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          Anchors = [akTop, akRight]
+          Position.X = 606.000000000000000000
+          Position.Y = 12.000000000000000000
+          TabOrder = 0
+          Text = 'Alterar'
+        end
+        object TMSFMXButton2: TTMSFMXButton
+          BitmapContainer = frmPrincipal.ContainerButtons
+          BitmapName = 'Sair'
+          ShowImage = True
+          Version = '1.0.1.1'
+          Font.Size = 14.000000000000000000
+          Font.StyleExt = {00070000000000000004000000}
+          Size.Width = 130.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          Anchors = [akTop, akRight]
+          Position.X = 746.000000000000000000
+          Position.Y = 12.000000000000000000
+          TabOrder = 1
+          Text = 'Fechar'
+        end
+        object TMSFMXButton3: TTMSFMXButton
+          BitmapContainer = frmPrincipal.ContainerButtons
+          BitmapName = 'Incluir'
+          ShowImage = True
+          Version = '1.0.1.1'
+          Font.Size = 14.000000000000000000
+          Font.StyleExt = {00070000000000000004000000}
+          Size.Width = 130.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          Anchors = [akTop, akRight]
+          Position.X = 466.000000000000000000
+          Position.Y = 12.000000000000000000
+          TabOrder = 2
+          Text = 'Incluir'
+          OnClick = btnIncluirClick
+        end
+        object TMSFMXButton4: TTMSFMXButton
+          BitmapContainer = frmPrincipal.ContainerButtons
+          BitmapName = 'Salvar'
+          ShowImage = True
+          Version = '1.0.1.1'
+          Font.Size = 14.000000000000000000
+          Font.StyleExt = {00070000000000000004000000}
+          Size.Width = 130.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          Anchors = [akTop, akRight]
+          Position.X = 186.000000000000000000
+          Position.Y = 12.000000000000000000
+          TabOrder = 3
+          Text = 'Salvar'
+        end
+        object TMSFMXButton5: TTMSFMXButton
+          BitmapContainer = frmPrincipal.ContainerButtons
+          BitmapName = 'Cancelar'
+          ShowImage = True
+          Version = '1.0.1.1'
+          Font.Size = 14.000000000000000000
+          Font.StyleExt = {00070000000000000004000000}
+          Size.Width = 130.000000000000000000
+          Size.Height = 40.000000000000000000
+          Size.PlatformDefault = False
+          Anchors = [akTop, akRight]
+          Position.X = 46.000000000000000000
+          Position.Y = 12.000000000000000000
+          TabOrder = 4
+          Text = 'Cancelar'
         end
       end
     end
@@ -5708,5 +5701,97 @@
   end
   object FillRGBEffect2: TFillRGBEffect
     Color = xFF203040
+  end
+  object recRodapeBotoesPrincipal: TRectangle
+    Align = Bottom
+    Fill.Color = xFF424242
+    Position.Y = 591.000000000000000000
+    Size.Width = 884.000000000000000000
+    Size.Height = 62.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    object btnAlterar: TTMSFMXButton
+      BitmapContainer = frmPrincipal.ContainerButtons
+      BitmapName = 'Editar'
+      ShowImage = True
+      Version = '1.0.1.1'
+      Font.Size = 14.000000000000000000
+      Font.StyleExt = {00070000000000000004000000}
+      Size.Width = 130.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Anchors = [akTop, akRight]
+      Position.X = 606.000000000000000000
+      Position.Y = 12.000000000000000000
+      TabOrder = 0
+      Text = 'Alterar'
+    end
+    object btnFechar: TTMSFMXButton
+      BitmapContainer = frmPrincipal.ContainerButtons
+      BitmapName = 'Sair'
+      ShowImage = True
+      Version = '1.0.1.1'
+      Font.Size = 14.000000000000000000
+      Font.StyleExt = {00070000000000000004000000}
+      Size.Width = 130.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Anchors = [akTop, akRight]
+      Position.X = 746.000000000000000000
+      Position.Y = 12.000000000000000000
+      TabOrder = 1
+      Text = 'Fechar'
+    end
+    object btnIncluir: TTMSFMXButton
+      BitmapContainer = frmPrincipal.ContainerButtons
+      BitmapName = 'Incluir'
+      ShowImage = True
+      Version = '1.0.1.1'
+      Font.Size = 14.000000000000000000
+      Font.StyleExt = {00070000000000000004000000}
+      Size.Width = 130.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Anchors = [akTop, akRight]
+      Position.X = 466.000000000000000000
+      Position.Y = 12.000000000000000000
+      TabOrder = 2
+      Text = 'Incluir'
+      OnClick = btnIncluirClick
+    end
+    object btnSalvar: TTMSFMXButton
+      BitmapContainer = frmPrincipal.ContainerButtons
+      BitmapName = 'Salvar'
+      ShowImage = True
+      Version = '1.0.1.1'
+      Font.Size = 14.000000000000000000
+      Font.StyleExt = {00070000000000000004000000}
+      Size.Width = 130.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Anchors = [akTop, akRight]
+      Position.X = 186.000000000000000000
+      Position.Y = 12.000000000000000000
+      TabOrder = 3
+      Text = 'Salvar'
+      Visible = False
+    end
+    object btnCancelar: TTMSFMXButton
+      BitmapContainer = frmPrincipal.ContainerButtons
+      BitmapName = 'Cancelar'
+      ShowImage = True
+      Version = '1.0.1.1'
+      Font.Size = 14.000000000000000000
+      Font.StyleExt = {00070000000000000004000000}
+      Size.Width = 130.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      Anchors = [akTop, akRight]
+      Position.X = 46.000000000000000000
+      Position.Y = 12.000000000000000000
+      TabOrder = 4
+      Text = 'Cancelar'
+      Visible = False
+    end
   end
 end

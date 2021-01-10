@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 22/12/2020 17:06:07
+// 09/01/2021 21:05:01
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -85,6 +85,8 @@ type
     FcadastraMarcaFornecedorCommand: TDSRestCommand;
     FlimpaMarcaFornecedorCommand: TDSRestCommand;
     FObterNomeImagemCommand: TDSRestCommand;
+    FcarregaCamposSQLCommand: TDSRestCommand;
+    FcarregaCamposSQLCommand_Cache: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -105,12 +107,12 @@ type
     function CarregaControle_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function ValidaLogin(Usuario: string; Senha: string; const ARequestFilter: string = ''): TFDJSONDataSets;
     function ValidaLogin_Cache(Usuario: string; Senha: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
-    function CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): Integer;
-    function AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss: Integer; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): string;
+    function CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): Integer;
+    function AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss: Integer; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): string;
     function ListaTerceirizadas(ARazao: string; AFantasia: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
     function ListaTerceirizadas_Cache(ARazao: string; AFantasia: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
-    function CadastraTerceirizada(ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string = ''): Integer;
-    function AtualizaTerceirizada(AIdTerc: Integer; ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string = ''): string;
+    function CadastraTerceirizada(ANrLog: Integer; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string = ''): Integer;
+    function AtualizaTerceirizada(AIdTerc: Integer; ANrLog: Integer; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string = ''): string;
     function CarregaCamposTerceirizada(ACampos: string; const ARequestFilter: string = ''): TFDJSONDataSets;
     function CarregaCamposTerceirizada_Cache(ACampos: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function CarregaCamposProfissional(ACampos: string; const ARequestFilter: string = ''): TFDJSONDataSets;
@@ -140,8 +142,8 @@ type
     function carregaFornecedores_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function PesquisaFornecedores(ANome: string; APseudo: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
     function PesquisaFornecedores_Cache(ANome: string; APseudo: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
-    function cadastraFornecedor(AIdVendFor: Integer; ANrLog: Integer; AIDLogoForn: Integer; ACodigo: string; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string = ''): string;
-    function atualizaFornecedores(AIdForn: Integer; AIdVendFor: Integer; ANrLog: Integer; AIDLogoForn: Integer; ACodigo: string; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string = ''): string;
+    function cadastraFornecedor(AIdVendFor: Integer; ANrLog: Integer; AIDLogoForn: Integer; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string = ''): string;
+    function atualizaFornecedores(AIdForn: Integer; AIdVendFor: Integer; ANrLog: Integer; AIDLogoForn: Integer; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string = ''): string;
     function carregaVendedores(const ARequestFilter: string = ''): TFDJSONDataSets;
     function carregaVendedores_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function PesquisaVendedor(ANome: string; ACPF: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
@@ -159,6 +161,8 @@ type
     procedure cadastraMarcaFornecedor(AIdForn: Integer; AIdMarca: Integer);
     procedure limpaMarcaFornecedor(AIdForn: Integer);
     function ObterNomeImagem(AIDImagem: Integer; const ARequestFilter: string = ''): string;
+    function carregaCamposSQL(ASQL: string; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function carregaCamposSQL_Cache(ASQL: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -290,13 +294,12 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
 
-  TModelMetodos_CadastraProfissional: array [0..17] of TDSRestParameterMetaData =
+  TModelMetodos_CadastraProfissional: array [0..16] of TDSRestParameterMetaData =
   (
     (Name: 'ATerceirizado'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
     (Name: 'AIdCargo'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'AIdEmpTer'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
-    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ASobreNome'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -312,14 +315,13 @@ const
     (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
   );
 
-  TModelMetodos_AtualizaProfissional: array [0..18] of TDSRestParameterMetaData =
+  TModelMetodos_AtualizaProfissional: array [0..17] of TDSRestParameterMetaData =
   (
     (Name: 'ATerceirizado'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
     (Name: 'AIdProfiss'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'AIdCargo'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'AIdEmpTer'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
-    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ASobreNome'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -355,10 +357,9 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
 
-  TModelMetodos_CadastraTerceirizada: array [0..12] of TDSRestParameterMetaData =
+  TModelMetodos_CadastraTerceirizada: array [0..11] of TDSRestParameterMetaData =
   (
     (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
-    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ARazao'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'AFantasia'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACNPJ'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -372,11 +373,10 @@ const
     (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
   );
 
-  TModelMetodos_AtualizaTerceirizada: array [0..13] of TDSRestParameterMetaData =
+  TModelMetodos_AtualizaTerceirizada: array [0..12] of TDSRestParameterMetaData =
   (
     (Name: 'AIdTerc'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
-    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ARazao'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'AFantasia'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACNPJ'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -590,12 +590,11 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
 
-  TModelMetodos_cadastraFornecedor: array [0..14] of TDSRestParameterMetaData =
+  TModelMetodos_cadastraFornecedor: array [0..13] of TDSRestParameterMetaData =
   (
     (Name: 'AIdVendFor'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'AIDLogoForn'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
-    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACNPJCPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'AIERG'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -609,13 +608,12 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
   );
 
-  TModelMetodos_atualizaFornecedores: array [0..15] of TDSRestParameterMetaData =
+  TModelMetodos_atualizaFornecedores: array [0..14] of TDSRestParameterMetaData =
   (
     (Name: 'AIdForn'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'AIdVendFor'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'ANrLog'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'AIDLogoForn'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
-    (Name: 'ACodigo'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACNPJCPF'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'AIERG'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ANome'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -760,6 +758,18 @@ const
   (
     (Name: 'AIDImagem'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_carregaCamposSQL: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'ASQL'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_carregaCamposSQL_Cache: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'ASQL'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
 
 implementation
@@ -1086,7 +1096,7 @@ begin
   Result := TDSRestCachedTFDJSONDataSets.Create(FValidaLoginCommand_Cache.Parameters[2].Value.GetString);
 end;
 
-function TModelMetodosClient.CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string): Integer;
+function TModelMetodosClient.CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string): Integer;
 begin
   if FCadastraProfissionalCommand = nil then
   begin
@@ -1099,24 +1109,23 @@ begin
   FCadastraProfissionalCommand.Parameters[1].Value.SetInt32(AIdCargo);
   FCadastraProfissionalCommand.Parameters[2].Value.SetInt32(AIdEmpTer);
   FCadastraProfissionalCommand.Parameters[3].Value.SetInt32(ANrLog);
-  FCadastraProfissionalCommand.Parameters[4].Value.SetWideString(ACodigo);
-  FCadastraProfissionalCommand.Parameters[5].Value.SetWideString(ANome);
-  FCadastraProfissionalCommand.Parameters[6].Value.SetWideString(ASobreNome);
-  FCadastraProfissionalCommand.Parameters[7].Value.SetWideString(ACPF);
-  FCadastraProfissionalCommand.Parameters[8].Value.SetWideString(ARG);
-  FCadastraProfissionalCommand.Parameters[9].Value.SetWideString(ALogradouro);
-  FCadastraProfissionalCommand.Parameters[10].Value.SetWideString(AComplemento);
-  FCadastraProfissionalCommand.Parameters[11].Value.SetWideString(ABairro);
-  FCadastraProfissionalCommand.Parameters[12].Value.SetWideString(ACidade);
-  FCadastraProfissionalCommand.Parameters[13].Value.SetWideString(AUF);
-  FCadastraProfissionalCommand.Parameters[14].Value.SetWideString(ACep);
-  FCadastraProfissionalCommand.Parameters[15].Value.AsCurrency := ASalario;
-  FCadastraProfissionalCommand.Parameters[16].Value.AsCurrency := AComissao;
+  FCadastraProfissionalCommand.Parameters[4].Value.SetWideString(ANome);
+  FCadastraProfissionalCommand.Parameters[5].Value.SetWideString(ASobreNome);
+  FCadastraProfissionalCommand.Parameters[6].Value.SetWideString(ACPF);
+  FCadastraProfissionalCommand.Parameters[7].Value.SetWideString(ARG);
+  FCadastraProfissionalCommand.Parameters[8].Value.SetWideString(ALogradouro);
+  FCadastraProfissionalCommand.Parameters[9].Value.SetWideString(AComplemento);
+  FCadastraProfissionalCommand.Parameters[10].Value.SetWideString(ABairro);
+  FCadastraProfissionalCommand.Parameters[11].Value.SetWideString(ACidade);
+  FCadastraProfissionalCommand.Parameters[12].Value.SetWideString(AUF);
+  FCadastraProfissionalCommand.Parameters[13].Value.SetWideString(ACep);
+  FCadastraProfissionalCommand.Parameters[14].Value.AsCurrency := ASalario;
+  FCadastraProfissionalCommand.Parameters[15].Value.AsCurrency := AComissao;
   FCadastraProfissionalCommand.Execute(ARequestFilter);
-  Result := FCadastraProfissionalCommand.Parameters[17].Value.GetInt32;
+  Result := FCadastraProfissionalCommand.Parameters[16].Value.GetInt32;
 end;
 
-function TModelMetodosClient.AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss: Integer; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ACodigo: string; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string): string;
+function TModelMetodosClient.AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss: Integer; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string): string;
 begin
   if FAtualizaProfissionalCommand = nil then
   begin
@@ -1130,21 +1139,20 @@ begin
   FAtualizaProfissionalCommand.Parameters[2].Value.SetInt32(AIdCargo);
   FAtualizaProfissionalCommand.Parameters[3].Value.SetInt32(AIdEmpTer);
   FAtualizaProfissionalCommand.Parameters[4].Value.SetInt32(ANrLog);
-  FAtualizaProfissionalCommand.Parameters[5].Value.SetWideString(ACodigo);
-  FAtualizaProfissionalCommand.Parameters[6].Value.SetWideString(ANome);
-  FAtualizaProfissionalCommand.Parameters[7].Value.SetWideString(ASobreNome);
-  FAtualizaProfissionalCommand.Parameters[8].Value.SetWideString(ACPF);
-  FAtualizaProfissionalCommand.Parameters[9].Value.SetWideString(ARG);
-  FAtualizaProfissionalCommand.Parameters[10].Value.SetWideString(ALogradouro);
-  FAtualizaProfissionalCommand.Parameters[11].Value.SetWideString(AComplemento);
-  FAtualizaProfissionalCommand.Parameters[12].Value.SetWideString(ABairro);
-  FAtualizaProfissionalCommand.Parameters[13].Value.SetWideString(ACidade);
-  FAtualizaProfissionalCommand.Parameters[14].Value.SetWideString(AUF);
-  FAtualizaProfissionalCommand.Parameters[15].Value.SetWideString(ACep);
-  FAtualizaProfissionalCommand.Parameters[16].Value.AsCurrency := ASalario;
-  FAtualizaProfissionalCommand.Parameters[17].Value.AsCurrency := AComissao;
+  FAtualizaProfissionalCommand.Parameters[5].Value.SetWideString(ANome);
+  FAtualizaProfissionalCommand.Parameters[6].Value.SetWideString(ASobreNome);
+  FAtualizaProfissionalCommand.Parameters[7].Value.SetWideString(ACPF);
+  FAtualizaProfissionalCommand.Parameters[8].Value.SetWideString(ARG);
+  FAtualizaProfissionalCommand.Parameters[9].Value.SetWideString(ALogradouro);
+  FAtualizaProfissionalCommand.Parameters[10].Value.SetWideString(AComplemento);
+  FAtualizaProfissionalCommand.Parameters[11].Value.SetWideString(ABairro);
+  FAtualizaProfissionalCommand.Parameters[12].Value.SetWideString(ACidade);
+  FAtualizaProfissionalCommand.Parameters[13].Value.SetWideString(AUF);
+  FAtualizaProfissionalCommand.Parameters[14].Value.SetWideString(ACep);
+  FAtualizaProfissionalCommand.Parameters[15].Value.AsCurrency := ASalario;
+  FAtualizaProfissionalCommand.Parameters[16].Value.AsCurrency := AComissao;
   FAtualizaProfissionalCommand.Execute(ARequestFilter);
-  Result := FAtualizaProfissionalCommand.Parameters[18].Value.GetWideString;
+  Result := FAtualizaProfissionalCommand.Parameters[17].Value.GetWideString;
 end;
 
 function TModelMetodosClient.ListaTerceirizadas(ARazao: string; AFantasia: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string): TFDJSONDataSets;
@@ -1195,7 +1203,7 @@ begin
   Result := TDSRestCachedTFDJSONDataSets.Create(FListaTerceirizadasCommand_Cache.Parameters[5].Value.GetString);
 end;
 
-function TModelMetodosClient.CadastraTerceirizada(ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string): Integer;
+function TModelMetodosClient.CadastraTerceirizada(ANrLog: Integer; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string): Integer;
 begin
   if FCadastraTerceirizadaCommand = nil then
   begin
@@ -1205,22 +1213,21 @@ begin
     FCadastraTerceirizadaCommand.Prepare(TModelMetodos_CadastraTerceirizada);
   end;
   FCadastraTerceirizadaCommand.Parameters[0].Value.SetInt32(ANrLog);
-  FCadastraTerceirizadaCommand.Parameters[1].Value.SetWideString(ACodigo);
-  FCadastraTerceirizadaCommand.Parameters[2].Value.SetWideString(ARazao);
-  FCadastraTerceirizadaCommand.Parameters[3].Value.SetWideString(AFantasia);
-  FCadastraTerceirizadaCommand.Parameters[4].Value.SetWideString(ACNPJ);
-  FCadastraTerceirizadaCommand.Parameters[5].Value.SetWideString(AIE);
-  FCadastraTerceirizadaCommand.Parameters[6].Value.SetWideString(ALogradouro);
-  FCadastraTerceirizadaCommand.Parameters[7].Value.SetWideString(AComplemento);
-  FCadastraTerceirizadaCommand.Parameters[8].Value.SetWideString(ABairro);
-  FCadastraTerceirizadaCommand.Parameters[9].Value.SetWideString(ACidade);
-  FCadastraTerceirizadaCommand.Parameters[10].Value.SetWideString(AUF);
-  FCadastraTerceirizadaCommand.Parameters[11].Value.SetWideString(ACep);
+  FCadastraTerceirizadaCommand.Parameters[1].Value.SetWideString(ARazao);
+  FCadastraTerceirizadaCommand.Parameters[2].Value.SetWideString(AFantasia);
+  FCadastraTerceirizadaCommand.Parameters[3].Value.SetWideString(ACNPJ);
+  FCadastraTerceirizadaCommand.Parameters[4].Value.SetWideString(AIE);
+  FCadastraTerceirizadaCommand.Parameters[5].Value.SetWideString(ALogradouro);
+  FCadastraTerceirizadaCommand.Parameters[6].Value.SetWideString(AComplemento);
+  FCadastraTerceirizadaCommand.Parameters[7].Value.SetWideString(ABairro);
+  FCadastraTerceirizadaCommand.Parameters[8].Value.SetWideString(ACidade);
+  FCadastraTerceirizadaCommand.Parameters[9].Value.SetWideString(AUF);
+  FCadastraTerceirizadaCommand.Parameters[10].Value.SetWideString(ACep);
   FCadastraTerceirizadaCommand.Execute(ARequestFilter);
-  Result := FCadastraTerceirizadaCommand.Parameters[12].Value.GetInt32;
+  Result := FCadastraTerceirizadaCommand.Parameters[11].Value.GetInt32;
 end;
 
-function TModelMetodosClient.AtualizaTerceirizada(AIdTerc: Integer; ANrLog: Integer; ACodigo: string; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string): string;
+function TModelMetodosClient.AtualizaTerceirizada(AIdTerc: Integer; ANrLog: Integer; ARazao: string; AFantasia: string; ACNPJ: string; AIE: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; const ARequestFilter: string): string;
 begin
   if FAtualizaTerceirizadaCommand = nil then
   begin
@@ -1231,19 +1238,18 @@ begin
   end;
   FAtualizaTerceirizadaCommand.Parameters[0].Value.SetInt32(AIdTerc);
   FAtualizaTerceirizadaCommand.Parameters[1].Value.SetInt32(ANrLog);
-  FAtualizaTerceirizadaCommand.Parameters[2].Value.SetWideString(ACodigo);
-  FAtualizaTerceirizadaCommand.Parameters[3].Value.SetWideString(ARazao);
-  FAtualizaTerceirizadaCommand.Parameters[4].Value.SetWideString(AFantasia);
-  FAtualizaTerceirizadaCommand.Parameters[5].Value.SetWideString(ACNPJ);
-  FAtualizaTerceirizadaCommand.Parameters[6].Value.SetWideString(AIE);
-  FAtualizaTerceirizadaCommand.Parameters[7].Value.SetWideString(ALogradouro);
-  FAtualizaTerceirizadaCommand.Parameters[8].Value.SetWideString(AComplemento);
-  FAtualizaTerceirizadaCommand.Parameters[9].Value.SetWideString(ABairro);
-  FAtualizaTerceirizadaCommand.Parameters[10].Value.SetWideString(ACidade);
-  FAtualizaTerceirizadaCommand.Parameters[11].Value.SetWideString(AUF);
-  FAtualizaTerceirizadaCommand.Parameters[12].Value.SetWideString(ACep);
+  FAtualizaTerceirizadaCommand.Parameters[2].Value.SetWideString(ARazao);
+  FAtualizaTerceirizadaCommand.Parameters[3].Value.SetWideString(AFantasia);
+  FAtualizaTerceirizadaCommand.Parameters[4].Value.SetWideString(ACNPJ);
+  FAtualizaTerceirizadaCommand.Parameters[5].Value.SetWideString(AIE);
+  FAtualizaTerceirizadaCommand.Parameters[6].Value.SetWideString(ALogradouro);
+  FAtualizaTerceirizadaCommand.Parameters[7].Value.SetWideString(AComplemento);
+  FAtualizaTerceirizadaCommand.Parameters[8].Value.SetWideString(ABairro);
+  FAtualizaTerceirizadaCommand.Parameters[9].Value.SetWideString(ACidade);
+  FAtualizaTerceirizadaCommand.Parameters[10].Value.SetWideString(AUF);
+  FAtualizaTerceirizadaCommand.Parameters[11].Value.SetWideString(ACep);
   FAtualizaTerceirizadaCommand.Execute(ARequestFilter);
-  Result := FAtualizaTerceirizadaCommand.Parameters[13].Value.GetWideString;
+  Result := FAtualizaTerceirizadaCommand.Parameters[12].Value.GetWideString;
 end;
 
 function TModelMetodosClient.CarregaCamposTerceirizada(ACampos: string; const ARequestFilter: string): TFDJSONDataSets;
@@ -1786,7 +1792,7 @@ begin
   Result := TDSRestCachedTFDJSONDataSets.Create(FPesquisaFornecedoresCommand_Cache.Parameters[5].Value.GetString);
 end;
 
-function TModelMetodosClient.cadastraFornecedor(AIdVendFor: Integer; ANrLog: Integer; AIDLogoForn: Integer; ACodigo: string; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string): string;
+function TModelMetodosClient.cadastraFornecedor(AIdVendFor: Integer; ANrLog: Integer; AIDLogoForn: Integer; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string): string;
 begin
   if FcadastraFornecedorCommand = nil then
   begin
@@ -1798,22 +1804,21 @@ begin
   FcadastraFornecedorCommand.Parameters[0].Value.SetInt32(AIdVendFor);
   FcadastraFornecedorCommand.Parameters[1].Value.SetInt32(ANrLog);
   FcadastraFornecedorCommand.Parameters[2].Value.SetInt32(AIDLogoForn);
-  FcadastraFornecedorCommand.Parameters[3].Value.SetWideString(ACodigo);
-  FcadastraFornecedorCommand.Parameters[4].Value.SetWideString(ACNPJCPF);
-  FcadastraFornecedorCommand.Parameters[5].Value.SetWideString(AIERG);
-  FcadastraFornecedorCommand.Parameters[6].Value.SetWideString(ANome);
-  FcadastraFornecedorCommand.Parameters[7].Value.SetWideString(APseudo);
-  FcadastraFornecedorCommand.Parameters[8].Value.SetWideString(ALog);
-  FcadastraFornecedorCommand.Parameters[9].Value.SetWideString(ACompl);
-  FcadastraFornecedorCommand.Parameters[10].Value.SetWideString(ABairro);
-  FcadastraFornecedorCommand.Parameters[11].Value.SetWideString(ACep);
-  FcadastraFornecedorCommand.Parameters[12].Value.SetWideString(ACidade);
-  FcadastraFornecedorCommand.Parameters[13].Value.SetWideString(AUF);
+  FcadastraFornecedorCommand.Parameters[3].Value.SetWideString(ACNPJCPF);
+  FcadastraFornecedorCommand.Parameters[4].Value.SetWideString(AIERG);
+  FcadastraFornecedorCommand.Parameters[5].Value.SetWideString(ANome);
+  FcadastraFornecedorCommand.Parameters[6].Value.SetWideString(APseudo);
+  FcadastraFornecedorCommand.Parameters[7].Value.SetWideString(ALog);
+  FcadastraFornecedorCommand.Parameters[8].Value.SetWideString(ACompl);
+  FcadastraFornecedorCommand.Parameters[9].Value.SetWideString(ABairro);
+  FcadastraFornecedorCommand.Parameters[10].Value.SetWideString(ACep);
+  FcadastraFornecedorCommand.Parameters[11].Value.SetWideString(ACidade);
+  FcadastraFornecedorCommand.Parameters[12].Value.SetWideString(AUF);
   FcadastraFornecedorCommand.Execute(ARequestFilter);
-  Result := FcadastraFornecedorCommand.Parameters[14].Value.GetWideString;
+  Result := FcadastraFornecedorCommand.Parameters[13].Value.GetWideString;
 end;
 
-function TModelMetodosClient.atualizaFornecedores(AIdForn: Integer; AIdVendFor: Integer; ANrLog: Integer; AIDLogoForn: Integer; ACodigo: string; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string): string;
+function TModelMetodosClient.atualizaFornecedores(AIdForn: Integer; AIdVendFor: Integer; ANrLog: Integer; AIDLogoForn: Integer; ACNPJCPF: string; AIERG: string; ANome: string; APseudo: string; ALog: string; ACompl: string; ABairro: string; ACep: string; ACidade: string; AUF: string; const ARequestFilter: string): string;
 begin
   if FatualizaFornecedoresCommand = nil then
   begin
@@ -1826,19 +1831,18 @@ begin
   FatualizaFornecedoresCommand.Parameters[1].Value.SetInt32(AIdVendFor);
   FatualizaFornecedoresCommand.Parameters[2].Value.SetInt32(ANrLog);
   FatualizaFornecedoresCommand.Parameters[3].Value.SetInt32(AIDLogoForn);
-  FatualizaFornecedoresCommand.Parameters[4].Value.SetWideString(ACodigo);
-  FatualizaFornecedoresCommand.Parameters[5].Value.SetWideString(ACNPJCPF);
-  FatualizaFornecedoresCommand.Parameters[6].Value.SetWideString(AIERG);
-  FatualizaFornecedoresCommand.Parameters[7].Value.SetWideString(ANome);
-  FatualizaFornecedoresCommand.Parameters[8].Value.SetWideString(APseudo);
-  FatualizaFornecedoresCommand.Parameters[9].Value.SetWideString(ALog);
-  FatualizaFornecedoresCommand.Parameters[10].Value.SetWideString(ACompl);
-  FatualizaFornecedoresCommand.Parameters[11].Value.SetWideString(ABairro);
-  FatualizaFornecedoresCommand.Parameters[12].Value.SetWideString(ACep);
-  FatualizaFornecedoresCommand.Parameters[13].Value.SetWideString(ACidade);
-  FatualizaFornecedoresCommand.Parameters[14].Value.SetWideString(AUF);
+  FatualizaFornecedoresCommand.Parameters[4].Value.SetWideString(ACNPJCPF);
+  FatualizaFornecedoresCommand.Parameters[5].Value.SetWideString(AIERG);
+  FatualizaFornecedoresCommand.Parameters[6].Value.SetWideString(ANome);
+  FatualizaFornecedoresCommand.Parameters[7].Value.SetWideString(APseudo);
+  FatualizaFornecedoresCommand.Parameters[8].Value.SetWideString(ALog);
+  FatualizaFornecedoresCommand.Parameters[9].Value.SetWideString(ACompl);
+  FatualizaFornecedoresCommand.Parameters[10].Value.SetWideString(ABairro);
+  FatualizaFornecedoresCommand.Parameters[11].Value.SetWideString(ACep);
+  FatualizaFornecedoresCommand.Parameters[12].Value.SetWideString(ACidade);
+  FatualizaFornecedoresCommand.Parameters[13].Value.SetWideString(AUF);
   FatualizaFornecedoresCommand.Execute(ARequestFilter);
-  Result := FatualizaFornecedoresCommand.Parameters[15].Value.GetWideString;
+  Result := FatualizaFornecedoresCommand.Parameters[14].Value.GetWideString;
 end;
 
 function TModelMetodosClient.carregaVendedores(const ARequestFilter: string): TFDJSONDataSets;
@@ -2170,6 +2174,46 @@ begin
   Result := FObterNomeImagemCommand.Parameters[1].Value.GetWideString;
 end;
 
+function TModelMetodosClient.carregaCamposSQL(ASQL: string; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FcarregaCamposSQLCommand = nil then
+  begin
+    FcarregaCamposSQLCommand := FConnection.CreateCommand;
+    FcarregaCamposSQLCommand.RequestType := 'GET';
+    FcarregaCamposSQLCommand.Text := 'TModelMetodos.carregaCamposSQL';
+    FcarregaCamposSQLCommand.Prepare(TModelMetodos_carregaCamposSQL);
+  end;
+  FcarregaCamposSQLCommand.Parameters[0].Value.SetWideString(ASQL);
+  FcarregaCamposSQLCommand.Execute(ARequestFilter);
+  if not FcarregaCamposSQLCommand.Parameters[1].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FcarregaCamposSQLCommand.Parameters[1].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FcarregaCamposSQLCommand.Parameters[1].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FcarregaCamposSQLCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.carregaCamposSQL_Cache(ASQL: string; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FcarregaCamposSQLCommand_Cache = nil then
+  begin
+    FcarregaCamposSQLCommand_Cache := FConnection.CreateCommand;
+    FcarregaCamposSQLCommand_Cache.RequestType := 'GET';
+    FcarregaCamposSQLCommand_Cache.Text := 'TModelMetodos.carregaCamposSQL';
+    FcarregaCamposSQLCommand_Cache.Prepare(TModelMetodos_carregaCamposSQL_Cache);
+  end;
+  FcarregaCamposSQLCommand_Cache.Parameters[0].Value.SetWideString(ASQL);
+  FcarregaCamposSQLCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FcarregaCamposSQLCommand_Cache.Parameters[1].Value.GetString);
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -2252,6 +2296,8 @@ begin
   FcadastraMarcaFornecedorCommand.DisposeOf;
   FlimpaMarcaFornecedorCommand.DisposeOf;
   FObterNomeImagemCommand.DisposeOf;
+  FcarregaCamposSQLCommand.DisposeOf;
+  FcarregaCamposSQLCommand_Cache.DisposeOf;
   inherited;
 end;
 

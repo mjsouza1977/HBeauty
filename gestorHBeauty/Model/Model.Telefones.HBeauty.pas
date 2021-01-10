@@ -3,7 +3,7 @@ unit Model.Telefones.HBeauty;
 interface
 
 uses
-  FMX.Forms, FMX.Platform.Win;
+  FMX.Forms, FMX.Platform.Win, Units.Utils.HBeauty;
 
 type
     TModelTelefones = class
@@ -16,7 +16,7 @@ type
         FIdTabela: Integer;
         FInativo: Boolean;
         FTelefone: String;
-        FFormulario : TForm;
+        FForm : TForm;
         FIdTelefone: Integer;
         procedure SetContato(const Value: String);
         procedure SetIdTabela(const Value: Integer);
@@ -51,23 +51,13 @@ uses
 
 constructor TModelTelefones.create(AForm: TForm);
 begin
-     FFormulario := AForm;
+     FForm := AForm;
 end;
 
 procedure TModelTelefones.SetContato(const Value: String);
 begin
-    if Length(Trim(Value)) < 3 then
-        begin
-            MessageBox(WindowHandleToPlatform(FFormulario.Handle).Wnd,
-                       'Nome de contato inválido, verifique!',
-                       apTitulo,
-                       MB_OK + MB_ICONINFORMATION);
-            Abort;
-        end
-    else
-        begin
-            FContato := Value;
-        end;
+    if validaCampoVazio(FForm, Value, 'nome do contato', 3) = True then
+        FContato := Value;
 end;
 
 procedure TModelTelefones.SetIdTabela(const Value: Integer);
@@ -97,19 +87,8 @@ end;
 
 procedure TModelTelefones.SetTelefone(const Value: String);
 begin
-    if Length(ApenasNumeros(Value)) < 10 then
-        begin
-            MessageBox(WindowHandleToPlatform(FFormulario.Handle).Wnd,
-                       'Número de telefone inválido, verifique!',
-                       apTitulo,
-                       MB_OK + MB_ICONINFORMATION);
-            Abort;
-        end
-    else
-        begin
-            FTelefone := Value;
-        end;
-
+    if validaCampoVazio(FForm, Value, 'número de telefone', 10) = True then
+        FTelefone := Value;
 end;
 
 procedure TModelTelefones.SetWhatsApp(const Value: Boolean);

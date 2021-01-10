@@ -2,14 +2,20 @@ unit Model.Produtos.HBeauty;
 
 interface
 
+uses Units.Utils.HBeauty;
+
 implementation
+
+uses
+  Winapi.Windows, FMX.Platform.Win, FMX.Forms, Units.Consts.HBeauty,
+  System.SysUtils;
 
 type
     TModelProdutos = class
     private
     FRESERVALJ_PROD   : Currency;
     FORIENT_PROD      : String;
-    FCODIGO_PROD      : String;
+    FCODIGO_PROD      : Integer;
     FCODIGOBARRAS_PROD: String;
     FPRPROMO_PROD     : Currency;
     FDETALHES_PROD    : String;
@@ -33,11 +39,13 @@ type
     FALOCK            : Boolean;
     FIDMARCA_PROD     : Integer;
     FESTOQUEAPP_PROD  : Currency;
+    FForm             : TForm;
+    FDATACAD_PROD: TDate;
 
     procedure SetALOCK            (const Value: Boolean);
     procedure SetCCEST_PROD       (const Value: String);
     procedure SetCLSSFISCAL_PROD  (const Value: String);
-    procedure SetCODIGO_PROD      (const Value: String);
+    procedure SetCODIGO_PROD      (const Value: Integer);
     procedure SetCODIGOBARRAS_PROD(const Value: String);
     procedure SetDESCR_PROD       (const Value: String);
     procedure SetDETALHES_PROD    (const Value: String);
@@ -60,13 +68,14 @@ type
     procedure SetRESERVAAPP_PROD  (const Value: Currency);
     procedure SetRESERVALJ_PROD   (const Value: Currency);
     procedure SetUND_PROD         (const Value: String);
+    procedure SetDATACAD_PROD(const Value: TDate);
 
     public
     property ID_PROD            : Integer  read FID_PROD           write SetID_PROD;
     property IDFORN_PROD        : Integer  read FIDFORN_PROD       write SetIDFORN_PROD;
     property IDMARCA_PROD       : Integer  read FIDMARCA_PROD      write SetIDMARCA_PROD;
     property IDUSULOCK          : Integer  read FIDUSULOCK         write SetIDUSULOCK;
-    property CODIGO_PROD        : String   read FCODIGO_PROD       write SetCODIGO_PROD;
+    property CODIGO_PROD        : Integer  read FCODIGO_PROD       write SetCODIGO_PROD;
     property CODIGOBARRAS_PROD  : String   read FCODIGOBARRAS_PROD write SetCODIGOBARRAS_PROD;
     property DESCR_PROD         : String   read FDESCR_PROD        write SetDESCR_PROD;
     property EMB_PROD           : String   read FEMB_PROD          write SetEMB_PROD;
@@ -88,9 +97,17 @@ type
     property PESO_PROD          : Currency read FPESO_PROD         write SetPESO_PROD;
     property DOSE_PROD          : Currency read FDOSE_PROD         write SetDOSE_PROD;
     property ALOCK              : Boolean  read FALOCK             write SetALOCK;
+    property DATACAD_PROD       : TDate    read FDATACAD_PROD      write SetDATACAD_PROD;
+
+    constructor Create(AForm : TForm);
     end;
 
 { TModelProdutos }
+
+constructor TModelProdutos.Create(AForm: TForm);
+begin
+     FForm := AForm;
+end;
 
 procedure TModelProdutos.SetALOCK(const Value: Boolean);
 begin
@@ -112,14 +129,22 @@ begin
   FCODIGOBARRAS_PROD := Value;
 end;
 
-procedure TModelProdutos.SetCODIGO_PROD(const Value: String);
+procedure TModelProdutos.SetCODIGO_PROD(const Value: Integer);
 begin
   FCODIGO_PROD := Value;
 end;
 
+procedure TModelProdutos.SetDATACAD_PROD(const Value: TDate);
+begin
+  FDATACAD_PROD := Value;
+end;
+
 procedure TModelProdutos.SetDESCR_PROD(const Value: String);
 begin
-  FDESCR_PROD := Value;
+
+    if validaCampoVazio(FForm, Value, 'Descrição', 3) then
+        FDESCR_PROD := Value;
+
 end;
 
 procedure TModelProdutos.SetDETALHES_PROD(const Value: String);
@@ -134,17 +159,18 @@ end;
 
 procedure TModelProdutos.SetEMB_PROD(const Value: String);
 begin
-  FEMB_PROD := Value;
+    if validaCampoVazio(FForm, Value, 'Embalagem') then
+       FEMB_PROD := Value;
 end;
 
 procedure TModelProdutos.SetESTOQUEAPP_PROD(const Value: Currency);
 begin
-  FESTOQUEAPP_PROD := Value;
+    FESTOQUEAPP_PROD := Value;
 end;
 
 procedure TModelProdutos.SetESTOQUELJ_PROD(const Value: Currency);
 begin
-  FESTOQUELJ_PROD := Value;
+    FESTOQUELJ_PROD := Value;
 end;
 
 procedure TModelProdutos.SetIDFORN_PROD(const Value: Integer);
@@ -194,17 +220,68 @@ end;
 
 procedure TModelProdutos.SetPRCUSTO_PROD(const Value: Currency);
 begin
-  FPRCUSTO_PROD := Value;
+     if Value <= 0 then
+         begin
+             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                        'Preço de custo inválido!',
+                        apTitulo, MB_OK + MB_ICONWARNING);
+         end
+     else
+         begin
+             FPRCUSTO_PROD := Value;
+         end;
 end;
 
 procedure TModelProdutos.SetPRPROMO_PROD(const Value: Currency);
 begin
-  FPRPROMO_PROD := Value;
+    if Value >= FPRVENDA_PROD then
+        begin
+            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                       'O preço de promoção deve ser menor que o preço de venda!',
+                       apTitulo, MB_OK + MB_ICONWARNING);
+            Abort;
+        end;
+
+    if Value < FPRCUSTO_PROD then
+        begin
+            if MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                          pChar('O preço de promoção está menor que o preço de custo!' + #13#13 +
+                                'Deseja continuar?'), apTitulo,
+                                MB_YESNO + MB_ICONQUESTION) = ID_YES then
+                FPRPROMO_PROD := Value
+            else
+                Abort;
+        end
+    else
+        begin
+            FPRPROMO_PROD := Value;
+        end;
 end;
 
 procedure TModelProdutos.SetPRVENDA_PROD(const Value: Currency);
 begin
-  FPRVENDA_PROD := Value;
+     if Value <= 0 then
+         begin
+             MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                        'Preço de venda inválido!',
+                        apTitulo, MB_OK + MB_ICONWARNING);
+            Abort;
+         end;
+
+     if Value < FPRCUSTO_PROD then
+          begin
+              if MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
+                            pChar('O preço de venda está menor que o preço de custo!' + #13#13 +
+                                  'Deseja continuar?'), apTitulo,
+                                  MB_YESNO + MB_ICONQUESTION) = ID_YES then
+                  FPRVENDA_PROD := Value
+              else
+                  Abort;
+          end
+      else
+          begin
+              FPRVENDA_PROD := Value;
+          end;
 end;
 
 procedure TModelProdutos.SetRESERVAAPP_PROD(const Value: Currency);

@@ -239,8 +239,6 @@ begin
 end;
 
 procedure TfrmCadastroCargos.FormShow(Sender: TObject);
-var
-AIndex : Integer;
 begin
 
     //Limpa os campos do form
@@ -268,3 +266,4 @@ FIDCargoSelecionado := ExtraiTextoGrid(grdListaCargo.Cells[0, ARow]).ToInteger;
 end;
 
 end.
+

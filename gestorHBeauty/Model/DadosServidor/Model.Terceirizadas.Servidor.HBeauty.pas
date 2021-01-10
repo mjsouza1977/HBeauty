@@ -46,7 +46,7 @@ begin
     DocumentoRepetido(ATerceirizada.CNPJ_TERCEIRIZADA, 'CNPJ_TERCEIRIZADA', 'FANTASIA_TERCEIRIZADA', 'HBTERCEIRIZADA', AForm, 'CNPJ', 'A empresa ');
 
     Result := ControllerClientModule.ModelMetodosClient.CadastraTerceirizada(ATerceirizada.ENDERECO_TERCEIRIZADA.NRLOG,
-                                                                             ATerceirizada.CODIGO_TERCEIRIZADA, ATerceirizada.RAZAO_TERCEIRIZADA,
+                                                                             ATerceirizada.RAZAO_TERCEIRIZADA,
                                                                              ATerceirizada.FANTASIA_TERCEIRIZADA, ATerceirizada.CNPJ_TERCEIRIZADA,
                                                                              ATerceirizada.IE_TERCEIRIZADA, ATerceirizada.ENDERECO_TERCEIRIZADA.LOGRADOURO,
                                                                              ATerceirizada.ENDERECO_TERCEIRIZADA.COMPLLOG, ATerceirizada.ENDERECO_TERCEIRIZADA.BAIRROLOG,
@@ -57,7 +57,7 @@ end;
 function AtualizaTerceirizada(ATerceirizada : TModelTerceirizada) : String;
 begin
      Result := ControllerClientModule.ModelMetodosClient.AtualizaTerceirizada(ATerceirizada.ID_TERCEIRIZADA, ATerceirizada.ENDERECO_TERCEIRIZADA.NRLOG,
-                                                                              ATerceirizada.CODIGO_TERCEIRIZADA, ATerceirizada.RAZAO_TERCEIRIZADA,
+                                                                              ATerceirizada.RAZAO_TERCEIRIZADA,
                                                                               ATerceirizada.FANTASIA_TERCEIRIZADA, ATerceirizada.CNPJ_TERCEIRIZADA,
                                                                               ATerceirizada.IE_TERCEIRIZADA, ATerceirizada.ENDERECO_TERCEIRIZADA.LOGRADOURO,
                                                                               ATerceirizada.ENDERECO_TERCEIRIZADA.COMPLLOG, ATerceirizada.ENDERECO_TERCEIRIZADA.BAIRROLOG,

@@ -161,7 +161,6 @@ uses Units.Classes.HBeauty,
 procedure TfrmCadastroFornecedores.AlimentaClasseFornecedores;
 begin
     gclFornecedor.ID_FORN             := FIdSelecionado;
-    gclFornecedor.CODIGO_FORN         := '';
     gclFornecedor.NOME_FORN           := edtRazaoSocial.Text;
     gclFornecedor.PSEUDO_FORN         := edtNomeFantasia.Text;
     gclFornecedor.CNPJCPF_FORN        := ApenasNumeros(edtCNPJ.Text);
@@ -668,18 +667,7 @@ begin
                                            TObject(ModelConexaoDados.memVendedores.FieldByName('ID_VEND').AsInteger));
               ModelConexaoDados.memVendedores.Next;
          end;
-
-     grdListaFornecedor.Cells[0,0]  := 'Código';
-     grdListaFornecedor.Cells[1,0]  := 'CNPJ/CPF';
-     grdListaFornecedor.Cells[2,0]  := 'Razão Social';
-     grdListaFornecedor.Cells[3,0]  := 'Nome Fantasia';
-     grdListaFornecedor.Cells[4,0]  := 'Logradouro';
-     grdListaFornecedor.Cells[5,0]  := 'Nr.';
-     grdListaFornecedor.Cells[6,0]  := 'Complemento';
-     grdListaFornecedor.Cells[7,0]  := 'Bairro';
-     grdListaFornecedor.Cells[8,0]  := 'CEP';
-     grdListaFornecedor.Cells[9,0]  := 'Cidade';
-     grdListaFornecedor.Cells[10,0] := 'UF';
+     CarregaGrid(nil,grdListaFornecedor,AFieldsFornecedores, ACaptionFornecedores, ASizeColFornecedores, True);
 end;
 
 procedure TfrmCadastroFornecedores.grdListaFornecedorCellClick(Sender: TObject; ACol, ARow: Integer);

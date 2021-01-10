@@ -3,7 +3,7 @@ unit Model.Marcas.HBeauty;
 interface
 
 uses
-    FMX.Forms, Model.Imagens.HBeauty;
+    FMX.Forms, Model.Imagens.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty;
 
 type
     TModelMarcas = class
@@ -14,18 +14,21 @@ type
     FID_MARCA: Integer;
     FForm : TForm;
     FIMAGENS: TModelImagens;
+    FCODIGO_MARCA: Integer;
     procedure SetID_MARCA(const Value: Integer);
     procedure SetIDUSULOCK(const Value: Integer);
     procedure SetLOCK(const Value: String);
     procedure SetMARCA_MARCA(const Value: String);
     procedure SetIMAGENS(const Value: TModelImagens);
+    procedure SetCODIGO_MARCA(const Value: Integer);
 
     public
-    property ID_MARCA     : Integer       read FID_MARCA    write SetID_MARCA;
-    property MARCA_MARCA  : String        read FMARCA_MARCA write SetMARCA_MARCA;
-    property IDUSULOCK    : Integer       read FIDUSULOCK   write SetIDUSULOCK;
-    property LOCK         : String        read FLOCK        write SetLOCK;
-    property IMAGENS      : TModelImagens read FIMAGENS     write SetIMAGENS;
+    property ID_MARCA     : Integer       read FID_MARCA     write SetID_MARCA;
+    property CODIGO_MARCA : Integer       read FCODIGO_MARCA write SetCODIGO_MARCA;
+    property MARCA_MARCA  : String        read FMARCA_MARCA  write SetMARCA_MARCA;
+    property IDUSULOCK    : Integer       read FIDUSULOCK    write SetIDUSULOCK;
+    property LOCK         : String        read FLOCK         write SetLOCK;
+    property IMAGENS      : TModelImagens read FIMAGENS      write SetIMAGENS;
     constructor Create(AForm : TForm);
     end;
 
@@ -38,6 +41,11 @@ constructor TModelMarcas.Create(AForm: TForm);
 begin
      FForm := AForm;
      FIMAGENS := TModelImagens.Create;
+end;
+
+procedure TModelMarcas.SetCODIGO_MARCA(const Value: Integer);
+begin
+  FCODIGO_MARCA := Value;
 end;
 
 procedure TModelMarcas.SetIDUSULOCK(const Value: Integer);
@@ -62,17 +70,8 @@ end;
 
 procedure TModelMarcas.SetMARCA_MARCA(const Value: String);
 begin
-    if Length(Value) < 3 then
-        begin
-            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                       'Marca inválida, verifique!.', apTitulo,
-                       MB_OK + MB_ICONINFORMATION);
-                       Abort;
-        end
-    else
-        begin
-             FMARCA_MARCA := Value;
-        end;
+    if validaCampoVazio(FForm, Value, 'Marca', 3) = True then
+        FMARCA_MARCA := Value;
 end;
 
 end.

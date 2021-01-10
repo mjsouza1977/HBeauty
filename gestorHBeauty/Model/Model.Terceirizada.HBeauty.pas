@@ -6,7 +6,7 @@ uses
     ACBRValidador,
     Model.Endereco.HBeauty,
     FMX.Forms,
-    FMX.Platform.Win;
+    FMX.Platform.Win, Units.Utils.HBeauty;
 
 type
     TModelTerceirizada = class
@@ -20,7 +20,7 @@ type
             FCNPJ_TERCEIRIZADA: String;
             FValidador : TACBRValidador;
             FForm : TForm;
-            FCODIGO_TERCEIRIZADA: String;
+            FCODIGO_TERCEIRIZADA: Integer;
             procedure SetCNPJ_TERCEIRIZADA(const Value: String);
             procedure SetDATACADASTRO_TERCEIRIZADA(const Value: TDate);
             procedure SetENDERECO_TERCEIRIZADA(const Value: TModelEndereco);
@@ -28,7 +28,7 @@ type
             procedure SetID_TERCEIRIZADA(const Value: Integer);
             procedure SetIE_TERCEIRIZADA(const Value: String);
             procedure SetRAZAO_TERCEIRIZADA(const Value: String);
-            procedure SetCODIGO_TERCEIRIZADA(const Value: String);
+            procedure SetCODIGO_TERCEIRIZADA(const Value: Integer);
 
         public
             property ID_TERCEIRIZADA           : Integer        read FID_TERCEIRIZADA           write SetID_TERCEIRIZADA;
@@ -38,7 +38,7 @@ type
             property FANTASIA_TERCEIRIZADA     : String         read FFANTASIA_TERCEIRIZADA     write SetFANTASIA_TERCEIRIZADA;
             property ENDERECO_TERCEIRIZADA     : TModelEndereco read FENDERECO_TERCEIRIZADA     write SetENDERECO_TERCEIRIZADA;
             property DATACADASTRO_TERCEIRIZADA : TDate          read FDATACADASTRO_TERCEIRIZADA write SetDATACADASTRO_TERCEIRIZADA;
-            property CODIGO_TERCEIRIZADA       : String         read FCODIGO_TERCEIRIZADA       write SetCODIGO_TERCEIRIZADA;
+            property CODIGO_TERCEIRIZADA       : Integer        read FCODIGO_TERCEIRIZADA       write SetCODIGO_TERCEIRIZADA;
             constructor create(AForm : TForm);
     end;
 
@@ -61,26 +61,14 @@ begin
 end;
 
 procedure TModelTerceirizada.SetCNPJ_TERCEIRIZADA(const Value: String);
-var
-AMsg : String;
 begin
 
-    AMsg := ACBRValidador.ValidarCNPJ(ApenasNumeros(Value));
-    if AMsg <> '' then
-        begin
-            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                      pChar(AMsg), apTitulo,
-                      MB_OK + MB_ICONINFORMATION);
-                      Abort;
-        end
-    else
-        begin
-            FCNPJ_TERCEIRIZADA := ApenasNumeros(Value);
-        end;
+    if validaCNPJCPF(FForm, Value, 'C.N.P.J.') = True  then
+        FCNPJ_TERCEIRIZADA := ApenasNumeros(Value);
 
 end;
 
-procedure TModelTerceirizada.SetCODIGO_TERCEIRIZADA(const Value: String);
+procedure TModelTerceirizada.SetCODIGO_TERCEIRIZADA(const Value: Integer);
 begin
   FCODIGO_TERCEIRIZADA := Value;
 end;
@@ -137,17 +125,9 @@ end;
 procedure TModelTerceirizada.SetRAZAO_TERCEIRIZADA(const Value: String);
 begin
 
-    if Length(Value) < 5 then
-        begin
-            MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
-                       'Razão Social inválida, verifique!.', apTitulo,
-                       MB_OK + MB_ICONINFORMATION);
-                       Abort;
-        end
-    else
-        begin
-             FRAZAO_TERCEIRIZADA := Value;
-        end;
+    if validaCampoVazio(FForm, Value, 'razão social', 5) = True then
+        FRAZAO_TERCEIRIZADA := Value;
+
 end;
 
 end.

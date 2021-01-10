@@ -9,7 +9,8 @@ function BooleanToString(ATrue, AFalse : String; AValue : Boolean) : String;
 function StringToBool(ATrue, AFalse, AValue : String) : Boolean;
 function PrefixoTabela(ATabela : TTabelaCadastrada) : String;
 function ExtraiTextoGrid(AValue : String) : String;
-function validaCNPJCPF(AValue, ACampo : String) : String;
+function validaCNPJCPF(AForm : TForm; AValue, ACampo : String) : Boolean;
+function validaCampoVazio(AForm : TForm; AValue, ACampo : String; ATamanho : Integer = 0) : Boolean;
 
 procedure CarregaImagemRessource(Image : TImage; NomeImagem : String);
 procedure ControlaBotoes(AForm : TForm; AOpcao: Boolean);
@@ -28,17 +29,35 @@ uses
   Winapi.Windows, System.Classes, FMX.TMSButton, System.UITypes,
   FMX.Platform.Win, Units.Strings.HBeauty, System.SysUtils;
 
-function validaCampoVazio(AValue, ACampo : String; ATamanho : Integer) : String;
+function validaCampoVazio(AForm : TForm; AValue, ACampo : String; ATamanho : Integer = 0) : Boolean;
+var
+AMsg : String;
 begin
-    //
+
+    if ATamanho <= 0 then
+       AMsg := 'O campo ' + ACampo + ' não pode ser nulo, corrija!' else
+       AMsg := 'O campo ' + ACampo + ' deve conter no minimo ' + (ATamanho + 1).ToString + ' caracteres!';
+
+    if Length(AValue) <= ATamanho then
+        begin
+            Result := False;
+            MessageBox(WindowHandleToPlatform(AForm.Handle).Wnd,
+                       pChar(AMsg), apTitulo, MB_OK + MB_ICONWARNING);
+            Abort;
+       end
+   else
+       begin
+           Result := True;
+       end;
+
 end;
 
-function validaCNPJCPF(AValue, ACampo : String) : String;
+function validaCNPJCPF(AForm : TForm; AValue, ACampo : String) : Boolean;
 var
 AValor, ADoc : String;
 begin
      AValor := ApenasNumeros(AValue);
-
+     FValidador := TACBrValidador.Create(nil);
      case Length(AValor) of
           11 : begin
                    ADoc := 'C.P.F.';
@@ -48,17 +67,17 @@ begin
                    ADoc := 'C.N.P.J.';
                    FValidador.TipoDocto := docCNPJ;
                end;
-           0 :begin
-                   Result := 'O campo ' + ACampo + ' não poser ser nulo, verifique';
-                   Abort;
-              end;
      end;
 
      FValidador.Documento := AValor;
 
      case FValidador.Validar of
-          True : Result := '200';
-         False : Result := ADoc + ' inválido, verifique!';
+          True : Result := True;
+         False : begin
+                     MessageBox(WindowHandleToPlatform(AForm.Handle).Wnd,
+                                pChar(FValidador.MsgErro), apTitulo, MB_OK + MB_ICONWARNING);
+                     Abort;
+                 end;
      end;
 
 end;

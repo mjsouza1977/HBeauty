@@ -55,7 +55,7 @@ function cadastraFornecedor(AFornecedor : TModelFornecedor; AForm : TForm) : Str
 begin
      DocumentoRepetido(AFornecedor.CNPJCPF_FORN, 'CNPJCPF_FORN', 'NOME_FORN', 'HBFORNECEDOR', AForm, 'CNPJ/CPF', 'O fornecedor ');
      Result := ControllerClientModule.ModelMetodosClient.cadastraFornecedor(AFornecedor.IDVEND_FORN, AFornecedor.ENDERECO.NRLOG, AFornecedor.IMAGENS.IDIMAGEM,
-                                                                            AFornecedor.CODIGO_FORN, AFornecedor.CNPJCPF_FORN,AFornecedor.IERG_FORN,
+                                                                            AFornecedor.CNPJCPF_FORN,AFornecedor.IERG_FORN,
                                                                             AFornecedor.NOME_FORN, AFornecedor.PSEUDO_FORN, AFornecedor.ENDERECO.LOGRADOURO,
                                                                             AFornecedor.ENDERECO.COMPLLOG, AFornecedor.ENDERECO.BAIRROLOG,
                                                                             AFornecedor.ENDERECO.CEP, AFornecedor.ENDERECO.CIDADELOG,
@@ -65,7 +65,7 @@ end;
 function atualizaFornecedores(AFornecedor : TModelFornecedor) : String;
 begin
      Result := ControllerClientModule.ModelMetodosClient.atualizaFornecedores(AFornecedor.ID_FORN, AFornecedor.IDVEND_FORN, AFornecedor.ENDERECO.NRLOG,
-                                                                              AFornecedor.IMAGENS.IDIMAGEM, AFornecedor.CODIGO_FORN, AFornecedor.CNPJCPF_FORN,
+                                                                              AFornecedor.IMAGENS.IDIMAGEM, AFornecedor.CNPJCPF_FORN,
                                                                               AFornecedor.IERG_FORN, AFornecedor.NOME_FORN, AFornecedor.PSEUDO_FORN,
                                                                               AFornecedor.ENDERECO.LOGRADOURO, AFornecedor.ENDERECO.COMPLLOG,
                                                                               AFornecedor.ENDERECO.BAIRROLOG, AFornecedor.ENDERECO.CEP,

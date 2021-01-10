@@ -574,17 +574,8 @@ begin
      tabGerenciadorVendedores.TabIndex := 0;
      gclVendedor := TModelVendedor.Create(Self);
 
-     grdListaVendedor.Cells[0,0]  := 'Código';
-     grdListaVendedor.Cells[1,0]  := 'CPF';
-     grdListaVendedor.Cells[2,0]  := 'Nome';
-     grdListaVendedor.Cells[3,0]  := 'SobreNome';
-     grdListaVendedor.Cells[4,0]  := 'Logradouro';
-     grdListaVendedor.Cells[5,0]  := 'Nr.';
-     grdListaVendedor.Cells[6,0]  := 'Complemento';
-     grdListaVendedor.Cells[7,0]  := 'Bairro';
-     grdListaVendedor.Cells[8,0]  := 'CEP';
-     grdListaVendedor.Cells[9,0]  := 'Cidade';
-     grdListaVendedor.Cells[10,0] := 'UF';
+     CarregaGrid(nil, grdListaVendedor, AFieldsVendedores, ACaptionVendedores, ASizeColVendedores, True);
+
 end;
 
 procedure TfrmGerenciadorVendedores.grdListaVendedorCellClick(Sender: TObject; ACol, ARow: Integer);

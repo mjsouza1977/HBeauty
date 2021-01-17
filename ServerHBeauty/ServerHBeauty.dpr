@@ -22,7 +22,8 @@ uses
   Model.Metodos.Profissionais.Cargos.ServerHBeauty in 'Model\Metodos\Profissionais\Model.Metodos.Profissionais.Cargos.ServerHBeauty.pas',
   Model.Metodos.Vendedores.ServerHBeauty in 'Model\Metodos\Vendedores\Model.Metodos.Vendedores.ServerHBeauty.pas',
   Model.Metodos.Fornecedores.ServerHBeauty in 'Model\Metodos\Fornecedores\Model.Metodos.Fornecedores.ServerHBeauty.pas',
-  Model.Metodos.Marcas.Produto.ServerHBeauty in 'Model\Metodos\Produtos\Model.Metodos.Marcas.Produto.ServerHBeauty.pas';
+  Model.Metodos.Marcas.Produto.ServerHBeauty in 'Model\Metodos\Produtos\Model.Metodos.Marcas.Produto.ServerHBeauty.pas',
+  Model.Metodos.Produtos.ServerHBeauty in 'Model\Metodos\Produtos\Model.Metodos.Produtos.ServerHBeauty.pas';
 
 {$R *.res}
 

@@ -24,6 +24,7 @@
     <File Path="Model\Metodos\Imagens\Model.Metodos.Imagens.ServerHBeauty.pas"/>
     <File Path="Model\Metodos\Produtos"/>
     <File Path="Model\Metodos\Produtos\Model.Metodos.Marcas.Produto.ServerHBeauty.pas"/>
+    <File Path="Model\Metodos\Produtos\Model.Metodos.Produtos.ServerHBeauty.pas"/>
     <File Path="Model\Metodos\Profissionais"/>
     <File Path="Model\Metodos\Profissionais\Model.Metodos.Habilidades.ServerHBeauty.pas"/>
     <File Path="Model\Metodos\Profissionais\Model.Metodos.Profissionais.Cargos.ServerHBeauty.pas"/>

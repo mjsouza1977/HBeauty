@@ -10,7 +10,7 @@ uses System.SysUtils, System.Classes, System.Json,
      Model.Metodos.Profissionais.ServerHBeauty,
      Model.Metodos.Profissionais.Hablidades.ServerHBeauty, Model.Metodos.Terceirizadas.ServerHBeauty, Model.Metodos.Genericos.ServerHBeauty,
   Model.Metodos.Habilidades.ServerHBeauty, Model.Metodos.Profissionais.Cargos.ServerHBeauty, Model.Metodos.Fornecedores.ServerHBeauty,
-  Model.Metodos.Vendedores.ServerHBeauty, Model.Metodos.Marcas.Produto.ServerHBeauty;
+  Model.Metodos.Vendedores.ServerHBeauty, Model.Metodos.Marcas.Produto.ServerHBeauty, Model.Metodos.Produtos.ServerHBeauty;
 
 type
 {$METHODINFO ON}
@@ -81,6 +81,12 @@ type
     function ObterNomeImagem(AIDImagem : Integer) : String;
 
     function carregaCamposSQL(ASQL : String) : TFDJSONDataSets;
+
+    function pesquisaProdutos(APesquisa, ATipoPesquisa, ACampoPesquisa, ACampoOrdem : String; AIDProduto : Integer) : TFDJSONDataSets;
+    function cadastraProduto(AIDForn, AIDMarca : Integer; ACodBarras, ADescrProduto, AEmb, AUnd, AObsProd, AMedidaDose, ACCest, ACFiscal, AOrientacao, ADetalhes, AInformacoes : String;
+                             ACusto, AVenda, APromo, APeso, ADose, ALarg, AAlt, AComp : Currency) : String;
+    function atualizaProduto(AIDProd, AIDForn, AIDMarca : Integer; ACodBarras, ADescrProduto, AEmb, AUnd, AObsProd, AMedidaDose, ACCest, ACFiscal, AOrientacao,
+                             ADetalhes, AInformacoes : String; ACusto, AVenda, APromo, APeso, ADose, ALarg, AAlt, AComp : Currency) : String;
 
 
 
@@ -186,6 +192,14 @@ begin
      Result := Model.Metodos.Marcas.Produto.ServerHBeauty.atualizaMarca(AIDMarca, AIDLogoMarca, AMarca);
 end;
 
+function TModelMetodos.atualizaProduto(AIDProd, AIDForn, AIDMarca: Integer; ACodBarras, ADescrProduto, AEmb, AUnd, AObsProd, AMedidaDose, ACCest, ACFiscal, AOrientacao,
+  ADetalhes, AInformacoes: String; ACusto, AVenda, APromo, APeso, ADose, ALarg, AAlt, AComp: Currency): String;
+begin
+     Result := Model.Metodos.Produtos.ServerHBeauty.atualizaProduto(AIDProd, AIDForn, AIDMarca, ACodBarras, ADescrProduto, AEmb, AUnd, AObsProd, AMedidaDose,
+                                                                    ACCest, ACFiscal, AOrientacao, ADetalhes, AInformacoes, ACusto, AVenda, APromo, APeso,
+                                                                    ADose, ALarg, AAlt, AComp);
+end;
+
 function TModelMetodos.AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog: Integer; ANome, ASobreNome, ACPF, ARG, ALogradouro,
   AComplemento, ABairro, ACidade, AUF, ACep: String; ASalario, AComissao: Currency): String;
 begin
@@ -234,6 +248,14 @@ begin
      Model.Metodos.Fornecedores.ServerHBeauty.cadastraMarcaFornecedor(AIdForn, AIdMarca);
 end;
 
+function TModelMetodos.cadastraProduto(AIDForn, AIDMarca : Integer; ACodBarras, ADescrProduto, AEmb, AUnd, AObsProd, AMedidaDose, ACCest, ACFiscal, AOrientacao, ADetalhes, AInformacoes : String;
+                                       ACusto, AVenda, APromo, APeso, ADose, ALarg, AAlt, AComp : Currency) : String;
+begin
+     Result :=  Model.Metodos.Produtos.ServerHBeauty.cadastraProduto(AIDForn, AIDMarca, ACodBarras, ADescrProduto, AEmb, AUnd, AObsProd, AMedidaDose,
+                                                                     ACCest, ACFiscal, AOrientacao, ADetalhes, AInformacoes, ACusto, AVenda, APromo,
+                                                                     APeso, ADose, ALarg, AAlt, AComp);
+end;
+
 function TModelMetodos.CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ANome, ASobreNome, ACPF, ARG,
                                             ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
 begin
@@ -248,7 +270,7 @@ end;
 
 function TModelMetodos.CadastraTerceirizada(ANrLog: Integer; ARazao, AFantasia, ACNPJ, AIE, ALogradouro, AComplemento, ABairro, ACidade, AUF,  ACep: String): Integer;
 begin
-     Result := MOdel.Metodos.Terceirizadas.ServerHBeauty.CadastraTerceirizada(ANrLog, ARazao, AFantasia, ACNPJ, AIE, ALogradouro,
+     Result := Model.Metodos.Terceirizadas.ServerHBeauty.CadastraTerceirizada(ANrLog, ARazao, AFantasia, ACNPJ, AIE, ALogradouro,
                                                                               AComplemento, ABairro, ACidade, AUF, ACep);
 end;
 
@@ -346,6 +368,11 @@ end;
 function TModelMetodos.pesquisaMarcas(AIdMarca: Integer; AMarca: String): TFDJSONDataSets;
 begin
      Result := Model.Metodos.Marcas.Produto.ServerHBeauty.pesquisaMarcas(AIdMarca, AMarca);
+end;
+
+function TModelMetodos.pesquisaProdutos(APesquisa, ATipoPesquisa, ACampoPesquisa, ACampoOrdem : String; AIDProduto : Integer) : TFDJSONDataSets;
+begin
+     Result := Model.Metodos.Produtos.ServerHBeauty.pesquisaProdutos(APesquisa, ATipoPesquisa, ACampoPesquisa, ACampoOrdem, AIDProduto);
 end;
 
 function TModelMetodos.PesquisaVendedor(ANome, ACPF, ATipoPesquisa: String; AId: Integer): TFDJSONDataSets;

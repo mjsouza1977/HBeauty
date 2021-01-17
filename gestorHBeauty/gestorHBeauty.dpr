@@ -52,7 +52,8 @@ uses
   Model.Marca.Servidor.HBeauty in 'Model\DadosServidor\Model.Marca.Servidor.HBeauty.pas',
   Model.Marcas.HBeauty in 'Model\Model.Marcas.HBeauty.pas',
   View.Produtos.HBeauty in 'View\View.Produtos.HBeauty.pas' {frmGerenciadorProdutos},
-  Model.Produtos.HBeauty in 'Model\Model.Produtos.HBeauty.pas';
+  Model.Produtos.HBeauty in 'Model\Model.Produtos.HBeauty.pas',
+  Model.Produtos.Servidor.HBeauty in 'Model\DadosServidor\Model.Produtos.Servidor.HBeauty.pas';
 
 {$R *.res}
 

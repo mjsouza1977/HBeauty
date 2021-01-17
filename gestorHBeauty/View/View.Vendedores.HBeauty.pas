@@ -10,7 +10,13 @@ uses
 
   Units.Consts.HBeauty,
   Units.Enumerados.HBeauty,
-  Controller.Manipula.Design.HBeauty, Model.Vendedor.Servidor.HBeauty, Units.Utils.Dados.HBeauty, Units.Utils.HBeauty, Units.Strings.HBeauty, Controller.Formata.HBeauty;
+  Controller.Manipula.Design.HBeauty,
+  Model.Vendedor.Servidor.HBeauty,
+  Units.Utils.Dados.HBeauty,
+  Units.Utils.HBeauty,
+  Units.Strings.HBeauty,
+  Controller.Formata.HBeauty,
+  Model.Vendedores.HBeauty;
 
 type
   TfrmGerenciadorVendedores = class(TForm)
@@ -137,7 +143,7 @@ var
 implementation
 
 uses
-  Units.Classes.HBeauty, Model.Vendedores.HBeauty, Model.Dados.Server.HBeauty,
+  Units.Classes.HBeauty, Model.Dados.Server.HBeauty,
   Winapi.Windows, FMX.Platform.Win, Units.Mensagens.HBeauty,
   Model.Endereco.HBeauty, View.Contatos.HBeauty;
 

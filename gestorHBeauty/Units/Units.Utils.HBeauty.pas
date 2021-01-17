@@ -14,6 +14,8 @@ function validaCampoVazio(AForm : TForm; AValue, ACampo : String; ATamanho : Int
 
 procedure CarregaImagemRessource(Image : TImage; NomeImagem : String);
 procedure ControlaBotoes(AForm : TForm; AOpcao: Boolean);
+procedure FormataItensComboBox(ComboBox : TComboBox; Family : String; Size : Single);
+
 
 procedure NextField(Key : Word; ANext : TEdit); overload;
 procedure NextField(Key : Word; ANext : TComboBox); overload;
@@ -27,7 +29,25 @@ implementation
 
 uses
   Winapi.Windows, System.Classes, FMX.TMSButton, System.UITypes,
-  FMX.Platform.Win, Units.Strings.HBeauty, System.SysUtils;
+  FMX.Platform.Win, Units.Strings.HBeauty, System.SysUtils, FMX.Types;
+
+procedure FormataItensComboBox(ComboBox : TComboBox; Family : String; Size : Single);
+var
+  Item : TListBoxItem;
+  i : Integer;
+begin
+
+    for i := 0 to ComboBox.Count - 1 do
+        begin
+            Item := ComboBox.ListItems[i];
+            Item.Font.Family := Family;
+            Item.Font.Size   := Size;
+            Item.StyledSettings := Item.StyledSettings - [TStyledSetting.Family,
+                                                          TStyledSetting.Size,
+                                                          TStyledSetting.FontColor];
+        end;
+
+end;
 
 function validaCampoVazio(AForm : TForm; AValue, ACampo : String; ATamanho : Integer = 0) : Boolean;
 var

@@ -2,13 +2,9 @@ unit Model.Produtos.HBeauty;
 
 interface
 
-uses Units.Utils.HBeauty;
-
-implementation
-
 uses
   Winapi.Windows, FMX.Platform.Win, FMX.Forms, Units.Consts.HBeauty,
-  System.SysUtils;
+  System.SysUtils, Units.Utils.HBeauty;
 
 type
     TModelProdutos = class
@@ -41,6 +37,9 @@ type
     FESTOQUEAPP_PROD  : Currency;
     FForm             : TForm;
     FDATACAD_PROD: TDate;
+    FALTURA_PROD: Currency;
+    FLARGURA_PROD: Currency;
+    FCOMPR_PROD: Currency;
 
     procedure SetALOCK            (const Value: Boolean);
     procedure SetCCEST_PROD       (const Value: String);
@@ -69,6 +68,9 @@ type
     procedure SetRESERVALJ_PROD   (const Value: Currency);
     procedure SetUND_PROD         (const Value: String);
     procedure SetDATACAD_PROD(const Value: TDate);
+    procedure SetALTURA_PROD(const Value: Currency);
+    procedure SetCOMPR_PROD(const Value: Currency);
+    procedure SetLARGURA_PROD(const Value: Currency);
 
     public
     property ID_PROD            : Integer  read FID_PROD           write SetID_PROD;
@@ -96,11 +98,15 @@ type
     property PRPROMO_PROD       : Currency read FPRPROMO_PROD      write SetPRPROMO_PROD;
     property PESO_PROD          : Currency read FPESO_PROD         write SetPESO_PROD;
     property DOSE_PROD          : Currency read FDOSE_PROD         write SetDOSE_PROD;
+    property LARGURA_PROD       : Currency read FLARGURA_PROD      write SetLARGURA_PROD;
+    property ALTURA_PROD        : Currency read FALTURA_PROD       write SetALTURA_PROD;
+    property COMPR_PROD         : Currency read FCOMPR_PROD        write SetCOMPR_PROD;
     property ALOCK              : Boolean  read FALOCK             write SetALOCK;
     property DATACAD_PROD       : TDate    read FDATACAD_PROD      write SetDATACAD_PROD;
-
     constructor Create(AForm : TForm);
     end;
+
+implementation
 
 { TModelProdutos }
 
@@ -112,6 +118,11 @@ end;
 procedure TModelProdutos.SetALOCK(const Value: Boolean);
 begin
   FALOCK := Value;
+end;
+
+procedure TModelProdutos.SetALTURA_PROD(const Value: Currency);
+begin
+  FALTURA_PROD := Value;
 end;
 
 procedure TModelProdutos.SetCCEST_PROD(const Value: String);
@@ -132,6 +143,11 @@ end;
 procedure TModelProdutos.SetCODIGO_PROD(const Value: Integer);
 begin
   FCODIGO_PROD := Value;
+end;
+
+procedure TModelProdutos.SetCOMPR_PROD(const Value: Currency);
+begin
+  FCOMPR_PROD := Value;
 end;
 
 procedure TModelProdutos.SetDATACAD_PROD(const Value: TDate);
@@ -196,6 +212,11 @@ end;
 procedure TModelProdutos.SetINFO_PROD(const Value: String);
 begin
   FINFO_PROD := Value;
+end;
+
+procedure TModelProdutos.SetLARGURA_PROD(const Value: Currency);
+begin
+  FLARGURA_PROD := Value;
 end;
 
 procedure TModelProdutos.SetMEDIDADOSE_PROD(const Value: String);

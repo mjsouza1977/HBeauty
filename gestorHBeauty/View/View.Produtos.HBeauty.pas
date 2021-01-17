@@ -7,7 +7,9 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.EditBox, FMX.NumberBox, FMX.Effects, FMX.Filter.Effects, FMX.ListBox, FMX.StdCtrls,
   FMX.TMSBaseControl, FMX.TMSGridCell, FMX.TMSGridOptions, FMX.TMSGridData, FMX.TMSCustomGrid, FMX.TMSGrid, FMX.Objects, FMX.Layouts, FMX.Edit, FMX.TabControl,
   FMX.Controls.Presentation, FMX.TMSButton, FMX.ScrollBox, FMX.Memo, Units.Utils.HBeauty, Controller.Manipula.Design.HBeauty, Units.Utils.Dados.HBeauty,
-  Model.Fornecedor.Servidor.HBeauty, Model.Genericos.Servidor.HBeauty;
+  Model.Fornecedor.Servidor.HBeauty, Model.Genericos.Servidor.HBeauty,
+  Units.Enumerados.HBeauty, Model.Produtos.HBeauty, Model.Produtos.Servidor.HBeauty,
+  Units.Consts.HBeauty;
 
 type
   TfrmGerenciadorProdutos = class(TForm)
@@ -51,60 +53,56 @@ type
     cbMarcas: TComboBox;
     Label3: TLabel;
     Rectangle2: TRectangle;
-    edtRazaoSocial: TEdit;
+    edtProduto: TEdit;
     Label5: TLabel;
-    Rectangle10: TRectangle;
-    edtCNPJ: TEdit;
-    Label10: TLabel;
     Rectangle4: TRectangle;
-    Edit1: TEdit;
     Label6: TLabel;
     Rectangle7: TRectangle;
     Label8: TLabel;
-    NumberBox1: TNumberBox;
+    edtEmb: TNumberBox;
     Rectangle5: TRectangle;
-    ComboBox2: TComboBox;
+    cbUnid: TComboBox;
     Label7: TLabel;
     Rectangle15: TRectangle;
     Label15: TLabel;
-    NumberBox4: TNumberBox;
+    edtPeso: TNumberBox;
     Rectangle18: TRectangle;
     Label17: TLabel;
-    NumberBox5: TNumberBox;
+    edtDose: TNumberBox;
     Rectangle17: TRectangle;
-    ComboBox1: TComboBox;
+    cbMedidaDose: TComboBox;
     Label16: TLabel;
     Rectangle9: TRectangle;
-    Edit3: TEdit;
+    edtCEST: TEdit;
     Label11: TLabel;
     Rectangle8: TRectangle;
-    Edit2: TEdit;
+    edtCF: TEdit;
     Label9: TLabel;
     Rectangle13: TRectangle;
     Label14: TLabel;
-    NumberBox3: TNumberBox;
+    edtPromocao: TNumberBox;
     Rectangle12: TRectangle;
     Label12: TLabel;
-    NumberBox2: TNumberBox;
+    edtVenda: TNumberBox;
     Rectangle16: TRectangle;
     lblNumero: TLabel;
-    edtNumeroLog: TNumberBox;
+    edtCusto: TNumberBox;
     Rectangle19: TRectangle;
     Label18: TLabel;
-    NumberBox6: TNumberBox;
+    edtLargura: TNumberBox;
     Rectangle20: TRectangle;
     Label19: TLabel;
-    NumberBox7: TNumberBox;
+    edtAltura: TNumberBox;
     Rectangle21: TRectangle;
     Label20: TLabel;
-    NumberBox8: TNumberBox;
+    edtComprimento: TNumberBox;
     Label22: TLabel;
     Rectangle22: TRectangle;
     Label23: TLabel;
     Rectangle23: TRectangle;
     Label24: TLabel;
-    Label25: TLabel;
-    Label26: TLabel;
+    lblMT3: TLabel;
+    lblCM3: TLabel;
     Label21: TLabel;
     Label27: TLabel;
     tabAPP: TTabItem;
@@ -112,7 +110,7 @@ type
     tabInformações: TTabItem;
     tabDetalhes: TTabItem;
     tabFotos: TTabItem;
-    Memo1: TMemo;
+    mmObservacao: TMemo;
     Rectangle24: TRectangle;
     Label28: TLabel;
     tabRelacionados: TTabItem;
@@ -125,21 +123,46 @@ type
     btnIncluir: TTMSFMXButton;
     btnSalvar: TTMSFMXButton;
     btnCancelar: TTMSFMXButton;
-    recRodapeBotoesApp: TRectangle;
-    TMSFMXButton1: TTMSFMXButton;
-    TMSFMXButton2: TTMSFMXButton;
-    TMSFMXButton3: TTMSFMXButton;
-    TMSFMXButton4: TTMSFMXButton;
-    TMSFMXButton5: TTMSFMXButton;
+    edtBarras: TEdit;
+    Rectangle10: TRectangle;
+    cbTipoPesquisa: TComboBox;
+    Label10: TLabel;
+    Rectangle25: TRectangle;
+    mmInformacoes: TMemo;
+    Rectangle26: TRectangle;
+    mmDetalhes: TMemo;
+    Rectangle27: TRectangle;
+    mmOrientacoes: TMemo;
     procedure Button1Click(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure tabGerenciadorProdutosChange(Sender: TObject);
     procedure grdListaProdutosCellClick(Sender: TObject; ACol, ARow: Integer);
-    procedure cbMarcasClick(Sender: TObject);
+    procedure cbFornecedoresChange(Sender: TObject);
+    procedure edtProdutoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtBarrasKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtEmbKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure cbUnidKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtPesoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtDoseKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure cbMedidaDoseKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtLarguraKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtAlturaKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtComprimentoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtCustoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtVendaKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtPromocaoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtCFKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure edtCESTKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+    procedure btnFecharClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
   private
     FIdSelecionado : Integer;
-    procedure ControlaTab(AOpcao: Boolean);
+    FStatus : TAcaoBotao;
+    procedure ControlaTab(Lista, Ficha, APP : Boolean);
+    procedure AlimentaClasseProdutos;
+
     { Private declarations }
   public
     { Public declarations }
@@ -151,13 +174,213 @@ var
 implementation
 
 uses
-  Units.Consts.HBeauty, Model.Dados.Server.HBeauty, FireDAC.Comp.Client;
+  Model.Dados.Server.HBeauty,
+  FireDAC.Comp.Client,
+  Units.Classes.HBeauty,
+  Winapi.Windows,
+  FMX.Platform.Win,
+  Units.Strings.HBeauty, Units.Mensagens.HBeauty;
 
 {$R *.fmx}
 
+procedure TfrmGerenciadorProdutos.AlimentaClasseProdutos;
+begin
+
+     gclProdutos.IDFORN_PROD       := Integer(cbFornecedores.Items.Objects[cbFornecedores.ItemIndex]);
+     gclProdutos.IDMARCA_PROD      := Integer(cbMarcas.Items.Objects[cbMarcas.ItemIndex]);
+     gclProdutos.CODIGOBARRAS_PROD := edtBarras.Text;
+     gclProdutos.DESCR_PROD        := edtProduto.Text;
+     gclProdutos.EMB_PROD          := edtEmb.Value.ToString;
+     gclProdutos.UND_PROD          := cbUnid.Items.Text;
+     gclProdutos.ORIENT_PROD       := mmOrientacoes.Text;
+     gclProdutos.OBS_PROD          := mmObservacao.Text;
+     gclProdutos.MEDIDADOSE_PROD   := cbMedidaDose.Items.Text;
+     gclProdutos.CCEST_PROD        := edtCEST.Text;
+     gclProdutos.CLSSFISCAL_PROD   := edtCF.Text;
+     gclProdutos.INFO_PROD         := mmInformacoes.Text;
+     gclProdutos.DETALHES_PROD     := mmDetalhes.Text;
+     gclProdutos.PRCUSTO_PROD      := edtCusto.Value;
+     gclProdutos.PRVENDA_PROD      := edtVenda.Value;
+     gclProdutos.PRPROMO_PROD      := edtPromocao.Value;
+     gclProdutos.PESO_PROD         := edtPeso.Value;
+     gclProdutos.DOSE_PROD         := edtDose.Value;
+     gclProdutos.LARGURA_PROD      := edtLargura.Value;
+     gclProdutos.ALTURA_PROD       := edtAltura.Value;
+     gclProdutos.COMPR_PROD        := edtComprimento.Value;
+
+end;
+
+procedure TfrmGerenciadorProdutos.btnAlterarClick(Sender: TObject);
+begin
+     if FIdSelecionado > 0 then
+         begin
+             Case BloqueiaRegistro(True, FIdSelecionado, tcProdutos) of
+                  False : begin
+                              FStatus                := abAlterar;
+                              pesquisaProdutos('','','','DESCR_PROD', FIdSelecionado);
+
+                              cbFornecedores.ItemIndex := cbFornecedores.Items.IndexOf(ModelConexaoDados.memProdutos.FieldByName('NOME_FORN').AsString);
+                              cbMarcas.ItemIndex       := cbMarcas.Items.IndexOf(ModelConexaoDados.memProdutos.FieldByName('MARCA_MARCA').AsString);
+
+                              edtProduto.Text          := ModelConexaoDados.memProdutos.FieldByName('DESCR_PROD').AsString;
+                              edtBarras.Text           := ModelConexaoDados.memProdutos.FieldByName('CODIGOBARRAS_PROD').AsString;
+                              edtEmb.Text              := ModelConexaoDados.memProdutos.FieldByName('EMB_PROD').AsString;
+                              cbUnid.ItemIndex         := cbUnid.Items.IndexOf(ModelConexaoDados.memProdutos.FieldByName('UND_PROD').AsString);
+                              edtPeso.Value            := ModelConexaoDados.memProfissionais.FieldByName('PESO_PROD').AsCurrency;
+                              edtDose.Value            := ModelConexaoDados.memProdutos.FieldByName('DOSE_PROD').AsCurrency;
+                              cbMedidaDose.ItemIndex   := cbMedidaDose.Items.IndexOf(ModelConexaoDados.memProdutos.FieldByName('MEDIDADOSE_PROD').AsString);
+                              edtLargura.Value         := ModelConexaoDados.memProdutos.FieldByName('LARGURA_PROD').AsCurrency;
+                              edtAltura.Value          := ModelConexaoDados.memProdutos.FieldByName('ALTURA_PROD').AsCurrency;
+                              edtComprimento.Value     := ModelConexaoDados.memProdutos.FieldByName('COMPR_PROD').AsCurrency;
+                              edtCusto.Value           := ModelConexaoDados.memProdutos.FieldByName('PRCUSTO_PROD').AsCurrency;
+                              edtVenda.Value           := ModelConexaoDados.memProdutos.FieldByName('PRVENDA_PROD').AsCurrency;
+                              edtPromocao.Value        := ModelConexaoDados.memProdutos.FieldByName('PRPROMO_PROD').AsCurrency;
+                              edtCF.Text               := ModelConexaoDados.memProdutos.FieldByName('CLSSFISCAL_PROD').AsString;
+                              edtCEST.Text             := ModelConexaoDados.memProdutos.FieldByName('CCEST_PROD').AsString;
+                              mmObservacao.Text        := ModelConexaoDados.memProdutos.FieldByName('OBS_PROD').AsString;
+                              mmInformacoes.Text       := ModelConexaoDados.memProdutos.FieldByName('INFO_PROD').AsString;
+                              mmDetalhes.Text          := ModelConexaoDados.memProdutos.FieldByName('DETALHES_PROD').AsString;
+                              mmOrientacoes.Text       := ModelConexaoDados.memProdutos.FieldByName('ORIENT_PROD').AsString;
+
+                              AlimentaClasseProdutos;
+
+                              ControlaBotoes(Self, False);
+                              tabGerenciadorProdutos.TabIndex := 1;
+                              ControlaTab(False, True, True);
+                          end;
+                   True : begin
+                               MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                          'Este registro esta sendo editado por outro usuário!',
+                                          apTitulo, MB_OK + MB_ICONSTOP);
+                               Exit;
+                          end;
+             end;
+         end
+     else
+         begin
+             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                        'Selecione um produto na lista para alterar!',
+                        apTitulo, MB_OK + MB_ICONINFORMATION);
+             Exit;
+         end;
+end;
+
+procedure TfrmGerenciadorProdutos.btnFecharClick(Sender: TObject);
+begin
+Close;
+end;
+
 procedure TfrmGerenciadorProdutos.btnIncluirClick(Sender: TObject);
 begin
+     ControlaTab(False, True, True);
+     LimpaForm(Self);
      ControlaBotoes(Self, False);
+     FStatus := abIncluir;
+     tabCabecarioFornecedor.TabIndex := 1;
+end;
+
+procedure TfrmGerenciadorProdutos.btnSalvarClick(Sender: TObject);
+var
+rResultado : String;
+begin
+    rResultado := '';
+    case FStatus of
+         abIncluir : begin
+                         case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                         'Confirma a inclusão deste produto?',
+                                         apTitulo, MB_YESNO + MB_ICONQUESTION) of
+                             IDYES : begin
+                                         AlimentaClasseProdutos;
+                                         Try
+                                            rResultado := cadastraProduto(gclProdutos);
+
+                                            case isNumeric(rResultado) of
+                                                True : begin
+                                                           case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                           'Produto cadastrado com sucesso.'+#13#13+
+                                                                           'Deseja cadastrar outro produto?', apTitulo,
+                                                                            MB_YESNO + MB_ICONQUESTION) of
+                                                               IDYES : begin
+                                                                            FStatus := abIncluir;
+                                                                            LimpaForm(Self);
+                                                                            cbFornecedores.SetFocus;
+                                                                            cbMarcas.Items.Clear;
+                                                                       end;
+                                                                IDNO : begin
+                                                                            FStatus := abNulo;
+                                                                            ControlaTab(True, False, False);
+                                                                            ControlaBotoes(Self, True);
+                                                                            tabGerenciadorProdutos.TabIndex := 0;
+                                                                       end;
+                                                           end;
+
+                                                       end;
+                                               False : begin
+                                                           MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                      pChar(Format(MSG_ERRO_SERVIDOR,[rResultado])),
+                                                                      apTitulo, MB_OK +MB_ICONWARNING);
+                                                           Exit;
+                                                       end;
+                                            end;
+
+                                         Except
+                                             On E:Exception do
+                                                 begin
+                                                     if Pos('aborted', E.Message) = 0 then
+                                                         begin
+                                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                        pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                                        apTitulo, MB_OK +MB_ICONWARNING);
+                                                             Exit;
+                                                         end;
+                                                 end;
+
+                                         end;
+                                     end;
+                         end;
+                     end;
+         abAlterar : begin
+                         case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                         'Confirma a alteração deste produto?',
+                                         apTitulo, MB_YESNO + MB_ICONQUESTION) of
+                             IDYES : begin
+                                         try
+                                             AlimentaClasseProdutos;
+                                             rResultado := atualizaProduto(gclProdutos);
+                                             if rResultado = '' then
+                                                 begin
+                                                     BloqueiaRegistro(False, FIdSelecionado, tcProdutos);
+                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                'Produto salvo com sucesso!', apTitulo,
+                                                                MB_OK + MB_ICONINFORMATION);
+                                                     pesquisaProdutos('','Lista','','DESCR_PROD');
+                                                     LimpaForm(Self);
+                                                     ControlaTab(True, False, False);
+                                                     ControlaBotoes(Self, True);
+                                                     tabGerenciadorProdutos.TabIndex := 0;;
+                                                 end
+                                             else
+                                                 begin
+                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                pChar(Format(MSG_ERRO_SERVIDOR,[rResultado])),
+                                                                apTitulo, MB_OK + MB_ICONWARNING);
+                                                     Exit;
+                                                 end;
+
+                                         except
+                                              On E:Exception do
+                                                 begin
+                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                                apTitulo, MB_OK + MB_ICONWARNING);
+                                                     Exit;
+                                                 end;
+                                         end;
+                                     end;
+                         end;
+                     end;
+    end;
+
 end;
 
 procedure TfrmGerenciadorProdutos.Button1Click(Sender: TObject);
@@ -196,48 +419,141 @@ begin
          end;
 end;
 
-procedure TfrmGerenciadorProdutos.cbMarcasClick(Sender: TObject);
+procedure TfrmGerenciadorProdutos.cbFornecedoresChange(Sender: TObject);
 var
 AMemTable : TFDMemTable;
 ASQL : String;
 begin
 
-    try
-        AMemTable := TFDMemTable.Create(nil);
-        ASQL := 'SELECT m.ID_MARCA, m.MARCA_MARCA FROM HBMARCA ' +
-                'WHERE ID_MARCA IN (SELECT r.IDMARCA_FORNXMARCA FROM HBFORNXMARCA r, HBFORNECEDOR f ' +
-                                   'WHERE r.IDFORN_FORNXMARCA = f.ID_FORN)';
-        carregaCamposSQL(AMemTable, ASQL);
-        AMemTable.First;
-        cbMarcas.Clear;
+    cbMarcas.Clear;
+    if cbFornecedores.ItemIndex > -1 then
+        begin
+            try
+                AMemTable := TFDMemTable.Create(nil);
+                ASQL := 'SELECT m.ID_MARCA, m.MARCA_MARCA FROM HBMARCA m ' +
+                        'WHERE m.ID_MARCA IN (SELECT r.IDMARCA_FORNXMARCA FROM HBFORNXMARCA r, HBFORNECEDOR f ' +
+                                              'WHERE (r.IDFORN_FORNXMARCA = f.ID_FORN) AND ' +
+                                              '(f.ID_FORN = ' + Integer(cbFornecedores.Items.Objects[cbFornecedores.ItemIndex]).ToString + '))';
+                carregaCamposSQL(AMemTable, ASQL);
+                AMemTable.First;
 
-        while not AMemTable.Eof do
-            begin
-                cbMarcas.Items.AddObject(AMemTable.FieldByName('MARCA_MARCA').AsString,
-                                         TObject(AMemTable.FieldByName('ID_MARCA').AsInteger));
-                AMemTable.Next;
+                while not AMemTable.Eof do
+                    begin
+                        cbMarcas.Items.AddObject(AMemTable.FieldByName('MARCA_MARCA').AsString,
+                                                 TObject(AMemTable.FieldByName('ID_MARCA').AsInteger));
+                        AMemTable.Next;
+                    end;
+            finally
+                FreeAndNil(AMemTable);
             end;
-    finally
-        FreeAndNil(AMemTable);
-    end;
+        end;
+end;
+
+procedure TfrmGerenciadorProdutos.cbMedidaDoseKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtLargura);
+end;
+
+procedure TfrmGerenciadorProdutos.cbUnidKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtPeso);
+end;
+
+procedure TfrmGerenciadorProdutos.ControlaTab(Lista, Ficha, APP : Boolean);
+begin
+
+     tabListaProdutos.Visible := Lista;
+     tabFichaProdutos.Visible := Ficha;
+     tabAPP.Visible           := App;
 
 end;
 
-procedure TfrmGerenciadorProdutos.ControlaTab(AOpcao : Boolean);
+procedure TfrmGerenciadorProdutos.edtAlturaKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtComprimento);
+end;
+
+procedure TfrmGerenciadorProdutos.edtBarrasKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtEmb);
+end;
+
+procedure TfrmGerenciadorProdutos.edtCESTKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, mmObservacao);
+end;
+
+procedure TfrmGerenciadorProdutos.edtCFKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtCEST);
+end;
+
+procedure TfrmGerenciadorProdutos.edtComprimentoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtCusto);
+end;
+
+procedure TfrmGerenciadorProdutos.edtCustoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtVenda);
+end;
+
+procedure TfrmGerenciadorProdutos.edtDoseKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, cbMedidaDose);
+end;
+
+procedure TfrmGerenciadorProdutos.edtEmbKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, cbUnid);
+end;
+
+procedure TfrmGerenciadorProdutos.edtLarguraKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtAltura);
+end;
+
+procedure TfrmGerenciadorProdutos.edtPesoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtDose);
+end;
+
+procedure TfrmGerenciadorProdutos.edtProdutoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtBarras);
+end;
+
+procedure TfrmGerenciadorProdutos.edtPromocaoKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtCF);
+end;
+
+procedure TfrmGerenciadorProdutos.edtVendaKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char; Shift: TShiftState);
+begin
+NextField(Key, edtPromocao);
+end;
+
+procedure TfrmGerenciadorProdutos.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 
-     tabListaProdutos.Visible := not AOpcao;
-     tabFichaProdutos.Visible := Aopcao;
-     tabFichaProdutos.Visible := AOpcao;
+     FreeAndNil(gclProdutos);
+     Action := TCloseAction.caFree;
 
 end;
 
 procedure TfrmGerenciadorProdutos.FormCreate(Sender: TObject);
 begin
      CarregaPersonalizacaoCabecarioRodape(Self);
-     CarregaGrid(nil, grdListaProdutos, AFieldsProdutos, ACaptionProdutos, ASizeColProdutos, True);
-     carregaCamposSelecionados(ModelConexaoDados.memFornecedores, 'ID_FORN, NOME_FORN', 'HBFORNECEDOR');
+     pesquisaProdutos('','Lista','','DESCR_PROD');
+     CarregaGrid(ModelConexaoDados.memProdutos, grdListaProdutos, AFieldsProdutos, ACaptionProdutos, ASizeColProdutos, True);
 
+     FormataItensComboBox(cbTipoPesquisa, 'Segoe UI', 14);
+     ControlaTab(True, False, False);
+
+     gclProdutos := TModelProdutos.Create(Self);
+
+
+     carregaCamposSelecionados(ModelConexaoDados.memFornecedores, 'ID_FORN, NOME_FORN', 'HBFORNECEDOR');
      ModelConexaoDados.memFornecedores.First;
      cbFornecedores.Clear;
 
@@ -252,14 +568,6 @@ end;
 procedure TfrmGerenciadorProdutos.grdListaProdutosCellClick(Sender: TObject; ACol, ARow: Integer);
 begin
     FIdSelecionado := ExtraiTextoGrid(grdListaProdutos.Cells[0, ARow]).ToInteger;
-    ControlaTab(False);
-end;
-
-procedure TfrmGerenciadorProdutos.tabGerenciadorProdutosChange(Sender: TObject);
-begin
-     if tabGerenciadorProdutos.ActiveTab = tabAPP then
-         recRodapeBotoesPrincipal.Visible := False else
-         recRodapeBotoesPrincipal.Visible := True;
 end;
 
 end.

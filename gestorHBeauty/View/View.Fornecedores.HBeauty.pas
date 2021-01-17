@@ -218,7 +218,7 @@ begin
 
                             AlimentaClasseFornecedores;
 
-                            if ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsString <> '' then
+                            if ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsString > '0' then
                                 begin
                                     gclFornecedor.IMAGENS.IDIMAGEM := ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsInteger;
                                     recLogoFornecedor.Fill.Bitmap.Bitmap.LoadFromFile(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM));

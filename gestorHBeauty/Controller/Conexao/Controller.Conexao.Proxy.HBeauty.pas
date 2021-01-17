@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 09/01/2021 21:05:01
+// 17/01/2021 18:13:56
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -87,6 +87,10 @@ type
     FObterNomeImagemCommand: TDSRestCommand;
     FcarregaCamposSQLCommand: TDSRestCommand;
     FcarregaCamposSQLCommand_Cache: TDSRestCommand;
+    FpesquisaProdutosCommand: TDSRestCommand;
+    FpesquisaProdutosCommand_Cache: TDSRestCommand;
+    FcadastraProdutoCommand: TDSRestCommand;
+    FatualizaProdutoCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -163,6 +167,10 @@ type
     function ObterNomeImagem(AIDImagem: Integer; const ARequestFilter: string = ''): string;
     function carregaCamposSQL(ASQL: string; const ARequestFilter: string = ''): TFDJSONDataSets;
     function carregaCamposSQL_Cache(ASQL: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function pesquisaProdutos(APesquisa: string; ATipoPesquisa: string; ACampoPesquisa: string; ACampoOrdem: string; AIDProduto: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
+    function pesquisaProdutos_Cache(APesquisa: string; ATipoPesquisa: string; ACampoPesquisa: string; ACampoOrdem: string; AIDProduto: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
+    function cadastraProduto(AIDForn: Integer; AIDMarca: Integer; ACodBarras: string; ADescrProduto: string; AEmb: string; AUnd: string; AObsProd: string; AMedidaDose: string; ACCest: string; ACFiscal: string; AOrientacao: string; ADetalhes: string; AInformacoes: string; ACusto: Currency; AVenda: Currency; APromo: Currency; APeso: Currency; ADose: Currency; ALarg: Currency; AAlt: Currency; AComp: Currency; const ARequestFilter: string = ''): string;
+    function atualizaProduto(AIDProd: Integer; AIDForn: Integer; AIDMarca: Integer; ACodBarras: string; ADescrProduto: string; AEmb: string; AUnd: string; AObsProd: string; AMedidaDose: string; ACCest: string; ACFiscal: string; AOrientacao: string; ADetalhes: string; AInformacoes: string; ACusto: Currency; AVenda: Currency; APromo: Currency; APeso: Currency; ADose: Currency; ALarg: Currency; AAlt: Currency; AComp: Currency; const ARequestFilter: string = ''): string;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -770,6 +778,79 @@ const
   (
     (Name: 'ASQL'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_pesquisaProdutos: array [0..5] of TDSRestParameterMetaData =
+  (
+    (Name: 'APesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACampoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACampoOrdem'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIDProduto'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 37; TypeName: 'TFDJSONDataSets')
+  );
+
+  TModelMetodos_pesquisaProdutos_Cache: array [0..5] of TDSRestParameterMetaData =
+  (
+    (Name: 'APesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATipoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACampoPesquisa'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACampoOrdem'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIDProduto'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
+  );
+
+  TModelMetodos_cadastraProduto: array [0..21] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIDForn'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIDMarca'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ACodBarras'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ADescrProduto'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AEmb'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AUnd'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AObsProd'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AMedidaDose'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACCest'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACFiscal'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AOrientacao'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ADetalhes'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AInformacoes'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACusto'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'AVenda'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'APromo'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'APeso'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'ADose'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'ALarg'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'AAlt'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'AComp'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_atualizaProduto: array [0..22] of TDSRestParameterMetaData =
+  (
+    (Name: 'AIDProd'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIDForn'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'AIDMarca'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
+    (Name: 'ACodBarras'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ADescrProduto'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AEmb'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AUnd'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AObsProd'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AMedidaDose'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACCest'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACFiscal'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AOrientacao'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ADetalhes'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AInformacoes'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ACusto'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'AVenda'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'APromo'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'APeso'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'ADose'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'ALarg'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'AAlt'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: 'AComp'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
   );
 
 implementation
@@ -2214,6 +2295,123 @@ begin
   Result := TDSRestCachedTFDJSONDataSets.Create(FcarregaCamposSQLCommand_Cache.Parameters[1].Value.GetString);
 end;
 
+function TModelMetodosClient.pesquisaProdutos(APesquisa: string; ATipoPesquisa: string; ACampoPesquisa: string; ACampoOrdem: string; AIDProduto: Integer; const ARequestFilter: string): TFDJSONDataSets;
+begin
+  if FpesquisaProdutosCommand = nil then
+  begin
+    FpesquisaProdutosCommand := FConnection.CreateCommand;
+    FpesquisaProdutosCommand.RequestType := 'GET';
+    FpesquisaProdutosCommand.Text := 'TModelMetodos.pesquisaProdutos';
+    FpesquisaProdutosCommand.Prepare(TModelMetodos_pesquisaProdutos);
+  end;
+  FpesquisaProdutosCommand.Parameters[0].Value.SetWideString(APesquisa);
+  FpesquisaProdutosCommand.Parameters[1].Value.SetWideString(ATipoPesquisa);
+  FpesquisaProdutosCommand.Parameters[2].Value.SetWideString(ACampoPesquisa);
+  FpesquisaProdutosCommand.Parameters[3].Value.SetWideString(ACampoOrdem);
+  FpesquisaProdutosCommand.Parameters[4].Value.SetInt32(AIDProduto);
+  FpesquisaProdutosCommand.Execute(ARequestFilter);
+  if not FpesquisaProdutosCommand.Parameters[5].Value.IsNull then
+  begin
+    FUnMarshal := TDSRestCommand(FpesquisaProdutosCommand.Parameters[5].ConnectionHandler).GetJSONUnMarshaler;
+    try
+      Result := TFDJSONDataSets(FUnMarshal.UnMarshal(FpesquisaProdutosCommand.Parameters[5].Value.GetJSONValue(True)));
+      if FInstanceOwner then
+        FpesquisaProdutosCommand.FreeOnExecute(Result);
+    finally
+      FreeAndNil(FUnMarshal)
+    end
+  end
+  else
+    Result := nil;
+end;
+
+function TModelMetodosClient.pesquisaProdutos_Cache(APesquisa: string; ATipoPesquisa: string; ACampoPesquisa: string; ACampoOrdem: string; AIDProduto: Integer; const ARequestFilter: string): IDSRestCachedTFDJSONDataSets;
+begin
+  if FpesquisaProdutosCommand_Cache = nil then
+  begin
+    FpesquisaProdutosCommand_Cache := FConnection.CreateCommand;
+    FpesquisaProdutosCommand_Cache.RequestType := 'GET';
+    FpesquisaProdutosCommand_Cache.Text := 'TModelMetodos.pesquisaProdutos';
+    FpesquisaProdutosCommand_Cache.Prepare(TModelMetodos_pesquisaProdutos_Cache);
+  end;
+  FpesquisaProdutosCommand_Cache.Parameters[0].Value.SetWideString(APesquisa);
+  FpesquisaProdutosCommand_Cache.Parameters[1].Value.SetWideString(ATipoPesquisa);
+  FpesquisaProdutosCommand_Cache.Parameters[2].Value.SetWideString(ACampoPesquisa);
+  FpesquisaProdutosCommand_Cache.Parameters[3].Value.SetWideString(ACampoOrdem);
+  FpesquisaProdutosCommand_Cache.Parameters[4].Value.SetInt32(AIDProduto);
+  FpesquisaProdutosCommand_Cache.ExecuteCache(ARequestFilter);
+  Result := TDSRestCachedTFDJSONDataSets.Create(FpesquisaProdutosCommand_Cache.Parameters[5].Value.GetString);
+end;
+
+function TModelMetodosClient.cadastraProduto(AIDForn: Integer; AIDMarca: Integer; ACodBarras: string; ADescrProduto: string; AEmb: string; AUnd: string; AObsProd: string; AMedidaDose: string; ACCest: string; ACFiscal: string; AOrientacao: string; ADetalhes: string; AInformacoes: string; ACusto: Currency; AVenda: Currency; APromo: Currency; APeso: Currency; ADose: Currency; ALarg: Currency; AAlt: Currency; AComp: Currency; const ARequestFilter: string): string;
+begin
+  if FcadastraProdutoCommand = nil then
+  begin
+    FcadastraProdutoCommand := FConnection.CreateCommand;
+    FcadastraProdutoCommand.RequestType := 'GET';
+    FcadastraProdutoCommand.Text := 'TModelMetodos.cadastraProduto';
+    FcadastraProdutoCommand.Prepare(TModelMetodos_cadastraProduto);
+  end;
+  FcadastraProdutoCommand.Parameters[0].Value.SetInt32(AIDForn);
+  FcadastraProdutoCommand.Parameters[1].Value.SetInt32(AIDMarca);
+  FcadastraProdutoCommand.Parameters[2].Value.SetWideString(ACodBarras);
+  FcadastraProdutoCommand.Parameters[3].Value.SetWideString(ADescrProduto);
+  FcadastraProdutoCommand.Parameters[4].Value.SetWideString(AEmb);
+  FcadastraProdutoCommand.Parameters[5].Value.SetWideString(AUnd);
+  FcadastraProdutoCommand.Parameters[6].Value.SetWideString(AObsProd);
+  FcadastraProdutoCommand.Parameters[7].Value.SetWideString(AMedidaDose);
+  FcadastraProdutoCommand.Parameters[8].Value.SetWideString(ACCest);
+  FcadastraProdutoCommand.Parameters[9].Value.SetWideString(ACFiscal);
+  FcadastraProdutoCommand.Parameters[10].Value.SetWideString(AOrientacao);
+  FcadastraProdutoCommand.Parameters[11].Value.SetWideString(ADetalhes);
+  FcadastraProdutoCommand.Parameters[12].Value.SetWideString(AInformacoes);
+  FcadastraProdutoCommand.Parameters[13].Value.AsCurrency := ACusto;
+  FcadastraProdutoCommand.Parameters[14].Value.AsCurrency := AVenda;
+  FcadastraProdutoCommand.Parameters[15].Value.AsCurrency := APromo;
+  FcadastraProdutoCommand.Parameters[16].Value.AsCurrency := APeso;
+  FcadastraProdutoCommand.Parameters[17].Value.AsCurrency := ADose;
+  FcadastraProdutoCommand.Parameters[18].Value.AsCurrency := ALarg;
+  FcadastraProdutoCommand.Parameters[19].Value.AsCurrency := AAlt;
+  FcadastraProdutoCommand.Parameters[20].Value.AsCurrency := AComp;
+  FcadastraProdutoCommand.Execute(ARequestFilter);
+  Result := FcadastraProdutoCommand.Parameters[21].Value.GetWideString;
+end;
+
+function TModelMetodosClient.atualizaProduto(AIDProd: Integer; AIDForn: Integer; AIDMarca: Integer; ACodBarras: string; ADescrProduto: string; AEmb: string; AUnd: string; AObsProd: string; AMedidaDose: string; ACCest: string; ACFiscal: string; AOrientacao: string; ADetalhes: string; AInformacoes: string; ACusto: Currency; AVenda: Currency; APromo: Currency; APeso: Currency; ADose: Currency; ALarg: Currency; AAlt: Currency; AComp: Currency; const ARequestFilter: string): string;
+begin
+  if FatualizaProdutoCommand = nil then
+  begin
+    FatualizaProdutoCommand := FConnection.CreateCommand;
+    FatualizaProdutoCommand.RequestType := 'GET';
+    FatualizaProdutoCommand.Text := 'TModelMetodos.atualizaProduto';
+    FatualizaProdutoCommand.Prepare(TModelMetodos_atualizaProduto);
+  end;
+  FatualizaProdutoCommand.Parameters[0].Value.SetInt32(AIDProd);
+  FatualizaProdutoCommand.Parameters[1].Value.SetInt32(AIDForn);
+  FatualizaProdutoCommand.Parameters[2].Value.SetInt32(AIDMarca);
+  FatualizaProdutoCommand.Parameters[3].Value.SetWideString(ACodBarras);
+  FatualizaProdutoCommand.Parameters[4].Value.SetWideString(ADescrProduto);
+  FatualizaProdutoCommand.Parameters[5].Value.SetWideString(AEmb);
+  FatualizaProdutoCommand.Parameters[6].Value.SetWideString(AUnd);
+  FatualizaProdutoCommand.Parameters[7].Value.SetWideString(AObsProd);
+  FatualizaProdutoCommand.Parameters[8].Value.SetWideString(AMedidaDose);
+  FatualizaProdutoCommand.Parameters[9].Value.SetWideString(ACCest);
+  FatualizaProdutoCommand.Parameters[10].Value.SetWideString(ACFiscal);
+  FatualizaProdutoCommand.Parameters[11].Value.SetWideString(AOrientacao);
+  FatualizaProdutoCommand.Parameters[12].Value.SetWideString(ADetalhes);
+  FatualizaProdutoCommand.Parameters[13].Value.SetWideString(AInformacoes);
+  FatualizaProdutoCommand.Parameters[14].Value.AsCurrency := ACusto;
+  FatualizaProdutoCommand.Parameters[15].Value.AsCurrency := AVenda;
+  FatualizaProdutoCommand.Parameters[16].Value.AsCurrency := APromo;
+  FatualizaProdutoCommand.Parameters[17].Value.AsCurrency := APeso;
+  FatualizaProdutoCommand.Parameters[18].Value.AsCurrency := ADose;
+  FatualizaProdutoCommand.Parameters[19].Value.AsCurrency := ALarg;
+  FatualizaProdutoCommand.Parameters[20].Value.AsCurrency := AAlt;
+  FatualizaProdutoCommand.Parameters[21].Value.AsCurrency := AComp;
+  FatualizaProdutoCommand.Execute(ARequestFilter);
+  Result := FatualizaProdutoCommand.Parameters[22].Value.GetWideString;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -2298,6 +2496,10 @@ begin
   FObterNomeImagemCommand.DisposeOf;
   FcarregaCamposSQLCommand.DisposeOf;
   FcarregaCamposSQLCommand_Cache.DisposeOf;
+  FpesquisaProdutosCommand.DisposeOf;
+  FpesquisaProdutosCommand_Cache.DisposeOf;
+  FcadastraProdutoCommand.DisposeOf;
+  FatualizaProdutoCommand.DisposeOf;
   inherited;
 end;
 

@@ -61,6 +61,7 @@
     <File Path="Model\DadosServidor\Model.Genericos.Servidor.HBeauty.pas"/>
     <File Path="Model\DadosServidor\Model.Imagens.Servidor.HBeauty.pas"/>
     <File Path="Model\DadosServidor\Model.Marca.Servidor.HBeauty.pas"/>
+    <File Path="Model\DadosServidor\Model.Produtos.Servidor.HBeauty.pas"/>
     <File Path="Model\DadosServidor\Model.Profissionais.Servidor.HBeauty.pas"/>
     <File Path="Model\DadosServidor\Model.Terceirizadas.Servidor.HBeauty.pas"/>
     <File Path="Model\DadosServidor\Model.Usuarios.Servidor.HBeauty.pas"/>
@@ -74,12 +75,12 @@
     <File Path="Model\Model.Fornecedor.HBeauty.pas"/>
     <File Path="Model\Model.Imagens.HBeauty.pas"/>
     <File Path="Model\Model.Marcas.HBeauty.pas"/>
+    <File Path="Model\Model.Produtos.HBeauty.pas"/>
     <File Path="Model\Model.Profissionais.HBeauty.pas"/>
     <File Path="Model\Model.Telefones.HBeauty.pas"/>
     <File Path="Model\Model.Terceirizada.HBeauty.pas"/>
     <File Path="Model\Model.Usuarios.HBeauty.pas"/>
     <File Path="Model\Model.Vendedores.HBeauty.pas"/>
-    <File Path="Model\Model.Produtos.HBeauty.pas"/>
     <File Path="Units"/>
     <File Path="Units\Units.Classes.HBeauty.pas"/>
     <File Path="Units\Units.Consts.HBeauty.pas"/>
@@ -103,14 +104,14 @@
     <File Path="View\View.Marcas.HBeauty.fmx"/>
     <File Path="View\View.Principal.HBeauty.pas"/>
     <File Path="View\View.Principal.HBeauty.fmx"/>
+    <File Path="View\View.Produtos.HBeauty.pas"/>
+    <File Path="View\View.Produtos.HBeauty.fmx"/>
     <File Path="View\View.Profissionais.HBeauty.pas"/>
     <File Path="View\View.Profissionais.HBeauty.fmx"/>
     <File Path="View\View.Terceirizadas.HBeauty.pas"/>
     <File Path="View\View.Terceirizadas.HBeauty.fmx"/>
     <File Path="View\View.Vendedores.HBeauty.pas"/>
     <File Path="View\View.Vendedores.HBeauty.fmx"/>
-    <File Path="View\View.Produtos.HBeauty.pas"/>
-    <File Path="View\View.Produtos.HBeauty.fmx"/>
   </ProjectSortOrder>
 	<ActiveMobileDevice>
 		<NoProfile Android64=""/>

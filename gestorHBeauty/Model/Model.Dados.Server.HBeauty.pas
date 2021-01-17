@@ -31,6 +31,7 @@ type
     memMarcas: TFDMemTable;
     memGenerica: TFDMemTable;
     memAuxiliar: TFDMemTable;
+    memProdutos: TFDMemTable;
   private
     { Private declarations }
   public

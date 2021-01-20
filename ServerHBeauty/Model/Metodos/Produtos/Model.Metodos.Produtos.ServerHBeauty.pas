@@ -64,7 +64,7 @@ begin
              ControllerConexao.qryQuery.SQL.Add('LARGURA_PROD, ALTURA_PROD, COMPR_PROD, ORIENT_PROD, DETALHES_PROD, INFO_PROD) VALUES');
              ControllerConexao.qryQuery.SQL.Add('(:IDFORN_PROD, :IDMARCA_PROD, :CODIGOBARRAS_PROD, :DESCR_PROD, :EMB_PROD,');
              ControllerConexao.qryQuery.SQL.Add(':UND_PROD, :MEDIDADOSE_PROD, :CCEST_PROD, :CLSSFISCAL_PROD, :OBS_PROD,');
-             ControllerConexao.qryQuery.SQL.Add(':PRCUSTO_PROD, :PRVENDA_PROD, :PRPROMO_PROD, :PESO_PROD, :DOSE_PROD)');
+             ControllerConexao.qryQuery.SQL.Add(':PRCUSTO_PROD, :PRVENDA_PROD, :PRPROMO_PROD, :PESO_PROD, :DOSE_PROD,');
              ControllerConexao.qryQuery.SQL.Add(':LARGURA_PROD, :ALTURA_PROD, :COMPR_PROD, :ORIENT_PROD, :DETALHES_PROD, :INFO_PROD)');
 
              ControllerConexao.qryQuery.ParamByName('IDFORN_PROD'      ).AsInteger  := AIDForn;

@@ -9,15 +9,15 @@ uses
   FMX.Controls.Presentation, FMX.TMSButton, FMX.ScrollBox, FMX.Memo, Units.Utils.HBeauty, Controller.Manipula.Design.HBeauty, Units.Utils.Dados.HBeauty,
   Model.Fornecedor.Servidor.HBeauty, Model.Genericos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, Model.Produtos.HBeauty, Model.Produtos.Servidor.HBeauty,
-  Units.Consts.HBeauty;
+  Units.Consts.HBeauty, FMX.TMSBaseGroup, FMX.TMSRadioGroup;
 
 type
+  TPesquisaPor = (tppFornecedor, tppMarca, tppProduto, tppCodBarra, tppCodigo);
   TfrmGerenciadorProdutos = class(TForm)
     tabCabecarioFornecedor: TTabControl;
     tabPesquisa: TTabItem;
     recCabecarioTerceirizada: TRectangle;
     btnPesquisar: TTMSFMXButton;
-    Label1: TLabel;
     Rectangle6: TRectangle;
     edtPesquisaBase: TEdit;
     tabDados: TTabItem;
@@ -115,7 +115,6 @@ type
     Label28: TLabel;
     tabRelacionados: TTabItem;
     tabSimilares: TTabItem;
-    Layout3: TLayout;
     tabOrientacoes: TTabItem;
     recRodapeBotoesPrincipal: TRectangle;
     btnAlterar: TTMSFMXButton;
@@ -125,7 +124,7 @@ type
     btnCancelar: TTMSFMXButton;
     edtBarras: TEdit;
     Rectangle10: TRectangle;
-    cbTipoPesquisa: TComboBox;
+    cbPesquisaPor: TComboBox;
     Label10: TLabel;
     Rectangle25: TRectangle;
     mmInformacoes: TMemo;
@@ -133,6 +132,8 @@ type
     mmDetalhes: TMemo;
     Rectangle27: TRectangle;
     mmOrientacoes: TMemo;
+    rbOperador: TTMSFMXRadioGroup;
+    Label1: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -157,6 +158,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnAlterarClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
@@ -272,11 +274,40 @@ end;
 
 procedure TfrmGerenciadorProdutos.btnIncluirClick(Sender: TObject);
 begin
+     tabCabecarioFornecedor.Next;
+     tabGerenciadorProdutos.TabIndex := 1;
      ControlaTab(False, True, True);
      LimpaForm(Self);
      ControlaBotoes(Self, False);
      FStatus := abIncluir;
-     tabCabecarioFornecedor.TabIndex := 1;
+end;
+
+procedure TfrmGerenciadorProdutos.btnPesquisarClick(Sender: TObject);
+var
+ACampo, TipoPesquisa : String;
+begin
+
+     case rbOperador.ItemIndex of
+          0 : TipoPesquisa := tpInicia;
+          1 : TipoPesquisa := tpTermina;
+          2 : TipoPesquisa := tpContenha;
+          3 : TipoPesquisa := tpIgual;
+     end;
+
+     case TPesquisaPor(cbPesquisaPor.ItemIndex) of
+          tppFornecedor : ACampo := 'f.NOME_FORN';
+          tppMarca      : ACampo := 'm.MARCA_MARCA';
+          tppProduto    : ACampo := 'p.DESCR_PROD';
+          tppCodBarra   : ACampo := 'p.CODIGOBARRAS_PROD';
+          tppCodigo     : ACampo := 'p.CODIGO_PROD';
+     end;
+
+     pesquisaProdutos(edtPesquisaBase.Text, TipoPesquisa, ACampo, 'p.DESCR_PROD');
+     CarregaGrid(ModelConexaoDados.memProdutos,grdListaProdutos, AFieldsProdutos, ACaptionProdutos, ASizeColProdutos);
+
+     if ModelConexaoDados.memProdutos.RecordCount > 0 then
+        FIdSelecionado :=  ExtraiTextoGrid(grdListaProdutos.Cells[0, 1]).ToInteger;
+
 end;
 
 procedure TfrmGerenciadorProdutos.btnSalvarClick(Sender: TObject);
@@ -544,10 +575,11 @@ end;
 procedure TfrmGerenciadorProdutos.FormCreate(Sender: TObject);
 begin
      CarregaPersonalizacaoCabecarioRodape(Self);
+
      pesquisaProdutos('','Lista','','DESCR_PROD');
      CarregaGrid(ModelConexaoDados.memProdutos, grdListaProdutos, AFieldsProdutos, ACaptionProdutos, ASizeColProdutos, True);
 
-     FormataItensComboBox(cbTipoPesquisa, 'Segoe UI', 14);
+     FormataItensComboBox(cbPesquisaPor, 'Segoe UI', 14);
      ControlaTab(True, False, False);
 
      gclProdutos := TModelProdutos.Create(Self);

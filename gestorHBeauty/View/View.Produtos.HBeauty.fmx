@@ -4,8 +4,8 @@
   BorderIcons = []
   BorderStyle = Single
   Caption = 'Gerenciador de Produtos'
-  ClientHeight = 653
-  ClientWidth = 884
+  ClientHeight = 613
+  ClientWidth = 1015
   Position = MainFormCenter
   StyleBook = StyleBook2
   FormFactor.Width = 320
@@ -16,16 +16,16 @@
   DesignerMasterStyle = 0
   object tabCabecarioFornecedor: TTabControl
     Align = Top
-    Size.Width = 884.000000000000000000
+    Size.Width = 1015.000000000000000000
     Size.Height = 113.000000000000000000
     Size.PlatformDefault = False
     TabIndex = 0
     TabOrder = 1
     TabPosition = None
     Sizes = (
-      884s
+      1015s
       113s
-      884s
+      1015s
       113s)
     object tabPesquisa: TTabItem
       CustomIcon = <
@@ -43,7 +43,7 @@
       object recCabecarioTerceirizada: TRectangle
         Align = Top
         Fill.Color = xFF424242
-        Size.Width = 884.000000000000000000
+        Size.Width = 1015.000000000000000000
         Size.Height = 112.000000000000000000
         Size.PlatformDefault = False
         Stroke.Kind = None
@@ -58,30 +58,19 @@
           Size.Height = 40.000000000000000000
           Size.PlatformDefault = False
           Anchors = [akTop, akRight]
-          Position.X = 746.000000000000000000
+          Position.X = 877.000000000000000000
           Position.Y = 12.000000000000000000
           TabOrder = 0
           Text = 'Pesquisar'
-        end
-        object Label1: TLabel
-          StyledSettings = [Family, Size]
-          Position.X = 23.000000000000000000
-          Position.Y = 58.000000000000000000
-          Size.Width = 54.000000000000000000
-          Size.Height = 17.000000000000000000
-          Size.PlatformDefault = False
-          TextSettings.Font.StyleExt = {00070000000000000004000000}
-          TextSettings.FontColor = claWhite
-          Text = 'Pesquisa'
-          TabOrder = 1
+          OnClick = btnPesquisarClick
         end
         object Rectangle6: TRectangle
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000
           Margins.Top = 20.000000000000000000
           Margins.Right = 150.000000000000000000
-          Position.X = 223.000000000000000000
-          Position.Y = 23.000000000000000000
+          Position.X = 237.000000000000000000
+          Position.Y = 74.000000000000000000
           Size.Width = 333.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
@@ -112,7 +101,7 @@
           Margins.Left = 150.000000000000000000
           Margins.Top = 20.000000000000000000
           Margins.Right = 150.000000000000000000
-          Position.X = 23.000000000000000000
+          Position.X = 237.000000000000000000
           Position.Y = 23.000000000000000000
           Size.Width = 186.000000000000000000
           Size.Height = 29.000000000000000000
@@ -121,7 +110,7 @@
           Stroke.Thickness = 2.000000000000000000
           XRadius = 5.000000000000000000
           YRadius = 5.000000000000000000
-          object cbTipoPesquisa: TComboBox
+          object cbPesquisaPor: TComboBox
             Align = Client
             Items.Strings = (
               'Fornecedor'
@@ -129,6 +118,7 @@
               'Produto'
               'C'#243'digo de Barras'
               'C'#243'digo')
+            ItemIndex = 0
             Margins.Left = 10.000000000000000000
             Margins.Top = 2.000000000000000000
             Margins.Right = 10.000000000000000000
@@ -153,6 +143,46 @@
             TabOrder = 1
           end
         end
+        object Label1: TLabel
+          StyledSettings = [Family, Size]
+          Position.X = 237.000000000000000000
+          Position.Y = 55.000000000000000000
+          Size.Width = 81.000000000000000000
+          Size.Height = 17.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.StyleExt = {00070000000000000004000000}
+          TextSettings.FontColor = claWhite
+          Text = 'Pesquisa por'
+          TabOrder = 1
+        end
+      end
+      object rbOperador: TTMSFMXRadioGroup
+        DisableFocusEffect = False
+        Position.X = 8.000000000000000000
+        Position.Y = 8.000000000000000000
+        TabOrder = 2
+        Size.Width = 220.000000000000000000
+        Size.Height = 95.000000000000000000
+        Size.PlatformDefault = False
+        Items = <
+          item
+            Text = 'que iniciem'
+          end
+          item
+            Text = 'que terminem'
+          end
+          item
+            Text = 'que contenham'
+          end
+          item
+            Text = 'Igual'
+          end>
+        Text = 'Operador:'
+        Font.StyleExt = {00070000000000000004000000}
+        ItemFont.StyleExt = {00070000000000000004000000}
+        ItemFontColor = claWhite
+        ItemIndex = 0
+        Version = '1.0.2.6'
       end
     end
     object tabDados: TTabItem
@@ -171,7 +201,7 @@
       object Rectangle3: TRectangle
         Align = Top
         Fill.Color = xFF424242
-        Size.Width = 884.000000000000000000
+        Size.Width = 1015.000000000000000000
         Size.Height = 112.000000000000000000
         Size.PlatformDefault = False
         Stroke.Kind = None
@@ -209,7 +239,7 @@
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 63
+        TabOrder = 64
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -227,20 +257,20 @@
   object tabGerenciadorProdutos: TTabControl
     Align = Client
     Locked = True
-    Size.Width = 884.000000000000000000
-    Size.Height = 478.000000000000000000
+    Size.Width = 1015.000000000000000000
+    Size.Height = 438.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
     TabIndex = 1
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
-      884s
-      449s
-      884s
-      449s
-      884s
-      449s)
+      1015s
+      409s
+      1015s
+      409s
+      1015s
+      409s)
     object tabListaProdutos: TTabItem
       CustomIcon = <
         item
@@ -259,8 +289,8 @@
       ExplicitSize.cy = 29.000000000000000000
       object Layout4: TLayout
         Align = Client
-        Size.Width = 884.000000000000000000
-        Size.Height = 449.000000000000000000
+        Size.Width = 1015.000000000000000000
+        Size.Height = 409.000000000000000000
         Size.PlatformDefault = False
         TabOrder = 0
         object recModal: TRectangle
@@ -2620,8 +2650,8 @@
         end
         object Rectangle11: TRectangle
           Align = Client
-          Size.Width = 884.000000000000000000
-          Size.Height = 449.000000000000000000
+          Size.Width = 1015.000000000000000000
+          Size.Height = 409.000000000000000000
           Size.PlatformDefault = False
           Stroke.Kind = None
           object grdListaProdutos: TTMSFMXGrid
@@ -2629,8 +2659,8 @@
             DisableFocusEffect = False
             Margins.Left = 5.000000000000000000
             TabOrder = 1
-            Size.Width = 879.000000000000000000
-            Size.Height = 449.000000000000000000
+            Size.Width = 1010.000000000000000000
+            Size.Height = 409.000000000000000000
             Size.PlatformDefault = False
             DefaultRowHeight = 20.000000000000000000
             DefaultColumnWidth = 50.000000000000000000
@@ -2805,7 +2835,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 24.000000000000000000
-        Position.Y = 35.000000000000000000
+        Position.Y = 27.000000000000000000
         Size.Width = 363.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -2848,7 +2878,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 391.000000000000000000
-        Position.Y = 35.000000000000000000
+        Position.Y = 27.000000000000000000
         Size.Width = 253.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -2891,7 +2921,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 24.000000000000000000
-        Position.Y = 94.000000000000000000
+        Position.Y = 79.000000000000000000
         Size.Width = 620.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -2935,7 +2965,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 24.000000000000000000
-        Position.Y = 153.000000000000000000
+        Position.Y = 133.000000000000000000
         Size.Width = 147.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -2978,7 +3008,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 175.000000000000000000
-        Position.Y = 153.000000000000000000
+        Position.Y = 133.000000000000000000
         Size.Width = 89.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3024,7 +3054,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 271.000000000000000000
-        Position.Y = 153.000000000000000000
+        Position.Y = 133.000000000000000000
         Size.Width = 85.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3036,7 +3066,6 @@
           Align = Client
           Items.Strings = (
             'P'#199)
-          ItemIndex = 0
           Margins.Left = 10.000000000000000000
           Margins.Top = 2.000000000000000000
           Margins.Right = 10.000000000000000000
@@ -3066,7 +3095,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 368.000000000000000000
-        Position.Y = 153.000000000000000000
+        Position.Y = 133.000000000000000000
         Size.Width = 89.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3092,6 +3121,7 @@
           StyleLookup = 'NumberBox1Style1'
           TabOrder = 6
           Cursor = crIBeam
+          DecimalDigits = 3
           Max = 9999999.000000000000000000
           ValueType = Float
           TextSettings.Font.Size = 14.000000000000000000
@@ -3113,7 +3143,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 464.000000000000000000
-        Position.Y = 153.000000000000000000
+        Position.Y = 133.000000000000000000
         Size.Width = 89.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3139,6 +3169,7 @@
           StyleLookup = 'NumberBox1Style1'
           TabOrder = 6
           Cursor = crIBeam
+          DecimalDigits = 3
           Max = 9999999.000000000000000000
           ValueType = Float
           TextSettings.Font.Size = 14.000000000000000000
@@ -3160,7 +3191,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 559.000000000000000000
-        Position.Y = 153.000000000000000000
+        Position.Y = 133.000000000000000000
         Size.Width = 85.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3202,7 +3233,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 534.000000000000000000
-        Position.Y = 272.000000000000000000
+        Position.Y = 244.000000000000000000
         Size.Width = 110.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3245,7 +3276,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 417.000000000000000000
-        Position.Y = 272.000000000000000000
+        Position.Y = 244.000000000000000000
         Size.Width = 110.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3288,7 +3319,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 258.000000000000000000
-        Position.Y = 272.000000000000000000
+        Position.Y = 244.000000000000000000
         Size.Width = 110.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3334,7 +3365,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 140.000000000000000000
-        Position.Y = 272.000000000000000000
+        Position.Y = 244.000000000000000000
         Size.Width = 110.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3380,7 +3411,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 24.000000000000000000
-        Position.Y = 272.000000000000000000
+        Position.Y = 244.000000000000000000
         Size.Width = 110.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3426,7 +3457,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 24.000000000000000000
-        Position.Y = 212.000000000000000000
+        Position.Y = 185.000000000000000000
         Size.Width = 100.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3472,7 +3503,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 153.000000000000000000
-        Position.Y = 212.000000000000000000
+        Position.Y = 185.000000000000000000
         Size.Width = 100.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3518,7 +3549,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 283.000000000000000000
-        Position.Y = 212.000000000000000000
+        Position.Y = 185.000000000000000000
         Size.Width = 100.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3561,14 +3592,14 @@
       object Label22: TLabel
         StyledSettings = [Family, Style, FontColor]
         Position.X = 255.000000000000000000
-        Position.Y = 217.000000000000000000
+        Position.Y = 190.000000000000000000
         Size.Width = 25.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
         TextSettings.Font.Size = 20.000000000000000000
         TextSettings.HorzAlign = Center
         Text = 'X'
-        TabOrder = 38
+        TabOrder = 40
       end
       object Rectangle22: TRectangle
         Fill.Color = claWhite
@@ -3576,7 +3607,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 417.000000000000000000
-        Position.Y = 212.000000000000000000
+        Position.Y = 185.000000000000000000
         Size.Width = 110.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3615,7 +3646,7 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 534.000000000000000000
-        Position.Y = 212.000000000000000000
+        Position.Y = 185.000000000000000000
         Size.Width = 110.000000000000000000
         Size.Height = 29.000000000000000000
         Size.PlatformDefault = False
@@ -3651,7 +3682,7 @@
       object Label21: TLabel
         StyledSettings = [Family, Style, FontColor]
         Position.X = 125.000000000000000000
-        Position.Y = 218.000000000000000000
+        Position.Y = 191.000000000000000000
         Size.Width = 25.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
@@ -3663,7 +3694,7 @@
       object Label27: TLabel
         StyledSettings = [Family, Style, FontColor]
         Position.X = 387.000000000000000000
-        Position.Y = 217.000000000000000000
+        Position.Y = 190.000000000000000000
         Size.Width = 25.000000000000000000
         Size.Height = 17.000000000000000000
         Size.PlatformDefault = False
@@ -3678,9 +3709,9 @@
         Margins.Top = 20.000000000000000000
         Margins.Right = 150.000000000000000000
         Position.X = 24.000000000000000000
-        Position.Y = 332.000000000000000000
+        Position.Y = 296.000000000000000000
         Size.Width = 621.000000000000000000
-        Size.Height = 109.000000000000000000
+        Size.Height = 101.000000000000000000
         Size.PlatformDefault = False
         Stroke.Color = claGainsboro
         Stroke.Thickness = 2.000000000000000000
@@ -3700,18 +3731,20 @@
         object mmObservacao: TMemo
           Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
           DataDetectorTypes = []
+          StyledSettings = [Family, Style, FontColor]
+          TextSettings.Font.Size = 14.000000000000000000
           Align = Client
           Margins.Left = 5.000000000000000000
           Margins.Top = 5.000000000000000000
           Margins.Right = 5.000000000000000000
           Margins.Bottom = 5.000000000000000000
           Size.Width = 611.000000000000000000
-          Size.Height = 99.000000000000000000
+          Size.Height = 91.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = 'Memo1Style1'
           TabOrder = 6
           Viewport.Width = 607.000000000000000000
-          Viewport.Height = 95.000000000000000000
+          Viewport.Height = 87.000000000000000000
         end
       end
     end
@@ -3733,25 +3766,25 @@
       ExplicitSize.cy = 29.000000000000000000
       object tabGerenciadorApp: TTabControl
         Align = Client
-        Size.Width = 884.000000000000000000
-        Size.Height = 449.000000000000000000
+        Size.Width = 1015.000000000000000000
+        Size.Height = 409.000000000000000000
         Size.PlatformDefault = False
-        TabIndex = 5
+        TabIndex = 2
         TabOrder = 0
         TabPosition = PlatformDefault
         Sizes = (
-          884s
-          420s
-          884s
-          420s
-          884s
-          420s
-          884s
-          420s
-          884s
-          420s
-          884s
-          420s)
+          1015s
+          380s
+          1015s
+          380s
+          1015s
+          380s
+          1015s
+          380s
+          1015s
+          380s
+          1015s
+          380s)
         object tabInformações: TTabItem
           CustomIcon = <
             item
@@ -3774,8 +3807,8 @@
             Margins.Left = 150.000000000000000000
             Margins.Top = 20.000000000000000000
             Margins.Right = 150.000000000000000000
-            Size.Width = 861.000000000000000000
-            Size.Height = 387.000000000000000000
+            Size.Width = 990.000000000000000000
+            Size.Height = 350.000000000000000000
             Size.PlatformDefault = False
             Stroke.Color = claGainsboro
             Stroke.Thickness = 2.000000000000000000
@@ -3784,18 +3817,20 @@
             object mmInformacoes: TMemo
               Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
               DataDetectorTypes = []
+              StyledSettings = [Family, Style, FontColor]
+              TextSettings.Font.Size = 14.000000000000000000
               Align = Client
               Margins.Left = 5.000000000000000000
               Margins.Top = 5.000000000000000000
               Margins.Right = 5.000000000000000000
               Margins.Bottom = 5.000000000000000000
-              Size.Width = 851.000000000000000000
-              Size.Height = 377.000000000000000000
+              Size.Width = 980.000000000000000000
+              Size.Height = 340.000000000000000000
               Size.PlatformDefault = False
               StyleLookup = 'Memo1Style1'
               TabOrder = 5
-              Viewport.Width = 847.000000000000000000
-              Viewport.Height = 373.000000000000000000
+              Viewport.Width = 976.000000000000000000
+              Viewport.Height = 336.000000000000000000
             end
           end
         end
@@ -3821,8 +3856,8 @@
             Margins.Left = 150.000000000000000000
             Margins.Top = 20.000000000000000000
             Margins.Right = 150.000000000000000000
-            Size.Width = 861.000000000000000000
-            Size.Height = 387.000000000000000000
+            Size.Width = 990.000000000000000000
+            Size.Height = 350.000000000000000000
             Size.PlatformDefault = False
             Stroke.Color = claGainsboro
             Stroke.Thickness = 2.000000000000000000
@@ -3831,18 +3866,20 @@
             object mmDetalhes: TMemo
               Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
               DataDetectorTypes = []
+              StyledSettings = [Family, Style, FontColor]
+              TextSettings.Font.Size = 14.000000000000000000
               Align = Client
               Margins.Left = 5.000000000000000000
               Margins.Top = 5.000000000000000000
               Margins.Right = 5.000000000000000000
               Margins.Bottom = 5.000000000000000000
-              Size.Width = 851.000000000000000000
-              Size.Height = 377.000000000000000000
+              Size.Width = 980.000000000000000000
+              Size.Height = 340.000000000000000000
               Size.PlatformDefault = False
               StyleLookup = 'Memo1Style1'
               TabOrder = 5
-              Viewport.Width = 847.000000000000000000
-              Viewport.Height = 373.000000000000000000
+              Viewport.Width = 976.000000000000000000
+              Viewport.Height = 336.000000000000000000
             end
           end
         end
@@ -3853,7 +3890,7 @@
           TextSettings.Font.Size = 14.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           StyledSettings = [Family, FontColor]
-          IsSelected = False
+          IsSelected = True
           Size.Width = 148.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
@@ -3868,8 +3905,8 @@
             Margins.Left = 150.000000000000000000
             Margins.Top = 20.000000000000000000
             Margins.Right = 150.000000000000000000
-            Size.Width = 861.000000000000000000
-            Size.Height = 387.000000000000000000
+            Size.Width = 990.000000000000000000
+            Size.Height = 350.000000000000000000
             Size.PlatformDefault = False
             Stroke.Color = claGainsboro
             Stroke.Thickness = 2.000000000000000000
@@ -3878,18 +3915,20 @@
             object mmOrientacoes: TMemo
               Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
               DataDetectorTypes = []
+              StyledSettings = [Family, Style, FontColor]
+              TextSettings.Font.Size = 14.000000000000000000
               Align = Client
               Margins.Left = 5.000000000000000000
               Margins.Top = 5.000000000000000000
               Margins.Right = 5.000000000000000000
               Margins.Bottom = 5.000000000000000000
-              Size.Width = 851.000000000000000000
-              Size.Height = 377.000000000000000000
+              Size.Width = 980.000000000000000000
+              Size.Height = 340.000000000000000000
               Size.PlatformDefault = False
               StyleLookup = 'Memo1Style1'
               TabOrder = 5
-              Viewport.Width = 847.000000000000000000
-              Viewport.Height = 373.000000000000000000
+              Viewport.Width = 976.000000000000000000
+              Viewport.Height = 336.000000000000000000
             end
           end
         end
@@ -3909,14 +3948,6 @@
           Text = 'Fotos'
           ExplicitSize.cx = 57.000000000000000000
           ExplicitSize.cy = 29.000000000000000000
-          object Layout3: TLayout
-            Align = Bottom
-            Position.Y = 356.000000000000000000
-            Size.Width = 884.000000000000000000
-            Size.Height = 64.000000000000000000
-            Size.PlatformDefault = False
-            TabOrder = 0
-          end
         end
         object tabRelacionados: TTabItem
           CustomIcon = <
@@ -3942,7 +3973,7 @@
           TextSettings.Font.Size = 14.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           StyledSettings = [Family, FontColor]
-          IsSelected = True
+          IsSelected = False
           Size.Width = 144.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
@@ -5721,8 +5752,8 @@
           36464600000B54466F6E744F626A65637400095374796C654E616D650604666F
           6E74000000}
       end>
-    Left = 117
-    Top = 48
+    Left = 757
+    Top = 236
   end
   object FillRGBEffect2: TFillRGBEffect
     Color = xFF203040
@@ -5730,8 +5761,8 @@
   object recRodapeBotoesPrincipal: TRectangle
     Align = Bottom
     Fill.Color = xFF424242
-    Position.Y = 591.000000000000000000
-    Size.Width = 884.000000000000000000
+    Position.Y = 551.000000000000000000
+    Size.Width = 1015.000000000000000000
     Size.Height = 62.000000000000000000
     Size.PlatformDefault = False
     Stroke.Kind = None
@@ -5746,7 +5777,7 @@
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 606.000000000000000000
+      Position.X = 737.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 0
       Text = 'Alterar'
@@ -5763,7 +5794,7 @@
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 746.000000000000000000
+      Position.X = 877.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 1
       Text = 'Fechar'
@@ -5780,7 +5811,7 @@
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 466.000000000000000000
+      Position.X = 597.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 2
       Text = 'Incluir'
@@ -5797,7 +5828,7 @@
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 186.000000000000000000
+      Position.X = 317.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 3
       Text = 'Salvar'
@@ -5815,7 +5846,7 @@
       Size.Height = 40.000000000000000000
       Size.PlatformDefault = False
       Anchors = [akTop, akRight]
-      Position.X = 46.000000000000000000
+      Position.X = 177.000000000000000000
       Position.Y = 12.000000000000000000
       TabOrder = 4
       Text = 'Cancelar'

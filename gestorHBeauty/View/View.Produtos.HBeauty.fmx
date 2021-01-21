@@ -14,7 +14,7 @@
   OnCreate = FormCreate
   OnClose = FormClose
   DesignerMasterStyle = 0
-  object tabCabecarioFornecedor: TTabControl
+  object tabCabecarioProduto: TTabControl
     Align = Top
     Size.Width = 1015.000000000000000000
     Size.Height = 113.000000000000000000
@@ -184,6 +184,13 @@
         ItemIndex = 0
         Version = '1.0.2.6'
       end
+      object Button1: TButton
+        Position.X = 656.000000000000000000
+        Position.Y = 52.000000000000000000
+        TabOrder = 3
+        Text = 'Button1'
+        OnClick = Button1Click
+      end
     end
     object tabDados: TTabItem
       CustomIcon = <
@@ -239,7 +246,7 @@
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 64
+        TabOrder = 65
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -261,7 +268,7 @@
     Size.Height = 438.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'tabGerenciadorProfissionaisStyle1'
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 0
     TabPosition = PlatformDefault
     Sizes = (
@@ -2820,7 +2827,7 @@
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = True
+      IsSelected = False
       Size.Width = 134.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -3599,7 +3606,7 @@
         TextSettings.Font.Size = 20.000000000000000000
         TextSettings.HorzAlign = Center
         Text = 'X'
-        TabOrder = 40
+        TabOrder = 42
       end
       object Rectangle22: TRectangle
         Fill.Color = claWhite
@@ -3755,7 +3762,7 @@
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
       StyledSettings = [Family, FontColor]
-      IsSelected = False
+      IsSelected = True
       Size.Width = 58.000000000000000000
       Size.Height = 29.000000000000000000
       Size.PlatformDefault = False
@@ -3769,7 +3776,7 @@
         Size.Width = 1015.000000000000000000
         Size.Height = 409.000000000000000000
         Size.PlatformDefault = False
-        TabIndex = 2
+        TabIndex = 4
         TabOrder = 0
         TabPosition = PlatformDefault
         Sizes = (
@@ -3890,7 +3897,7 @@
           TextSettings.Font.Size = 14.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           StyledSettings = [Family, FontColor]
-          IsSelected = True
+          IsSelected = False
           Size.Width = 148.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
@@ -3948,6 +3955,20 @@
           Text = 'Fotos'
           ExplicitSize.cx = 57.000000000000000000
           ExplicitSize.cy = 29.000000000000000000
+          object grdlytFotos: TGridLayout
+            Align = Client
+            ItemHeight = 188.000000000000000000
+            ItemWidth = 168.000000000000000000
+            Orientation = Horizontal
+            Margins.Left = 3.000000000000000000
+            Margins.Top = 3.000000000000000000
+            Margins.Right = 3.000000000000000000
+            Margins.Bottom = 3.000000000000000000
+            Size.Width = 1009.000000000000000000
+            Size.Height = 374.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 1
+          end
         end
         object tabRelacionados: TTabItem
           CustomIcon = <
@@ -3956,7 +3977,7 @@
           TextSettings.Font.Size = 14.000000000000000000
           TextSettings.Font.StyleExt = {00070000000000000004000000}
           StyledSettings = [Family, FontColor]
-          IsSelected = False
+          IsSelected = True
           Size.Width = 171.000000000000000000
           Size.Height = 29.000000000000000000
           Size.PlatformDefault = False
@@ -3965,6 +3986,176 @@
           Text = 'Produtos Relacionados'
           ExplicitSize.cx = 171.000000000000000000
           ExplicitSize.cy = 29.000000000000000000
+          object GridLayout2: TGridLayout
+            Align = Client
+            ItemHeight = 188.000000000000000000
+            ItemWidth = 168.000000000000000000
+            Orientation = Horizontal
+            Margins.Left = 3.000000000000000000
+            Margins.Top = 3.000000000000000000
+            Margins.Right = 3.000000000000000000
+            Margins.Bottom = 3.000000000000000000
+            Size.Width = 1009.000000000000000000
+            Size.Height = 374.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 1
+            object Rectangle40: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 3.000000000000000000
+              Position.Y = 3.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle41: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 171.000000000000000000
+              Position.Y = 3.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle42: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 339.000000000000000000
+              Position.Y = 3.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle43: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 507.000000000000000000
+              Position.Y = 3.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle44: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 675.000000000000000000
+              Position.Y = 3.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle45: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 843.000000000000000000
+              Position.Y = 3.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle46: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 3.000000000000000000
+              Position.Y = 191.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle47: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 171.000000000000000000
+              Position.Y = 191.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle48: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 339.000000000000000000
+              Position.Y = 191.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle49: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 507.000000000000000000
+              Position.Y = 191.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle50: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 675.000000000000000000
+              Position.Y = 191.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle51: TRectangle
+              Margins.Left = 3.000000000000000000
+              Margins.Top = 3.000000000000000000
+              Margins.Right = 3.000000000000000000
+              Margins.Bottom = 3.000000000000000000
+              Position.X = 843.000000000000000000
+              Position.Y = 191.000000000000000000
+              Size.Width = 162.000000000000000000
+              Size.Height = 182.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+          end
         end
         object tabSimilares: TTabItem
           CustomIcon = <
@@ -3982,6 +4173,156 @@
           Text = 'Produtos Similares'
           ExplicitSize.cx = 144.000000000000000000
           ExplicitSize.cy = 29.000000000000000000
+          object GridLayout3: TGridLayout
+            Align = Client
+            ItemHeight = 190.000000000000000000
+            ItemWidth = 169.000000000000000000
+            Orientation = Horizontal
+            Size.Width = 1015.000000000000000000
+            Size.Height = 380.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 1
+            object Rectangle52: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Position.X = 5.000000000000000000
+              Position.Y = 5.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 185.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle53: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Position.X = 174.000000000000000000
+              Position.Y = 5.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 185.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle54: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Position.X = 343.000000000000000000
+              Position.Y = 5.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 185.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle55: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Position.X = 512.000000000000000000
+              Position.Y = 5.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 185.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle56: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Position.X = 681.000000000000000000
+              Position.Y = 5.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 185.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle57: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Position.X = 850.000000000000000000
+              Position.Y = 5.000000000000000000
+              Size.Width = 159.000000000000000000
+              Size.Height = 185.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle58: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Position.X = 5.000000000000000000
+              Position.Y = 195.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 180.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle59: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Position.X = 174.000000000000000000
+              Position.Y = 195.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 180.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle60: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Position.X = 343.000000000000000000
+              Position.Y = 195.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 180.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle61: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Position.X = 512.000000000000000000
+              Position.Y = 195.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 180.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle62: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Position.X = 681.000000000000000000
+              Position.Y = 195.000000000000000000
+              Size.Width = 164.000000000000000000
+              Size.Height = 180.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+            object Rectangle63: TRectangle
+              Margins.Left = 5.000000000000000000
+              Margins.Top = 5.000000000000000000
+              Margins.Right = 5.000000000000000000
+              Margins.Bottom = 5.000000000000000000
+              Position.X = 850.000000000000000000
+              Position.Y = 195.000000000000000000
+              Size.Width = 159.000000000000000000
+              Size.Height = 180.000000000000000000
+              Size.PlatformDefault = False
+              XRadius = 5.000000000000000000
+              YRadius = 5.000000000000000000
+            end
+          end
         end
       end
     end
@@ -5851,6 +6192,7 @@
       TabOrder = 4
       Text = 'Cancelar'
       Visible = False
+      OnClick = btnCancelarClick
     end
   end
 end

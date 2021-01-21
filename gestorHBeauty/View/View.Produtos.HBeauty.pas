@@ -14,7 +14,7 @@ uses
 type
   TPesquisaPor = (tppFornecedor, tppMarca, tppProduto, tppCodBarra, tppCodigo);
   TfrmGerenciadorProdutos = class(TForm)
-    tabCabecarioFornecedor: TTabControl;
+    tabCabecarioProduto: TTabControl;
     tabPesquisa: TTabItem;
     recCabecarioTerceirizada: TRectangle;
     btnPesquisar: TTMSFMXButton;
@@ -134,6 +134,34 @@ type
     mmOrientacoes: TMemo;
     rbOperador: TTMSFMXRadioGroup;
     Label1: TLabel;
+    Button1: TButton;
+    grdlytFotos: TGridLayout;
+    GridLayout2: TGridLayout;
+    Rectangle40: TRectangle;
+    Rectangle41: TRectangle;
+    Rectangle42: TRectangle;
+    Rectangle43: TRectangle;
+    Rectangle44: TRectangle;
+    Rectangle45: TRectangle;
+    Rectangle46: TRectangle;
+    Rectangle47: TRectangle;
+    Rectangle48: TRectangle;
+    Rectangle49: TRectangle;
+    Rectangle50: TRectangle;
+    Rectangle51: TRectangle;
+    GridLayout3: TGridLayout;
+    Rectangle52: TRectangle;
+    Rectangle53: TRectangle;
+    Rectangle54: TRectangle;
+    Rectangle55: TRectangle;
+    Rectangle56: TRectangle;
+    Rectangle57: TRectangle;
+    Rectangle58: TRectangle;
+    Rectangle59: TRectangle;
+    Rectangle60: TRectangle;
+    Rectangle61: TRectangle;
+    Rectangle62: TRectangle;
+    Rectangle63: TRectangle;
     procedure Button1Click(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -159,6 +187,7 @@ type
     procedure btnAlterarClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
@@ -188,6 +217,7 @@ uses
 procedure TfrmGerenciadorProdutos.AlimentaClasseProdutos;
 begin
 
+     gclProdutos.ID_PROD           := FIdSelecionado;
      gclProdutos.IDFORN_PROD       := Integer(cbFornecedores.Items.Objects[cbFornecedores.ItemIndex]);
      gclProdutos.IDMARCA_PROD      := Integer(cbMarcas.Items.Objects[cbMarcas.ItemIndex]);
      gclProdutos.CODIGOBARRAS_PROD := edtBarras.Text;
@@ -228,7 +258,7 @@ begin
                               edtBarras.Text           := ModelConexaoDados.memProdutos.FieldByName('CODIGOBARRAS_PROD').AsString;
                               edtEmb.Text              := ModelConexaoDados.memProdutos.FieldByName('EMB_PROD').AsString;
                               cbUnid.ItemIndex         := cbUnid.Items.IndexOf(ModelConexaoDados.memProdutos.FieldByName('UND_PROD').AsString);
-                              edtPeso.Value            := ModelConexaoDados.memProfissionais.FieldByName('PESO_PROD').AsCurrency;
+                              edtPeso.Value            := ModelConexaoDados.memProdutos.FieldByName('PESO_PROD').AsCurrency;
                               edtDose.Value            := ModelConexaoDados.memProdutos.FieldByName('DOSE_PROD').AsCurrency;
                               cbMedidaDose.ItemIndex   := cbMedidaDose.Items.IndexOf(ModelConexaoDados.memProdutos.FieldByName('MEDIDADOSE_PROD').AsString);
                               edtLargura.Value         := ModelConexaoDados.memProdutos.FieldByName('LARGURA_PROD').AsCurrency;
@@ -267,6 +297,43 @@ begin
          end;
 end;
 
+procedure TfrmGerenciadorProdutos.btnCancelarClick(Sender: TObject);
+var
+AMensagem : String;
+begin
+
+     case FStatus of
+         abIncluir : AMensagem := 'Tem certeza que deseja cancelar esta inclusão. ' +
+                                  'Os dados serão perdidos.'+#13#13+
+                                  'Deseja continuar?';
+         abAlterar : AMensagem := 'Tem certeza que deseja cancelar esta alteração. ' +
+                                  'Caso tenha feito alguma alteração os dados não serão salvos.'+#13#13+
+                                  'Deseja continuar?';
+            abNulo : begin
+                         LimpaForm(Self);
+                         ControlaTab(True, False, False);
+                         tabCabecarioProduto.TabIndex := 0;
+                         tabGerenciadorProdutos.TabIndex := 0;
+                         tabGerenciadorApp.TabIndex := 0;
+                         ControlaBotoes(Self, True);
+                         Abort;
+                     end;
+     end;
+
+     if MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                   pChar(AMensagem), apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
+         begin
+             BloqueiaRegistro(False, FIdSelecionado, tcProdutos);
+             LimpaForm(Self);
+             ControlaTab(True, False, False);
+             tabCabecarioProduto.TabIndex := 0;
+             tabGerenciadorProdutos.TabIndex := 0;
+             tabGerenciadorApp.TabIndex := 0;
+             ControlaBotoes(Self, True);
+         end;
+
+end;
+
 procedure TfrmGerenciadorProdutos.btnFecharClick(Sender: TObject);
 begin
 Close;
@@ -274,7 +341,7 @@ end;
 
 procedure TfrmGerenciadorProdutos.btnIncluirClick(Sender: TObject);
 begin
-     tabCabecarioFornecedor.Next;
+     tabCabecarioProduto.Next;
      tabGerenciadorProdutos.TabIndex := 1;
      ControlaTab(False, True, True);
      LimpaForm(Self);
@@ -342,6 +409,7 @@ begin
                                                                             ControlaTab(True, False, False);
                                                                             ControlaBotoes(Self, True);
                                                                             tabGerenciadorProdutos.TabIndex := 0;
+                                                                            tabGerenciadorApp.TabIndex := 0;
                                                                        end;
                                                            end;
 
@@ -389,6 +457,7 @@ begin
                                                      ControlaTab(True, False, False);
                                                      ControlaBotoes(Self, True);
                                                      tabGerenciadorProdutos.TabIndex := 0;;
+                                                     tabGerenciadorApp.TabIndex := 0;
                                                  end
                                              else
                                                  begin
@@ -416,37 +485,22 @@ end;
 
 procedure TfrmGerenciadorProdutos.Button1Click(Sender: TObject);
 var
-FScroll : TVertScrollBox;
-FPanel : TPanel;
-J, FCount : Integer;
-YPos, XPos : Single;
+FrecFotos : TRectangle;
+J : Integer;
 begin
 
-     FScroll := TVertScrollBox.Create(nil);
-     FScroll.Parent := tabFotos;
-     FScroll.Align  := TAlignLayout.Client;
-
-     FCount := 0;
-     XPos   := 5;
-     YPos   := 5;
-     for j  := 1 to 53 do
+     for j  := 1 to 12 do
          begin
-             FCount := FCount + 1;
-             FPanel := TPanel.Create(nil);
-             FPanel.Parent  := FScroll;
+             FrecFotos := TRectangle.Create(nil);
+             FrecFotos.Parent  := grdlytFotos;
 
-             FPanel.Height := (FScroll.Height / 2) - 13;
-             FPanel.Width  := (FScroll.Width / 5) - 13;
-             FPanel.Position.X := XPos;
-             FPanel.Position.Y := YPos;
-             XPos := XPos + (FPanel.Width + 9);
+             FrecFotos.Margins.Left   := 3;
+             FrecFotos.Margins.Top    := 3;
+             FrecFotos.Margins.Bottom := 3;
+             FrecFotos.Margins.Right  := 3;
 
-             if FCount = 5 then
-                begin
-                     YPos   := YPos + (FPanel.Height + 10);
-                     XPos   := 5;
-                     FCount := 0;
-                end;
+             FrecFotos.XRadius := 5;
+             FrecFotos.YRadius := 5;
          end;
 end;
 

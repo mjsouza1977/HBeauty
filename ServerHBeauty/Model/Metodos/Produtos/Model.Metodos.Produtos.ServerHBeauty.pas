@@ -139,7 +139,9 @@ begin
             ControllerConexao.qryQuery.SQL.Add('DETALHES_PROD     = :DETALHES_PROD,'    );
             ControllerConexao.qryQuery.SQL.Add('LARGURA_PROD      = :LARGURA_PROD,'     );
             ControllerConexao.qryQuery.SQL.Add('ALTURA_PROD       = :ALTURA_PROD,'      );
-            ControllerConexao.qryQuery.SQL.Add('COMPR_PROD        = :COMPR_PROD'        );
+            ControllerConexao.qryQuery.SQL.Add('COMPR_PROD        = :COMPR_PROD,'       );
+            ControllerConexao.qryQuery.SQL.Add('LOCK              = :LOCK,'             );
+            ControllerConexao.qryQuery.SQL.Add('IDUSULOCK         = :IDUSULOCK'         );
             ControllerConexao.qryQuery.SQL.Add('WHERE ID_PROD     = :ID_PROD'           );
 
             ControllerConexao.qryQuery.ParamByName('ID_PROD'          ).AsInteger  := AIDProd;
@@ -156,6 +158,8 @@ begin
             ControllerConexao.qryQuery.ParamByName('ORIENT_PROD'      ).AsString   := AOrientacao;
             ControllerConexao.qryQuery.ParamByName('DETALHES_PROD'    ).AsString   := ADetalhes;
             ControllerConexao.qryQuery.ParamByName('INFO_PROD'        ).AsString   := AInformacoes;
+            ControllerConexao.qryQuery.ParamByName('LOCK'             ).AsString   := 'F';
+            ControllerConexao.qryQuery.ParamByName('IDUSULOCK'        ).AsInteger  := 0;
             ControllerConexao.qryQuery.ParamByName('PRCUSTO_PROD'     ).AsCurrency := ACusto;
             ControllerConexao.qryQuery.ParamByName('PRVENDA_PROD'     ).AsCurrency := AVenda;
             ControllerConexao.qryQuery.ParamByName('PRPROMO_PROD'     ).AsCurrency := APromo;

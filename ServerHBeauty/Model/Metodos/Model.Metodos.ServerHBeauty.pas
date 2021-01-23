@@ -41,6 +41,8 @@ type
     function CarregaCamposProfissional(ACampos : String) : TFDJSONDataSets;
     function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;
     function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
+    procedure DebloqueiaRegistro(ATabela  : String; AIDConectado : Integer);
+
     function GravaImagem(APrefixo, AExtensao : String) : Integer;
     function AtualizaImagem(AIDImagem : Integer) : String;
     function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
@@ -134,6 +136,11 @@ end;
 function TModelMetodos.cadastraHabilidade(AIDCargoHabilidade : Integer; AHabilidade, ADescricao : String) : String;
 begin
      Result := Model.Metodos.Habilidades.ServerHBeauty.cadastraHabilidade(AIDCargoHabilidade, AHabilidade, ADescricao);
+end;
+
+procedure TModelMetodos.DebloqueiaRegistro(ATabela: String; AIDConectado: Integer);
+begin
+     Model.Metodos.Genericos.ServerHBeauty.DebloqueiaRegistro(ATabela, AIDConectado);
 end;
 
 function TModelMetodos.DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : String) : String;

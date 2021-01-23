@@ -10,7 +10,7 @@ function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : St
 function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
 function carregaCamposSelecionados(ACampos, ATabela, ACondicao : String) : TFDJSONDataSets;
 function carregaCamposSQL(ASQL : String) : TFDJSONDataSets;
-
+procedure DebloqueiaRegistro(ATabela  : String; AIDConectado : Integer);
 
 
 implementation
@@ -53,12 +53,28 @@ begin
      end;
 end;
 
+procedure DebloqueiaRegistro(ATabela  : String; AIDConectado : Integer);
+begin
+     try
+        ControllerConexao.qryQuery.Close;
+        ControllerConexao.qryQuery.SQL.Clear;
+        ControllerConexao.qryQuery.SQL.Add('UPDATE ' + ATabela + ' SET');
+        ControllerConexao.qryQuery.SQL.Add('LOCK = ' + QuotedStr('F') + ',');
+        ControllerConexao.qryQuery.SQL.Add('IDUSULOCK = 0');
+        ControllerConexao.qryQuery.SQL.Add('WHERE IDUSULOCK = ' + AIdConectado.ToString);
+        ControllerConexao.qryQuery.ExecSQL;
+     finally
+        ControllerConexao.qryQuery.Close;
+     end;
+end;
+
 
 function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
 var
 ARes : Boolean;
 begin
      try
+
         ControllerConexao.qryQuery.Close;
         ControllerConexao.qryQuery.SQL.Clear;
         ControllerConexao.qryQuery.SQL.Add('SELECT LOCK FROM ' + ATabela);

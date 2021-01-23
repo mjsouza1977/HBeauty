@@ -631,7 +631,7 @@ end;
 
 procedure TfrmGerenciadorProfissionais.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-     BloqueiaRegistro(False, FIdSelecionado, tcProfissionais);
+     DebloqueiaRegistro('HBPROFISSIONAIS');
      FreeAndNil(gclProfissional);
      Action := TCloseAction.caFree;
 end;

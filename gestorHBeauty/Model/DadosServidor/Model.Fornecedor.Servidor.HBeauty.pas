@@ -10,16 +10,19 @@ function PesquisaFornecedores(ANome, APseudo, ACNPJ, ATipoPesquisa : String; AId
 function cadastraFornecedor(AFornecedor : TModelFornecedor; AForm : TForm) : String;
 function atualizaFornecedores(AFornecedor : TModelFornecedor) : String;
 procedure cadastraMarcaFornecedor(AIdForn, AIdMarca : Integer);
-procedure limpaMarcaFornecedor(AIdForn : Integer);
+function limpaMarcaFornecedor(AIdForn : Integer) : Boolean;
 
 
 
 implementation
 
 uses
-  Controller.ClientModule.HBeauty;
+  Controller.ClientModule.HBeauty,
+  Winapi.Windows,
+  FMX.Platform.Win,
+  Units.Consts.HBeauty;
 
-procedure limpaMarcaFornecedor(AIdForn : Integer);
+function limpaMarcaFornecedor(AIdForn : Integer) : Boolean;
 begin
      ControllerClientModule.ModelMetodosClient.limpaMarcaFornecedor(AIdForn);
 end;

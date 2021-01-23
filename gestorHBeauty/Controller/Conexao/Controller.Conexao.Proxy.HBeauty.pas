@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 17/01/2021 18:13:56
+// 23/01/2021 19:54:54
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -43,6 +43,7 @@ type
     FCarregaCamposProfissionalCommand_Cache: TDSRestCommand;
     FDocumentoRepetidoCommand: TDSRestCommand;
     FManipulaEstadoRegistroCommand: TDSRestCommand;
+    FDebloqueiaRegistroCommand: TDSRestCommand;
     FGravaImagemCommand: TDSRestCommand;
     FAtualizaImagemCommand: TDSRestCommand;
     FAtualizaFotoProfissionalCommand: TDSRestCommand;
@@ -123,6 +124,7 @@ type
     function CarregaCamposProfissional_Cache(ACampos: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function DocumentoRepetido(ADocumento: string; ACampoDocumento: string; ACampoNome: string; ATabela: string; const ARequestFilter: string = ''): string;
     function ManipulaEstadoRegistro(ABloqueia: Boolean; AIdUsuario: Integer; AIdRegistro: Integer; ACampoID: string; ATabela: string; const ARequestFilter: string = ''): Boolean;
+    procedure DebloqueiaRegistro(ATabela: string; AIDConectado: Integer);
     function GravaImagem(APrefixo: string; AExtensao: string; const ARequestFilter: string = ''): Integer;
     function AtualizaImagem(AIDImagem: Integer; const ARequestFilter: string = ''): string;
     function AtualizaFotoProfissional(AIDProfissional: Integer; AIdFoto: Integer; const ARequestFilter: string = ''): string;
@@ -439,6 +441,12 @@ const
     (Name: 'ACampoID'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ATabela'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: ''; Direction: 4; DBXType: 4; TypeName: 'Boolean')
+  );
+
+  TModelMetodos_DebloqueiaRegistro: array [0..1] of TDSRestParameterMetaData =
+  (
+    (Name: 'ATabela'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AIDConectado'; Direction: 1; DBXType: 6; TypeName: 'Integer')
   );
 
   TModelMetodos_GravaImagem: array [0..2] of TDSRestParameterMetaData =
@@ -1448,6 +1456,20 @@ begin
   Result := FManipulaEstadoRegistroCommand.Parameters[5].Value.GetBoolean;
 end;
 
+procedure TModelMetodosClient.DebloqueiaRegistro(ATabela: string; AIDConectado: Integer);
+begin
+  if FDebloqueiaRegistroCommand = nil then
+  begin
+    FDebloqueiaRegistroCommand := FConnection.CreateCommand;
+    FDebloqueiaRegistroCommand.RequestType := 'GET';
+    FDebloqueiaRegistroCommand.Text := 'TModelMetodos.DebloqueiaRegistro';
+    FDebloqueiaRegistroCommand.Prepare(TModelMetodos_DebloqueiaRegistro);
+  end;
+  FDebloqueiaRegistroCommand.Parameters[0].Value.SetWideString(ATabela);
+  FDebloqueiaRegistroCommand.Parameters[1].Value.SetInt32(AIDConectado);
+  FDebloqueiaRegistroCommand.Execute;
+end;
+
 function TModelMetodosClient.GravaImagem(APrefixo: string; AExtensao: string; const ARequestFilter: string): Integer;
 begin
   if FGravaImagemCommand = nil then
@@ -2452,6 +2474,7 @@ begin
   FCarregaCamposProfissionalCommand_Cache.DisposeOf;
   FDocumentoRepetidoCommand.DisposeOf;
   FManipulaEstadoRegistroCommand.DisposeOf;
+  FDebloqueiaRegistroCommand.DisposeOf;
   FGravaImagemCommand.DisposeOf;
   FAtualizaImagemCommand.DisposeOf;
   FAtualizaFotoProfissionalCommand.DisposeOf;

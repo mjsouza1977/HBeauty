@@ -137,7 +137,7 @@ uses
   Units.Classes.HBeauty,
   Controller.Manipula.Design.HBeauty, Model.Terceirizada.HBeauty, Model.Dados.Server.HBeauty,
   Units.Consts.HBeauty, Winapi.Windows, FMX.Platform.Win, View.Contatos.HBeauty,
-  Model.Endereco.HBeauty;
+  Model.Endereco.HBeauty, Model.Genericos.Servidor.HBeauty;
 
 {$R *.fmx}
 
@@ -556,7 +556,7 @@ end;
 
 procedure TfrmGerenciadorTerceirizadas.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-     BloqueiaRegistro(False, FIdSelecionado, tcTercerizadas);
+     DebloqueiaRegistro('HBTERCEIRIZADA');
      FreeAndNil(gclTerceirizada);
      Action := TCloseAction.caFree;
 end;

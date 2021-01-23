@@ -8,6 +8,7 @@ type
                          tcMarcas, tcProdutos);
     TAcaoBotao = (abIncluir, abAlterar, abExcluir, abNulo);
     TTipoForm = (tfEmail, tfTelefone);
+    TStatus= (stOnLine, stOffLine);
 
 
 implementation

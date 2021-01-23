@@ -115,6 +115,8 @@ end;
 
 
 procedure CarregaVariaveisControle;
+var
+AChave : String;
 begin
 
     CarregaControle;
@@ -135,6 +137,13 @@ begin
     ctrSIZE_FOTO_SER        := getValueControle('SIZE_FOTO_SER');
     ctrPATH_FOTOS           := getValueControle('PATH_FOTOS');
     ctrSIZE_LOGO            := getValueControle('SIZE_LOGO');
+    ctrHOST_FTP             := getValueControle('HOST_FTP');
+    ctrPORTA_FTP            := getValueControle('PORTA_FTP').ToInteger;
+    ctrUSUARIO_FTP          := getValueControle('USUARIO_FTP');
+    ctrSENHA_FTP            := getValueControle('SENHA_FTP');
+    ctrPATHIMAGEM_FTP       := getValueControle('PATHIMAGEM_FTP');
+    AChave                  := getValueControle('CHAVE');
+    ctrCHAVE                := Copy(AChave, Pos('_',AChave) + 1, Length(AChave));
 end;
 
 procedure CarregaGrid(ATable : TFDMemTable; AGrid: TTMSFMXGrid; const AListaFields, AListaCaptionFields : Array of String;

@@ -2,8 +2,8 @@ unit Units.Utils.HBeauty;
 
 interface
 
-uses Units.Consts.HBeauty, FMX.Objects, FMX.Forms, FMX.Layouts, Units.Enumerados.HBeauty,
-  FMX.Edit, FMX.ListBox, FMX.NumberBox, FMX.Memo, ACBrValidador;
+uses FMX.Objects, FMX.Forms, FMX.Layouts, Units.Enumerados.HBeauty,
+  FMX.Edit, FMX.ListBox, FMX.NumberBox, FMX.Memo, ACBrValidador, idFTP;
 
 function BooleanToString(ATrue, AFalse : String; AValue : Boolean) : String;
 function StringToBool(ATrue, AFalse, AValue : String) : Boolean;
@@ -15,6 +15,8 @@ function validaCampoVazio(AForm : TForm; AValue, ACampo : String; ATamanho : Int
 procedure CarregaImagemRessource(Image : TImage; NomeImagem : String);
 procedure ControlaBotoes(AForm : TForm; AOpcao: Boolean);
 procedure FormataItensComboBox(ComboBox : TComboBox; Family : String; Size : Single);
+function MD5(const ATexto : String) : String;
+function DownloadImagemFTP(ANomeArquivo : String; AImage : TImage) : Boolean;
 
 
 procedure NextField(Key : Word; ANext : TEdit); overload;
@@ -29,7 +31,54 @@ implementation
 
 uses
   Winapi.Windows, System.Classes, FMX.TMSButton, System.UITypes,
-  FMX.Platform.Win, Units.Strings.HBeauty, System.SysUtils, FMX.Types;
+  FMX.Platform.Win, Units.Strings.HBeauty, System.SysUtils, FMX.Types,
+  IdHashMessageDigest, Units.Consts.HBeauty, IdFTPCommon;
+
+function DownloadImagemFTP(ANomeArquivo : String; AImage : TImage) : Boolean;
+var
+   ms: TMemoryStream;
+   ftp : TIdFtp;
+begin
+    ms := TMemoryStream.Create;
+    ms.Position := 0;
+    Try
+        Try
+            ftp          := TIdFTP.Create(Application);
+            ftp.host     := ctrHOST_FTP; // Endereço do servidor FTP
+            ftp.port     := ctrPORTA_FTP;
+            ftp.username := ctrUSUARIO_FTP; // Parametro nome usuario servidor FTP
+            ftp.password := ctrSENHA_FTP; // Parametro senha servidor FTP
+            ftp.Connect();
+
+            AssErt(ftp.Connected);
+
+            ftp.ChangeDir(ctrPATHIMAGEM_FTP); // Definir a pasta no servidor
+            ftp.TransferType := ftBinary;
+
+            ftp.Get(ANomeArquivo, ms);
+            AImage.Bitmap.LoadFromStream(ms);
+            Result := True;
+        except
+            Result := false;
+        end;
+    Finally
+        ftp.Disconnect;
+        ftp.DisposeOf;
+        ms.DisposeOf;
+    End;
+end;
+
+function MD5(const ATexto : String) : String;
+var
+idmd5 : TIdHashMessageDigest5;
+begin
+   idmd5 := TIdHashMessageDigest5.Create;
+   try
+      Result := idmd5.HashStringAsHex(ATexto);
+   finally
+      idmd5.Free;
+   end;
+end;
 
 procedure FormataItensComboBox(ComboBox : TComboBox; Family : String; Size : Single);
 var

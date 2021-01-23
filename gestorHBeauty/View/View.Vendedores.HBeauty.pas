@@ -145,7 +145,8 @@ implementation
 uses
   Units.Classes.HBeauty, Model.Dados.Server.HBeauty,
   Winapi.Windows, FMX.Platform.Win, Units.Mensagens.HBeauty,
-  Model.Endereco.HBeauty, View.Contatos.HBeauty;
+  Model.Endereco.HBeauty, View.Contatos.HBeauty,
+  Model.Genericos.Servidor.HBeauty;
 
 {$R *.fmx}
 
@@ -555,7 +556,7 @@ end;
 
 procedure TfrmGerenciadorVendedores.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-     BloqueiaRegistro(False, FIdSelecionado, tcVendedor);
+     DebloqueiaRegistro('HBVENDEDOR');
      FreeAndNil(gclVendedor);
      Action := TCloseAction.caFree;
 end;

@@ -94,7 +94,8 @@ uses Units.Utils.HBeauty,
      Winapi.Windows,
      FMX.PLatForm.Win,
      Model.Emails.HBeauty,
-     Controller.Manipula.Design.HBeauty;
+     Controller.Manipula.Design.HBeauty,
+     Model.Genericos.Servidor.HBeauty ;
 
 procedure TfrmCadastroContatos.btnAlterarClick(Sender: TObject);
 begin
@@ -407,8 +408,8 @@ procedure TfrmCadastroContatos.FormClose(Sender: TObject; var Action: TCloseActi
 begin
 
      case FTipoForm of
-          tfEmail : BloqueiaRegistro(False, FIdContatoSelecionado, TTabelaCadastrada.tcEmails);
-       tfTelefone : BloqueiaRegistro(False, FIdContatoSelecionado, TTabelaCadastrada.tcTelefones);
+          tfEmail : DebloqueiaRegistro('HBEMAILS');
+       tfTelefone : DebloqueiaRegistro('HBTELEFONES');
      end;
 
      Action := TCloseAction.caFree;

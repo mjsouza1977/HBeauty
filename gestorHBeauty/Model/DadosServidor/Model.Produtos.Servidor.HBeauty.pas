@@ -22,7 +22,7 @@ begin
      Result := ControllerClientModule.ModelMetodosClient.atualizaProduto(AProduto.ID_PROD, AProduto.IDFORN_PROD, AProduto.IDMARCA_PROD, AProduto.CODIGOBARRAS_PROD,
                                                                          AProduto.DESCR_PROD, AProduto.EMB_PROD, AProduto.UND_PROD, AProduto.OBS_PROD,
                                                                          AProduto.MEDIDADOSE_PROD, AProduto.CCEST_PROD, AProduto.CLSSFISCAL_PROD,
-                                                                         AProduto.ORIENT_PROD, AProduto.DETALHES_PROD, AProduto.ORIENT_PROD, AProduto.PRCUSTO_PROD,
+                                                                         AProduto.ORIENT_PROD, AProduto.DETALHES_PROD, AProduto.INFO_PROD, AProduto.PRCUSTO_PROD,
                                                                          AProduto.PRVENDA_PROD, AProduto.PRPROMO_PROD, AProduto.PESO_PROD, AProduto.DOSE_PROD,
                                                                          AProduto.LARGURA_PROD, AProduto.ALTURA_PROD, AProduto.COMPR_PROD);
 end;
@@ -45,7 +45,7 @@ begin
      Result := ControllerClientModule.ModelMetodosClient.cadastraProduto(AProduto.IDFORN_PROD, AProduto.IDMARCA_PROD, AProduto.CODIGOBARRAS_PROD,
                                                                          AProduto.DESCR_PROD, AProduto.EMB_PROD, AProduto.UND_PROD, AProduto.OBS_PROD,
                                                                          AProduto.MEDIDADOSE_PROD, AProduto.CCEST_PROD, AProduto.CLSSFISCAL_PROD,
-                                                                         AProduto.ORIENT_PROD, AProduto.DETALHES_PROD, AProduto.ORIENT_PROD, AProduto.PRCUSTO_PROD,
+                                                                         AProduto.ORIENT_PROD, AProduto.DETALHES_PROD, AProduto.INFO_PROD, AProduto.PRCUSTO_PROD,
                                                                          AProduto.PRVENDA_PROD, AProduto.PRPROMO_PROD, AProduto.PESO_PROD, AProduto.DOSE_PROD,
                                                                          AProduto.LARGURA_PROD, AProduto.ALTURA_PROD, AProduto.COMPR_PROD);
 

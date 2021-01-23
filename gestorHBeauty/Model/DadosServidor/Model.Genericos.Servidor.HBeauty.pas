@@ -9,6 +9,7 @@ function DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela : St
 function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdRegistro: Integer; ACampoID, ATabela : String) : Boolean;
 function carregaCamposSelecionados(AMemTable : TFDMemTable; ACampos, ATabela : String; ACondicao : String = '') : TFDJSONDataSets;
 function carregaCamposSQL(AMemTable : TFDMemTable; ASQL: String): TFDJSONDataSets;
+procedure DebloqueiaRegistro(ATabela: String);
 
 implementation
 
@@ -36,6 +37,11 @@ begin
     AMemTable.Active := False;
     AMemTable.AppendData(TFDJSONDataSetsReader.GetListValue(dsGenerico, 0));
     AMemTable.Active := True;
+end;
+
+procedure DebloqueiaRegistro(ATabela: String);
+begin
+    ControllerClientModule.ModelMetodosClient.DebloqueiaRegistro(ATabela, gIDUsuarioConectado);
 end;
 
 function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdRegistro: Integer; ACampoID, ATabela : String) : Boolean;

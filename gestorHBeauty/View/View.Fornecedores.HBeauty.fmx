@@ -314,7 +314,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
         TextSettings.Font.StyleExt = {00070000000000000004000000}
         TextSettings.FontColor = claWhite
         Text = 'Status:'
-        TabOrder = 47
+        TabOrder = 49
       end
       object lblStatus: TLabel
         StyledSettings = [Family]
@@ -4970,7 +4970,7 @@ object frmCadastroFornecedores: TfrmCadastroFornecedores
         Size.PlatformDefault = False
         Text = 'Marcas'
         TextSettings.Font.StyleExt = {00070000000000000004000000}
-        TabOrder = 32
+        TabOrder = 34
         object recMarcas: TRectangle
           Fill.Color = claWhite
           Margins.Left = 150.000000000000000000

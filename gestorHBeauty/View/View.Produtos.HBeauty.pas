@@ -116,12 +116,6 @@ type
     tabRelacionados: TTabItem;
     tabSimilares: TTabItem;
     tabOrientacoes: TTabItem;
-    recRodapeBotoesPrincipal: TRectangle;
-    btnAlterar: TTMSFMXButton;
-    btnFechar: TTMSFMXButton;
-    btnIncluir: TTMSFMXButton;
-    btnSalvar: TTMSFMXButton;
-    btnCancelar: TTMSFMXButton;
     edtBarras: TEdit;
     Rectangle10: TRectangle;
     cbPesquisaPor: TComboBox;
@@ -136,33 +130,34 @@ type
     Label1: TLabel;
     Button1: TButton;
     grdlytFotos: TGridLayout;
-    GridLayout2: TGridLayout;
-    Rectangle40: TRectangle;
-    Rectangle41: TRectangle;
-    Rectangle42: TRectangle;
-    Rectangle43: TRectangle;
-    Rectangle44: TRectangle;
-    Rectangle45: TRectangle;
-    Rectangle46: TRectangle;
-    Rectangle47: TRectangle;
-    Rectangle48: TRectangle;
-    Rectangle49: TRectangle;
-    Rectangle50: TRectangle;
-    Rectangle51: TRectangle;
-    GridLayout3: TGridLayout;
-    Rectangle52: TRectangle;
-    Rectangle53: TRectangle;
-    Rectangle54: TRectangle;
-    Rectangle55: TRectangle;
-    Rectangle56: TRectangle;
-    Rectangle57: TRectangle;
-    Rectangle58: TRectangle;
-    Rectangle59: TRectangle;
-    Rectangle60: TRectangle;
-    Rectangle61: TRectangle;
-    Rectangle62: TRectangle;
-    Rectangle63: TRectangle;
-    procedure Button1Click(Sender: TObject);
+    grdRelacionados: TGridLayout;
+    grdSimilares: TGridLayout;
+    tabControleBotoes: TTabControl;
+    tbBotoesPrincipal: TTabItem;
+    tbBotoesImagens: TTabItem;
+    recRodapeBotoesPrincipal: TRectangle;
+    btnAlterar: TTMSFMXButton;
+    btnFechar: TTMSFMXButton;
+    btnIncluir: TTMSFMXButton;
+    btnSalvar: TTMSFMXButton;
+    btnCancelar: TTMSFMXButton;
+    Rectangle28: TRectangle;
+    TMSFMXButton2: TTMSFMXButton;
+    lblTituloFotos: TLabel;
+    opFile: TOpenDialog;
+    Rectangle29: TRectangle;
+    Layout3: TLayout;
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    imgEditar: TImage;
+    imgExcluir: TImage;
+    imgView: TImage;
+    imgCloud: TImage;
+    Image6: TImage;
+    imgLocal: TImage;
+    imgNotFound: TImage;
     procedure btnIncluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure grdListaProdutosCellClick(Sender: TObject; ACol, ARow: Integer);
@@ -188,11 +183,14 @@ type
     procedure btnSalvarClick(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
+    procedure tabGerenciadorAppChange(Sender: TObject);
+    procedure tabGerenciadorProdutosChange(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
     procedure ControlaTab(Lista, Ficha, APP : Boolean);
     procedure AlimentaClasseProdutos;
+    procedure carregaImagem(AParent : TFmxObject; ANomeArquivo : String; AIDImage : Integer; AStatus : TStatus);
 
     { Private declarations }
   public
@@ -210,7 +208,7 @@ uses
   Units.Classes.HBeauty,
   Winapi.Windows,
   FMX.Platform.Win,
-  Units.Strings.HBeauty, Units.Mensagens.HBeauty;
+  Units.Strings.HBeauty, Units.Mensagens.HBeauty, System.UIConsts;
 
 {$R *.fmx}
 
@@ -483,25 +481,81 @@ begin
 
 end;
 
-procedure TfrmGerenciadorProdutos.Button1Click(Sender: TObject);
+procedure TfrmGerenciadorProdutos.carregaImagem(AParent : TFmxObject; ANomeArquivo : String; AIDImage : Integer; AStatus : TStatus);
 var
-FrecFotos : TRectangle;
-J : Integer;
+FRecFotos    : TRectangle;
+FlytLayout   : TLayout;
+FImage       : TImage;
+FImageStatus : TImage;
 begin
 
-     for j  := 1 to 12 do
-         begin
-             FrecFotos := TRectangle.Create(nil);
-             FrecFotos.Parent  := grdlytFotos;
+    //Cria o Retangulo Base para a imagem
+    FrecFotos := TRectangle.Create(nil);
+    FrecFotos.Parent  := AParent;
+    FrecFotos.Margins.Left   := 3;
+    FrecFotos.Margins.Top    := 3;
+    FrecFotos.Margins.Bottom := 3;
+    FrecFotos.Margins.Right  := 3;
+    FrecFotos.Stroke.Kind := TBrushKind.None;
+    FrecFotos.Fill.Color  := StringToAlphaColor('#FFF0F0F0');
+    FrecFotos.XRadius := 5;
+    FrecFotos.YRadius := 5;
 
-             FrecFotos.Margins.Left   := 3;
-             FrecFotos.Margins.Top    := 3;
-             FrecFotos.Margins.Bottom := 3;
-             FrecFotos.Margins.Right  := 3;
+    //Layout do rodape que cntera os botões de ação
+    FlytLayout        := TLayout.Create(nil);
+    FlytLayout.Parent := FRecFotos;
+    FlytLayout.Align  := TAlignLayout.Bottom;
+    FlytLayout.Height := 25;
 
-             FrecFotos.XRadius := 5;
-             FrecFotos.YRadius := 5;
-         end;
+    //TImage que armazenara a imagem
+    FImage          := TImage.Create(nil);
+    FImage.Parent   := FRecFotos;
+    FImage.Align    := TAlignLayout.Client;
+    FImage.WrapMode := TImageWrapMode.Fit;
+    FImage.Name     := 'AImagemProduto_' + (FIndexNomeImagem + 1).ToString;
+    try
+        case AStatus of
+            stOnLine  : DownloadImagemFTP(ANomeArquivo, FImage);
+            stOffLine : FImage.Bitmap.LoadFromFile(ctrPATHIMAGEM_FTP + ANomeArquivo);
+        end;
+    except
+        FImage.Bitmap := imgNotFound.Bitmap;
+    end;
+
+    //TImage que exibira o Status on-line ou OffLine
+    FImageStatus            := TImage.Create(nil);
+    FImageStatus.Parent     := FImage;
+    FImageStatus.Position.X := 125;
+    FImageStatus.Position.Y := 0;
+    case AStatus of
+        stOnLine  : FImageStatus.Bitmap := imgCloud.Bitmap;
+        stOffLine : FImageStatus.Bitmap := imgLocal.Bitmap;
+    end;
+
+    //TImage que servira de botão Editar
+    FImage          := TImage.Create(nil);
+    FImage.Parent   := FlytLayout;
+    FImage.Align    := TAlignLayout.Right;
+    FImage.Width    := 35;
+    FImage.WrapMode := TImageWrapMode.Fit;
+    FImage.Bitmap   := imgEditar.Bitmap;
+
+    //TImage que servira de botão Excluir
+    FImage          := TImage.Create(nil);
+    FImage.Parent   := FlytLayout;
+    FImage.Align    := TAlignLayout.Right;
+    FImage.Width    := 35;
+    FImage.WrapMode := TImageWrapMode.Fit;
+    FImage.Bitmap   := imgExcluir.Bitmap;
+
+    //TImage que servira de botão Visualizar
+    FImage          := TImage.Create(nil);
+    FImage.Parent   := FlytLayout;
+    FImage.Align    := TAlignLayout.Right;
+    FImage.Width    := 35;
+    FImage.WrapMode := TImageWrapMode.Fit;
+    FImage.Bitmap   := frmGerenciadorProdutos.imgView.Bitmap;
+
 end;
 
 procedure TfrmGerenciadorProdutos.cbFornecedoresChange(Sender: TObject);
@@ -621,6 +675,7 @@ end;
 procedure TfrmGerenciadorProdutos.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
 
+     DebloqueiaRegistro('HBPRODUTO');
      FreeAndNil(gclProdutos);
      Action := TCloseAction.caFree;
 
@@ -628,6 +683,7 @@ end;
 
 procedure TfrmGerenciadorProdutos.FormCreate(Sender: TObject);
 begin
+     FIndexNomeImagem := 1;
      CarregaPersonalizacaoCabecarioRodape(Self);
 
      pesquisaProdutos('','Lista','','DESCR_PROD');
@@ -654,6 +710,51 @@ end;
 procedure TfrmGerenciadorProdutos.grdListaProdutosCellClick(Sender: TObject; ACol, ARow: Integer);
 begin
     FIdSelecionado := ExtraiTextoGrid(grdListaProdutos.Cells[0, ARow]).ToInteger;
+end;
+
+procedure TfrmGerenciadorProdutos.tabGerenciadorAppChange(Sender: TObject);
+begin
+
+     if tabGerenciadorApp.ActiveTab = tabFotos then
+         begin
+             lblTituloFotos.Text := 'Fotos dos' + #13 + 'Produtos';
+             tabControleBotoes.ActiveTab := tbBotoesImagens;
+         end else
+     if tabGerenciadorApp.ActiveTab = tabRelacionados then
+         begin
+             lblTituloFotos.Text := 'Produtos ' + #13 + 'Relacionados';
+             tabControleBotoes.ActiveTab := tbBotoesImagens;
+         end else
+     if tabGerenciadorApp.ActiveTab = tabSimilares then
+         begin
+             lblTituloFotos.Text := 'Produtos ' + #13 + 'Similares';
+             tabControleBotoes.ActiveTab := tbBotoesImagens;
+         end
+     else
+         begin
+              lblTituloFotos.Text := '';
+              tabControleBotoes.ActiveTab := tbBotoesPrincipal;
+         end;
+
+
+end;
+
+procedure TfrmGerenciadorProdutos.tabGerenciadorProdutosChange(Sender: TObject);
+begin
+
+     if (tabGerenciadorProdutos.ActiveTab = tabAPP) and
+        (tabGerenciadorApp.ActiveTab = tabFotos) or
+        (tabGerenciadorApp.ActiveTab = tabRelacionados) or
+        (tabGerenciadorApp.ActiveTab = tabSimilares) then
+         begin
+             tabControleBotoes.ActiveTab := tbBotoesImagens;
+         end
+     else
+         begin
+             tabControleBotoes.ActiveTab := tbBotoesPrincipal;
+         end;
+
+
 end;
 
 end.

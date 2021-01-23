@@ -87,6 +87,7 @@ const
 
 var
    rResultado : String;
+   FIndexNomeImagem : Integer = 1;
 
    ctrCOR_BOTOES_POSITIVO  : TAlphaColor;
    ctrCOR_BOTOES_NEGATIVO  : TAlphaColor;
@@ -104,7 +105,14 @@ var
    ctrSIZE_FOTO_SER        : String;
    ctrSIZE_LOGO            : String;
    ctrPATH_FOTOS           : String;
+   ctrHOST_FTP             : String;
+   ctrPORTA_FTP            : Word;
+   ctrUSUARIO_FTP          : String;
+   ctrSENHA_FTP            : String;
+   ctrPATHIMAGEM_FTP       : String;
+   ctrCHAVE                : String;
    ctrFULL_SCREEN          : Boolean;
+
 
    gIDUsuarioConectado     : Integer = 0;
 implementation

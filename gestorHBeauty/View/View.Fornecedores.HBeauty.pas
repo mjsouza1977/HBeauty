@@ -526,20 +526,20 @@ begin
                                                          CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
                                                     end;
 
-                                             atualizaFornecedores(gclFornecedor);
-                                             limpaMarcaFornecedor(FIdSelecionado);
-                                             SalvaMarcaFornecedor(FIdSelecionado);
+                                                     atualizaFornecedores(gclFornecedor);
+                                                     limpaMarcaFornecedor(FIdSelecionado);
+                                                     SalvaMarcaFornecedor(FIdSelecionado);
 
-                                             BloqueiaRegistro(False, FIdSelecionado, tcFornecedores);
-                                             MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                        'Registro salvo com sucesso!', apTitulo,
-                                                        MB_OK + MB_ICONINFORMATION);
-                                             btnPesquisarClick(Self);
-                                             LimpaForm(Self);
-                                             tabFichaFornecedor.Visible := False;
-                                             ControlaBotoes(Self, True);
-                                             tabCabecarioFornecedor.Previous;
-                                             tabGerenciadorFornecedor.TabIndex := 0;
+                                                     BloqueiaRegistro(False, FIdSelecionado, tcFornecedores);
+                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                'Registro salvo com sucesso!', apTitulo,
+                                                                MB_OK + MB_ICONINFORMATION);
+                                                     btnPesquisarClick(Self);
+                                                     LimpaForm(Self);
+                                                     tabFichaFornecedor.Visible := False;
+                                                     ControlaBotoes(Self, True);
+                                                     tabCabecarioFornecedor.Previous;
+                                                     tabGerenciadorFornecedor.TabIndex := 0;
                                          except
                                               On E:Exception do
                                                  begin
@@ -641,7 +641,7 @@ end;
 
 procedure TfrmCadastroFornecedores.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-     BloqueiaRegistro(False, FIdSelecionado, tcFornecedores);
+     DebloqueiaRegistro('HBFORNECEDOR');
      FreeAndNil(gclFornecedor);
      Action := TCloseAction.caFree;
 end;
@@ -719,7 +719,7 @@ begin
                 ACheckBox.Text       := ATable.FieldByName('MARCA_MARCA').AsString;
                 ACheckBox.TagString  := ATable.FieldByName('ID_MARCA').AsString;
                 ACheckBox.Name       := 'chkMarca' + AIndex.ToString;
-
+ 
                 FTable.Filtered := False;
                 FTable.Filter   := 'IDMARCA_FORNXMARCA=' + ATable.FieldByName('ID_MARCA').AsString;
                 FTable.Filtered := True;
@@ -736,7 +736,6 @@ begin
     end;
 
 end;
-
 
 procedure TfrmCadastroFornecedores.recLogoFornecedorClick(Sender: TObject);
 var

@@ -8,7 +8,7 @@ uses Controller.Conexao.HBeautyServer,
 
 function ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AIDTerceirizada, AId : Integer) : TFDJSONDataSets;
 function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ANome, ASobreNome, ACPF, ARG,
-                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
+                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep, APathOriginal : String; ASalario, AComissao : Currency) : Integer;
 
 function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog : Integer; ANome, ASobreNome, ACPF, ARG,
                               ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : String;
@@ -169,13 +169,13 @@ begin
     end;
 end;
 
-procedure InseriFotoProfissional(AIDProfissional : Integer);
+procedure InseriFotoProfissional(AIDProfissional : Integer; APathOriginal : String);
 begin
      try
          ControllerConexao.qryQuery.Close;
          ControllerConexao.qryQuery.SQL.Clear;
          ControllerConexao.qryQuery.SQL.Add('UPDATE HBPROFISSIONAIS SET');
-         ControllerConexao.qryQuery.SQL.Add('IDFOTO_PROFIS = ' + GravaImagem('PES', '.jpg').ToString);
+         ControllerConexao.qryQuery.SQL.Add('IDFOTO_PROFIS = ' + GravaImagem(AIDProfissional, 'PES', '.JPG', '', 'PRF', APathOriginal).ToString);
          ControllerConexao.qryQuery.SQL.Add('WHERE ID_PROFIS = ' + AIDProfissional.ToString);
          ControllerConexao.qryQuery.ExecSQL;
      finally
@@ -209,7 +209,7 @@ begin
 end;
 
 function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ANome, ASobreNome, ACPF, ARG,
-                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
+                              ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep, APathOriginal : String; ASalario, AComissao : Currency) : Integer;
 var
 AID : Integer;
 begin
@@ -249,7 +249,7 @@ begin
 
              ControllerConexao.qryQuery.Open('SELECT GEN_ID(GEN_HBPROFISSIONAIS_ID, 0) AS IDPROFISSIONAL FROM RDB$DATABASE');
              AID    := ControllerConexao.qryQuery.FieldByName('IDPROFISSIONAL').AsInteger;
-             InseriFotoProfissional(AID);
+             InseriFotoProfissional(AID, APathOriginal);
              Result := AID;
          except
              Result := 0;

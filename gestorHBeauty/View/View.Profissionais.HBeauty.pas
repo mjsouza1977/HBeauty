@@ -449,7 +449,7 @@ begin
                                          AlimentaClasseProfissional;
                                          gclProfissional.IDEMPTER_PROFIS := Integer(cbEmpresaTerceirizada.Items.Objects[cbEmpresaTerceirizada.ItemIndex]);
                                          Try
-                                            FIdSelecionado := CadastraProfissional(gclProfissional, Self);
+                                            FIdSelecionado := CadastraProfissional(gclProfissional, Self, opFile.FileName);
                                             //apagaHabilidadesProfissional(FIdSelecionado);
                                             //gravaHabilidadesSelecionadas;
 
@@ -690,7 +690,7 @@ begin
                         begin
                              if gclProfissional.IMAGENS.NOMEFILEIMAGEM = '' then
                                  begin
-                                     ANomeImagem := AtualizaFotoProfissional(gclProfissional.ID_PROFIS, GravaImagem(pxFotoPessoa,AExtensao));
+                                     ANomeImagem := AtualizaFotoProfissional(gclProfissional.ID_PROFIS, GravaImagem(0, pxFotoPessoa, AExtensao, '', '', opFile.FileName));
                                      if ANomeImagem <> '' then
                                          begin
                                              CopyFile(pChar(opFile.FileName), pChar(ctrPATH_FOTOS + ANomeImagem), False);
@@ -729,7 +729,7 @@ begin
                          'Deseja salvar agora?', 'HBeauty', MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
                     AlimentaClasseProfissional;
-                    FIdSelecionado := CadastraProfissional(gclProfissional, Self);
+                    FIdSelecionado := CadastraProfissional(gclProfissional, Self, opFile.FileName);
 
                     if FIdSelecionado <> 0 then
                         begin
@@ -770,7 +770,7 @@ begin
                          'Para cadastrar os e-mails é necessário primeiro salvar o profissional'+#13#13+
                          'Deseja salvar agora?', apTitulo, MB_YESNO + MB_ICONQUESTION) = IDYES then
                 begin
-                    FIdSelecionado := CadastraProfissional(gclProfissional, Self);
+                    FIdSelecionado := CadastraProfissional(gclProfissional, Self, opFile.FileName);
                     ControlaBotoes(Self, True);
 
                     if FIdSelecionado <> 0 then

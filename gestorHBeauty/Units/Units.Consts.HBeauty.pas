@@ -75,9 +75,14 @@ const
      tpIgual     : String = 'Igual';
 
      //Prefixo das imagens
-     pxFotoPessoa  : String = 'PES'; //Prefixo para fotos das pessoas
-     pxFotoProduto : String = 'PRO'; //Prefixo para fotos dos produtos
-     pxFotoServico : String = 'SER'; //Prefixo para fotos dos serviços
+     pxFotoPessoa   : String = 'PES'; //Prefixo para fotos das pessoas
+     pxFotoProduto  : String = 'PRO'; //Prefixo para fotos dos produtos
+     pxFotoServico  : String = 'SER'; //Prefixo para fotos dos serviços
+     pxSimilar      : String = 'SIM'; //Prefixo para fotos dos produtos similares
+     pxRelacionada  : String = 'REL'; //Prefixo para fotos dos produtos relacionados
+     pxFoto         : String = 'FOT'; //Prefixo para fotos
+     pxProfissional : String = 'PRF';
+     pxFornecedor   : String = 'FOR';
 
      apTitulo    : pWideChar = 'HBeauty';
 

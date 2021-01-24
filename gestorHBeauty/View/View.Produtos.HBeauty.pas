@@ -142,7 +142,7 @@ type
     btnSalvar: TTMSFMXButton;
     btnCancelar: TTMSFMXButton;
     Rectangle28: TRectangle;
-    TMSFMXButton2: TTMSFMXButton;
+    btnAdicionarFotos: TTMSFMXButton;
     lblTituloFotos: TLabel;
     opFile: TOpenDialog;
     Rectangle29: TRectangle;
@@ -185,9 +185,11 @@ type
     procedure btnCancelarClick(Sender: TObject);
     procedure tabGerenciadorAppChange(Sender: TObject);
     procedure tabGerenciadorProdutosChange(Sender: TObject);
+    procedure btnAdicionarFotosClick(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
+    FgridFotos : TGridLayout;
     procedure ControlaTab(Lista, Ficha, APP : Boolean);
     procedure AlimentaClasseProdutos;
     procedure carregaImagem(AParent : TFmxObject; ANomeArquivo : String; AIDImage : Integer; AStatus : TStatus);
@@ -238,6 +240,37 @@ begin
      gclProdutos.ALTURA_PROD       := edtAltura.Value;
      gclProdutos.COMPR_PROD        := edtComprimento.Value;
 
+end;
+
+procedure TfrmGerenciadorProdutos.btnAdicionarFotosClick(Sender: TObject);
+var
+ANomeImagem, AExtensao, ASQL : String;
+begin
+    if opFile.Execute then
+        begin
+            AExtensao := UpperCase(ExtractFileExt(opFile.FileName));
+            if (Pos('JPG', AExtensao) = 0) and (Pos('JPEG', AExtensao) = 0) then
+                begin
+                    MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                              'Formato do arquivo inválido, selecione um arquivo do tipo "jpg"!',
+                              apTitulo, MB_OK + MB_ICONEXCLAMATION);
+                    Exit;
+                end
+            else
+                begin
+
+                    ASQL := 'SELECT PATHORIGINALIMAGEM FROM HBIMAGENS WHERE PATHORIGINALIMAGEM = '+ QuotedStr(opFile.FileName);
+                    carregaCamposSQL(ModelConexaoDados.memGenerica, ASQL);
+
+
+                    if ModelConexaoDados.memGenerica.RecordCount = 0 then
+                        begin
+                            ANomeImagem := GeraNomeImagem(pxFotoProduto, AExtensao);
+
+                            CopyFile(pChar(opFile.FileName), pChar(ctrPATH_FOTOS + ANomeImagem), False);
+                        end;
+                end;
+        end;
 end;
 
 procedure TfrmGerenciadorProdutos.btnAlterarClick(Sender: TObject);
@@ -516,7 +549,7 @@ begin
     try
         case AStatus of
             stOnLine  : DownloadImagemFTP(ANomeArquivo, FImage);
-            stOffLine : FImage.Bitmap.LoadFromFile(ctrPATHIMAGEM_FTP + ANomeArquivo);
+            stOffLine : FImage.Bitmap.LoadFromFile(ANomeArquivo);
         end;
     except
         FImage.Bitmap := imgNotFound.Bitmap;
@@ -527,6 +560,9 @@ begin
     FImageStatus.Parent     := FImage;
     FImageStatus.Position.X := 125;
     FImageStatus.Position.Y := 0;
+    FImageStatus.Height     := 35;
+    FImageStatus.Width      := 35;
+    FImageStatus.WrapMode   := TImageWrapMode.Center;
     case AStatus of
         stOnLine  : FImageStatus.Bitmap := imgCloud.Bitmap;
         stOffLine : FImageStatus.Bitmap := imgLocal.Bitmap;
@@ -712,6 +748,20 @@ begin
     FIdSelecionado := ExtraiTextoGrid(grdListaProdutos.Cells[0, ARow]).ToInteger;
 end;
 
+procedure carregaNomeImagens(AIDProduto : Integer);
+var
+ASQL : String;
+begin
+
+     ASQL := 'SELECT IDIMAGEM, NOMEFILEIMAGEM, PATHORIGINALIMAGEM, UPDATEIMAGEM FROM HBIMAGENS ' +
+             'WHERE (IDTABIMAGEM = ' + AIDProduto.ToString + ') AND ' +
+             '(TIPOIMAGEM = ' + QuotedStr(pxFoto) + ') AND ' +
+             '(REFIMAGEM = ' + QuotedStr(pxFotoProduto) + ')';
+
+     carregaCamposSQL(ModelConexaoDados.memGenerica, ASQL);
+
+end;
+
 procedure TfrmGerenciadorProdutos.tabGerenciadorAppChange(Sender: TObject);
 begin
 
@@ -719,6 +769,36 @@ begin
          begin
              lblTituloFotos.Text := 'Fotos dos' + #13 + 'Produtos';
              tabControleBotoes.ActiveTab := tbBotoesImagens;
+             if Assigned(FgridFotos) then FreeAndNil(FgridFotos);
+
+             FgridFotos := TGridLayout.Create(nil);
+             FgridFotos.Parent := tabFotos;
+             FgridFotos.Align := TAlignLayout.Client;
+             FgridFotos.ItemHeight := 188;
+             FgridFotos.ItemWidth  := 168;
+             FgridFotos.Orientation := TOrientation.Horizontal;
+
+             carregaNomeImagens(FIdSelecionado);
+
+             if ModelConexaoDados.memGenerica.RecordCount > 0 then
+                 begin
+                     while not ModelConexaoDados.memGenerica.Eof do
+                         begin
+                             if ModelConexaoDados.memGenerica.FieldByName('UPDATEIMAGEM').AsString = 'F' then
+                                 carregaImagem(FgridFotos,
+                                               ModelConexaoDados.memGenerica.FieldByName('NOMEFILEIMAGEM').AsString,
+                                               ModelConexaoDados.memGenerica.FieldByName('IDIMAGEM').AsInteger,
+                                               stOnLine)
+                             else
+                                 carregaImagem(FgridFotos,
+                                               ModelConexaoDados.memGenerica.FieldByName('PATHORIGINALIMAGEM').AsString,
+                                               ModelConexaoDados.memGenerica.FieldByName('IDIMAGEM').AsInteger,
+                                               stOffLine);
+
+                             ModelConexaoDados.memGenerica.Next;
+                         end;
+                 end;
+
          end else
      if tabGerenciadorApp.ActiveTab = tabRelacionados then
          begin

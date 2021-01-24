@@ -17,7 +17,6 @@ implementation
 uses
   Controller.Conexao.HBeautyServer, System.SysUtils;
 
-
 function pesquisaProdutos(APesquisa, ATipoPesquisa, ACampoPesquisa, ACampoOrdem : String; AIDProduto : Integer) : TFDJSONDataSets;
 var
 ASql : String;

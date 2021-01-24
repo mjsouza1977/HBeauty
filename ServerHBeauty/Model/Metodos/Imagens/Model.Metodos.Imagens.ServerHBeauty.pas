@@ -2,7 +2,7 @@ unit Model.Metodos.Imagens.ServerHBeauty;
 
 interface
 
-function GravaImagem(APrefixo, AExtensao : String) : Integer;
+function GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
 function AtualizaImagem(AIDImagem : Integer) : String;
 function ObterNomeImagem(AIDImagem : Integer) : String;
 
@@ -53,16 +53,21 @@ begin
     end;
 end;
 
-function GravaImagem(APrefixo, AExtensao : String) : Integer;
+function GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
 begin
 
      try
          ControllerConexao.qryQueryAux.Close;
          ControllerConexao.qryQueryAux.SQL.Clear;
          ControllerConexao.qryQueryAux.SQL.Add('INSERT INTO HBIMAGENS');
-         ControllerConexao.qryQueryAux.SQL.Add('(NOMEFILEIMAGEM) VALUES');
-         ControllerConexao.qryQueryAux.SQL.Add('(:NOMEFILEIMAGEM)');
-         ControllerConexao.qryQueryAux.ParamByName('NOMEFILEIMAGEM').AsString := GeraNomeImagem(APrefixo, AExtensao);
+         ControllerConexao.qryQueryAux.SQL.Add('(NOMEFILEIMAGEM, IDTABIMAGEM, TIPOIMAGEM, REFIMAGEM, PATHORIGINALIMAGEM) VALUES');
+         ControllerConexao.qryQueryAux.SQL.Add('(:NOMEFILEIMAGEM, IDTABIMAGEM, TIPOIMAGEM, REFIMAGEM, PATHORIGINALIMAGEM)');
+         ControllerConexao.qryQueryAux.ParamByName('NOMEFILEIMAGEM'    ).AsString  := GeraNomeImagem(APrefixo, AExtensao);
+         ControllerConexao.qryQueryAux.ParamByName('IDTABIMAGEM'       ).AsInteger := AIDTabImagem;
+         ControllerConexao.qryQueryAux.ParamByName('TIPOIMAGEM'        ).AsString  := ATipoImagem;
+         ControllerConexao.qryQueryAux.ParamByName('REFIMAGEM'         ).AsString  := ARefImagem;
+         ControllerConexao.qryQueryAux.ParamByName('PATHORIGINALIMAGEM').AsString  := APathOriginal;
+
          ControllerConexao.qryQueryAux.ExecSQL;
 
          ControllerConexao.qryQueryAux.Close;

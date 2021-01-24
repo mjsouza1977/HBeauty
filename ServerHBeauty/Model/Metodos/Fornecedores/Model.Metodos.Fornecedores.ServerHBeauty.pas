@@ -13,7 +13,7 @@ function atualizaFornecedores(AIdForn, AIdVendFor, ANrLog, AIDLogoForn : Integer
 
 procedure cadastraMarcaFornecedor(AIdForn, AIdMarca : Integer);
 procedure limpaMarcaFornecedor(AIdForn : Integer);
-
+function marcasUsadasProdutos : String;
 
 implementation
 
@@ -33,6 +33,33 @@ begin
     finally
        ControllerConexao.qryQuery.Close;
     end;
+
+end;
+
+function marcasUsadasProdutos : String;
+var
+ARes : String;
+begin
+
+     try
+         ControllerConexao.qryQuery.Close;
+         ControllerConexao.qryQuery.SQL.Clear;
+         ControllerConexao.qryQuery.SQL.Add('SELECT DISTINCT(IDMARCA_PROD) FROM HBPRODUTO' );
+         ControllerConexao.qryQuery.Open;
+
+         ControllerConexao.qryQuery.First;
+
+         While not ControllerConexao.qryQuery.Eof do
+             begin
+                 ARes := ARes + '|' + ControllerConexao.qryQuery.FieldByName('IDMARCA_PROD').AsString;
+                 ControllerConexao.qryQuery.Next;
+             end;
+
+         Result := ARes;
+
+     finally
+         ControllerConexao.qryQuery.Close;
+     end;
 
 end;
 

@@ -32,12 +32,13 @@ implementation
 uses
   Winapi.Windows, System.Classes, FMX.TMSButton, System.UITypes,
   FMX.Platform.Win, Units.Strings.HBeauty, System.SysUtils, FMX.Types,
-  IdHashMessageDigest, Units.Consts.HBeauty, IdFTPCommon;
+  IdHashMessageDigest, Units.Consts.HBeauty, IdFTPCommon, FMX.Dialogs;
 
 function DownloadImagemFTP(ANomeArquivo : String; AImage : TImage) : Boolean;
 var
    ms: TMemoryStream;
    ftp : TIdFtp;
+   A:Boolean;
 begin
     ms := TMemoryStream.Create;
     ms.Position := 0;
@@ -49,7 +50,6 @@ begin
             ftp.username := ctrUSUARIO_FTP; // Parametro nome usuario servidor FTP
             ftp.password := ctrSENHA_FTP; // Parametro senha servidor FTP
             ftp.Connect();
-
             AssErt(ftp.Connected);
 
             ftp.ChangeDir(ctrPATHIMAGEM_FTP); // Definir a pasta no servidor

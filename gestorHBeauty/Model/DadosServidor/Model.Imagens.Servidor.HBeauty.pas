@@ -2,7 +2,7 @@ unit Model.Imagens.Servidor.HBeauty;
 
 interface
 
-function GravaImagem(APrefixo, AExtensao : String) : Integer;
+function GravaImagem(AIdTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
 function AtualizaImagem(AIDImagem : Integer) : String;
 function ObterNomeImagem(AIDImagem : Integer) : String;
 
@@ -15,9 +15,9 @@ begin
     Result := ControllerClientModule.ModelMetodosClient.ObterNomeImagem(AIDImagem);
 end;
 
-function GravaImagem(APrefixo, AExtensao : String) : Integer;
+function GravaImagem(AIdTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
 begin
-    Result := ControllerClientModule.ModelMetodosClient.GravaImagem(APrefixo, AExtensao);
+    Result := ControllerClientModule.ModelMetodosClient.GravaImagem(AIdTabImagem, APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal);
 end;
 
 function AtualizaImagem(AIDImagem : Integer) : String;

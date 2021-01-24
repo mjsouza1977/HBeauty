@@ -131,10 +131,14 @@ type
     FIdSelecionado : Integer;
     FScroll : TVertScrollBox;
     FStatus : TAcaoBotao;
-    FPathImage : String;
+    FNomeMarcas : String;
+    FListaMarcasDepois, FPathImage : String;
+    FListaMarcasAntes, FListaMarcas : TStringList;
     procedure listaMarcas(ATable : TFDMemTable; AIDForn : Integer);
     procedure AlimentaClasseFornecedores;
     procedure SalvaMarcaFornecedor(AIdForn: Integer);
+    procedure armazenaListaMarcas;
+    function excluiMarca: Boolean;
     { Private declarations }
   public
     { Public declarations }
@@ -155,8 +159,12 @@ uses Units.Classes.HBeauty,
      Model.Genericos.Servidor.HBeauty,
      System.UIConsts,
      Units.Strings.HBeauty,
-     Units.Utils.HBeauty, Winapi.Windows, FMX.Platform.Win,
-  Units.Mensagens.HBeauty, Controller.Formata.HBeauty, Model.Endereco.HBeauty;
+     Units.Utils.HBeauty,
+     Winapi.Windows,
+     FMX.Platform.Win,
+     Units.Mensagens.HBeauty,
+     Controller.Formata.HBeauty,
+     Model.Endereco.HBeauty;
 
 procedure TfrmCadastroFornecedores.AlimentaClasseFornecedores;
 begin
@@ -409,6 +417,22 @@ begin
 
 end;
 
+procedure TfrmCadastroFornecedores.armazenaListaMarcas;
+var
+i : Integer;
+begin
+    FListaMarcasDepois := '';
+    for i := 0 to frmCadastroFornecedores.ComponentCount - 1 do
+        begin
+            if frmCadastroFornecedores.Components[i] is TCheckBox then
+                begin
+                    if Pos('chkMarca', TCheckBox(frmCadastroFornecedores.Components[i]).Name) > 0 then
+                        if TCheckBox(frmCadastroFornecedores.Components[i]).IsChecked = True then
+                            FListaMarcasDepois := FListaMarcasDepois + '|' + TCheckBox(frmCadastroFornecedores.Components[i]).TagString;
+                end;
+        end;
+end;
+
 procedure TfrmCadastroFornecedores.SalvaMarcaFornecedor(AIdForn : Integer);
 var
 i : Integer;
@@ -431,6 +455,43 @@ frmCadastroMarcas.ShowModal;
 
 carregaMarcas;
 listaMarcas(ModelConexaoDados.memMarcas, 0);
+end;
+
+function TfrmCadastroFornecedores.excluiMarca : Boolean;
+var
+i : Integer;
+AMarcas, ACodigos : String;
+ARes : Boolean;
+begin
+
+     ARes := True;
+     AMarcas := marcasUsadasProdutos;
+
+     for i := 0 to FListaMarcasAntes.Count - 1 do
+         begin
+             if Pos(FListaMarcasAntes.Strings[i], FListaMarcasDepois) = 0 then
+                 begin
+                     if Pos(FListaMarcasAntes.Strings[i], AMarcas) > 0 then
+                        begin
+                            ARes := False;
+                            ACodigos := ACodigos + ',' + FListaMarcasAntes.Strings[i];
+                        end;
+                 end;
+         end;
+     if not ARes then
+         begin
+             ACodigos := Copy(ACodigos, 2, Length(ACodigos));
+             carregaCamposSelecionados(ModelConexaoDados.memGenerica, 'MARCA_MARCA', 'HBMARCA', 'WHERE ID_MARCA IN (' + ACodigos + ')');
+
+             ModelConexaoDados.memGenerica.First;
+             while not ModelConexaoDados.memGenerica.Eof do
+                 begin
+                     FNomeMarcas := ModelConexaoDados.memGenerica.FieldByName('MARCA_MARCA').AsString + ', ' + FNomeMarcas;
+                     ModelConexaoDados.memGenerica.Next;
+                 end;
+             FNomeMarcas := Copy(FNomeMarcas, 1, Length(FNomeMarcas) - 2);
+         end;
+     Result := ARes;
 end;
 
 procedure TfrmCadastroFornecedores.btnSalvarClick(Sender: TObject);
@@ -457,7 +518,7 @@ begin
                                                  Try
                                                     if FPathImage <> '' then
                                                        begin
-                                                           gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem('FOR',UpperCase(ExtractFileExt(FPathImage)));
+                                                           gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem(0, 'FOR',UpperCase(ExtractFileExt(FPathImage)), pxFornecedor,'', opFile.FileName);
                                                            CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
                                                        end;
 
@@ -504,51 +565,63 @@ begin
                          end;
                      end;
          abAlterar : begin
-                         case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                         'Confirma a alteração desta fornecedor?',
-                                         apTitulo, MB_YESNO + MB_ICONQUESTION) of
-                             IDYES : begin
-                                         try
-                                             AlimentaClasseFornecedores;
+                         armazenaListaMarcas;
+                         case excluiMarca of
+                              True : begin
+                                         case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                         'Confirma a alteração desta fornecedor?',
+                                                         apTitulo, MB_YESNO + MB_ICONQUESTION) of
+                                             IDYES : begin
+                                                         try
+                                                             AlimentaClasseFornecedores;
 
-                                              if ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsString <> '' then
-                                                    gclFornecedor.IMAGENS.IDIMAGEM := ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsInteger else
-                                                    gclFornecedor.IMAGENS.IDIMAGEM := 0;
+                                                              if ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsString <> '' then
+                                                                    gclFornecedor.IMAGENS.IDIMAGEM := ModelConexaoDados.memFornecedores.FieldByName('IDLOGO_FORN').AsInteger else
+                                                                    gclFornecedor.IMAGENS.IDIMAGEM := 0;
 
-                                                 if (FPathImage <> '') and (gclFornecedor.IMAGENS.IDIMAGEM = 0) then
-                                                     begin
-                                                         gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem('FOR',UpperCase(ExtractFileExt(FPathImage)));
-                                                         CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
+                                                                 if (FPathImage <> '') and (gclFornecedor.IMAGENS.IDIMAGEM = 0) then
+                                                                     begin
+                                                                         gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem(0, pxFornecedor,UpperCase(ExtractFileExt(FPathImage)),'','',opFile.FileName);
+                                                                         CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
+                                                                     end;
+                                                                 if (FPathImage <> '') and (gclFornecedor.IMAGENS.IDIMAGEM > 0) then
+                                                                    begin
+                                                                         AtualizaImagem(gclFornecedor.IMAGENS.IDIMAGEM);
+                                                                         CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
+                                                                    end;
+
+                                                                     atualizaFornecedores(gclFornecedor);
+                                                                     limpaMarcaFornecedor(FIdSelecionado);
+                                                                     SalvaMarcaFornecedor(FIdSelecionado);
+
+                                                                     BloqueiaRegistro(False, FIdSelecionado, tcFornecedores);
+                                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                                'Registro salvo com sucesso!', apTitulo,
+                                                                                MB_OK + MB_ICONINFORMATION);
+                                                                     btnPesquisarClick(Self);
+                                                                     LimpaForm(Self);
+                                                                     tabFichaFornecedor.Visible := False;
+                                                                     ControlaBotoes(Self, True);
+                                                                     tabCabecarioFornecedor.Previous;
+                                                                     tabGerenciadorFornecedor.TabIndex := 0;
+                                                         except
+                                                              On E:Exception do
+                                                                 begin
+                                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                                               pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
+                                                                               apTitulo, MB_OK + MB_ICONWARNING);
+                                                                     Exit;
+                                                                 end;
+                                                         end;
                                                      end;
-                                                 if (FPathImage <> '') and (gclFornecedor.IMAGENS.IDIMAGEM > 0) then
-                                                    begin
-                                                         AtualizaImagem(gclFornecedor.IMAGENS.IDIMAGEM);
-                                                         CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
-                                                    end;
-
-                                                     atualizaFornecedores(gclFornecedor);
-                                                     limpaMarcaFornecedor(FIdSelecionado);
-                                                     SalvaMarcaFornecedor(FIdSelecionado);
-
-                                                     BloqueiaRegistro(False, FIdSelecionado, tcFornecedores);
-                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                                'Registro salvo com sucesso!', apTitulo,
-                                                                MB_OK + MB_ICONINFORMATION);
-                                                     btnPesquisarClick(Self);
-                                                     LimpaForm(Self);
-                                                     tabFichaFornecedor.Visible := False;
-                                                     ControlaBotoes(Self, True);
-                                                     tabCabecarioFornecedor.Previous;
-                                                     tabGerenciadorFornecedor.TabIndex := 0;
-                                         except
-                                              On E:Exception do
-                                                 begin
-                                                     MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
-                                                               pChar(Format(MSG_ERRO_INTERNET,[E.Message])),
-                                                               apTitulo, MB_OK + MB_ICONWARNING);
-                                                     Exit;
-                                                 end;
                                          end;
+
+                                     end;
+                             False : begin
+                                         MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
+                                                    pChar('A(s) marca(s) ' + FNomeMarcas + ' esta(ão) vinculada(s) a um ou mais produtos!' + #13 +
+                                                          'Corrija para continuar.'), apTitulo, MB_OK + MB_ICONWARNING);
+                                         Exit;
                                      end;
                          end;
                      end;
@@ -642,12 +715,17 @@ end;
 procedure TfrmCadastroFornecedores.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
      DebloqueiaRegistro('HBFORNECEDOR');
+     FreeAndNil(FListaMarcas);
+     FreeAndNil(FListaMarcasAntes);
      FreeAndNil(gclFornecedor);
      Action := TCloseAction.caFree;
 end;
 
 procedure TfrmCadastroFornecedores.FormCreate(Sender: TObject);
 begin
+     FListaMarcas       := TStringList.Create;
+     FListaMarcasAntes  := TStringList.Create;
+
      CarregaPersonalizacaoCabecarioRodape(Self);
      tabCabecarioFornecedor.TabIndex   := 0;
      tabGerenciadorFornecedor.TabIndex := 0;
@@ -725,8 +803,14 @@ begin
                 FTable.Filtered := True;
 
                 if FTable.RecordCount > 0 then
-                   ACheckBox.IsChecked := True else
-                   ACheckBox.IsChecked := False;
+                    begin
+                        ACheckBox.IsChecked := True;
+                        FListaMarcasAntes.Add(ATable.FieldByName('ID_MARCA').AsString);
+                    end
+                else
+                    begin
+                        ACheckBox.IsChecked := False;
+                    end;
 
                 AIndex := AIndex + 1;
                 ATable.Next;

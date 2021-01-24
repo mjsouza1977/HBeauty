@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 23/01/2021 19:54:54
+// 24/01/2021 19:19:56
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -92,6 +92,8 @@ type
     FpesquisaProdutosCommand_Cache: TDSRestCommand;
     FcadastraProdutoCommand: TDSRestCommand;
     FatualizaProdutoCommand: TDSRestCommand;
+    FmarcasUsadasProdutosCommand: TDSRestCommand;
+    FGeraNomeImagemCommand: TDSRestCommand;
   public
     constructor Create(ARestConnection: TDSRestConnection); overload;
     constructor Create(ARestConnection: TDSRestConnection; AInstanceOwner: Boolean); overload;
@@ -112,7 +114,7 @@ type
     function CarregaControle_Cache(const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function ValidaLogin(Usuario: string; Senha: string; const ARequestFilter: string = ''): TFDJSONDataSets;
     function ValidaLogin_Cache(Usuario: string; Senha: string; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
-    function CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): Integer;
+    function CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; APathOriginal: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): Integer;
     function AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss: Integer; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string = ''): string;
     function ListaTerceirizadas(ARazao: string; AFantasia: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): TFDJSONDataSets;
     function ListaTerceirizadas_Cache(ARazao: string; AFantasia: string; ACNPJ: string; ATipoPesquisa: string; AId: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
@@ -125,7 +127,7 @@ type
     function DocumentoRepetido(ADocumento: string; ACampoDocumento: string; ACampoNome: string; ATabela: string; const ARequestFilter: string = ''): string;
     function ManipulaEstadoRegistro(ABloqueia: Boolean; AIdUsuario: Integer; AIdRegistro: Integer; ACampoID: string; ATabela: string; const ARequestFilter: string = ''): Boolean;
     procedure DebloqueiaRegistro(ATabela: string; AIDConectado: Integer);
-    function GravaImagem(APrefixo: string; AExtensao: string; const ARequestFilter: string = ''): Integer;
+    function GravaImagem(AIDTabImagem: Integer; APrefixo: string; AExtensao: string; ATipoImagem: string; ARefImagem: string; APathOriginal: string; const ARequestFilter: string = ''): Integer;
     function AtualizaImagem(AIDImagem: Integer; const ARequestFilter: string = ''): string;
     function AtualizaFotoProfissional(AIDProfissional: Integer; AIdFoto: Integer; const ARequestFilter: string = ''): string;
     function pesquisaHabilidade(AIDHabilidade: Integer; AIDCargo: Integer; ANomeHabilidade: string; const ARequestFilter: string = ''): TFDJSONDataSets;
@@ -173,6 +175,8 @@ type
     function pesquisaProdutos_Cache(APesquisa: string; ATipoPesquisa: string; ACampoPesquisa: string; ACampoOrdem: string; AIDProduto: Integer; const ARequestFilter: string = ''): IDSRestCachedTFDJSONDataSets;
     function cadastraProduto(AIDForn: Integer; AIDMarca: Integer; ACodBarras: string; ADescrProduto: string; AEmb: string; AUnd: string; AObsProd: string; AMedidaDose: string; ACCest: string; ACFiscal: string; AOrientacao: string; ADetalhes: string; AInformacoes: string; ACusto: Currency; AVenda: Currency; APromo: Currency; APeso: Currency; ADose: Currency; ALarg: Currency; AAlt: Currency; AComp: Currency; const ARequestFilter: string = ''): string;
     function atualizaProduto(AIDProd: Integer; AIDForn: Integer; AIDMarca: Integer; ACodBarras: string; ADescrProduto: string; AEmb: string; AUnd: string; AObsProd: string; AMedidaDose: string; ACCest: string; ACFiscal: string; AOrientacao: string; ADetalhes: string; AInformacoes: string; ACusto: Currency; AVenda: Currency; APromo: Currency; APeso: Currency; ADose: Currency; ALarg: Currency; AAlt: Currency; AComp: Currency; const ARequestFilter: string = ''): string;
+    function marcasUsadasProdutos(const ARequestFilter: string = ''): string;
+    function GeraNomeImagem(APrefixo: string; AExtensao: string; const ARequestFilter: string = ''): string;
   end;
 
   IDSRestCachedTFDJSONDataSets = interface(IDSRestCachedObject<TFDJSONDataSets>)
@@ -304,7 +308,7 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'String')
   );
 
-  TModelMetodos_CadastraProfissional: array [0..16] of TDSRestParameterMetaData =
+  TModelMetodos_CadastraProfissional: array [0..17] of TDSRestParameterMetaData =
   (
     (Name: 'ATerceirizado'; Direction: 1; DBXType: 4; TypeName: 'Boolean'),
     (Name: 'AIdCargo'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
@@ -320,6 +324,7 @@ const
     (Name: 'ACidade'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'AUF'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ACep'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'APathOriginal'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ASalario'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
     (Name: 'AComissao'; Direction: 1; DBXType: 25; TypeName: 'Currency'),
     (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
@@ -449,10 +454,14 @@ const
     (Name: 'AIDConectado'; Direction: 1; DBXType: 6; TypeName: 'Integer')
   );
 
-  TModelMetodos_GravaImagem: array [0..2] of TDSRestParameterMetaData =
+  TModelMetodos_GravaImagem: array [0..6] of TDSRestParameterMetaData =
   (
+    (Name: 'AIDTabImagem'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'APrefixo'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'AExtensao'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ATipoImagem'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'ARefImagem'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'APathOriginal'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
   );
 
@@ -861,6 +870,18 @@ const
     (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
   );
 
+  TModelMetodos_marcasUsadasProdutos: array [0..0] of TDSRestParameterMetaData =
+  (
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
+  TModelMetodos_GeraNomeImagem: array [0..2] of TDSRestParameterMetaData =
+  (
+    (Name: 'APrefixo'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: 'AExtensao'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
+  );
+
 implementation
 
 function TModelMetodosClient.CarregaProfissionalTerceirizado(AIdTerceirizado: Integer; const ARequestFilter: string): TFDJSONDataSets;
@@ -1185,7 +1206,7 @@ begin
   Result := TDSRestCachedTFDJSONDataSets.Create(FValidaLoginCommand_Cache.Parameters[2].Value.GetString);
 end;
 
-function TModelMetodosClient.CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string): Integer;
+function TModelMetodosClient.CadastraProfissional(ATerceirizado: Boolean; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; APathOriginal: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string): Integer;
 begin
   if FCadastraProfissionalCommand = nil then
   begin
@@ -1208,10 +1229,11 @@ begin
   FCadastraProfissionalCommand.Parameters[11].Value.SetWideString(ACidade);
   FCadastraProfissionalCommand.Parameters[12].Value.SetWideString(AUF);
   FCadastraProfissionalCommand.Parameters[13].Value.SetWideString(ACep);
-  FCadastraProfissionalCommand.Parameters[14].Value.AsCurrency := ASalario;
-  FCadastraProfissionalCommand.Parameters[15].Value.AsCurrency := AComissao;
+  FCadastraProfissionalCommand.Parameters[14].Value.SetWideString(APathOriginal);
+  FCadastraProfissionalCommand.Parameters[15].Value.AsCurrency := ASalario;
+  FCadastraProfissionalCommand.Parameters[16].Value.AsCurrency := AComissao;
   FCadastraProfissionalCommand.Execute(ARequestFilter);
-  Result := FCadastraProfissionalCommand.Parameters[16].Value.GetInt32;
+  Result := FCadastraProfissionalCommand.Parameters[17].Value.GetInt32;
 end;
 
 function TModelMetodosClient.AtualizaProfissional(ATerceirizado: Boolean; AIdProfiss: Integer; AIdCargo: Integer; AIdEmpTer: Integer; ANrLog: Integer; ANome: string; ASobreNome: string; ACPF: string; ARG: string; ALogradouro: string; AComplemento: string; ABairro: string; ACidade: string; AUF: string; ACep: string; ASalario: Currency; AComissao: Currency; const ARequestFilter: string): string;
@@ -1470,7 +1492,7 @@ begin
   FDebloqueiaRegistroCommand.Execute;
 end;
 
-function TModelMetodosClient.GravaImagem(APrefixo: string; AExtensao: string; const ARequestFilter: string): Integer;
+function TModelMetodosClient.GravaImagem(AIDTabImagem: Integer; APrefixo: string; AExtensao: string; ATipoImagem: string; ARefImagem: string; APathOriginal: string; const ARequestFilter: string): Integer;
 begin
   if FGravaImagemCommand = nil then
   begin
@@ -1479,10 +1501,14 @@ begin
     FGravaImagemCommand.Text := 'TModelMetodos.GravaImagem';
     FGravaImagemCommand.Prepare(TModelMetodos_GravaImagem);
   end;
-  FGravaImagemCommand.Parameters[0].Value.SetWideString(APrefixo);
-  FGravaImagemCommand.Parameters[1].Value.SetWideString(AExtensao);
+  FGravaImagemCommand.Parameters[0].Value.SetInt32(AIDTabImagem);
+  FGravaImagemCommand.Parameters[1].Value.SetWideString(APrefixo);
+  FGravaImagemCommand.Parameters[2].Value.SetWideString(AExtensao);
+  FGravaImagemCommand.Parameters[3].Value.SetWideString(ATipoImagem);
+  FGravaImagemCommand.Parameters[4].Value.SetWideString(ARefImagem);
+  FGravaImagemCommand.Parameters[5].Value.SetWideString(APathOriginal);
   FGravaImagemCommand.Execute(ARequestFilter);
-  Result := FGravaImagemCommand.Parameters[2].Value.GetInt32;
+  Result := FGravaImagemCommand.Parameters[6].Value.GetInt32;
 end;
 
 function TModelMetodosClient.AtualizaImagem(AIDImagem: Integer; const ARequestFilter: string): string;
@@ -2434,6 +2460,34 @@ begin
   Result := FatualizaProdutoCommand.Parameters[22].Value.GetWideString;
 end;
 
+function TModelMetodosClient.marcasUsadasProdutos(const ARequestFilter: string): string;
+begin
+  if FmarcasUsadasProdutosCommand = nil then
+  begin
+    FmarcasUsadasProdutosCommand := FConnection.CreateCommand;
+    FmarcasUsadasProdutosCommand.RequestType := 'GET';
+    FmarcasUsadasProdutosCommand.Text := 'TModelMetodos.marcasUsadasProdutos';
+    FmarcasUsadasProdutosCommand.Prepare(TModelMetodos_marcasUsadasProdutos);
+  end;
+  FmarcasUsadasProdutosCommand.Execute(ARequestFilter);
+  Result := FmarcasUsadasProdutosCommand.Parameters[0].Value.GetWideString;
+end;
+
+function TModelMetodosClient.GeraNomeImagem(APrefixo: string; AExtensao: string; const ARequestFilter: string): string;
+begin
+  if FGeraNomeImagemCommand = nil then
+  begin
+    FGeraNomeImagemCommand := FConnection.CreateCommand;
+    FGeraNomeImagemCommand.RequestType := 'GET';
+    FGeraNomeImagemCommand.Text := 'TModelMetodos.GeraNomeImagem';
+    FGeraNomeImagemCommand.Prepare(TModelMetodos_GeraNomeImagem);
+  end;
+  FGeraNomeImagemCommand.Parameters[0].Value.SetWideString(APrefixo);
+  FGeraNomeImagemCommand.Parameters[1].Value.SetWideString(AExtensao);
+  FGeraNomeImagemCommand.Execute(ARequestFilter);
+  Result := FGeraNomeImagemCommand.Parameters[2].Value.GetWideString;
+end;
+
 constructor TModelMetodosClient.Create(ARestConnection: TDSRestConnection);
 begin
   inherited Create(ARestConnection);
@@ -2523,6 +2577,8 @@ begin
   FpesquisaProdutosCommand_Cache.DisposeOf;
   FcadastraProdutoCommand.DisposeOf;
   FatualizaProdutoCommand.DisposeOf;
+  FmarcasUsadasProdutosCommand.DisposeOf;
+  FGeraNomeImagemCommand.DisposeOf;
   inherited;
 end;
 

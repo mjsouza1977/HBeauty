@@ -12,6 +12,7 @@ function carregaMarcas : TFDJSONDataSets;
 function pesquisaMarcas(AIdMarca : Integer; AMarca : String) : TFDJSONDataSets;
 function cadastraMarca(AMarca : TModelMarcas) : String;
 function atualizaMarca(AMarca : TModelMarcas) : String;
+function marcasUsadasProdutos : String;
 
 
 implementation
@@ -20,6 +21,10 @@ uses
   Controller.ClientModule.HBeauty,
    Model.Dados.Server.HBeauty;
 
+function marcasUsadasProdutos : String;
+begin
+    Result := ControllerClientModule.ModelMetodosClient.marcasUsadasProdutos;
+end;
 
 function carregaMarcas : TFDJSONDataSets;
 var

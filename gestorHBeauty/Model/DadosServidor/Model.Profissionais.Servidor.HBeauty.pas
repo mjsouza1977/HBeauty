@@ -7,7 +7,7 @@ uses
   FMX.Forms, Data.FireDACJSONReflect, Model.Cargos.HBeauty;
 
 procedure ListaProfissionais(ANome, ACPF, ATipoPesquisa : String; AIDTerceirizada, AId : Integer);
-function CadastraProfissional(AProfissional : TModelProfissionais; AForm : TForm) : Integer;
+function CadastraProfissional(AProfissional : TModelProfissionais; AForm : TForm; APathOriginal : String) : Integer;
 function AtualizaProfissional(AProfissional : TModelProfissionais): String;
 
 procedure CarregaProfissionalTerceirizado(AIdTerceirizado: Integer);
@@ -138,7 +138,7 @@ begin
 
 end;
 
-function CadastraProfissional(AProfissional : TModelProfissionais; AForm : TForm) : Integer;
+function CadastraProfissional(AProfissional : TModelProfissionais; AForm : TForm; APathOriginal : String) : Integer;
 begin
 
     DocumentoRepetido(AProfissional.CPF_PROFIS, 'CPF_PROFIS', 'NOME_PROFIS', 'HBPROFISSIONAIS', AForm, 'CNPJ', 'O profissional ');
@@ -147,7 +147,7 @@ begin
                                                                              AProfissional.SOBRENOME_PROFIS, AProfissional.CPF_PROFIS, AProfissional.RG_PROFIS,
                                                                              AProfissional.ENDERECO_PROFIS.LOGRADOURO, AProfissional.ENDERECO_PROFIS.COMPLLOG,
                                                                              AProfissional.ENDERECO_PROFIS.BAIRROLOG, AProfissional.ENDERECO_PROFIS.CIDADELOG,
-                                                                             AProfissional.ENDERECO_PROFIS.UFLOG, AProfissional.ENDERECO_PROFIS.CEP,
+                                                                             AProfissional.ENDERECO_PROFIS.UFLOG, AProfissional.ENDERECO_PROFIS.CEP, APathOriginal,
                                                                              AProfissional.SALARIO_PROFIS, AProfissional.COMISSAO_PROFIS);
 
 end;

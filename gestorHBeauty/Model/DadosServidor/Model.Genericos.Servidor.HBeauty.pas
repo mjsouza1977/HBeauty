@@ -10,12 +10,18 @@ function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdRegistro: Integer; ACamp
 function carregaCamposSelecionados(AMemTable : TFDMemTable; ACampos, ATabela : String; ACondicao : String = '') : TFDJSONDataSets;
 function carregaCamposSQL(AMemTable : TFDMemTable; ASQL: String): TFDJSONDataSets;
 procedure DebloqueiaRegistro(ATabela: String);
+function GeraNomeImagem(APrefixo, AExtensao: String): String;
 
 implementation
 
 uses
   Winapi.Windows, FMX.Platform.Win, Units.Consts.HBeauty, System.SysUtils,
   Model.Dados.Server.HBeauty;
+
+function GeraNomeImagem(APrefixo, AExtensao: String): String;
+begin
+    Result := ControllerClientModule.ModelMetodosClient.GeraNomeImagem(APrefixo, AExtensao);
+end;
 
 function carregaCamposSQL(AMemTable : TFDMemTable; ASQL: String): TFDJSONDataSets;
 var

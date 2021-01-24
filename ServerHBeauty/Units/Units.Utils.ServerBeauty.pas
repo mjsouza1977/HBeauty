@@ -51,7 +51,6 @@ begin
         ControllerConexao.qryQuery.Close;
      end;
 
-
 end;
 
 function QueryToLog(Q: TFDQuery): string;

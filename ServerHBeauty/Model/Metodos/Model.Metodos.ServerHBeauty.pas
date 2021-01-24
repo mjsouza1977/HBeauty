@@ -29,7 +29,7 @@ type
     function CarregaControle : TFDJSONDataSets;
     function ValidaLogin(Usuario, Senha : String) : TFDJSONDataSets;
     function CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ANome, ASobreNome, ACPF, ARG,
-                                  ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
+                                  ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep, APathOriginal : String; ASalario, AComissao : Currency) : Integer;
     function AtualizaProfissional(ATerceirizado : Boolean; AIdProfiss, AIdCargo, AIdEmpTer, ANrLog : Integer; ANome, ASobreNome, ACPF, ARG,
                                   ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : String;
     function ListaTerceirizadas(ARazao, AFantasia, ACNPJ, ATipoPesquisa : String; AId : Integer) : TFDJSONDataSets;
@@ -43,7 +43,7 @@ type
     function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
     procedure DebloqueiaRegistro(ATabela  : String; AIDConectado : Integer);
 
-    function GravaImagem(APrefixo, AExtensao : String) : Integer;
+    function GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
     function AtualizaImagem(AIDImagem : Integer) : String;
     function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
 
@@ -89,8 +89,8 @@ type
                              ACusto, AVenda, APromo, APeso, ADose, ALarg, AAlt, AComp : Currency) : String;
     function atualizaProduto(AIDProd, AIDForn, AIDMarca : Integer; ACodBarras, ADescrProduto, AEmb, AUnd, AObsProd, AMedidaDose, ACCest, ACFiscal, AOrientacao,
                              ADetalhes, AInformacoes : String; ACusto, AVenda, APromo, APeso, ADose, ALarg, AAlt, AComp : Currency) : String;
-
-
+    function marcasUsadasProdutos : String;
+    function GeraNomeImagem(APrefixo, AExtensao : String) : String;
 
   end;
 {$METHODINFO OFF}
@@ -99,7 +99,7 @@ implementation
 
 {$R *.dfm}
 
-uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contatos.ServerHBeauty, Model.Metodos.Imagens.ServerHBeauty;
+uses System.StrUtils, Model.Metodos.Controle.ServerHBeauty, Model.Metodos.Contatos.ServerHBeauty, Model.Metodos.Imagens.ServerHBeauty, Units.Utils.ServerBeauty;
 
 { TModelMetodos }
 
@@ -148,9 +148,14 @@ begin
     Result := Model.Metodos.Genericos.ServerHBeauty.DocumentoRepetido(ADocumento, ACampoDocumento, ACampoNome, ATabela);
 end;
 
-function TModelMetodos.GravaImagem(APrefixo, AExtensao: String): Integer;
+function TModelMetodos.GeraNomeImagem(APrefixo, AExtensao: String): String;
 begin
-    Result := Model.Metodos.Imagens.ServerHBeauty.GravaImagem(APrefixo, AExtensao);
+     Result := GeraNomeImagem(APrefixo, AExtensao);
+end;
+
+function TModelMetodos.GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
+begin
+    Result := Model.Metodos.Imagens.ServerHBeauty.GravaImagem(AIDTabImagem, APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal);
 end;
 
 procedure TModelMetodos.limpaMarcaFornecedor(AIdForn: Integer);
@@ -264,10 +269,11 @@ begin
 end;
 
 function TModelMetodos.CadastraProfissional(ATerceirizado : Boolean; AIdCargo, AIdEmpTer, ANrLog : Integer; ANome, ASobreNome, ACPF, ARG,
-                                            ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep : String; ASalario, AComissao : Currency) : Integer;
+                                            ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep, APathOriginal : String; ASalario, AComissao : Currency) : Integer;
 begin
     Result := Model.Metodos.Profissionais.ServerHBeauty.CadastraProfissional(ATerceirizado, AIdCargo, AIdEmpTer, ANrLog, ANome, ASobreNome,
-                                                                             ACPF, ARG, ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep, ASalario, AComissao);
+                                                                             ACPF, ARG, ALogradouro, AComplemento, ABairro, ACidade, AUF, ACep,
+                                                                             APathOriginal, ASalario, AComissao);
 end;
 
 function TModelMetodos.CadastraTelefone(AFone, AContato, APrefixoTabela: String; AIdRegTab: Integer; AWhatsFone, ARestrito: Boolean): Integer;
@@ -350,6 +356,11 @@ end;
 function TModelMetodos.ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
 begin
      Result := Model.Metodos.Genericos.ServerHBeauty.ManipulaEstadoRegistro(ABloqueia, AIdUsuario, AIdRegistro, ACampoID, ATabela);
+end;
+
+function TModelMetodos.marcasUsadasProdutos: String;
+begin
+     Result := Model.Metodos.Fornecedores.ServerHBeauty.marcasUsadasProdutos;
 end;
 
 function TModelMetodos.ObterNomeImagem(AIDImagem: Integer): String;

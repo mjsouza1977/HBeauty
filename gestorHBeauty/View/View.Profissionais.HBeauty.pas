@@ -338,8 +338,6 @@ begin
 
                               AlimentaClasseProfissional;
 
-                              carregaHabilidades;
-
                               ControlaBotoes(Self, False);
                               HabilitaTab(True);
                               tabGerenciadorProfissionais.TabIndex := 1;
@@ -447,7 +445,8 @@ begin
                                          apTitulo, MB_YESNO + MB_ICONQUESTION) of
                              IDYES : begin
                                          AlimentaClasseProfissional;
-                                         gclProfissional.IDEMPTER_PROFIS := Integer(cbEmpresaTerceirizada.Items.Objects[cbEmpresaTerceirizada.ItemIndex]);
+                                         if cbEmpresaTerceirizada.ItemIndex >= 0 then
+                                             gclProfissional.IDEMPTER_PROFIS := Integer(cbEmpresaTerceirizada.Items.Objects[cbEmpresaTerceirizada.ItemIndex]);
                                          Try
                                             FIdSelecionado := CadastraProfissional(gclProfissional, Self, opFile.FileName);
                                             //apagaHabilidadesProfissional(FIdSelecionado);
@@ -496,7 +495,9 @@ begin
                              IDYES : begin
                                          try
                                              AlimentaClasseProfissional;
-                                             gclProfissional.IDEMPTER_PROFIS := Integer(cbEmpresaTerceirizada.Items.Objects[cbEmpresaTerceirizada.ItemIndex]);
+                                             if cbEmpresaTerceirizada.ItemIndex >= 0 then
+                                                 gclProfissional.IDEMPTER_PROFIS := Integer(cbEmpresaTerceirizada.Items.Objects[cbEmpresaTerceirizada.ItemIndex]) else
+                                                 gclProfissional.IDEMPTER_PROFIS := -1;
                                              rResultado := AtualizaProfissional(gclProfissional);
                                              if rResultado = '' then
                                                  begin

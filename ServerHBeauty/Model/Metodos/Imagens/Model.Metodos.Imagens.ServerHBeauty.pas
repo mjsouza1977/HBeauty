@@ -39,10 +39,9 @@ begin
             ControllerConexao.qryQuery.Close;
             ControllerConexao.qryQuery.SQL.Clear;
             ControllerConexao.qryQuery.SQL.Add('UPDATE HBIMAGENS SET');
-            ControllerConexao.qryQuery.SQL.Add('UPDATEIMAGEM = :UPDATEIMAGEM');
+            ControllerConexao.qryQuery.SQL.Add('UPDATEIMAGEM = ''T''');
             ControllerConexao.qryQuery.SQL.Add('WHERE IDIMAGEM = :IDIMAGEM');
-            ControllerConexao.qryQuery.ParamByName('IDIMAGEM').AsInteger      := AIDImagem;
-            ControllerConexao.qryQuery.ParamByName('UPDATEIMAGEM').AsDateTime := Now;
+            ControllerConexao.qryQuery.ParamByName('IDIMAGEM').AsInteger    := AIDImagem;
             ControllerConexao.qryQuery.ExecSQL;
             Result := '';
         except on E:Exception do
@@ -61,7 +60,7 @@ begin
          ControllerConexao.qryQueryAux.SQL.Clear;
          ControllerConexao.qryQueryAux.SQL.Add('INSERT INTO HBIMAGENS');
          ControllerConexao.qryQueryAux.SQL.Add('(NOMEFILEIMAGEM, IDTABIMAGEM, TIPOIMAGEM, REFIMAGEM, PATHORIGINALIMAGEM) VALUES');
-         ControllerConexao.qryQueryAux.SQL.Add('(:NOMEFILEIMAGEM, IDTABIMAGEM, TIPOIMAGEM, REFIMAGEM, PATHORIGINALIMAGEM)');
+         ControllerConexao.qryQueryAux.SQL.Add('(:NOMEFILEIMAGEM, :IDTABIMAGEM, :TIPOIMAGEM, :REFIMAGEM, :PATHORIGINALIMAGEM)');
          ControllerConexao.qryQueryAux.ParamByName('NOMEFILEIMAGEM'    ).AsString  := GeraNomeImagem(APrefixo, AExtensao);
          ControllerConexao.qryQueryAux.ParamByName('IDTABIMAGEM'       ).AsInteger := AIDTabImagem;
          ControllerConexao.qryQueryAux.ParamByName('TIPOIMAGEM'        ).AsString  := ATipoImagem;

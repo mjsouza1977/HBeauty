@@ -16,7 +16,7 @@ const
      AurlXMLGetTemperatura : String = 'http://servicos.cptec.inpe.br/XML/Cidade/%s/previsao.xml';
 
      //grid do Form de Profissionais
-     AFieldsProfissionais  : Array [0..11] of  String = ('ID_PROFISS','CODIGO_PROFIS', 'CPF_PROFIS','NOME_PROFIS','SOBRENOME_PROFIS','LOGRADOURO_PROFIS', 'NRLOG_PROFIS',
+     AFieldsProfissionais  : Array [0..11] of  String = ('ID_PROFIS','CODIGO_PROFIS', 'CPF_PROFIS','NOME_PROFIS','SOBRENOME_PROFIS','LOGRADOURO_PROFIS', 'NRLOG_PROFIS',
                                                          'COMPLLOG_PROFIS','BAIRROLOG_PROFIS','CEP_PROFIS','CIDADELOG_PROFIS','UFLOG_PROFIS');
      ACaptionProfissionais : Array [0..11] of String  = ('','Código','CPF','Nome','SobreNome','Logradouro','Nr.','Complemento','Bairro','CEP','Cidade','UF');
      ASizeColProfissionais : Array [0..11] of Single  = (0, 60, 170, 150, 250, 350, 70, 100, 200, 100, 180, 50);
@@ -59,9 +59,9 @@ const
      ASizeColVendedores : Array [0..11] of Single  = (0,60, 170, 300, 350, 350, 70, 100, 200, 100, 180, 50);
 
      //grid do Form de Marcas
-     AFieldsMarcas  : Array [0..1] of String  = ('CODIGO_MARCA','MARCA_MARCA');
-     ACaptionMarcas : Array [0..1] of String  = ('Código','Marca');
-     ASizeColMarcas : Array [0..1] of Single  = (60, 400);
+     AFieldsMarcas  : Array [0..2] of String  = ('ID_MARCA','CODIGO_MARCA','MARCA_MARCA');
+     ACaptionMarcas : Array [0..2] of String  = ('','Código','Marca');
+     ASizeColMarcas : Array [0..2] of Single  = (0,60, 400);
 
      //grid do Form de Produtos
      AFieldsProdutos  : Array [0..10] of String  = ('ID_PROD','CODIGO_PROD','MARCA_MARCA','DESCR_PROD','EMB_PROD','PRVENDA_PROD','PRPROMO_PROD','ESTOQUELJ_PROD','RESERVALJ_PROD','ESTOQUEAPP_PROD','RESERVAAPP_PROD');

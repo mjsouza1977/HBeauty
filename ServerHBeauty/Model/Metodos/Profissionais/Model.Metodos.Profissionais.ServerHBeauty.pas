@@ -158,7 +158,6 @@ begin
             ControllerConexao.qryQuery.ParamByName('IDUSULOCK'        ).AsInteger  := 0;
             ControllerConexao.qryQuery.ParamByName('LOCK'             ).AsString   := 'F';
             ControllerConexao.qryQuery.ExecSQL;
-            ControllerConexao.fdTransacao.Commit;
             Result := '';
 
         except on E:Exception do

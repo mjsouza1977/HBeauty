@@ -82,8 +82,12 @@ begin
                     gclMarcas.MARCA_MARCA := FieldByName('MARCA_MARCA').AsString;
                     if FieldByName('IDLOGO_MARCA').AsString <> '' then
                         begin
-                            gclMarcas.IMAGENS.IDIMAGEM := FieldByName('IDLOGO_MARCA').AsInteger;
-                            recLogoMarca.Fill.Bitmap.Bitmap.LoadFromFile(ctrPATH_FOTOS + ObterNomeImagem(gclMarcas.IMAGENS.IDIMAGEM));
+                            try
+                                gclMarcas.IMAGENS.IDIMAGEM := FieldByName('IDLOGO_MARCA').AsInteger;
+                                recLogoMarca.Fill.Bitmap.Bitmap.LoadFromFile(ctrPATH_FOTOS + ObterNomeImagem(gclMarcas.IMAGENS.IDIMAGEM));
+                            except
+
+                            end;
                         end
                     else
                         begin

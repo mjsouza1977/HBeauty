@@ -9,7 +9,8 @@ uses
   FMX.Controls.Presentation, FMX.TMSButton, FMX.ScrollBox, FMX.Memo, Units.Utils.HBeauty, Controller.Manipula.Design.HBeauty, Units.Utils.Dados.HBeauty,
   Model.Fornecedor.Servidor.HBeauty, Model.Genericos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, Model.Produtos.HBeauty, Model.Produtos.Servidor.HBeauty,
-  Units.Consts.HBeauty, FMX.TMSBaseGroup, FMX.TMSRadioGroup;
+  Units.Consts.HBeauty, FMX.TMSBaseGroup, FMX.TMSRadioGroup,
+  View.ConflitoImagens.HBeauty;
 
 type
   TPesquisaPor = (tppFornecedor, tppMarca, tppProduto, tppCodBarra, tppCodigo);
@@ -128,7 +129,6 @@ type
     mmOrientacoes: TMemo;
     rbOperador: TTMSFMXRadioGroup;
     Label1: TLabel;
-    Button1: TButton;
     grdlytFotos: TGridLayout;
     grdRelacionados: TGridLayout;
     grdSimilares: TGridLayout;
@@ -145,17 +145,11 @@ type
     btnAdicionarFotos: TTMSFMXButton;
     lblTituloFotos: TLabel;
     opFile: TOpenDialog;
-    Rectangle29: TRectangle;
-    Layout3: TLayout;
-    Image1: TImage;
-    Image2: TImage;
-    Image3: TImage;
-    Image4: TImage;
+    lytImagens: TLayout;
     imgEditar: TImage;
-    imgExcluir: TImage;
     imgView: TImage;
+    imgExcluir: TImage;
     imgCloud: TImage;
-    Image6: TImage;
     imgLocal: TImage;
     imgNotFound: TImage;
     procedure btnIncluirClick(Sender: TObject);
@@ -192,10 +186,13 @@ type
     FgridFotos : TGridLayout;
     procedure ControlaTab(Lista, Ficha, APP : Boolean);
     procedure AlimentaClasseProdutos;
-    procedure carregaImagem(AParent : TFmxObject; ANomeArquivo : String; AIDImage : Integer; AStatus : TStatus);
+    procedure AClickTeste(Sender: TObject);
 
     { Private declarations }
   public
+    FListaImagens : TStringList;
+    procedure carregaImagem(AParent : TFmxObject; ANomeArquivo : String; AStatus : TStatus);
+
     { Public declarations }
   end;
 
@@ -210,7 +207,10 @@ uses
   Units.Classes.HBeauty,
   Winapi.Windows,
   FMX.Platform.Win,
-  Units.Strings.HBeauty, Units.Mensagens.HBeauty, System.UIConsts;
+  Units.Strings.HBeauty,
+  Units.Mensagens.HBeauty,
+  System.UIConsts,
+  Model.Imagens.Servidor.HBeauty;
 
 {$R *.fmx}
 
@@ -258,16 +258,22 @@ begin
                 end
             else
                 begin
-
-                    ASQL := 'SELECT PATHORIGINALIMAGEM FROM HBIMAGENS WHERE PATHORIGINALIMAGEM = '+ QuotedStr(opFile.FileName);
+                    ASQL := 'SELECT NOMEFILEIMAGEM, PATHORIGINALIMAGEM FROM HBIMAGENS WHERE PATHORIGINALIMAGEM = '+ QuotedStr(opFile.FileName);
                     carregaCamposSQL(ModelConexaoDados.memGenerica, ASQL);
 
-
-                    if ModelConexaoDados.memGenerica.RecordCount = 0 then
+                    if ModelConexaoDados.memGenerica.RecordCount > 0 then
                         begin
-                            ANomeImagem := GeraNomeImagem(pxFotoProduto, AExtensao);
-
-                            CopyFile(pChar(opFile.FileName), pChar(ctrPATH_FOTOS + ANomeImagem), False);
+                            Application.CreateForm(TfrmFotosRepetidas, frmFotosRepetidas);
+                            DownloadImagemFTP(UpperCase(ModelConexaoDados.memGenerica.FieldByName('NOMEFILEIMAGEM').AsString),
+                                              frmFotosRepetidas.imgFotoServer);
+                            frmFotosRepetidas.imgFotoLocal.Bitmap.LoadFromFile(opFile.FileName);
+                            frmFotosRepetidas.FNomeArquivo := opFile.FileName;
+                            frmFotosRepetidas.ShowModal;
+                        end
+                    else
+                        begin
+                            FListaImagens.Add(opFile.FileName);
+                            carregaImagem(grdlytFotos, opFile.FileName, stOffLine);
                         end;
                 end;
         end;
@@ -408,6 +414,28 @@ begin
 
 end;
 
+procedure gravaImagens(AIDProduto : Integer);
+var
+ANomeArquivo : String;
+begin
+
+    with frmGerenciadorProdutos do
+        begin
+            for var i := 0 to FListaImagens.Count - 1 do
+                begin
+                    ANomeArquivo := GravaImagem(AIDProduto,
+                                                pxFotoProduto,
+                                                ExtractFileExt(FListaImagens.Strings[i]),
+                                                pxFoto,
+                                                pxFotoProduto,
+                                                FListaImagens.Strings[i],
+                                                'Nome');
+                    CopyFile(pChar(FListaImagens.Strings[i]),
+                             pChar(ctrPATH_FOTOS + ANomeArquivo), False);
+                end;
+        end;
+end;
+
 procedure TfrmGerenciadorProdutos.btnSalvarClick(Sender: TObject);
 var
 rResultado : String;
@@ -425,6 +453,7 @@ begin
 
                                             case isNumeric(rResultado) of
                                                 True : begin
+                                                           gravaImagens(rResultado.ToInteger);
                                                            case MessageBox(WindowHandleToPlatform(Self.Handle).Wnd,
                                                                            'Produto cadastrado com sucesso.'+#13#13+
                                                                            'Deseja cadastrar outro produto?', apTitulo,
@@ -514,7 +543,12 @@ begin
 
 end;
 
-procedure TfrmGerenciadorProdutos.carregaImagem(AParent : TFmxObject; ANomeArquivo : String; AIDImage : Integer; AStatus : TStatus);
+procedure TfrmGerenciadorProdutos.AClickTeste(Sender : TObject);
+begin
+    ShowMessage(TImage(Sender).Name);
+end;
+
+procedure TfrmGerenciadorProdutos.carregaImagem(AParent : TFmxObject; ANomeArquivo : String; AStatus : TStatus);
 var
 FRecFotos    : TRectangle;
 FlytLayout   : TLayout;
@@ -545,13 +579,21 @@ begin
     FImage.Parent   := FRecFotos;
     FImage.Align    := TAlignLayout.Client;
     FImage.WrapMode := TImageWrapMode.Fit;
-    FImage.Name     := 'AImagemProduto_' + (FIndexNomeImagem + 1).ToString;
+    FImage.ShowHint := False;
+    FImage.OnClick := AClickTeste;
+    case AStatus of
+        stOnLine  : FImage.Hint := 'OnLine';
+        stOffLine : FImage.Hint := 'OffLine';
+    end;
+    FIndexNomeImagem := FIndexNomeImagem + 1;
+    FImage.Name     := 'AImagemProduto_' + FIndexNomeImagem.ToString;
     try
         case AStatus of
             stOnLine  : DownloadImagemFTP(ANomeArquivo, FImage);
             stOffLine : FImage.Bitmap.LoadFromFile(ANomeArquivo);
         end;
     except
+        FImage.WrapMode := TImageWrapMode.Place;
         FImage.Bitmap := imgNotFound.Bitmap;
     end;
 
@@ -719,7 +761,10 @@ end;
 
 procedure TfrmGerenciadorProdutos.FormCreate(Sender: TObject);
 begin
-     FIndexNomeImagem := 1;
+     FListaImagens := TStringList.Create;
+
+     lytImagens.Visible:= False;
+     FIndexNomeImagem := 0;
      CarregaPersonalizacaoCabecarioRodape(Self);
 
      pesquisaProdutos('','Lista','','DESCR_PROD');
@@ -782,17 +827,16 @@ begin
 
              if ModelConexaoDados.memGenerica.RecordCount > 0 then
                  begin
+                    // FIndexNomeImagem := 0;
                      while not ModelConexaoDados.memGenerica.Eof do
                          begin
                              if ModelConexaoDados.memGenerica.FieldByName('UPDATEIMAGEM').AsString = 'F' then
                                  carregaImagem(FgridFotos,
                                                ModelConexaoDados.memGenerica.FieldByName('NOMEFILEIMAGEM').AsString,
-                                               ModelConexaoDados.memGenerica.FieldByName('IDIMAGEM').AsInteger,
                                                stOnLine)
                              else
                                  carregaImagem(FgridFotos,
                                                ModelConexaoDados.memGenerica.FieldByName('PATHORIGINALIMAGEM').AsString,
-                                               ModelConexaoDados.memGenerica.FieldByName('IDIMAGEM').AsInteger,
                                                stOffLine);
 
                              ModelConexaoDados.memGenerica.Next;

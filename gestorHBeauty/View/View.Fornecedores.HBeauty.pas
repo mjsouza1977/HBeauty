@@ -518,7 +518,7 @@ begin
                                                  Try
                                                     if FPathImage <> '' then
                                                        begin
-                                                           gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem(0, 'FOR',UpperCase(ExtractFileExt(FPathImage)), pxFornecedor,'', opFile.FileName);
+                                                           gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem(0, 'FOR',UpperCase(ExtractFileExt(FPathImage)), pxFornecedor,'', opFile.FileName, 'ID').ToInteger;
                                                            CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
                                                        end;
 
@@ -581,7 +581,7 @@ begin
 
                                                                  if (FPathImage <> '') and (gclFornecedor.IMAGENS.IDIMAGEM = 0) then
                                                                      begin
-                                                                         gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem(0, pxFornecedor,UpperCase(ExtractFileExt(FPathImage)),'','',opFile.FileName);
+                                                                         gclFornecedor.IMAGENS.IDIMAGEM := GravaImagem(0, pxFornecedor,UpperCase(ExtractFileExt(FPathImage)),'','',opFile.FileName,'ID').ToInteger;
                                                                          CopyFile(pChar(FPathImage), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclFornecedor.IMAGENS.IDIMAGEM)), False);
                                                                      end;
                                                                  if (FPathImage <> '') and (gclFornecedor.IMAGENS.IDIMAGEM > 0) then

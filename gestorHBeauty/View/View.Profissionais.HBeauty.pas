@@ -691,7 +691,7 @@ begin
                         begin
                              if gclProfissional.IMAGENS.NOMEFILEIMAGEM = '' then
                                  begin
-                                     ANomeImagem := AtualizaFotoProfissional(gclProfissional.ID_PROFIS, GravaImagem(0, pxFotoPessoa, AExtensao, '', '', opFile.FileName));
+                                     ANomeImagem := AtualizaFotoProfissional(gclProfissional.ID_PROFIS, GravaImagem(0, pxFotoPessoa, AExtensao, '', '', opFile.FileName).ToInteger());
                                      if ANomeImagem <> '' then
                                          begin
                                              CopyFile(pChar(opFile.FileName), pChar(ctrPATH_FOTOS + ANomeImagem), False);

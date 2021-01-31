@@ -43,7 +43,7 @@ type
     function ManipulaEstadoRegistro(ABloqueia : Boolean; AIdUsuario, AIdRegistro : Integer; ACampoID, ATabela : String) : Boolean;
     procedure DebloqueiaRegistro(ATabela  : String; AIDConectado : Integer);
 
-    function GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
+    function GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal, AResult : String) : String;
     function AtualizaImagem(AIDImagem : Integer) : String;
     function AtualizaFotoProfissional(AIDProfissional, AIdFoto : Integer) : String;
 
@@ -150,12 +150,12 @@ end;
 
 function TModelMetodos.GeraNomeImagem(APrefixo, AExtensao: String): String;
 begin
-     Result := GeraNomeImagem(APrefixo, AExtensao);
+     Result := Units.Utils.ServerBeauty.GeraNomeImagem(APrefixo, AExtensao);
 end;
 
-function TModelMetodos.GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
+function TModelMetodos.GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal, AResult : String) : String;
 begin
-    Result := Model.Metodos.Imagens.ServerHBeauty.GravaImagem(AIDTabImagem, APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal);
+    Result := Model.Metodos.Imagens.ServerHBeauty.GravaImagem(AIDTabImagem, APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal, AResult);
 end;
 
 procedure TModelMetodos.limpaMarcaFornecedor(AIdForn: Integer);

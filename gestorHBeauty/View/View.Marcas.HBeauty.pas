@@ -168,7 +168,7 @@ begin
          abIncluir : begin
                           if FPathImagem <> '' then
                               begin
-                                   gclMarcas.IMAGENS.IDIMAGEM := GravaImagem(0, 'MRC',UpperCase(ExtractFileExt(FPathImagem)), '','',opFile.FileName);
+                                   gclMarcas.IMAGENS.IDIMAGEM := GravaImagem(0, 'MRC',UpperCase(ExtractFileExt(FPathImagem)), '','',opFile.FileName).ToInteger;
                                    CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclMarcas.IMAGENS.IDIMAGEM)), False);
                               end;
                      end;
@@ -179,7 +179,7 @@ begin
 
                           if (FPathImagem <> '') and (gclMarcas.IMAGENS.IDIMAGEM = 0) then
                              begin
-                                 gclMarcas.IMAGENS.IDIMAGEM := GravaImagem(0, 'MRC',UpperCase(ExtractFileExt(FPathImagem)), '', '', opFile.FileName);
+                                 gclMarcas.IMAGENS.IDIMAGEM := GravaImagem(0, 'MRC',UpperCase(ExtractFileExt(FPathImagem)), '', '', opFile.FileName).ToInteger;
                                  CopyFile(pChar(FPathImagem), pChar(ctrPATH_FOTOS + ObterNomeImagem(gclMarcas.IMAGENS.IDIMAGEM)), False);
                              end;
                          if (FPathImagem <> '') and (gclMarcas.IMAGENS.IDIMAGEM > 0) then

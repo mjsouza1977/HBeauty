@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>2020/11/15 18:30:36.000.988,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Habilidades.HBeauty.fmx</Transaction>
-    <Transaction>2020/11/22 14:55:41.000.188,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Cargos.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
-    <Transaction>2020/11/22 16:51:29.000.058,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\estorHBeauty.dproj=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\gestorHBeauty.dproj</Transaction>
-    <Transaction>2020/11/22 17:02:09.000.043,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\GestorHBeauty.dproj=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\estorHBeauty.dproj</Transaction>
-    <Transaction>2020/11/30 21:45:20.000.959,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Fornecedores.HBeauty.fmx</Transaction>
-    <Transaction>2020/12/06 14:37:34.000.148,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Vendedores.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit2.fmx</Transaction>
-    <Transaction>2020/12/06 14:42:41.000.526,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Marcas.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit3.fmx</Transaction>
-    <Transaction>2020/12/07 20:55:14.000.251,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Vendedores.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.GerenciadorVendedores.HBeauty.fmx</Transaction>
-    <Transaction>2020/12/07 21:00:38.000.477,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.GerenciadorVendedores.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Vendedores.HBeauty.fmx</Transaction>
-    <Transaction>2020/12/24 16:50:36.000.133,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Produtos.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
-    <Transaction>2020/12/27 16:58:33.000.684,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Produtos.HBeauty.fmx</Transaction>
-    <Transaction>2020/12/27 17:38:25.000.686,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Produtos.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/11/15 18:30:36.000.988,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Habilidades.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/11/22 14:55:41.000.188,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Cargos.HBeauty.fmx</Transaction>
+    <Transaction>2020/11/22 16:51:29.000.058,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\gestorHBeauty.dproj=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\estorHBeauty.dproj</Transaction>
+    <Transaction>2020/11/22 17:02:09.000.043,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\estorHBeauty.dproj=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\GestorHBeauty.dproj</Transaction>
+    <Transaction>2020/11/30 21:45:20.000.959,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Fornecedores.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/12/06 14:37:34.000.148,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit2.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Vendedores.HBeauty.fmx</Transaction>
+    <Transaction>2020/12/06 14:42:41.000.526,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit3.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Marcas.HBeauty.fmx</Transaction>
+    <Transaction>2020/12/07 20:55:14.000.251,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.GerenciadorVendedores.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Vendedores.HBeauty.fmx</Transaction>
+    <Transaction>2020/12/07 21:00:38.000.477,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Vendedores.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.GerenciadorVendedores.HBeauty.fmx</Transaction>
+    <Transaction>2020/12/24 16:50:36.000.133,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Produtos.HBeauty.fmx</Transaction>
+    <Transaction>2020/12/27 16:58:33.000.684,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Produtos.HBeauty.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx</Transaction>
+    <Transaction>2020/12/27 17:38:25.000.686,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.Produtos.HBeauty.fmx</Transaction>
+    <Transaction>2021/01/31 17:53:37.000.147,E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\Unit1.fmx=E:\MSSoftware\Projetos\HBeauty\trunk\gestorHBeauty\View\View.ConflitoImagens.HBeauty.fmx</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="android-support-v4.dex.jar"/>
@@ -112,6 +113,8 @@
     <File Path="View\View.Terceirizadas.HBeauty.fmx"/>
     <File Path="View\View.Vendedores.HBeauty.pas"/>
     <File Path="View\View.Vendedores.HBeauty.fmx"/>
+    <File Path="View\View.ConflitoImagens.HBeauty.pas"/>
+    <File Path="View\View.ConflitoImagens.HBeauty.fmx"/>
   </ProjectSortOrder>
 	<ActiveMobileDevice>
 		<NoProfile Android64=""/>

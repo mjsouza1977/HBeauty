@@ -1,6 +1,6 @@
 //
 // Created by the DataSnap proxy generator.
-// 24/01/2021 19:19:56
+// 31/01/2021 15:46:44
 //
 
 unit Controller.Conexao.Proxy.HBeauty;
@@ -127,7 +127,7 @@ type
     function DocumentoRepetido(ADocumento: string; ACampoDocumento: string; ACampoNome: string; ATabela: string; const ARequestFilter: string = ''): string;
     function ManipulaEstadoRegistro(ABloqueia: Boolean; AIdUsuario: Integer; AIdRegistro: Integer; ACampoID: string; ATabela: string; const ARequestFilter: string = ''): Boolean;
     procedure DebloqueiaRegistro(ATabela: string; AIDConectado: Integer);
-    function GravaImagem(AIDTabImagem: Integer; APrefixo: string; AExtensao: string; ATipoImagem: string; ARefImagem: string; APathOriginal: string; const ARequestFilter: string = ''): Integer;
+    function GravaImagem(AIDTabImagem: Integer; APrefixo: string; AExtensao: string; ATipoImagem: string; ARefImagem: string; APathOriginal: string; AResult: string; const ARequestFilter: string = ''): string;
     function AtualizaImagem(AIDImagem: Integer; const ARequestFilter: string = ''): string;
     function AtualizaFotoProfissional(AIDProfissional: Integer; AIdFoto: Integer; const ARequestFilter: string = ''): string;
     function pesquisaHabilidade(AIDHabilidade: Integer; AIDCargo: Integer; ANomeHabilidade: string; const ARequestFilter: string = ''): TFDJSONDataSets;
@@ -454,7 +454,7 @@ const
     (Name: 'AIDConectado'; Direction: 1; DBXType: 6; TypeName: 'Integer')
   );
 
-  TModelMetodos_GravaImagem: array [0..6] of TDSRestParameterMetaData =
+  TModelMetodos_GravaImagem: array [0..7] of TDSRestParameterMetaData =
   (
     (Name: 'AIDTabImagem'; Direction: 1; DBXType: 6; TypeName: 'Integer'),
     (Name: 'APrefixo'; Direction: 1; DBXType: 26; TypeName: 'string'),
@@ -462,7 +462,8 @@ const
     (Name: 'ATipoImagem'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'ARefImagem'; Direction: 1; DBXType: 26; TypeName: 'string'),
     (Name: 'APathOriginal'; Direction: 1; DBXType: 26; TypeName: 'string'),
-    (Name: ''; Direction: 4; DBXType: 6; TypeName: 'Integer')
+    (Name: 'AResult'; Direction: 1; DBXType: 26; TypeName: 'string'),
+    (Name: ''; Direction: 4; DBXType: 26; TypeName: 'string')
   );
 
   TModelMetodos_AtualizaImagem: array [0..1] of TDSRestParameterMetaData =
@@ -1492,7 +1493,7 @@ begin
   FDebloqueiaRegistroCommand.Execute;
 end;
 
-function TModelMetodosClient.GravaImagem(AIDTabImagem: Integer; APrefixo: string; AExtensao: string; ATipoImagem: string; ARefImagem: string; APathOriginal: string; const ARequestFilter: string): Integer;
+function TModelMetodosClient.GravaImagem(AIDTabImagem: Integer; APrefixo: string; AExtensao: string; ATipoImagem: string; ARefImagem: string; APathOriginal: string; AResult: string; const ARequestFilter: string): string;
 begin
   if FGravaImagemCommand = nil then
   begin
@@ -1507,8 +1508,9 @@ begin
   FGravaImagemCommand.Parameters[3].Value.SetWideString(ATipoImagem);
   FGravaImagemCommand.Parameters[4].Value.SetWideString(ARefImagem);
   FGravaImagemCommand.Parameters[5].Value.SetWideString(APathOriginal);
+  FGravaImagemCommand.Parameters[6].Value.SetWideString(AResult);
   FGravaImagemCommand.Execute(ARequestFilter);
-  Result := FGravaImagemCommand.Parameters[6].Value.GetInt32;
+  Result := FGravaImagemCommand.Parameters[7].Value.GetWideString;
 end;
 
 function TModelMetodosClient.AtualizaImagem(AIDImagem: Integer; const ARequestFilter: string): string;

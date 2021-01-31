@@ -2,7 +2,7 @@ unit Model.Metodos.Imagens.ServerHBeauty;
 
 interface
 
-function GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
+function GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal, AResult : String) : String;
 function AtualizaImagem(AIDImagem : Integer) : String;
 function ObterNomeImagem(AIDImagem : Integer) : String;
 
@@ -52,7 +52,9 @@ begin
     end;
 end;
 
-function GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal : String) : Integer;
+function GravaImagem(AIDTabImagem : Integer; APrefixo, AExtensao, ATipoImagem, ARefImagem, APathOriginal, AResult : String) : String;
+var
+ARes: String;
 begin
 
      try
@@ -61,7 +63,8 @@ begin
          ControllerConexao.qryQueryAux.SQL.Add('INSERT INTO HBIMAGENS');
          ControllerConexao.qryQueryAux.SQL.Add('(NOMEFILEIMAGEM, IDTABIMAGEM, TIPOIMAGEM, REFIMAGEM, PATHORIGINALIMAGEM) VALUES');
          ControllerConexao.qryQueryAux.SQL.Add('(:NOMEFILEIMAGEM, :IDTABIMAGEM, :TIPOIMAGEM, :REFIMAGEM, :PATHORIGINALIMAGEM)');
-         ControllerConexao.qryQueryAux.ParamByName('NOMEFILEIMAGEM'    ).AsString  := GeraNomeImagem(APrefixo, AExtensao);
+         ARes := GeraNomeImagem(APrefixo, AExtensao);
+         ControllerConexao.qryQueryAux.ParamByName('NOMEFILEIMAGEM'    ).AsString  := ARes;
          ControllerConexao.qryQueryAux.ParamByName('IDTABIMAGEM'       ).AsInteger := AIDTabImagem;
          ControllerConexao.qryQueryAux.ParamByName('TIPOIMAGEM'        ).AsString  := ATipoImagem;
          ControllerConexao.qryQueryAux.ParamByName('REFIMAGEM'         ).AsString  := ARefImagem;
@@ -74,8 +77,9 @@ begin
          ControllerConexao.qryQueryAux.SQL.Add('SELECT MAX(IDIMAGEM) AS IDIMAGEM FROM HBIMAGENS');
          ControllerConexao.qryQueryAux.Open;
 
-         Result := ControllerConexao.qryQueryAux.FieldByName('IDIMAGEM').AsInteger;
-
+         if AResult = 'ID' then
+             Result := ControllerConexao.qryQueryAux.FieldByName('IDIMAGEM').AsString else
+             Result := ARes;
      finally
          ControllerConexao.qryQueryAux.Close;
      end;

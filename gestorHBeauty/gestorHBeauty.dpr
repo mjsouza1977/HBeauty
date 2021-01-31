@@ -53,7 +53,8 @@ uses
   Model.Marcas.HBeauty in 'Model\Model.Marcas.HBeauty.pas',
   View.Produtos.HBeauty in 'View\View.Produtos.HBeauty.pas' {frmGerenciadorProdutos},
   Model.Produtos.HBeauty in 'Model\Model.Produtos.HBeauty.pas',
-  Model.Produtos.Servidor.HBeauty in 'Model\DadosServidor\Model.Produtos.Servidor.HBeauty.pas';
+  Model.Produtos.Servidor.HBeauty in 'Model\DadosServidor\Model.Produtos.Servidor.HBeauty.pas',
+  View.ConflitoImagens.HBeauty in 'View\View.ConflitoImagens.HBeauty.pas' {frmFotosRepetidas};
 
 {$R *.res}
 
@@ -62,5 +63,6 @@ begin
   Application.CreateForm(TControllerClientModule, ControllerClientModule);
   Application.CreateForm(TModelConexaoDados, ModelConexaoDados);
   Application.CreateForm(TfrmLogin, frmLogin);
+  Application.CreateForm(TfrmFotosRepetidas, frmFotosRepetidas);
   Application.Run;
 end.

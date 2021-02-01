@@ -152,6 +152,10 @@ type
     imgCloud: TImage;
     imgLocal: TImage;
     imgNotFound: TImage;
+    btnRepositorioFotos: TTMSFMXButton;
+    tbBotoesRelacionamentos: TTabItem;
+    Rectangle29: TRectangle;
+    btnFotosVinculos: TTMSFMXButton;
     procedure btnIncluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure grdListaProdutosCellClick(Sender: TObject; ACol, ARow: Integer);

@@ -246,6 +246,7 @@ begin
              MessageBox(WindowHandleToPlatform(FForm.Handle).Wnd,
                         'Preço de custo inválido!',
                         apTitulo, MB_OK + MB_ICONWARNING);
+             Abort;
          end
      else
          begin

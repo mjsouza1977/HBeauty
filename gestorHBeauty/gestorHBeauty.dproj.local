@@ -115,6 +115,8 @@
     <File Path="View\View.Vendedores.HBeauty.fmx"/>
     <File Path="View\View.ConflitoImagens.HBeauty.pas"/>
     <File Path="View\View.ConflitoImagens.HBeauty.fmx"/>
+    <File Path="View\View.Repositorio.HBeauty.pas"/>
+    <File Path="View\View.Repositorio.HBeauty.fmx"/>
   </ProjectSortOrder>
 	<ActiveMobileDevice>
 		<NoProfile Android64=""/>

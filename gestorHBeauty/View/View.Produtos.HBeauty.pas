@@ -10,7 +10,7 @@ uses
   Model.Fornecedor.Servidor.HBeauty, Model.Genericos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, Model.Produtos.HBeauty, Model.Produtos.Servidor.HBeauty,
   Units.Consts.HBeauty, FMX.TMSBaseGroup, FMX.TMSRadioGroup,
-  View.ConflitoImagens.HBeauty;
+  View.ConflitoImagens.HBeauty, Unit1;
 
 type
   TPesquisaPor = (tppFornecedor, tppMarca, tppProduto, tppCodBarra, tppCodigo);
@@ -156,6 +156,7 @@ type
     tbBotoesRelacionamentos: TTabItem;
     Rectangle29: TRectangle;
     btnFotosVinculos: TTMSFMXButton;
+    Button1: TButton;
     procedure btnIncluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure grdListaProdutosCellClick(Sender: TObject; ACol, ARow: Integer);
@@ -184,6 +185,7 @@ type
     procedure tabGerenciadorAppChange(Sender: TObject);
     procedure tabGerenciadorProdutosChange(Sender: TObject);
     procedure btnAdicionarFotosClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
@@ -547,6 +549,12 @@ begin
 
 end;
 
+procedure TfrmGerenciadorProdutos.Button1Click(Sender: TObject);
+begin
+Application.CreateForm(TForm1, Form1);
+Form1.ShowModal;
+end;
+
 procedure TfrmGerenciadorProdutos.AClickTeste(Sender : TObject);
 begin
     ShowMessage(TImage(Sender).Name);
@@ -609,10 +617,10 @@ begin
     FImageStatus.Height     := 35;
     FImageStatus.Width      := 35;
     FImageStatus.WrapMode   := TImageWrapMode.Center;
-    case AStatus of
-        stOnLine  : FImageStatus.Bitmap := imgCloud.Bitmap;
-        stOffLine : FImageStatus.Bitmap := imgLocal.Bitmap;
-    end;
+//    case AStatus of
+//        stOnLine  : FImageStatus.Bitmap := imgCloud.Bitmap;
+//        stOffLine : FImageStatus.Bitmap := imgLocal.Bitmap;
+//    end;
 
     //TImage que servira de botão Editar
     FImage          := TImage.Create(nil);
@@ -620,7 +628,7 @@ begin
     FImage.Align    := TAlignLayout.Right;
     FImage.Width    := 35;
     FImage.WrapMode := TImageWrapMode.Fit;
-    FImage.Bitmap   := imgEditar.Bitmap;
+    //FImage.Bitmap   := imgEditar.Bitmap;
 
     //TImage que servira de botão Excluir
     FImage          := TImage.Create(nil);
@@ -628,7 +636,7 @@ begin
     FImage.Align    := TAlignLayout.Right;
     FImage.Width    := 35;
     FImage.WrapMode := TImageWrapMode.Fit;
-    FImage.Bitmap   := imgExcluir.Bitmap;
+    //FImage.Bitmap   := imgExcluir.Bitmap;
 
     //TImage que servira de botão Visualizar
     FImage          := TImage.Create(nil);
@@ -636,7 +644,7 @@ begin
     FImage.Align    := TAlignLayout.Right;
     FImage.Width    := 35;
     FImage.WrapMode := TImageWrapMode.Fit;
-    FImage.Bitmap   := frmGerenciadorProdutos.imgView.Bitmap;
+   // FImage.Bitmap   := frmGerenciadorProdutos.imgView.Bitmap;
 
 end;
 

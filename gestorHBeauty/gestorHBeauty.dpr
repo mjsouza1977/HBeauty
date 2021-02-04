@@ -54,7 +54,8 @@ uses
   View.Produtos.HBeauty in 'View\View.Produtos.HBeauty.pas' {frmGerenciadorProdutos},
   Model.Produtos.HBeauty in 'Model\Model.Produtos.HBeauty.pas',
   Model.Produtos.Servidor.HBeauty in 'Model\DadosServidor\Model.Produtos.Servidor.HBeauty.pas',
-  View.ConflitoImagens.HBeauty in 'View\View.ConflitoImagens.HBeauty.pas' {frmFotosRepetidas};
+  View.ConflitoImagens.HBeauty in 'View\View.ConflitoImagens.HBeauty.pas' {frmFotosRepetidas},
+  View.Repositorio.HBeauty in 'View\View.Repositorio.HBeauty.pas' {Form1};
 
 {$R *.res}
 

@@ -10,7 +10,7 @@ uses
   Model.Fornecedor.Servidor.HBeauty, Model.Genericos.Servidor.HBeauty,
   Units.Enumerados.HBeauty, Model.Produtos.HBeauty, Model.Produtos.Servidor.HBeauty,
   Units.Consts.HBeauty, FMX.TMSBaseGroup, FMX.TMSRadioGroup,
-  View.ConflitoImagens.HBeauty, Unit1;
+  View.ConflitoImagens.HBeauty, View.Repositorio.HBeauty;
 
 type
   TPesquisaPor = (tppFornecedor, tppMarca, tppProduto, tppCodBarra, tppCodigo);
@@ -156,7 +156,6 @@ type
     tbBotoesRelacionamentos: TTabItem;
     Rectangle29: TRectangle;
     btnFotosVinculos: TTMSFMXButton;
-    Button1: TButton;
     procedure btnIncluirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure grdListaProdutosCellClick(Sender: TObject; ACol, ARow: Integer);
@@ -185,7 +184,6 @@ type
     procedure tabGerenciadorAppChange(Sender: TObject);
     procedure tabGerenciadorProdutosChange(Sender: TObject);
     procedure btnAdicionarFotosClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
   private
     FIdSelecionado : Integer;
     FStatus : TAcaoBotao;
@@ -547,12 +545,6 @@ begin
                      end;
     end;
 
-end;
-
-procedure TfrmGerenciadorProdutos.Button1Click(Sender: TObject);
-begin
-Application.CreateForm(TForm1, Form1);
-Form1.ShowModal;
 end;
 
 procedure TfrmGerenciadorProdutos.AClickTeste(Sender : TObject);

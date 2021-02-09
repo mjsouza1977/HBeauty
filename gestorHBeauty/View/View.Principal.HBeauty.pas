@@ -9,7 +9,7 @@ uses
   Data.Bind.ObjectScope, REST.Response.Adapter, System.Actions, FMX.ActnList, FMX.Menus, Controller.Manipula.XML.HBeauty, Units.Strings.HBeauty, Xml.omnixmldom,
   Xml.adomxmldom, Units.Consts.HBeauty, Units.Utils.HBeauty, Xml.Win.msxmldom, Controller.Manipula.Design.HBeauty,
   FMX.TMSBitmapContainer, FMX.TMSBaseControl, FMX.TMSPlannerBase, FMX.TMSPlannerData, FMX.TMSPlanner, ACBrBase, ACBrValidador, System.ImageList, FMX.ImgList, FMX.Edit,
-  View.Terceirizadas.HBeauty, View.Cargos.HBeauty, View.Vendedores.HBeauty, View.Marcas.HBeauty;
+  View.Terceirizadas.HBeauty, View.Cargos.HBeauty, View.Vendedores.HBeauty, View.Marcas.HBeauty, View.Repositorio.HBeauty;
 
 type
   TfrmPrincipal = class(TForm)
@@ -63,6 +63,7 @@ type
     Habilidades: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
+    Button1: TButton;
     procedure FormCreate(Sender: TObject);
     procedure MenuItem14Click(Sender: TObject);
     procedure tmHoraTimer(Sender: TObject);
@@ -72,6 +73,7 @@ type
     procedure MenuItem5Click(Sender: TObject);
     procedure MenuItem7Click(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -87,6 +89,12 @@ implementation
 
 uses View.Profissionais.HBeauty, View.Fornecedores.HBeauty,
   View.Produtos.HBeauty;
+
+procedure TfrmPrincipal.Button1Click(Sender: TObject);
+begin
+Application.CreateForm(TForm1, Form1);
+Form1.ShowModal;
+end;
 
 procedure TfrmPrincipal.FormCreate(Sender: TObject);
 var

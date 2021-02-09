@@ -13,9 +13,10 @@ type
         FUrlFtp, FFileFtp : String;
         FimgImage : TImage;
         Fms: TMemoryStream;
+        FLoading : TAniIndicator;
         public
 
-        procedure LoadingImages(APathFtp, ANomeImage : String; AImage : TImage);
+        procedure LoadingImages(APathFtp, ANomeImage : String; AImage : TImage; ALoading : TAniIndicator);
 
 
    protected
@@ -25,11 +26,44 @@ type
 
   TForm1 = class(TForm)
     grdlytFotos: TGridLayout;
-    Button1: TButton;
-    Image1: TImage;
-    Image2: TImage;
-    Image3: TImage;
-    procedure Button1Click(Sender: TObject);
+    VertScrollBox1: TVertScrollBox;
+    Rectangle1: TRectangle;
+    Rectangle2: TRectangle;
+    Rectangle3: TRectangle;
+    Rectangle4: TRectangle;
+    Rectangle5: TRectangle;
+    Rectangle6: TRectangle;
+    Rectangle7: TRectangle;
+    Rectangle8: TRectangle;
+    Rectangle9: TRectangle;
+    Rectangle10: TRectangle;
+    Rectangle11: TRectangle;
+    Rectangle12: TRectangle;
+    Rectangle13: TRectangle;
+    Rectangle14: TRectangle;
+    Rectangle15: TRectangle;
+    Rectangle16: TRectangle;
+    Rectangle17: TRectangle;
+    Rectangle18: TRectangle;
+    Rectangle19: TRectangle;
+    Rectangle20: TRectangle;
+    Rectangle21: TRectangle;
+    Rectangle22: TRectangle;
+    Rectangle23: TRectangle;
+    Rectangle24: TRectangle;
+    Rectangle25: TRectangle;
+    Rectangle26: TRectangle;
+    Rectangle27: TRectangle;
+    Rectangle28: TRectangle;
+    Rectangle29: TRectangle;
+    Rectangle30: TRectangle;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
   public
@@ -44,23 +78,10 @@ implementation
 
 {$R *.fmx}
 uses
-View.Produtos.HBeauty, IdFTP, Units.Consts.HBeauty, IdFTPCommon;
+View.Produtos.HBeauty, IdFTP, Units.Consts.HBeauty, IdFTPCommon, System.Math;
 
 
-procedure TForm1.Button1Click(Sender: TObject);
-begin
-
-     MyThread.LoadingImages(ctrPATHIMAGEM_FTP, 'PRO1111111.JPG',Image1);
-     MyThread.LoadingImages(ctrPATHIMAGEM_FTP, 'PRO2222222.JPG',Image2);
-     MyThread.LoadingImages(ctrPATHIMAGEM_FTP, 'PRO6797213.JPG',Image3);
-
-//     frmGerenciadorProdutos.carregaImagem(grdlytFotos,'PRO1111111.JPG', stOnLine);
-//     frmGerenciadorProdutos.carregaImagem(grdlytFotos,'PRO2222222.JPG', stOnLine);
-//     frmGerenciadorProdutos.carregaImagem(grdlytFotos,'PRO6797213.JPG', stOnLine);
-
-end;
-
-procedure TMyThread.LoadingImages(APathFtp, ANomeImage : String; AImage : TImage);
+procedure TMyThread.LoadingImages(APathFtp, ANomeImage : String; AImage : TImage; ALoading : TAniIndicator);
 begin
     With Form1 do
         begin
@@ -68,6 +89,7 @@ begin
             MyThread.FUrlFtp         := APathFtp;
             MyThread.FFileFtp        := ANomeImage;
             MyThread.FimgImage       := AImage;
+            MyThread.FLoading        := ALoading;
             MyThread.FreeOnTerminate := True;
             MyThread.Start;
         end;
@@ -84,6 +106,12 @@ var
 
 begin
   inherited;
+
+    Synchronize(
+    procedure
+    begin
+         FLoading.Enabled := True;
+    end);
     Self.Fms := TMemoryStream.Create;
     Self.Fms.Position := 0;
 
@@ -108,6 +136,7 @@ begin
          img.Bitmap.LoadFromStream(Self.Fms);
 
          Self.FimgImage.Bitmap := img.Bitmap;
+         FLoading.Enabled := False;
 
          img.DisposeOf;
          Self.Fms.DisposeOf;
@@ -115,6 +144,55 @@ begin
 
     end);
 
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+var
+i : Integer;
+AImage : TImage;
+ALoading : TAniIndicator;
+AArquivos : TStringList;
+begin
+
+     try
+
+        AArquivos:= TStringList.Create;
+        AArquivos.Add('PRO1111111.JPG');
+        AArquivos.Add('PRO2222222.JPG');
+        AArquivos.Add('PRO6797213.JPG');
+
+        for i := 0 to 2 do
+            begin
+                AImage := TImage.Create(nil);
+                AImage.Parent := grdlytFotos;
+                AImage.Name := 'Foto' + i.ToString;
+
+                ALoading := TAniIndicator.Create(nil);
+                ALoading.Parent := AImage;
+                ALoading.Align  := TAlignLayout.Center;
+                ALoading.Height := 50;
+                ALoading.Width  := 50;
+                ALoading.Name   := 'Loading' + i.ToString;
+
+                MyThread.LoadingImages(ctrPATHIMAGEM_FTP, AArquivos.Strings[i], AImage, ALoading);
+
+            end;
+     finally
+         FreeAndNil(AArquivos);
+     end;
+
+end;
+
+procedure TForm1.FormResize(Sender: TObject);
+var
+ATotalItens, AItensLargura, AItensAltura : Single;
+begin
+     AItensLargura := Round(grdlytFotos.Width / grdlytFotos.ItemWidth);
+
+     ATotalItens  := grdlytFotos.ControlsCount;
+     AItensAltura := Ceil(ATotalItens / AItensLargura);
+
+     grdlytFotos.Height := grdlytFotos.ItemHeight * AItensAltura;
 end;
 
 end.
